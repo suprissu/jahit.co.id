@@ -12,16 +12,13 @@
 
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/hero.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/about.css') }}">
 @endsection
 
 @section('content')
-<div class="content">
-    <div class="welcome-message">
-        <h1>
-            Welcome to jahit.co.id!
-        </h1>
-    </div>
-</div>
+    @include('layouts/home/hero')
+    @include('layouts/home/about')
 @endsection
 
 @section('extra-js')

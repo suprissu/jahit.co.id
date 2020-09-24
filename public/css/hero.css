@@ -1,0 +1,50 @@
+.hero-header {
+    background: url("/img/hero-image.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100vw;
+    min-height: 60vh;
+}
+
+.hero-header__bg {
+    background: ;
+    background: linear-gradient(
+        45deg,
+        rgba(213, 32, 71, 0.7),
+        rgba(238, 61, 27, 0.7)
+    );
+    width: inherit;
+    min-height: inherit;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-header__container {
+    color: #fff;
+}
+
+.hero-header__container button {
+    font-size: 12px;
+    color: #ed4c5c;
+    text-transform: uppercase;
+}
+
+.hero-header__title {
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+}
+
+.hero-header__slogan {
+    font-size: 14px;
+    font-weight: lighter;
+}
+
+.hero-header__invitation {
+    font-size: 16px;
+    margin: 2rem 0 5px 0;
+}

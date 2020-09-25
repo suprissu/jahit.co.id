@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'PageController@homepage')->name('homepage');
+Route::get('/about', 'PageController@aboutpage')->name('aboutpage');
 
 Auth::routes();
 

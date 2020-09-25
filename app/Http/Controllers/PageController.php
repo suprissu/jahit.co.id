@@ -10,4 +10,8 @@ class PageController extends Controller
     {
         return view('pages.homepage', get_defined_vars());
     }
+    public function aboutpage(Request $request)
+    {
+        return view('pages.aboutpage', get_defined_vars());
+    }
 }

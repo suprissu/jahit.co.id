@@ -1,7 +1,7 @@
 const expandButton =
     '<button id="expand-button" class="btn btn-outline-light"><i class="fas fa-bars"></i></button>';
 const navLinks =
-    '<div class="navbar__links"><a href="">Beranda</a><a href="">Tentang Kami</a></div>';
+    '<div class="navbar__links"><a href="/">Beranda</a><a href="/about">Tentang Kami</a></div>';
 
 if (window.innerWidth <= 768) {
     document.getElementById("expand-trigger").innerHTML = expandButton;
@@ -34,5 +34,15 @@ $(window).scroll((e) => {
         $("nav").addClass("scrolled");
     } else {
         $("nav").removeClass("scrolled");
+    }
+});
+
+$(".navbar__links a").each((e, val) => {
+    console.log(val.getAttribute("href"));
+    console.log("test", window.location.pathname);
+    if (window.location.pathname === val.getAttribute("href")) {
+        val.classList.add("active");
+    } else {
+        val.classList.remove("active");
     }
 });

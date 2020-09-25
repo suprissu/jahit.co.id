@@ -1,0 +1,12 @@
+.aboutpage__container {
+    min-height: 40vh;
+}
+
+.aboutpage__description {
+    width: 80%;
+    margin: 5vh auto;
+}
+
+.aboutpage__description p {
+    white-space: pre-wrap;
+}

@@ -38,8 +38,6 @@ $(window).scroll((e) => {
 });
 
 $(".navbar__links a").each((e, val) => {
-    console.log(val.getAttribute("href"));
-    console.log("test", window.location.pathname);
     if (window.location.pathname === val.getAttribute("href")) {
         val.classList.add("active");
     } else {

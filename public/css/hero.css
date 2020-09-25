@@ -3,12 +3,10 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    width: 100vw;
     min-height: 60vh;
 }
 
 .hero-header__bg {
-    background: ;
     background: linear-gradient(
         45deg,
         rgba(213, 32, 71, 0.7),

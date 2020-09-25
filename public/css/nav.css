@@ -3,6 +3,12 @@ nav {
     top: 0;
     width: 100vw;
     padding: 5px 5%;
+    background: transparent;
+    transition: background 0.2s ease;
+}
+
+nav.scrolled {
+    background: #d52047;
 }
 
 nav a {
@@ -66,4 +72,24 @@ nav a:hover {
 .navbar__auth {
     display: flex;
     align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+    nav {
+        padding: 0;
+    }
+
+    #expand-content-nav .navbar__links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #expand-content-nav .navbar__links a {
+        width: 100%;
+        height: 100%;
+        padding: 1rem;
+        margin: 0;
+        text-align: left;
+    }
 }

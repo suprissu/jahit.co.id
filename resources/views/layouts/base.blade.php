@@ -3,7 +3,7 @@
 <html lang="id" dir="ltr">
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
         <meta name="description" content="Description">
 
         <link rel="shortcut icon" href="{{ asset('img/logo-jahit.png') }}">

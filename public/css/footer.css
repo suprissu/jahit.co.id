@@ -46,6 +46,10 @@ footer {
     color: #d52047;
 }
 
+.footer__address {
+    min-width: 200px;
+}
+
 .footer__contact--phone {
     display: flex;
     flex-direction: column;
@@ -74,4 +78,10 @@ footer {
     width: 16px;
     height: 16px;
     fill: #d52047;
+}
+
+@media only screen and (max-width: 425px) {
+    .footer {
+        width: 90%;
+    }
 }

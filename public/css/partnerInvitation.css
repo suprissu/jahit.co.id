@@ -1,0 +1,14 @@
+.partnerInvitation {
+    min-height: 40vh;
+}
+
+.partnerInvitation__container {
+    width: 80%;
+    margin: 5vh auto;
+    text-align: center;
+}
+
+.partnerInvitation button {
+    font-size: 12px;
+    text-transform: uppercase;
+}

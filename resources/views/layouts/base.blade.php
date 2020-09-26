@@ -34,7 +34,6 @@
         
         <script src="{{ asset('js/base.js') }}"></script>
         <script src="{{ asset('js/nav.js') }}"></script>
-        <script src="{{ asset('js/footer.js') }}"></script>
         @yield('extra-js')
     </body>
 </html>

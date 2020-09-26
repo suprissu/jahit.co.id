@@ -9,6 +9,12 @@ if (window.innerWidth <= 768) {
     document.getElementById("expand-trigger").innerHTML = navLinks;
 }
 
+if (window.location.pathname !== "/" || window.location.pathname !== "/about") {
+    $("nav").addClass("scrolled");
+} else {
+    $("nav").removeClass("scrolled");
+}
+
 let navExpand = false;
 $("#expand-button").click(() => {
     navExpand = !navExpand;
@@ -30,7 +36,11 @@ $(window).resize((e) => {
 
 $(window).scroll((e) => {
     const scrollPosition = $(document).scrollTop();
-    if (scrollPosition >= 100) {
+    if (
+        scrollPosition >= 100 ||
+        window.location.pathname !== "/" ||
+        window.location.pathname !== "/about"
+    ) {
         $("nav").addClass("scrolled");
     } else {
         $("nav").removeClass("scrolled");

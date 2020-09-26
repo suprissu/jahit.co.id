@@ -1,0 +1,65 @@
+.choicePage {
+    min-height: 70vh;
+    margin: 12vh 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.choicePage__container {
+    width: 70%;
+    text-align: center;
+}
+
+.choicePage__choices {
+    margin: auto;
+    max-width: 500px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.choicePage__choice {
+    padding: 1rem;
+    min-width: 200px;
+    max-width: 200px;
+    width: 100%;
+    background: white;
+    border-radius: 5px;
+    border: 1px solid #eee;
+    margin: 1rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.choicePage__choice:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.choicePage__choice > img {
+    max-width: 100%;
+}
+
+.choicePage__choice.active {
+    border: 1px solid #d52047;
+}
+
+.choicePage__choice.active::after {
+    content: "";
+    background: url("/img/red-checklist.svg");
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    transform: translate(160px, -30px);
+}
+
+.choicePage__submit {
+    margin-top: 1rem;
+}
+
+@media only screen and (max-width: 320px) {
+    .choicePage__choice {
+        margin: 1rem 0;
+    }
+}

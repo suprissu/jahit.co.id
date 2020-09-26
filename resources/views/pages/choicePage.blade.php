@@ -1,0 +1,39 @@
+@extends('layouts.base')
+
+@section('title', 'Beranda')
+
+@section('extra-fonts')
+
+@endsection
+
+@section('prerender-js')
+
+@endsection
+
+@section('extra-css')
+    <link rel="stylesheet" href="{{ asset('css/choicePage.css') }}">
+@endsection
+
+@section('content')
+<div class="choicePage">
+    <div class="choicePage__container">
+        <h2 class="choicePage__title">Sebagai apa kamu di Jahit.co.id ?</h2>
+        <p class="choicePage__description">Untuk memudahkan identifikasi bantuan yang akan diberikan, silahkan pilih salah satu di bawah ini ya.</p>
+        <div class="choicePage__choices">
+            <div id="customer" class="choicePage__choice active">
+                <img src="/img/customer-image.png" alt="customer-image" />
+                <p>Pelanggan yang ingin mengajukan proyek jahit</p>
+            </div>
+            <div id="partner" class="choicePage__choice">
+                <img src="/img/partner-image.png" alt="partner-image" />
+                <p>Vendor penjahit yang ingin menjadi mitra Jahit.co.id</p>
+            </div>
+        </div>
+        <button class="choicePage__submit btn btn-danger">Selanjutnya</button>
+    </div>
+</div>
+@endsection
+
+@section('extra-js')
+<script src="{{ asset('js/choicePage.js') }}"></script>
+@endsection

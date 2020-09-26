@@ -1,0 +1,41 @@
+.userAuthentication {
+    min-height: 70vh;
+    margin: 12vh 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userAuthentication__container {
+    text-align: center;
+}
+
+.userAuthentication__title {
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.userAuthentication__submit {
+    text-transform: uppercase;
+    width: 100%;
+}
+
+.userAuthentication__switch {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.userAuthentication__switch p {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.userAuthentication__switch a {
+    color: #d52047;
+}
+
+.auth-form {
+    margin-top: 2rem;
+    text-align: left;
+}

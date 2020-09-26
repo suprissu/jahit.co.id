@@ -26,6 +26,11 @@ class PageController extends Controller
         return view('pages.userLoginPage', get_defined_vars());
     }
 
+    public function userRegisterPage(Request $request)
+    {
+        return view('pages.userRegisterPage', get_defined_vars());
+    }
+
     public function userCustomerRegisterPage(Request $request)
     {
         return view('pages.userCustomerRegisterPage', get_defined_vars());

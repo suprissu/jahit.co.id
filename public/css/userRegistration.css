@@ -1,0 +1,74 @@
+.userRegistration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    margin-top: 7vh;
+}
+
+.userRegistration__container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 5vw;
+    margin: 5vh 0;
+    width: 70%;
+    gap: 2rem;
+}
+
+.userRegistration__container > div {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.userRegistration__hero {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.userRegistration__header {
+    text-align: center;
+}
+
+.userRegistration__submit {
+    align-self: flex-end;
+}
+
+.auth-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    height: 100%;
+    width: 70%;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.input-group .input-files {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+@media only screen and (max-width: 1024px) {
+    .userRegistration__container > div {
+        min-width: 280px;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .userRegistration__container {
+        width: auto;
+    }
+}

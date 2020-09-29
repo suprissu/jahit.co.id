@@ -7,7 +7,12 @@
 }
 
 .userAuthentication__container {
+    padding: 0 5vw;
     text-align: center;
+}
+
+.userAuthentication__container img {
+    max-width: 100%;
 }
 
 .userAuthentication__title {

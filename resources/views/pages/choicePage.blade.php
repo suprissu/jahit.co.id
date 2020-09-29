@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Beranda')
+@section('title', 'Pilih Daftar')
 
 @section('extra-fonts')
 

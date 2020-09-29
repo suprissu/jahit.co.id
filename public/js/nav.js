@@ -9,7 +9,7 @@ if (window.innerWidth <= 768) {
     document.getElementById("expand-trigger").innerHTML = navLinks;
 }
 
-if (window.location.pathname !== "/" || window.location.pathname !== "/about") {
+if (window.location.pathname !== "/" && window.location.pathname !== "/about") {
     $("nav").addClass("scrolled");
 } else {
     $("nav").removeClass("scrolled");
@@ -17,12 +17,19 @@ if (window.location.pathname !== "/" || window.location.pathname !== "/about") {
 
 let navExpand = false;
 $("#expand-button").click(() => {
+    console.log(navExpand);
     navExpand = !navExpand;
     if (navExpand) {
         document.getElementById("expand-content-nav").innerHTML = navLinks;
         $("nav").addClass("scrolled");
     } else {
         document.getElementById("expand-content-nav").innerHTML = "";
+        if (
+            window.location.pathname == "/" ||
+            window.location.pathname == "/about"
+        ) {
+            $("nav").removeClass("scrolled");
+        }
     }
 });
 
@@ -38,8 +45,8 @@ $(window).scroll((e) => {
     const scrollPosition = $(document).scrollTop();
     if (
         scrollPosition >= 100 ||
-        window.location.pathname !== "/" ||
-        window.location.pathname !== "/about"
+        (window.location.pathname !== "/" &&
+            window.location.pathname !== "/about")
     ) {
         $("nav").addClass("scrolled");
     } else {

@@ -12,6 +12,14 @@ nav.scrolled {
     background: #d52047;
 }
 
+nav.invert {
+    background: #ffffff;
+}
+
+nav.invert a {
+    color: #d52047;
+}
+
 nav a {
     color: #fff;
     font-size: 12px;
@@ -94,5 +102,15 @@ nav a.active {
         padding: 1rem;
         margin: 0;
         text-align: left;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .navbar {
+        padding: 10px 5px;
+    }
+
+    .navbar__auth a {
+        margin: 0;
     }
 }

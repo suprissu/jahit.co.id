@@ -16,7 +16,7 @@
 }
 
 .userRegistration__container > div {
-    flex: 1;
+    flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,7 +29,12 @@
 }
 
 .userRegistration__header {
+    flex: 1;
     text-align: center;
+}
+
+.userRegistration__register {
+    flex: 0.5;
 }
 
 .userRegistration__submit {
@@ -47,6 +52,11 @@
     position: absolute;
     height: 100%;
     width: 70%;
+    cursor: pointer;
+}
+
+.form-group select {
+    cursor: pointer;
 }
 
 .input-group {

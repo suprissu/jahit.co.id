@@ -1,0 +1,51 @@
+.steps {
+    display: flex;
+    gap: 128px;
+}
+
+.steps__step:not(:last-child) .steps__number::after {
+    content: "";
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    width: 128px;
+    height: 1px;
+    transform: translateX(80%);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.steps__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid transparent;
+}
+
+.steps__step.active .steps__number {
+    color: #d52047;
+    border: 2px solid #d52047;
+    background: rgba(213, 32, 71, 0.4);
+}
+
+.steps__step.done .steps__number {
+    color: #ffffff;
+    border: 2px solid #d52047;
+    background: #d52047;
+}
+
+.steps__number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.steps__description {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+}

@@ -1,0 +1,98 @@
+.userCustomerProject {
+    min-height: 70vh;
+    margin-top: 10vh;
+}
+
+.userCustomerProject__container {
+    width: 70%;
+    margin: 5vw auto;
+}
+
+.userCustomerProject__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.userCustomerProject__projects__header {
+    display: flex;
+    flex-direction: row;
+}
+.userCustomerProject__projects__header a {
+    border: 1px solid rgba(213, 32, 71, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.userCustomerProject__projects__header a.active {
+    background: rgba(213, 32, 71, 0.4);
+    border: transparent;
+    font-weight: 500;
+    color: #000;
+}
+
+.userCustomerProject__projects__header a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 1px solid rgba(213, 32, 71, 0.4);
+}
+
+.userCustomerProject__projects__header a:not(:last-child) {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.userCustomerProject__projects__header a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.userCustomerProject__project {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.userCustomerProject__project:hover {
+    border: 1px solid rgba(213, 32, 71, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.userCustomerProject__project:active {
+    border: 1px solid #d52047;
+    background: rgba(213, 32, 71, 0.12);
+}
+
+.userCustomerProject__project:active .userCustomerProject__project__status {
+    background: #d52047;
+    color: #ffffff;
+}
+
+.userCustomerProject__project p {
+    margin: 0;
+}
+
+.userCustomerProject__project__name {
+    font-weight: bold;
+}
+
+.userCustomerProject__project__price {
+    color: #ee3d1b;
+    font-weight: 500;
+}
+
+.userCustomerProject__project__status {
+    border-radius: 5px;
+    background: #e0e0e0;
+    padding: 5px 10px;
+}

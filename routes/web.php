@@ -18,6 +18,7 @@ Route::get('/user/register', 'PageController@userRegisterPage')->name('userLogin
 Route::get('/user/choice', 'PageController@choicePage')->name('userLoginPage');
 Route::get('/user/customer/register', 'PageController@userCustomerRegisterPage')->name('userCustomerRegisterPage');
 Route::get('/user/customer/add-project', 'PageController@userCustomerAddProjectPage')->name('userCustomerRegisterPage');
+Route::get('/user/customer/project', 'PageController@userCustomerProjectPage')->name('userCustomerRegisterPage');
 Route::get('/user/partner/register', 'PageController@userPartnerRegisterPage')->name('userPartnerRegisterPage');
 
 Auth::routes();

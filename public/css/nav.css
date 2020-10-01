@@ -13,11 +13,26 @@ nav.scrolled {
 }
 
 nav.invert {
-    background: #ffffff;
+    background: #fff;
 }
 
 nav.invert a {
+    font-weight: 600;
+    color: #000;
+}
+
+nav.invert a:hover {
     color: #d52047;
+}
+
+nav.invert .btn-outline-light {
+    border: 1px solid #d52047;
+    color: #d52047;
+}
+
+nav.invert .btn-outline-light:hover {
+    background: #d52047;
+    color: #fff;
 }
 
 nav a {
@@ -38,7 +53,7 @@ nav a::after {
     transition: all 0.2s ease;
 }
 
-nav a:active::after {
+nav a:active:not(:has(button))::after {
     content: "";
     position: relative;
     width: 32px;
@@ -46,7 +61,7 @@ nav a:active::after {
     background: #fff;
 }
 
-nav a:hover::after,
+nav a:hover:not(:has(button))::after,
 nav a.active::after {
     content: "";
     position: relative;

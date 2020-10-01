@@ -22,12 +22,12 @@
         <form class="auth-form" method="POST" action="">
             <div class="form-group">
                 <label for="register-email">Email</label>
-                <input type="email" class="form-control" id="register-email" aria-describedby="emailHelp">
+                <input placeholder="Masukkan email di sini" type="email" class="form-control" id="register-email" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="register-password">Password</label>
                 <div class="input-group">
-                    <input id="register-password" type="password" class="form-control"  aria-describedby="registerPasswordHelp">
+                    <input placeholder="Masukkan password di sini" id="register-password" type="password" class="form-control"  aria-describedby="registerPasswordHelp">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="passwordHelp">
                             <i class="far fa-eye-slash"></i>
@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label for="register-confirmation-password">Konfirmasi Password</label>
                 <div class="input-group">
-                    <input id="register-confirmation-password" type="password" class="form-control"  aria-describedby="confirmationPasswordHelp">
+                    <input placeholder="Masukkan konfirmasi password di sini" id="register-confirmation-password" type="password" class="form-control"  aria-describedby="confirmationPasswordHelp">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="confirmationPasswordHelp">
                             <i class="far fa-eye-slash"></i>

@@ -20,6 +20,8 @@
     <div class="userRegistration__container">
         <div class="userRegistration__header">
             <h1 class="userRegistration__title">Hi, Pelanggan Jahit.co.id!</h1>
+            <p class="userRegistration__description">Silahkan lengkapi tabel di bawah ini untuk disebar ke
+<strong>2000 partner jahit kami</strong> dan temuan vendor terbaik anda!</p>
             <img class="userRegistration__hero" src="/img/partner-image.png" alt="hero-image" />
         </div>
         <div class="userRegistration__register">
@@ -38,11 +40,11 @@
             <form class="auth-form" method="POST" action="">
                 <div class="form-group">
                     <label for="register-name">Nama Lengkap</label>
-                    <input type="text" class="form-control" id="register-name" aria-describedby="nameHelp">
+                    <input placeholder="Masukkan nama lengkap anda" type="text" class="form-control" id="register-name" aria-describedby="nameHelp">
                 </div>
                 <div class="form-group">
                     <label for="register-company">Perusahaan</label>
-                    <input type="text" class="form-control" id="register-company" aria-describedby="companyHelp">
+                    <input placeholder="Masukkan nama perusahaan anda" type="text" class="form-control" id="register-company" aria-describedby="companyHelp">
                 </div>
                 <div class="form-group">
                     <label for="register-phone">Nomor Telepon</label>
@@ -50,7 +52,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="phoneAddon">+62</span>
                         </div>
-                        <input id="register-phone" type="text" class="form-control" aria-describedby="phoneAddon">
+                        <input placeholder="852634xxxx" id="register-phone" type="text" class="form-control" aria-describedby="phoneAddon">
                     </div>
                 </div>
                 <button type="submit" class="userRegistration__submit btn btn-danger">Selanjutnya</button>

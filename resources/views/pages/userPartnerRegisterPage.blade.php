@@ -25,11 +25,11 @@
             <form class="auth-form" method="POST" action="">
                 <div class="form-group">
                     <label for="register-name">Nama Lengkap</label>
-                    <input type="text" class="form-control" id="register-name" aria-describedby="nameHelp">
+                    <input placeholder="Masukkan nama anda di sini" type="text" class="form-control" id="register-name" aria-describedby="nameHelp">
                 </div>
                 <div class="form-group">
                     <label for="register-vendor">Nama Konveksi</label>
-                    <input type="text" class="form-control" id="register-vendor" aria-describedby="vendorHelp">
+                    <input placeholder="Masukkan nama vendor anda di sini" type="text" class="form-control" id="register-vendor" aria-describedby="vendorHelp">
                 </div>
                 <div class="form-group">
                     <label for="register-phone">Nomor Telepon</label>
@@ -37,12 +37,12 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="phoneAddon">+62</span>
                         </div>
-                        <input id="register-phone" type="text" class="form-control" aria-describedby="phoneAddon">
+                        <input placeholder="853423xxxx" id="register-phone" type="text" class="form-control" aria-describedby="phoneAddon">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="register-address">Alamat</label>
-                    <input type="text" class="form-control" id="register-address" aria-describedby="addressHelp">
+                    <input placeholder="Masukkan alamat vendor anda di sini" type="text" class="form-control" id="register-address" aria-describedby="addressHelp">
                 </div>
                 <div class="form-group">
                     <label for="register-ktp">Upload KTP</label>
@@ -51,7 +51,7 @@
                             <label for="register-ktp" class="input-group-text" id="ktpAddon">Browse</label>
                         </div>
                         <div class="input-files">
-                            <input id="register-ktp" type="file" class="form-control" aria-describedby="ktpAddon">
+                            <input placeholder="ktp_ahmadsupriyanto.jpg" id="register-ktp" type="file" class="form-control" aria-describedby="ktpAddon">
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                             <label for="register-npwp" class="input-group-text" id="npwpAddon">Browse</label>
                         </div>
                         <div class="input-files">
-                            <input id="register-npwp" type="file" class="form-control" aria-describedby="npwpAddon">
+                            <input placeholder="npwp_cahayaabadi.pdf" id="register-npwp" type="file" class="form-control" aria-describedby="npwpAddon">
                         </div>
                     </div>
                 </div>

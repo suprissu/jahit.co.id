@@ -22,12 +22,12 @@
         <form class="auth-form" method="POST" action="">
             <div class="form-group">
                 <label for="login-email">Email</label>
-                <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp">
+                <input placeholder="Masukkan email di sini" type="email" class="form-control" id="login-email" aria-describedby="emailHelp">
             </div>
             <div class="form-group">
                 <label for="login-password">Password</label>
                 <div class="input-group">
-                    <input id="login-password" type="password" class="form-control"  aria-describedby="passwordHelp">
+                    <input placeholder="Masukkan password di sini" id="login-password" type="password" class="form-control"  aria-describedby="passwordHelp">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="passwordHelp">
                             <i class="far fa-eye-slash"></i>

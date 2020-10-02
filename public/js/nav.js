@@ -17,7 +17,6 @@ if (pathNavAllowed.includes(window.location.pathname)) {
 }
 
 $(".navbar__links a").each((e, val) => {
-    console.log("masuk");
     if (window.location.pathname === val.getAttribute("href")) {
         val.classList.add("active");
     } else {

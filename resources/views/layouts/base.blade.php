@@ -30,7 +30,7 @@
         <script src="{{ asset('lib/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('lib/popper.min.js') }}"></script>
         <script src="{{ asset('lib/bootstrap.min.js') }}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
         
         <script src="{{ asset('js/base.js') }}"></script>
         <script src="{{ asset('js/nav.js') }}"></script>

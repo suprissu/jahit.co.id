@@ -7,13 +7,6 @@
 @endsection
 
 @section('prerender-js')
-    <script>var projectData = [{
-        name: "",
-        price: "",
-        amount: "",
-        quotation: "",
-        badge: ""
-    }]</script>
     <script src="{{ asset('js/userCustomerProject.js') }}"></script>
 @endsection
 
@@ -25,8 +18,8 @@
 <div class="userCustomerProject">
     <div class="userCustomerProject__container">
         <div class="userCustomerProject__header">
-            <h1 class="userCustomerProject__title">Proyek</h1>
-            <button class="userCustomerProject__addProject btn btn-danger">Proyek</button>
+            <h2 class="userCustomerProject__title">Proyek</h2>
+            <button class="userCustomerProject__addProject btn btn-danger">Tambah Proyek</button>
         </div>
         <div class="userCustomerProject__projects">
             <div class="userCustomerProject__projects__header list-group" id="list-tab" role="tablist">
@@ -41,24 +34,15 @@
                 <!-- Semua Proyek -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: Make List Item -->
+                    <project-item name="Penyelenggara Relawan COVID" price="1.300.000" amount="13.000" quotation="13" status="1"></project-item>
+                    <project-item name="Seragam SMAN 4 Depok" price="2.400.000" amount="20.000" quotation="11" status="2"></project-item>
+                    <project-item name="Seragam Kantor" price="6.200.000" amount="24.000" quotation="14" startDate="2020-10-01T00:34:00Z" endDate="2020-10-30T00:00:00Z" status="3"></project-item>
+                    <project-item name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" status="4"></project-item>
+                    <project-item name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" status="5"></project-item>
                 </div>
                 
                 <!-- Penawaran Terbuka -->
                 <div class="tab-pane fade" id="list-open-quotation" role="tabpanel" aria-labelledby="list-open-quotation-list">
-                    <div class="userCustomerProject__project userCustomerProject__project--quotation">
-                        <p class="userCustomerProject__project__name">Rompi Relawan COVID</p>
-                        <p class="userCustomerProject__project__price">Rp.1.300.000</p>
-                        <p class="userCustomerProject__project__amount">13.000 buah</p>
-                        <p class="userCustomerProject__project__quotation">13 Quotation</p>
-                        <div class="userCustomerProject__project__status">Rompi Relawan COVID</div>
-                    </div> 
-                    <div class="userCustomerProject__project userCustomerProject__project--quotation">
-                        <p class="userCustomerProject__project__name">Rompi Relawan COVID</p>
-                        <p class="userCustomerProject__project__price">Rp.1.300.000</p>
-                        <p class="userCustomerProject__project__amount">13.000 buah</p>
-                        <p class="userCustomerProject__project__quotation">13 Quotation</p>
-                        <div class="userCustomerProject__project__status">Rompi Relawan COVID</div>
-                    </div> 
                 </div>
                 
                 <!-- Proyek Dalam Pengerjaan -->

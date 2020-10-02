@@ -4,8 +4,8 @@
 }
 
 .userCustomerProject__container {
-    width: 70%;
-    margin: 5vw auto;
+    width: 1024px;
+    margin: 5vh auto;
 }
 
 .userCustomerProject__header {
@@ -24,6 +24,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
+    margin-bottom: 0;
+    white-space: nowrap;
 }
 
 .userCustomerProject__projects__header a.active {
@@ -52,47 +55,30 @@
     border-bottom-left-radius: 0;
 }
 
-.userCustomerProject__project {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid #e0e0e0;
-    padding: 1rem 2rem;
-    margin-top: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
+@media only screen and (max-width: 1024px) {
+    .userCustomerProject__container {
+        width: auto;
+        margin: 5vh 5vw;
+    }
 }
 
-.userCustomerProject__project:hover {
-    border: 1px solid rgba(213, 32, 71, 0.2);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
+@media only screen and (max-width: 767px) {
+    .userCustomerProject__projects__list > div {
+        margin-top: 1rem;
+        height: 70vh;
+        overflow-y: auto;
+    }
 
-.userCustomerProject__project:active {
-    border: 1px solid #d52047;
-    background: rgba(213, 32, 71, 0.12);
-}
+    .userCustomerProject__projects__list > div::-webkit-scrollbar {
+        display: none;
+    }
 
-.userCustomerProject__project:active .userCustomerProject__project__status {
-    background: #d52047;
-    color: #ffffff;
-}
+    .userCustomerProject__projects__header {
+        overflow-x: auto;
+        font-size: 14px;
+    }
 
-.userCustomerProject__project p {
-    margin: 0;
-}
-
-.userCustomerProject__project__name {
-    font-weight: bold;
-}
-
-.userCustomerProject__project__price {
-    color: #ee3d1b;
-    font-weight: 500;
-}
-
-.userCustomerProject__project__status {
-    border-radius: 5px;
-    background: #e0e0e0;
-    padding: 5px 10px;
+    .userCustomerProject__projects__header::-webkit-scrollbar {
+        display: none;
+    }
 }

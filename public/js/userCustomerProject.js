@@ -195,8 +195,6 @@ class ProjectItem extends HTMLElement {
 
                     .userCustomerProject__project--right {
                         flex-direction: column;
-                        justify-content: flex-start !important;
-                        align-items: flex-start !important;
                     }
 
                     .userCustomerProject__project__status, .userCustomerProject__project__status--progress {

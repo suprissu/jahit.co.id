@@ -38,7 +38,8 @@
                     <project-item name="Seragam SMAN 4 Depok" price="2.400.000" amount="20.000" quotation="11" status="2"></project-item>
                     <project-item name="Seragam Kantor" price="6.200.000" amount="24.000" quotation="14" startDate="2020-10-01T00:34:00Z" endDate="2020-10-30T00:00:00Z" status="3"></project-item>
                     <project-item name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" status="4"></project-item>
-                    <project-item name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" status="5"></project-item>
+                    <project-item name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" review="rekomen bgt" rating="4" status="5"></project-item>
+                    <project-item name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" status="6"></project-item>
                 </div>
                 
                 <!-- Penawaran Terbuka -->

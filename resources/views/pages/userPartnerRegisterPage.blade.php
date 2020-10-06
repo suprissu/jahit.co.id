@@ -12,6 +12,7 @@
 
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset('css/userRegistration.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
 @section('content')
@@ -51,6 +52,7 @@
                             <label for="register-ktp" class="input-group-text" id="ktpAddon">Browse</label>
                         </div>
                         <div class="input-files">
+                            <p class="input-files-filename"></p>
                             <input placeholder="ktp_ahmadsupriyanto.jpg" id="register-ktp" type="file" class="form-control" aria-describedby="ktpAddon">
                         </div>
                     </div>
@@ -62,6 +64,7 @@
                             <label for="register-npwp" class="input-group-text" id="npwpAddon">Browse</label>
                         </div>
                         <div class="input-files">
+                            <p class="input-files-filename"></p>
                             <input placeholder="npwp_cahayaabadi.pdf" id="register-npwp" type="file" class="form-control" aria-describedby="npwpAddon">
                         </div>
                     </div>
@@ -74,4 +77,5 @@
 @endsection
 
 @section('extra-js')
+<script src="{{ asset('js/form.js') }}"></script>
 @endsection

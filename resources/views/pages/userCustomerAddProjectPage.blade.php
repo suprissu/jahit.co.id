@@ -13,6 +13,7 @@
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset('css/userRegistration.css') }}">
     <link rel="stylesheet" href="{{ asset('css/steps.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
 @section('content')
@@ -71,6 +72,7 @@
                             <label for="register-picture" class="input-group-text" id="pictureAddon">Browse</label>
                         </div>
                         <div class="input-files">
+                            <p class="input-files-filename"></p>
                             <input id="register-picture" type="file" class="form-control" aria-describedby="pictureAddon">
                         </div>
                     </div>
@@ -83,4 +85,5 @@
 @endsection
 
 @section('extra-js')
+<script src="{{ asset('js/form.js') }}"></script>
 @endsection

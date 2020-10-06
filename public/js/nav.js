@@ -24,6 +24,14 @@ $(".navbar__links a").each((e, val) => {
     }
 });
 
+$(".bottom-navigation a").each((e, val) => {
+    if (window.location.pathname === val.getAttribute("href")) {
+        val.classList.add("active");
+    } else {
+        val.classList.remove("active");
+    }
+});
+
 let navExpand = false;
 $("#expand-button").click(() => {
     navExpand = !navExpand;

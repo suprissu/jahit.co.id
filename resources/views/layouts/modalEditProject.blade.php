@@ -10,10 +10,6 @@
                     <h4>Penyelenggara Relawan COVID</h4>
                     <h5 class="text-danger">Rp.1.300.000</h5>
                     <div class="form-group">
-                        <label for="project-name">Nama Proyek</label>
-                        <input placeholder="Masukkan nama proyek di sini" type="text" class="form-control" id="project-name" aria-describedby="nameHelp">
-                    </div>
-                    <div class="form-group">
                         <label for="project-category">Kategori</label>
                         <select class="form-control">
                             <option value="">Pilih opsi</option>

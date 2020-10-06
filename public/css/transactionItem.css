@@ -1,0 +1,212 @@
+.transactionItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.transactionItem:hover {
+    border: 1px solid rgba(213, 32, 71, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.transactionItem:active {
+    border: 1px solid #d52047;
+    background: rgba(213, 32, 71, 0.12);
+}
+
+.transactionItem:active .transactionItem__status {
+    background: transparent;
+    border: 1px solid #d52047;
+    color: #d52047;
+}
+
+.transactionItem p {
+    margin-bottom: 0;
+    margin-top: 0;
+    white-space: nowrap;
+}
+
+.transactionItem__header {
+    display: flex;
+    flex-direction: column;
+}
+
+.transactionItem__content {
+    margin-top: 5px;
+    display: flex;
+}
+
+.transactionItem__content p {
+    font-size: 14px;
+}
+
+.transactionItem__image {
+    background: #d52047;
+    width: 180px;
+    margin-right: 10px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.transactionItem__image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.transactionItem--left {
+    flex: 3;
+    display: flex;
+    align-items: flex-end;
+}
+
+.transactionItem--right {
+    flex: 2;
+    gap: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.transactionItem--right button {
+    margin: 2px;
+    font-size: 12px;
+}
+
+.transactionItem__label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.transactionItem__credential {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.transactionItem__description p span {
+    font-weight: 600;
+}
+
+.transactionItem__name {
+    font-weight: bold;
+    white-space: pre-wrap;
+}
+
+.transactionItem__amount {
+    font-size: 14px;
+}
+
+.transactionItem__status {
+    border-radius: 5px;
+    background: #e0e0e0;
+    padding: 5px 0;
+    font-size: 14px;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.transactionItem__category__paidStatus {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 2px !important;
+}
+
+.transactionItem__status--finish {
+    background: #1cae94;
+    color: #ffffff;
+}
+
+.transactionItem__status--cancel {
+    background: #d52047;
+    color: #ffffff;
+}
+
+.transactionItem__status--progress {
+    width: 160px;
+    height: 26px !important;
+}
+
+.transactionItem__status--review {
+    background: transparent;
+}
+
+.transactionItem__status--progress .progress-bar {
+    background-color: #f2c94c;
+    color: #000;
+    white-space: nowrap;
+    display: flex;
+    position: relative;
+}
+
+.transactionItem__status--progress .progress-bar p {
+    position: absolute;
+    transform: translateX(10px);
+}
+
+@media only screen and (max-width: 768px) {
+    .transactionItem {
+        flex-direction: column;
+    }
+
+    .transactionItem > div {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .transactionItem__header {
+        width: 100%;
+    }
+
+    .transactionItem__content {
+        flex-direction: column;
+    }
+
+    .transactionItem__image {
+        min-width: 100%;
+        max-width: 100%;
+        max-height: 128px;
+        min-height: 128px;
+        margin: 5px 0;
+    }
+
+    .transactionItem--right {
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .transactionItem__status--progress {
+        width: 100%;
+    }
+
+    .transactionItem__credential {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .transactionItem__credential > button {
+        flex: 1;
+        width: 100%;
+    }
+
+    .transactionItem__label {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

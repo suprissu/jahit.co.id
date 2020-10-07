@@ -19,8 +19,10 @@ Auth::routes();
 Route::group(['prefix' => 'register', 'as' => 'register.'], function () {
     Route::get('/choice', 'Auth\RegisterController@registerChoicePage')->name('choice.page');
     Route::get('/partner', 'Auth\RegisterController@registerPartnerPage')->name('partner.page');
+    Route::get('/customer', 'Auth\RegisterController@registerCustomerPage')->name('customer.page');
     Route::post('/choice', 'Auth\RegisterController@registerChoiceSubmit')->name('choice.submit');
     Route::post('/partner', 'Auth\RegisterController@registerPartnerSubmit')->name('partner.submit');
+    Route::post('/customer', 'Auth\RegisterController@registerCustomerSubmit')->name('customer.submit');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

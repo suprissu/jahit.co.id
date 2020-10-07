@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Constant\RoleConstant;
+
 use App\Helper\FileHelper;
 use App\Helper\RedirectionHelper;
+
+use App\Models\Customer;
 use App\Models\Partner;
 use App\Models\Role;
 use App\Models\User;
@@ -163,6 +166,14 @@ class RegisterController extends Controller
         return redirect($expectedStage);
     }
     
+    public function registerCustomerPage(Request $request)
+    {
+        $expectedStage = $this->redirectPath();
+        if ($expectedStage == route('register.customer.page')) {
+            return view('auth.registerCustomer', get_defined_vars());
+        }
+        return redirect($expectedStage);
+    }
     public function registerChoiceSubmit(Request $request)
     {
         $this->validate($request, [
@@ -250,4 +261,39 @@ class RegisterController extends Controller
 
         return redirect($expectedStage);
     }
+    
+    public function registerCustomerSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'company_name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'phone_number' => [
+                'required',
+                'string',
+                'max:20',
+                'regex:/^\+?([ -]?\d+)+|\(\d+\)([ -]\d+)$/'
+            ],
+        ]);
+
+        $expectedStage = $this->redirectPath();
+
+        if ($expectedStage == route('register.customer.page')) {
+
+            $user = auth()->user();
+
+            $customer = new Customer;
+            $customer->company_name = $request->company_name;
+            $customer->phone_number = $request->phone_number;
+
+            $user->customer()->save($customer);
+
+            $expectedStage = $this->nextPathStage($expectedStage);
+        }
+
+        return redirect($expectedStage);
+    }
+    
 }

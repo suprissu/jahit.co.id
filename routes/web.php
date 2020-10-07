@@ -18,6 +18,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'register', 'as' => 'register.'], function () {
     Route::get('/choice', 'Auth\RegisterController@registerChoicePage')->name('choice.page');
+    Route::get('/partner', 'Auth\RegisterController@registerPartnerPage')->name('partner.page');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Constant\RoleConstant;
+use App\Helper\FileHelper;
 use App\Helper\RedirectionHelper;
+use App\Models\Partner;
 use App\Models\Role;
 use App\Models\User;
+
 use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Hash;
@@ -151,6 +154,15 @@ class RegisterController extends Controller
         return redirect($expectedStage);
     }
 
+    public function registerPartnerPage(Request $request)
+    {
+        $expectedStage = $this->redirectPath();
+        if ($expectedStage == route('register.partner.page')) {
+            return view('auth.registerPartner', get_defined_vars());
+        }
+        return redirect($expectedStage);
+    }
+    
     public function registerChoiceSubmit(Request $request)
     {
         $this->validate($request, [
@@ -175,6 +187,63 @@ class RegisterController extends Controller
                 return abort(403, 'Unauthorized action.');
             }
             $user->roles()->save($role);
+
+            $expectedStage = $this->nextPathStage($expectedStage);
+        }
+
+        return redirect($expectedStage);
+    }
+
+    public function registerPartnerSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'company_name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'phone_number' => [
+                'required',
+                'string',
+                'max:20',
+                'regex:/^\+?([ -]?\d+)+|\(\d+\)([ -]\d+)$/'
+            ],
+            'address' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'ktp_pict_link' => [
+                'mimes:jpeg,jpg,png,gif,bmp,svg',
+                'required',
+                'max:25000'
+            ],
+            'npwp_pict_link' => [
+                'mimes:jpeg,jpg,png,gif,bmp,svg',
+                'required',
+                'max:25000'
+            ],
+        ]);
+
+        $expectedStage = $this->redirectPath();
+
+        if ($expectedStage == route('register.partner.page')) {
+            
+            $user = auth()->user();
+            $file_path_prefix = '/img/partner/';
+
+            $partner = new Partner;
+            $partner->company_name = $request->company_name;
+            $partner->phone_number = $request->phone_number;
+            $partner->address = $request->address;
+            $partner->ktp_pict_link = FileHelper::saveResizedImageToPublic($request->file('ktp_pict_link'), $file_path_prefix . 'ktp');
+            $partner->npwp_pict_link = FileHelper::saveResizedImageToPublic($request->file('npwp_pict_link'), $file_path_prefix . 'npwp');
+            
+            $user->partner()->save($partner);
+            
+            // TO DO: Should be false for only phase 1
+            $user->is_active = true;
+            $user->save();
 
             $expectedStage = $this->nextPathStage($expectedStage);
         }

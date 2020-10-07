@@ -2,6 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\RoleConstant;
+
+use App\Helper\RedirectionHelper;
+
+use App\Models\Customer;
+use App\Models\Partner;
+use App\Models\Project;
+use App\Models\ProjectCategory;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +30,46 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            switch ($role) {
+                case RoleConstant::ADMINISTRATOR:
+                    return $this->administratorDashboard($request, $user, $role);
+                    break;
+                case RoleConstant::CUSTOMER:
+                    return $this->customerDashboard($request, $user, $role);
+                    break;
+                case RoleConstant::PARTNER:
+                    return $this->partnerDashboard($request, $user, $role);
+                    break;
+                default:
+                    // TO DO : change to error template
+                    return abort(403, 'Unauthorized action.');
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    private function partnerDashboard(Request $request, $user, $role)
+    {
+        return view('pages.partner.dashboard', get_defined_vars());
+    }
+
+    private function customerDashboard(Request $request, $user, $role)
+    {
+        return view('pages.customer.dashboard', get_defined_vars());
+    }
+
+    private function administratorDashboard(Request $request, $user, $role)
+    {
+        $customers = Customer::all();
+        $partners = Partner::all();
+        $projects = Project::all();
+        $categories = ProjectCategory::all();
+        return view('pages.administrator.dashboard', get_defined_vars());
     }
 }

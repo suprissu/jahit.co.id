@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Constant\RoleConstant;
 use App\Helper\RedirectionHelper;
 use App\Models\User;
 use App\Http\Controllers\Controller;
@@ -99,6 +100,44 @@ class RegisterController extends Controller
         return RedirectionHelper::routeBasedOnRegistrationStage($expectedPath);
     }
 
+    private function nextPathStage($currentPathStage)
+    {
+        $user = auth()->user();
+        $role = $user->roles()->first()->name;
+        switch ($currentPathStage) {
+            case route('register.choice.page'):
+                if ($role == RoleConstant::CUSTOMER) {
+                    return route('register.customer.page');
+                } else if ($role == RoleConstant::PARTNER) {
+                    return route('register.partner.page');
+                } else {
+                    // TO DO : change to error template
+                    return abort(403, 'Unauthorized action.');
+                }
+                break;
+            case route('register.customer.page'):
+                return route('register.customer.project.page');
+                break;
+            case route('register.customer.project.page'):
+                if ($user->is_active == true) {
+                    return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+                } else {
+                    // TO DO : change to error template
+                    return abort(403, 'Unauthorized action.');    
+                }
+                break;
+            case route('register.partner.page'):
+                if ($user->is_active == true) {
+                    return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+                } else {
+                    // TO DO : change to error template
+                    return abort(403, 'Unauthorized action.');    
+                }
+                break;
+            default:
+                return $this->redirectTo();
+        }
+    }
         ]);
     }
 }

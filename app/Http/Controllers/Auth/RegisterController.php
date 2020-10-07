@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Constant\RoleConstant;
 use App\Helper\RedirectionHelper;
+use App\Models\Role;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -138,6 +141,44 @@ class RegisterController extends Controller
                 return $this->redirectTo();
         }
     }
+
+    public function registerChoicePage(Request $request)
+    {
+        $expectedStage = $this->redirectPath();
+        if ($expectedStage == route('register.choice.page')) {
+            return view('auth.registerChoice', get_defined_vars());
+        }
+        return redirect($expectedStage);
+    }
+
+    public function registerChoiceSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'role' => [
+                'required',
+                'string'
+            ],
         ]);
+
+        $expectedStage = $this->redirectPath();
+
+        if ($expectedStage == route('register.choice.page')) {
+            
+            $user = auth()->user();
+            
+            if ($request->role == 'CUST') {
+                $role = Role::where('name', RoleConstant::CUSTOMER)->first();
+            } else if ($request->role == 'PART') {
+                $role = Role::where('name', RoleConstant::PARTNER)->first();
+            } else {
+                // TO DO : change to error template
+                return abort(403, 'Unauthorized action.');
+            }
+            $user->roles()->save($role);
+
+            $expectedStage = $this->nextPathStage($expectedStage);
+        }
+
+        return redirect($expectedStage);
     }
 }

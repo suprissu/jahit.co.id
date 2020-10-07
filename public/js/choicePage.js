@@ -10,11 +10,18 @@ function reset() {
     });
 }
 
+function selectFormOption() {
+    if (registerChoice == "customer") {
+        $("#role-option").val("CUST");
+    } else if (registerChoice == "partner") {
+        $("#role-option").val("PART");
+    } else {
+        window.location.href=window.location.href;
+    }
+}
+
 $(".choicePage__choice").click((e) => {
     registerChoice = e.currentTarget.id;
+    selectFormOption();
     reset();
-});
-
-$(".choicePage__submit").click(() => {
-    window.location.href = `/user/${registerChoice}/register`;
 });

@@ -16,4 +16,8 @@ Route::get('/about', 'PageController@aboutpage')->name('aboutpage');
 
 Auth::routes();
 
+Route::group(['prefix' => 'register', 'as' => 'register.'], function () {
+    Route::get('/choice', 'Auth\RegisterController@registerChoicePage')->name('choice.page');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');

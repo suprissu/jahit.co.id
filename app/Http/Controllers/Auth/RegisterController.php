@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Constant\ProjectStatusConstant;
 use App\Constant\RoleConstant;
 
 use App\Helper\FileHelper;
@@ -9,6 +10,9 @@ use App\Helper\RedirectionHelper;
 
 use App\Models\Customer;
 use App\Models\Partner;
+use App\Models\Project;
+use App\Models\ProjectCategory;
+use App\Models\ProjectImage;
 use App\Models\Role;
 use App\Models\User;
 
@@ -174,6 +178,17 @@ class RegisterController extends Controller
         }
         return redirect($expectedStage);
     }
+    
+    public function registerProjectPage(Request $request)
+    {
+        $expectedStage = $this->redirectPath();
+        $categories = ProjectCategory::all();
+        if ($expectedStage == route('register.customer.project.page')) {
+            return view('auth.registerFirstProject', get_defined_vars());
+        }
+        return redirect($expectedStage);
+    }
+
     public function registerChoiceSubmit(Request $request)
     {
         $this->validate($request, [
@@ -296,4 +311,72 @@ class RegisterController extends Controller
         return redirect($expectedStage);
     }
     
+    public function registerProjectSubmit(Request $request)
+    {
+        $this->validate($request, [
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'category' => [
+                'required',
+                'integer',
+                'min:1'
+            ],
+            'count' => [
+                'required',
+                'integer',
+                'min:1'
+            ],
+            'address' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'project_pict_path.*' => [
+                'mimes:jpeg,jpg,png,gif,bmp,svg',
+                'max:25000'
+            ],
+        ]);
+
+        $expectedStage = $this->redirectPath();
+
+        if ($expectedStage == route('register.customer.project.page')) {
+
+            $user = auth()->user();
+
+            $project = new Project;
+            $project->name = $request->name;
+            $project->address = $request->address;
+            $project->count = $request->count;
+            $project->status = ProjectStatusConstant::OPEN;
+            $project->category_id = $request->category;
+            if ($request->note != null) {
+                $project->note = $request->note;
+            } else {
+                $project->note = "";
+            }
+
+            $customer = $user->customer;
+            $customer->projects()->save($project);
+
+            $file_path_prefix = '/img/customer/project/';
+            foreach($request->file('project_pict_path') as $imageFile){
+                $projectImage = new ProjectImage;
+                $projectImage->path = FileHelper::saveResizedImageToPublic($imageFile, $file_path_prefix . 'design');;
+                $projectImage->project()->associate($project);
+                $projectImage->save();
+            }
+
+            // TO DO: Should be false for only phase 1
+            $user->is_active = true;
+            $user->save();
+
+            $expectedStage = $this->nextPathStage($expectedStage);
+        }
+    
+        return redirect($expectedStage);
+    }
+
 }

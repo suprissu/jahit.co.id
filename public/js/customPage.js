@@ -13,6 +13,9 @@ class customPage extends HTMLElement {
     get message() {
         return this.getAttribute("message");
     }
+    get backUrl() {
+        return this.getAttribute("backUrl");
+    }
 
     connectedCallback() {
         this.render();
@@ -53,9 +56,10 @@ class customPage extends HTMLElement {
 
             <div class="blankPage">
                 <div class="blankPage__container">
-                    <img class="blankPage__image" src=${this.image} alt="info-image"/>
+                    <img height="50%" width="50%" class="blankPage__image" src=${this.image} alt="info-image"/>
                     <h1 class="blankPage__title">${this.title}</h1>
                     <p class="blankPage__message">${this.message}</p>
+                    <a href="${this.backUrl}" class="btn btn-warning">Kembali</a>
                 </div>
             </div>
         `;

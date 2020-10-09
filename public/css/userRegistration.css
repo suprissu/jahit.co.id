@@ -21,6 +21,7 @@ strong {
 }
 
 .userRegistration__container > div {
+    max-width: 400px;
     flex-grow: 1;
     display: flex;
     align-items: center;

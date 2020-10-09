@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constant\RoleConstant;
+use App\Constant\WarningStatusConstant;
 
 use App\Helper\RedirectionHelper;
 
@@ -47,8 +48,7 @@ class HomeController extends Controller
                     return $this->partnerDashboard($request, $user, $role);
                     break;
                 default:
-                    // TO DO : change to error template
-                    return abort(403, 'Unauthorized action.');
+                    redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }
         }
         return redirect($expectedStage);

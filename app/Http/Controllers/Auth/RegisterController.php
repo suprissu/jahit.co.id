@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Constant\ProjectStatusConstant;
 use App\Constant\RoleConstant;
+use App\Constant\WarningStatusConstant;
 
 use App\Helper\FileHelper;
 use App\Helper\RedirectionHelper;
@@ -124,8 +125,7 @@ class RegisterController extends Controller
                 } else if ($role == RoleConstant::PARTNER) {
                     return route('register.partner.page');
                 } else {
-                    // TO DO : change to error template
-                    return abort(403, 'Unauthorized action.');
+                    return route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
                 }
                 break;
             case route('register.customer.page'):
@@ -135,16 +135,14 @@ class RegisterController extends Controller
                 if ($user->is_active == true) {
                     return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
                 } else {
-                    // TO DO : change to error template
-                    return abort(403, 'Unauthorized action.');    
+                    return route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]);
                 }
                 break;
             case route('register.partner.page'):
                 if ($user->is_active == true) {
                     return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
                 } else {
-                    // TO DO : change to error template
-                    return abort(403, 'Unauthorized action.');    
+                    return route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]);    
                 }
                 break;
             default:
@@ -209,8 +207,7 @@ class RegisterController extends Controller
             } else if ($request->role == 'PART') {
                 $role = Role::where('name', RoleConstant::PARTNER)->first();
             } else {
-                // TO DO : change to error template
-                return abort(403, 'Unauthorized action.');
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
             }
             $user->roles()->save($role);
 

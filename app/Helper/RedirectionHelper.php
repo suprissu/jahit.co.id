@@ -3,6 +3,7 @@
 namespace App\Helper;
 
 use App\Constant\RoleConstant;
+use App\Constant\WarningStatusConstant;
 
 class RedirectionHelper
 {
@@ -30,8 +31,7 @@ class RedirectionHelper
                     if ($user->customer->projects()->count() == 0) {
                         return route('register.customer.project.page');
                     } else {
-                        // TO DO : change to error template
-                        return abort(403, 'Unauthorized action.');
+                        return route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]);
                     }
                 }
                 break;
@@ -39,13 +39,11 @@ class RedirectionHelper
                 if ($user->partner == null) {
                     return route('register.partner.page');
                 } else {
-                    // TO DO : change to error template
-                    return abort(403, 'Unauthorized action.');
+                    return route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]);
                 }
                 break;
             default:
-                // TO DO : change to error template
-                return abort(403, 'Unauthorized action.');
+                return route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
         }
     }
 }

@@ -3,7 +3,7 @@ nav {
     z-index: 999;
     top: 0;
     width: 100vw;
-    padding: 5px 5%;
+    padding: 1rem 5%;
     background: transparent;
     transition: background 0.2s ease;
 }
@@ -13,11 +13,26 @@ nav.scrolled {
 }
 
 nav.invert {
-    background: #ffffff;
+    background: #fff;
 }
 
 nav.invert a {
+    font-weight: 600;
+    color: #000;
+}
+
+nav.invert a:hover {
     color: #d52047;
+}
+
+nav.invert .btn-outline-light {
+    border: 1px solid #d52047;
+    color: #d52047;
+}
+
+nav.invert .btn-outline-light:hover {
+    background: #d52047;
+    color: #fff;
 }
 
 nav a {
@@ -38,7 +53,7 @@ nav a::after {
     transition: all 0.2s ease;
 }
 
-nav a:active::after {
+nav a:active:not(:has(button))::after {
     content: "";
     position: relative;
     width: 32px;
@@ -46,7 +61,7 @@ nav a:active::after {
     background: #fff;
 }
 
-nav a:hover::after,
+nav a:hover:not(:has(button))::after,
 nav a.active::after {
     content: "";
     position: relative;
@@ -58,7 +73,7 @@ nav a.active::after {
 nav a:hover,
 nav a.active {
     color: #fff;
-    text-shadow: 0 0 1px #fff;
+    text-shadow: 0 0 2px #fff;
     outline: none;
     text-decoration: none;
 }
@@ -67,12 +82,12 @@ nav a.active {
     display: flex;
     justify-content: space-between;
     text-transform: uppercase;
+    padding: 0;
 }
 
 .navbar button {
     text-transform: uppercase;
     font-size: 12px;
-    margin: 0 10px;
 }
 
 .navbar__links {
@@ -85,9 +100,61 @@ nav a.active {
     align-items: center;
 }
 
+.dropdown-menu {
+    left: auto;
+    right: 5%;
+}
+
+.dropdown-item {
+    width: auto;
+}
+
+.bottom-navigation {
+    display: none;
+    position: fixed;
+    background: #fff;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 8vw;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.12);
+}
+
+.bottom-navigation a {
+    display: flex;
+    flex-direction: column;
+    font-size: 10px;
+    color: #000;
+}
+
+.bottom-navigation a.active i,
+.bottom-navigation a.active p,
+.bottom-navigation a.active svg {
+    color: #d52047;
+}
+
+.bottom-navigation a p {
+    margin: 0;
+    color: #737781;
+}
+
+.bottom-navigation a i {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #737781;
+}
+
+.bottom-navigation a svg {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #737781;
+}
+
 @media only screen and (max-width: 768px) {
     nav {
-        padding: 0;
+        padding: 5px 5%;
     }
 
     #expand-content-nav .navbar__links {
@@ -102,6 +169,14 @@ nav a.active {
         padding: 1rem;
         margin: 0;
         text-align: left;
+    }
+
+    .dropdown {
+        display: none;
+    }
+
+    .bottom-navigation {
+        display: flex;
     }
 }
 

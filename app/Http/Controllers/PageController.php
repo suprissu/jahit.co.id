@@ -15,4 +15,9 @@ class PageController extends Controller
     {
         return view('pages.aboutpage', get_defined_vars());
     }
+
+    public function notfound(Request $request)
+    {
+        return view('layouts._customPage', get_defined_vars());
+    }
 }

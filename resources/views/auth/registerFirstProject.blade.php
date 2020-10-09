@@ -13,6 +13,7 @@
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset('css/userRegistration.css') }}">
     <link rel="stylesheet" href="{{ asset('css/steps.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
 @section('content')
@@ -20,6 +21,8 @@
     <div class="userRegistration__container">
         <div class="userRegistration__header">
             <h1 class="userRegistration__title">Hi, Pelanggan Jahit.co.id!</h1>
+            <p class="userRegistration__description">Silahkan lengkapi tabel di bawah ini untuk disebar ke
+<strong>2000 partner jahit kami</strong> dan temuan vendor terbaik anda!</p>
             <img class="userRegistration__hero" src="/img/partner-image.png" alt="hero-image" />
         </div>
         <div class="userRegistration__register">
@@ -83,13 +86,14 @@
                             <label for="register-picture" class="input-group-text" id="pictureAddon">Browse</label>
                         </div>
                         <div class="input-files">
-                            <input name="project_pict_path[]" id="register-picture" type="file" class="form-control @error('project_pict_path') is-invalid @enderror" value="{{ old('project_pict_path') }}" aria-describedby="pictureAddon" multiple>
+                            <p class="input-files-filename"></p>
+                            <input name="project_pict_path[]" id="register-picture" type="file" class="form-control @error('project_pict_path.0') is-invalid @enderror" aria-describedby="pictureAddon" multiple>
+                            @error('project_pict_path.0')
+                            <span class="invalid-feedback" role="alert">
+                                Some files might be invalid.
+                            </span>
+                            @enderror
                         </div>
-                        @error('project_pict_path')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
                     </div>
                 </div>
                 <button type="submit" class="userRegistration__submit btn btn-danger">Selanjutnya</button>
@@ -100,4 +104,5 @@
 @endsection
 
 @section('extra-js')
+    <script src="{{ asset('js/form.js') }}"></script>
 @endsection

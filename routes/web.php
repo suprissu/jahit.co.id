@@ -13,6 +13,7 @@
 
 Route::get('/', 'PageController@homepage')->name('homepage');
 Route::get('/about', 'PageController@aboutpage')->name('aboutpage');
+Route::get('/notfound', 'PageController@notfound')->name('notfound');
 
 Auth::routes();
 

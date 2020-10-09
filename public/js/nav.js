@@ -9,25 +9,40 @@ if (window.innerWidth <= 768) {
     document.getElementById("expand-trigger").innerHTML = navLinks;
 }
 
-if (window.location.pathname !== "/" && window.location.pathname !== "/about") {
-    $("nav").addClass("scrolled");
+const pathNavAllowed = ["/", "/about"];
+if (pathNavAllowed.includes(window.location.pathname)) {
+    $("nav").removeClass("invert");
 } else {
-    $("nav").removeClass("scrolled");
+    $("nav").addClass("invert");
 }
+
+$(".navbar__links a").each((e, val) => {
+    if (window.location.pathname === val.getAttribute("href")) {
+        val.classList.add("active");
+    } else {
+        val.classList.remove("active");
+    }
+});
+
+$(".bottom-navigation a").each((e, val) => {
+    if (window.location.pathname === val.getAttribute("href")) {
+        val.classList.add("active");
+    } else {
+        val.classList.remove("active");
+    }
+});
 
 let navExpand = false;
 $("#expand-button").click(() => {
-    console.log(navExpand);
     navExpand = !navExpand;
     if (navExpand) {
         document.getElementById("expand-content-nav").innerHTML = navLinks;
+        $("nav").css("box-shadow", "0 0 6px rgba(0,0,0,0.2)");
         $("nav").addClass("scrolled");
     } else {
         document.getElementById("expand-content-nav").innerHTML = "";
-        if (
-            window.location.pathname == "/" ||
-            window.location.pathname == "/about"
-        ) {
+        $("nav").css("box-shadow", "");
+        if (pathNavAllowed.includes(window.location.pathname)) {
             $("nav").removeClass("scrolled");
         }
     }
@@ -51,13 +66,5 @@ $(window).scroll((e) => {
         $("nav").addClass("scrolled");
     } else {
         $("nav").removeClass("scrolled");
-    }
-});
-
-$(".navbar__links a").each((e, val) => {
-    if (window.location.pathname === val.getAttribute("href")) {
-        val.classList.add("active");
-    } else {
-        val.classList.remove("active");
     }
 });

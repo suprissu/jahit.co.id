@@ -9,21 +9,41 @@
             <a href="{{ route('register') }}">Daftar</a>
             <a href="{{ route('login') }}"><button class="btn btn-outline-light">Masuk</button></a>
         @else
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
-
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
+            <div class="dropdown">
+                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-outline-light dropdown-toggle">
+                        {{ Auth::user()->name }}
+                    </button>
                 </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="/user/customer/project">Proyek</a>
+                    <a class="dropdown-item" href="/user/customer/chat">Pesan</a>
+                    <a class="dropdown-item" href="/user/customer/transaction">Transaksi</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="text-danger dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Keluar
+                    </a>
+                </div>
             </div>
+            <div class="bottom-navigation">
+                <a href="/user/customer/project">
+                    <i class="fa fa-hotel" aria-hidden="true"></i><p>Proyek</p>
+                </a>
+                <a href="/user/customer/chat">
+                    <i class="fas fa-envelope" aria-hidden="true"></i><p>Pesan</p>
+                </a>
+                <a href="/user/customer/transaction">
+                    <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Transaksi</p>
+                </a>
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fa fa-sign-out-alt" aria-hidden="true"></i><p>Keluar</p>
+                </a>
+            </div>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         @endguest
         </div>
     </div>

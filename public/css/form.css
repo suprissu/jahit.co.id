@@ -1,0 +1,33 @@
+.input-group input[type="file"] {
+    opacity: 0;
+    position: absolute;
+    height: 100%;
+    width: 70%;
+    cursor: pointer;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.input-group {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.input-group .input-files {
+    width: 100%;
+    border: 1px solid #ced4da;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+.input-files-filename {
+    margin: 0 5px;
+    color: #aaa;
+    font-size: 14px;
+    white-space: nowrap;
+}

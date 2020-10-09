@@ -4,6 +4,11 @@
     justify-content: center;
     min-height: 80vh;
     margin-top: 7vh;
+    margin-bottom: 7vh;
+}
+
+strong {
+    white-space: nowrap;
 }
 
 .userRegistration__container {
@@ -16,10 +21,10 @@
 }
 
 .userRegistration__container > div {
+    max-width: 400px;
     flex-grow: 1;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 }
 
@@ -47,33 +52,15 @@
     flex-direction: column;
 }
 
-.input-group input[type="file"] {
-    opacity: 0;
-    position: absolute;
-    height: 100%;
-    width: 70%;
-    cursor: pointer;
-}
-
-.form-group select {
-    cursor: pointer;
-}
-
-.input-group {
-    display: flex;
-    flex-wrap: nowrap;
-}
-
-.input-group .input-files {
-    width: 100%;
-    border: 1px solid #ced4da;
-    border-top-right-radius: 0.25rem;
-    border-bottom-right-radius: 0.25rem;
-}
-
 @media only screen and (max-width: 1024px) {
     .userRegistration__container > div {
         min-width: 280px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .userRegistration__hero {
+        display: none;
     }
 }
 

@@ -23,7 +23,7 @@
             @csrf
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" aria-describedby="emailHelp" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                <input placeholder="Masukkan email di sini" type="email" id="email" aria-describedby="emailHelp" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                 @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -33,7 +33,7 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-group">
-                    <input id="password" type="password" aria-describedby="passwordHelp" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <input placeholder="Masukkan password di sini" id="password" type="password" aria-describedby="passwordHelp" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="passwordHelp">
                             <i class="far fa-eye-slash"></i>

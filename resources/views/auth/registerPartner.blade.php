@@ -19,8 +19,10 @@
 <div class="userRegistration">
     <div class="userRegistration__container">
         <div class="userRegistration__header">
-            <h1 class="userRegistration__title">Hi, Mitra Jahit.co.id!</h1>
-            <img class="userRegistration__hero" src="/img/partner-image.png" alt="hero-image" />
+            <div class="userRegistration__wrapper">
+                <h1 class="userRegistration__title">Hi, Mitra Jahit.co.id!</h1>
+                <img src="/img/partner-image.png" alt="hero-image" />
+            </div>
         </div>
         <div class="userRegistration__register">
             <form class="auth-form" method="POST" action="{{ route('register.partner.submit') }}" enctype="multipart/form-data">
@@ -29,9 +31,9 @@
                     <label for="register-vendor">Nama Konveksi</label>
                     <input placeholder="Masukkan nama konveksi Anda di sini" name="company_name" type="text" class="form-control @error('company_name') is-invalid @enderror" value="{{ old('company_name') }}" id="register-vendor" aria-describedby="vendorHelp" required autocomplete="company_name" autofocus>
                     @error('company_name')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
                     @enderror
                 </div>
                 <div class="form-group">
@@ -42,11 +44,11 @@
                         </div>
                         <input placeholder="853423xxxx" name="phone_number" id="register-phone" type="text" class="form-control @error('phone_number') is-invalid @enderror" value="{{ old('phone_number') }}" aria-describedby="phoneAddon" required autocomplete="phone_number">
                     </div>
-                    @error('phone_number')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+                        @error('phone_number')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                 </div>
                 <div class="form-group">
                     <label for="register-address">Alamat</label>
@@ -65,7 +67,7 @@
                         </div>
                         <div class="input-files">
                             <p class="input-files-filename">{{ old('ktp_pict_link') }}</p>
-                            <input placeholder="ktp_ahmadsupriyanto.jpg" name="ktp_pict_link" id="register-ktp" type="file" class="form-control @error('ktp_pict_link') is-invalid @enderror" value="{{ old('ktp_pict_link') }}" aria-describedby="ktpAddon" required>
+                            <input placeholder="ktp_ahmadsupriyanto.jpg" name="ktp_pict_link" id="register-ktp" type="file" class="form-control @error('ktp_pict_link') is-invalid @enderror" value="{{ old('ktp_pict_link') }}" aria-describedby="ktpAddon" required multiple>
                         </div>
                     </div>
                     @error('ktp_pict_link')
@@ -82,7 +84,7 @@
                         </div>
                         <div class="input-files">
                             <p class="input-files-filename">{{ old('npwp_pict_link') }}</p>
-                            <input placeholder="npwp_cahayaabadi.pdf" name="npwp_pict_link" id="register-npwp" type="file" class="form-control @error('npwp_pict_link') is-invalid @enderror" value="{{ old('npwp_pict_link') }}" aria-describedby="npwpAddon" required>
+                            <input placeholder="npwp_cahayaabadi.pdf" name="npwp_pict_link" id="register-npwp" type="file" class="form-control @error('npwp_pict_link') is-invalid @enderror" value="{{ old('npwp_pict_link') }}" aria-describedby="npwpAddon" required multiple>
                         </div>
                     </div>
                     @error('npwp_pict_link')

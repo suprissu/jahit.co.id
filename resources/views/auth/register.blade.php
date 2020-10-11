@@ -12,6 +12,7 @@
 
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset('css/userAuthentication.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
 @section('content')
@@ -48,12 +49,12 @@
                             <i class="far fa-eye-slash"></i>
                         </button>
                     </div>
-                    @error('password')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
                 </div>
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
                 <small id="passwordHelp" class="form-text text-muted">Password minimal memiliki 8 huruf, satu huruf besar, satu huruf kecil, dan satu angka.</small>
             </div>
             <div class="form-group">

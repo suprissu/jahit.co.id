@@ -12,6 +12,7 @@
 
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset('css/userAuthentication.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
 @section('content')

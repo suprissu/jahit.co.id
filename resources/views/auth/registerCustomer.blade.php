@@ -20,9 +20,9 @@
     <div class="userRegistration__container">
         <div class="userRegistration__header">
             <div class="userRegistration__wrapper">
-                <h1 class="userRegistration__title">Hi, Pelanggan Jahit.co.id!</h1>
+                <h3 class="userRegistration__title">Hi, Pelanggan Jahit.co.id!</h3>
                 <p class="userRegistration__description">Silahkan lengkapi tabel di bawah ini untuk disebar ke
-                    <strong>2000 partner jahit kami</strong> dan temuan vendor terbaik anda!</p>
+                    <strong>puluhan partner jahit kami</strong> dan temuan vendor terbaik anda!</p>
                 <img src="/img/partner-image.png" alt="hero-image" />
             </div>
         </div>

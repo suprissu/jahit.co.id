@@ -86,7 +86,7 @@
                     <label for="register-picture">Upload Gambar</label>
                         <div class="upload-files__container">
                             <div class="upload-files__wrapper">
-                                <input class="upload-files__input" name="project_pict_path[]" id="register-picture" type="file" class="form-control @error('project_pict_path.0') is-invalid @enderror" value="{{ old('project_pict_path.0') }}" aria-describedby="pictureAddon" required multiple>
+                                <input class="upload-files__input" name="project_pict_path[]" id="register-picture" type="file" class="form-control @error('project_pict_path.0') is-invalid @enderror" value="{{ old('project_pict_path.0') }}" aria-describedby="pictureAddon" multiple>
                                 <label for="register-ktp" class="upload-files__add">Upload file</label>
                             </div>
                             <div class="upload-files__preview">
@@ -94,9 +94,10 @@
                         </div>
                         @error('project_pict_path.0')
                         <span class="invalid-feedback" role="alert">
-                            Some files might be invalid.
+                            Some files might have invalid format or more than 2,5MB.
                         </span>
                         @enderror
+                        <small id="pictureAddon" class="form-text text-muted">** dapat memilih banyak gambar dengan cara menekan CTRL atau SHIFT sambil memilih gambar.</small>
                     </div>
                     <button type="submit" class="userRegistration__submit btn btn-danger">Selanjutnya</button>
                 </div>

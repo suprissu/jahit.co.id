@@ -67,7 +67,7 @@
                         </div>
                         <div class="input-files">
                             <p class="input-files-filename">{{ old('ktp_pict_link') }}</p>
-                            <input placeholder="ktp_ahmadsupriyanto.jpg" name="ktp_pict_link" id="register-ktp" type="file" class="form-control @error('ktp_pict_link') is-invalid @enderror" value="{{ old('ktp_pict_link') }}" aria-describedby="ktpAddon" required multiple>
+                            <input placeholder="ktp_ahmadsupriyanto.jpg" name="ktp_pict_link" id="register-ktp" type="file" class="form-control @error('ktp_pict_link') is-invalid @enderror" value="{{ old('ktp_pict_link') }}" aria-describedby="ktpAddon" required>
                         </div>
                     </div>
                     @error('ktp_pict_link')
@@ -84,7 +84,7 @@
                         </div>
                         <div class="input-files">
                             <p class="input-files-filename">{{ old('npwp_pict_link') }}</p>
-                            <input placeholder="npwp_cahayaabadi.pdf" name="npwp_pict_link" id="register-npwp" type="file" class="form-control @error('npwp_pict_link') is-invalid @enderror" value="{{ old('npwp_pict_link') }}" aria-describedby="npwpAddon" required multiple>
+                            <input placeholder="npwp_cahayaabadi.pdf" name="npwp_pict_link" id="register-npwp" type="file" class="form-control @error('npwp_pict_link') is-invalid @enderror" value="{{ old('npwp_pict_link') }}" aria-describedby="npwpAddon" required>
                         </div>
                     </div>
                     @error('npwp_pict_link')

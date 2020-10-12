@@ -359,11 +359,15 @@ class RegisterController extends Controller
             $customer->projects()->save($project);
 
             $file_path_prefix = '/img/customer/project/';
-            foreach($request->file('project_pict_path') as $imageFile){
-                $projectImage = new ProjectImage;
-                $projectImage->path = FileHelper::saveResizedImageToPublic($imageFile, $file_path_prefix . 'design');;
-                $projectImage->project()->associate($project);
-                $projectImage->save();
+            
+            $files = $request->file('project_pict_path');
+            if ($files != null) {
+                foreach($files as $imageFile){
+                    $projectImage = new ProjectImage;
+                    $projectImage->path = FileHelper::saveResizedImageToPublic($imageFile, $file_path_prefix . 'design');;
+                    $projectImage->project()->associate($project);
+                    $projectImage->save();
+                }    
             }
 
             // TO DO: Should be false for only phase 1

@@ -14,10 +14,10 @@ class CreateProjectsTable extends Migration
     public function up()
     {
         Schema::create('projects', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('customer_id')->unsigned()->index();
-            $table->bigInteger('partner_id')->unsigned()->index()->nullable();
-            $table->bigInteger('category_id')->unsigned()->index();
+            $table->increments('id');
+            $table->integer('customer_id')->unsigned();
+            $table->integer('partner_id')->unsigned()->nullable();
+            $table->integer('category_id')->unsigned();
             $table->string('name');
             $table->string('address');
             $table->string('status');
@@ -29,9 +29,6 @@ class CreateProjectsTable extends Migration
             $table->longText('feedback')->nullable();
             $table->integer('rating')->unsigned()->nullable();
             $table->timestamps();
-            $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->foreign('category_id')->references('id')->on('project_categories')->onDelete('cascade');
         });
     }
 

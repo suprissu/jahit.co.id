@@ -14,11 +14,10 @@ class CreateProjectImagesTable extends Migration
     public function up()
     {
         Schema::create('project_images', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->bigInteger('project_id')->unsigned()->index();
+            $table->increments('id');
+            $table->integer('project_id')->unsigned();
             $table->string('path');
             $table->timestamps();
-            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
         });
     }
 

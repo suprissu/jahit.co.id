@@ -20,7 +20,7 @@
     <div class="userRegistration__container">
         <div class="userRegistration__header">
             <div class="userRegistration__wrapper">
-                <h1 class="userRegistration__title">Hi, Mitra Jahit.co.id!</h1>
+                <h3 class="userRegistration__title">Hi, Mitra Jahit.co.id!</h3>
                 <img src="/img/partner-image.png" alt="hero-image" />
             </div>
         </div>

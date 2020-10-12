@@ -54,6 +54,7 @@ strong {
 }
 
 .auth-form {
+    margin: 0 20px;
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -88,10 +89,11 @@ strong {
 @media only screen and (max-width: 425px) {
     .userRegistration__container {
         width: auto;
-        padding: 0;
+        padding: 0 20px;
     }
 
     .auth-form {
         width: auto;
+        margin: 0 20px;
     }
 }

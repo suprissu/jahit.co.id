@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helper\RedirectionHelper;
+
 use App\Http\Controllers\Controller;
+
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -35,5 +38,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    /**
+     * Override get the post register / login redirect path.
+     *
+     * @return string
+     */
+    public function redirectPath()
+    {
+        $expectedPath = property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+        return RedirectionHelper::routeBasedOnRegistrationStage($expectedPath);
     }
 }

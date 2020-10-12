@@ -96,7 +96,7 @@
 }
 
 .userCustomerProject__project__status--progress .progress-bar p {
-    margin-right: -154px;
+    margin-left: 1rem;
 }
 
 @media only screen and (max-width: 768px) {

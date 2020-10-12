@@ -9,7 +9,7 @@ Industri Fashion Dalam Negeri !</h3>
             <div class="about__wrapper">
                 <div class="media-preview">
                     <!-- <img src="/img/media-preview.png" alt="media-preview" /> -->
-                    <iframe class="media-preview__video" title="video" src="https://www.youtube.com/embed/kJQP7kiw5Fk?controls=0&disablekb=1&fs=0&loop=1&modestbranding=1&playsinline=1"></iframe>
+                    <iframe class="media-preview__video" title="video" src="https://www.youtube.com/embed/wylWYSHkzoQ?controls=0&disablekb=1&fs=0&loop=1&modestbranding=1&playsinline=1"></iframe>
                 </div>
             </div>
         </div>

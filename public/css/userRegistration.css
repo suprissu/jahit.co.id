@@ -24,11 +24,16 @@ strong {
     max-width: 400px;
     flex-grow: 1;
     display: flex;
-    align-items: center;
     flex-direction: column;
 }
 
-.userRegistration__hero {
+.userRegistration__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.userRegistration__header img {
     max-height: 100%;
     max-width: 100%;
 }
@@ -36,10 +41,13 @@ strong {
 .userRegistration__header {
     flex: 1;
     text-align: center;
+    align-items: flex-end;
+    color: black;
 }
 
 .userRegistration__register {
     flex: 0.5;
+    align-items: center;
 }
 
 .userRegistration__submit {
@@ -47,25 +55,46 @@ strong {
 }
 
 .auth-form {
-    width: 100%;
+    margin: 0 20px;
+    width: 400px;
     display: flex;
     flex-direction: column;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 1080px) {
+    .userRegistration__container {
+        width: 90%;
+    }
+
     .userRegistration__container > div {
         min-width: 280px;
     }
 }
 
 @media only screen and (max-width: 768px) {
-    .userRegistration__hero {
+    .userRegistration__container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .userRegistration__header img {
         display: none;
+    }
+
+    .userRegistration__header,
+    .userRegistration__register {
+        align-items: center;
     }
 }
 
 @media only screen and (max-width: 425px) {
     .userRegistration__container {
         width: auto;
+        padding: 0 20px;
+    }
+
+    .auth-form {
+        width: auto;
+        margin: 0 20px;
     }
 }

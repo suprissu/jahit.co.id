@@ -9,11 +9,7 @@
 @endsection
 
 @section('extra-css')
-<style>
-    .admin__dashboard {
-        margin: 12vh 0;
-    }
-</style>
+<link rel="stylesheet" href="{{ asset('css/adminDashboard.css') }}">
 @endsection
 
 @section('content')
@@ -100,7 +96,47 @@
                     <!-- Proyek Dalam Pengerjaan -->
                     <div class="tab-pane fade" id="list-project" role="tabpanel" aria-labelledby="list-project-list">
                         <!-- TODO: Make List Item -->
-                        @foreach ($projects as $index => $project)
+                        <ul class="list-group my-2">
+                            <li class="list-group-item btn btn-outline-danger" data-toggle="collapse" data-target="#order-{{ $counter }}" aria-expanded="false" aria-controls="#order-{{ $counter }}"><strong>Seragam Sekolah</strong></li>
+                            <li class="list-group-item collapse" id="order-{{ $counter }}">
+                                @foreach ($projects as $index => $project)
+                                    <div class="card card-body my-3">
+                                        <h4 class="mb-4">{{ $project->name }}</h4>
+                                        <p><strong>Kategori :</strong><br/> {{ $project->category->name }}</p>
+                                        <p><strong>Jumlah :</strong><br/> {{ $project->count }}</p>
+                                        <p><strong>Alamat :</strong><br/> {{ $project->address }}</p>
+                                        <p><strong>Catatan :</strong><br/> {{ $project->note }}</p>
+                                        <p><strong>Desain :</strong><br/></p>
+                                        <div class="row mx-2">
+                                            @foreach ($project->images as $image)
+                                                <img class="border rounded mx-1" height="100" width="100" src="{{ asset($image->path) }}" alt="image-preview">
+                                            @endforeach
+                                        </div>
+                                        <br>
+                                    </div>
+                                @endforeach
+                            </li>
+                            <li class="list-group-item btn btn-outline-danger" data-toggle="collapse" data-target="#order-{{ $counter }}" aria-expanded="false" aria-controls="#order-{{ $counter }}"><strong>Topi Sekolah</strong></li>
+                            <li class="list-group-item collapse" id="order-{{ $counter }}">
+                                @foreach ($projects as $index => $project)
+                                    <div class="card card-body my-3">
+                                        <h4 class="mb-4">{{ $project->name }}</h4>
+                                        <p><strong>Kategori :</strong><br/> {{ $project->category->name }}</p>
+                                        <p><strong>Jumlah :</strong><br/> {{ $project->count }}</p>
+                                        <p><strong>Alamat :</strong><br/> {{ $project->address }}</p>
+                                        <p><strong>Catatan :</strong><br/> {{ $project->note }}</p>
+                                        <p><strong>Desain :</strong><br/></p>
+                                        <div class="row mx-2">
+                                            @foreach ($project->images as $image)
+                                                <img class="border rounded mx-1" height="100" width="100" src="{{ asset($image->path) }}" alt="image-preview">
+                                            @endforeach
+                                        </div>
+                                        <br>
+                                    </div>
+                                @endforeach
+                            </li>
+                        </ul>
+                        <!-- @foreach ($projects as $index => $project)
                             <div class="card card-body my-3">
                                 <h4 class="mb-4">{{ $project->name }}</h4>
                                 <p><strong>Kategori :</strong><br/> {{ $project->category->name }}</p>
@@ -115,7 +151,7 @@
                                 </div>
                                 <br>
                             </div>
-                    @endforeach
+                        @endforeach -->
                     </div>
                 </div>
             </div>

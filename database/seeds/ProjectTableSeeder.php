@@ -25,19 +25,14 @@ class ProjectTableSeeder extends Seeder
         $customers = Customer::all();
 
         $categories = [
+            'Pakaian Pria',
+            'Pakaian Wanita',
+            'Pakaian Anak',
             'Seragam Sekolah',
-            'Topi Sekolah',
-            'Baju Olahraga',
-            'Jaket Sekolah',
-            'Jaket Universitas',
-            'Jaket Organisasi',
-            'Seragam Dinas',
-            'Custom Jaket',
-            'Custom Kaos',
-            'Custom Kemeja',
-            'Custom Celana',
-            'Jersey',
-            'Masker'
+            'Seragam Organisasi',
+            'Seragam Kantor',
+            'Seragam Rumah Sakit',
+            'Safetywear'
         ];
 
         foreach ($customers as $customer) {

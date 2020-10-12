@@ -23,6 +23,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // UNCOMMENT THIS CODE WHEN DEPLOYING TO PRODUCTION
+        // $this->app->bind('path.public', function() {
+        //     return realpath(base_path().'/../public_html/jahit.co.id');
+        // });
     }
 }

@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', 'Dashboard Partner')
+
 @section('extra-fonts')
 
 @endsection

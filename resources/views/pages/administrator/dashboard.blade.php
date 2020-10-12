@@ -1,5 +1,7 @@
 @extends('layouts.base')
 
+@section('title', 'Dashboard Administrator')
+
 @section('extra-fonts')
 
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Daftar Mitra')
+@section('title', 'Daftar Customer')
 
 @section('extra-fonts')
 

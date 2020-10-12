@@ -17,9 +17,9 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="/user/customer/project">Proyek</a>
-                    <a class="dropdown-item" href="/user/customer/chat">Pesan</a>
-                    <a class="dropdown-item" href="/user/customer/transaction">Transaksi</a>
+                    <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Proyek</a>
+                    <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Pesan</a>
+                    <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Transaksi</a>
                     <div class="dropdown-divider"></div>
                     <a class="text-danger dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -28,13 +28,13 @@
                 </div>
             </div>
             <div class="bottom-navigation">
-                <a href="/user/customer/project">
+                <a href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">
                     <i class="fa fa-hotel" aria-hidden="true"></i><p>Proyek</p>
                 </a>
-                <a href="/user/customer/chat">
+                <a href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">
                     <i class="fas fa-envelope" aria-hidden="true"></i><p>Pesan</p>
                 </a>
-                <a href="/user/customer/transaction">
+                <a href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">
                     <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Transaksi</p>
                 </a>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

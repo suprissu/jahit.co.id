@@ -11,8 +11,8 @@ const footer = `
             <div class="footer__navigation">
                 <p class="footer__section__title">Navigasi</p>
                 <div class="footer__section__content">
-                    <a href="">Beranda</a>
-                    <a href="">Tentang Kami</a>
+                    <a href="/">Beranda</a>
+                    <a href="/about">Tentang Kami</a>
                 </div>
             </div>
             <div class="footer__contact">

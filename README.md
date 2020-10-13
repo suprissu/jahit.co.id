@@ -1,71 +1,103 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+<h1 align="center">JAHIT.CO.ID</h1>
+<p align="center"><a href="">https://jahit.co.id</a></p>
 
 <p align="center">
 <a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
 
-## About Laravel
+## About JAHIT.CO.ID
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+JAHIT.CO.ID lahir pada tahun 2020 di era pandemic COVID 19, Kami mempunyai semangat untuk meningkatkan Industri textile dan fashion dalam negeri. Kami membantu para penjahit yang sudah kami verifikasi menjadi bagian dari partner kami untuk mendapatkan customer lebih luas dan lebih cepat melalui platform kami. Pelanggan akan langsung mendapatkan balasan dari jaringan penjahit kami lebih cepat mudah dan terjangkau.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Proyek ini menggunakan beberapa library dan framework sebagai berikut:
 
-## Learning Laravel
+- [Laravel 5.8](https://laravel.com/docs/).
+- HTML, CSS, Javascript.
+- [Bootstrap  4.1](https://getbootstrap.com/docs/).
+- [jQuery 3.3.1](https://api.jquery.com/).
+- [Font Awesome 5](https://fontawesome.com/).
+- [Google Fonts](https://fonts.google.com/).
+- [Faker 1.4](https://github.com/fzaninotto/Faker/).
+- [Image Intervention 2.5](http://image.intervention.io/).
+- [MySQL](https://www.mysql.com/).
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Set Up Project
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost you and your team's skills by digging into our comprehensive video library.
+Cara setup project pertama kali dengan menggunakan **[Laragon](https://laragon.org/)**:
 
-## Laravel Sponsors
+### 1. Clone project
+```sh
+git clone https://gitlab.com/dhafins18/jahit
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 2. Install dependencies
+```sh
+composer install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
+### 3. Make `.env` file
+```sh
+cp .env.example .env
+```
 
-## Contributing
+### 4. Generate API Key to `.env`
+```sh
+php artisan key:generate
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 5. Create database via **Laragon**
+by clicking *Database->Open->Laragon (Right Click)->Create New->Database->Fill Database Name (will be used for `DB_DATABASE` value in `.env`)->OK*
 
-## Security Vulnerabilities
+### 6. Set Up `.env`
+by filling DB properties (via Laragon Database for `DB_USERNAME` and `DB_PASSWORD`)
+```env
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 7. Migrate and Seed Database
+```sh
+php artisan migrate:refresh --seed
+```
+
+### 8. Run project
+```sh
+php artisan serve
+```
+
+## Pull Changes
+
+Untuk melakukan meng-update project di local, cukup lakukan langkah berikut
+
+### 1. Install new dependencies *(if there are some changes in `composer.json`)*
+```sh
+composer install
+```
+
+### 2. Migrate and Seed *(if there are some changes in Migrations or Seeders)*
+```sh
+php artisan migrate:refresh --seed
+```
+
+### 3. Run project
+```sh
+php artisan serve
+```
+
+### 4. Refresh cache *(if some files can't be detected by php)*
+```sh
+composer dump-autoload
+```
+
+## Developers
+
+Anggota tim developer:
+
+- **Ahmad Supriyanto** (Front-end & UI/UX)
+- **Razaqa Dhafin** (Back-end & Devops) -> *visit [razaaf.tech](https://razaaf.tech/#work) to see my works and contact me via [razaaf.tech](https://razaaf.tech/#contact) or [dhafins99@hotmail.com](mailto:dhafins99@hotmail.com)!*
 
 ## License
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ 2020 © All right Reversed.

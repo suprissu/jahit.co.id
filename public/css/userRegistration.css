@@ -18,7 +18,7 @@ strong {
     justify-content: space-evenly;
     padding: 0 5vw;
     margin: 5vh 0;
-    width: 70%;
+    width: 90%;
     gap: 2rem;
 }
 
@@ -64,16 +64,12 @@ strong {
 }
 
 @media only screen and (max-width: 1080px) {
-    .userRegistration__container {
-        width: 90%;
-    }
-
     .userRegistration__container > div {
         min-width: 280px;
     }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 960px) {
     .userRegistration__container {
         display: flex;
         flex-direction: column;
@@ -89,7 +85,7 @@ strong {
     }
 }
 
-@media only screen and (max-width: 425px) {
+@media only screen and (max-width: 480px) {
     .userRegistration__container {
         width: auto;
         padding: 0 20px;

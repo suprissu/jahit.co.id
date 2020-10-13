@@ -42,13 +42,17 @@ class HomeController extends Controller
                     return $this->administratorDashboard($request, $user, $role);
                     break;
                 case RoleConstant::CUSTOMER:
-                    return $this->customerDashboard($request, $user, $role);
+                    // TO DO: for next phase, uncomment this code
+                    // return $this->customerDashboard($request, $user, $role);
+                    return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
                     break;
                 case RoleConstant::PARTNER:
-                    return $this->partnerDashboard($request, $user, $role);
+                    // TO DO: for next phase, uncomment this code
+                    // return $this->partnerDashboard($request, $user, $role);
+                    return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
                     break;
                 default:
-                    redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+                    return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }
         }
         return redirect($expectedStage);

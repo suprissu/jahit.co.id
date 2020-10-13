@@ -11,7 +11,7 @@ $(".input-files").each((e, node) => {
 
 $(".upload-files__preview").hide();
 
-$(".upload-files__input").change((e) => {
+$(".upload-files__input").on("change", (e) => {
     $(".upload-files__add").removeClass("hover");
     $(".upload-files__preview").html("");
 
@@ -19,9 +19,9 @@ $(".upload-files__input").change((e) => {
 
     for (let i = 0; i < fileArray.length; i++) {
         const file = fileArray[i];
-        const div = document.createElement("span");
+        const div = document.createElement("embed");
         const urlFile = URL.createObjectURL(file);
-        div.style.backgroundImage = `url(${urlFile})`;
+        div.setAttribute("src", `${urlFile}`);
         $(".upload-files__preview").prepend(div);
     }
 
@@ -29,7 +29,7 @@ $(".upload-files__input").change((e) => {
     $(".upload-files__wrapper").hide();
 });
 
-$(".upload-files__preview").click(() => {
+$(".upload-files__preview").on("click", () => {
     $(".upload-files__wrapper").show();
     $(".upload-files__preview").hide();
 });

@@ -89,9 +89,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transform: translateX(200px);
 }
 
-.upload-files__preview span {
+.upload-files__preview embed {
+    border: 1px solid #ddd;
     margin: 5px;
     height: 64px;
     width: 64px;
@@ -100,22 +102,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     cursor: pointer;
-}
-
-.upload-files__preview span:hover {
-    border: 1px solid #d52047;
-}
-
-.upload-files__preview span:hover:after {
-    content: "\2716";
-    position: absolute;
-    color: #d52047;
-    font-size: 16px;
-    height: 64px;
-    width: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .upload-files__add {

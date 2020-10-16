@@ -6,23 +6,6 @@
     padding: 1rem 2rem;
     margin-top: 1rem;
     border-radius: 5px;
-    cursor: pointer;
-}
-
-.transactionItem:hover {
-    border: 1px solid rgba(213, 32, 71, 0.2);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.transactionItem:active {
-    border: 1px solid #d52047;
-    background: rgba(213, 32, 71, 0.12);
-}
-
-.transactionItem:active .transactionItem__status {
-    background: transparent;
-    border: 1px solid #d52047;
-    color: #d52047;
 }
 
 .transactionItem p {
@@ -34,15 +17,6 @@
 .transactionItem__header {
     display: flex;
     flex-direction: column;
-}
-
-.transactionItem__content {
-    margin-top: 5px;
-    display: flex;
-}
-
-.transactionItem__content p {
-    font-size: 14px;
 }
 
 .transactionItem__image {
@@ -100,8 +74,15 @@
     white-space: pre-wrap;
 }
 
+.transactionItem__price {
+    color: #ee3d1b;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
 .transactionItem__amount {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .transactionItem__status {
@@ -116,7 +97,11 @@
     white-space: nowrap;
 }
 
-.transactionItem__category__paidStatus {
+.transactionItem__category {
+    font-size: 12px;
+}
+
+.transactionItem__paidStatus {
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 2px !important;

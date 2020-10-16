@@ -13,6 +13,9 @@ class TransactionItem extends HTMLElement {
     get amount() {
         return this.getAttribute("amount");
     }
+    get price() {
+        return this.getAttribute("price");
+    }
     get startDate() {
         return this.getAttribute("startDate");
     }
@@ -29,29 +32,8 @@ class TransactionItem extends HTMLElement {
         return this.getAttribute("preview");
     }
 
-    get remainingDay() {
-        const endDate = new Date(this.endDate).getTime();
-        const today = new Date().getTime();
-        const difference = endDate - today;
-        const remainingDay = difference / (1000 * 3600 * 24);
-        if (remainingDay > 1) return Math.round(remainingDay) + " hari lagi";
-        else if (remainingDay * 24 > 1)
-            return Math.round(remainingDay * 24) + " jam lagi";
-        else return Math.round(remainingDay * 24 * 60) + "menit lagi";
-    }
-
-    get percentage() {
-        const startDate = new Date(this.startDate).getTime();
-        const endDate = new Date(this.endDate).getTime();
-        const today = new Date().getTime();
-        const total = endDate - startDate;
-        const indicator = today - startDate;
-        const progress = indicator / total;
-        return progress.toFixed(2) * 100;
-    }
-
     get paymentProgress() {
-        if (this.paidStatus !== "SUDAH DIBAYAR")
+        if (this.paidStatus !== "SUDAH_DIBAYAR")
             return `<div class="transactionItem__status--progress progress"><div class="progress-bar" role="progressbar" style="width: ${this.percentage}%;" aria-valuenow="${this.percentage}" aria-valuemin="0" aria-valuemax="100"><p>${this.remainingDay}</p></div></div>`;
         else return `<span></span>`;
     }
@@ -64,39 +46,30 @@ class TransactionItem extends HTMLElement {
         this.shadow.innerHTML = `
             <link rel="stylesheet" href=${this.css} crossorigin="anonymous">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.3/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
             <div class="transactionItem transactionItem--quotation">
                 <div class="transactionItem--left">
                     <div class="transactionItem__header">
-                        <p class="transactionItem__name">${this.name}</p>
+                        <h6 class="transactionItem__name" data-toggle="modal" data-target="#editTransaction">${
+                            this.name
+                        }</h6>
+                        <p class="transactionItem__price">Rp.${this.price}</p>
                         <p class="transactionItem__amount">${
                             this.amount
                         } buah</p>
-                        <div class="transactionItem__content">
-                            <div class="transactionItem__image"><img src=${
-                                this.preview
-                            } alt="project-image"/></div>
-                            <div class="transactionItem__description">
-                                <p><span>Mulai Pengerjaan :</span> ${new Date(
-                                    this.startDate
-                                ).toLocaleDateString()}</p>
-                                <p><span>Selesai Pengerjaan :</span> ${new Date(
-                                    this.endDate
-                                ).toLocaleDateString()}</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="transactionItem--right">
                     <div class="transactionItem__label">
-                        <p class="transactionItem__category__paidStatus">${
+                        <p class="transactionItem__category">${
                             this.category
-                        } - ${this.paidStatus}</p>
-                        ${this.paymentProgress}
-                    </div>
-                    <div class="transactionItem__credential">
-                        <button class="btn btn-outline-danger">Unggah bukti pembayaran</button>
-                        <button class="btn btn-outline-danger">Unduh Invoice</button>
+                        }</p>
+                        <p class="transactionItem__paidStatus">${this.paidStatus
+                            .split("_")
+                            .join(" ")}</p>
                     </div>
                 </div>
             </div>

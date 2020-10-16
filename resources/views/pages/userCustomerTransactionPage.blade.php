@@ -34,9 +34,42 @@
                 <!-- Semua Transaksi -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: Make List Item -->
-                    <transaction-item name="Penyelenggara Relawan COVID" preview="{{ asset('img/hero-image.jpg') }}" startDate="2020-10-03T21:20:37.613Z" endDate="2020-12-10T21:20:37.613Z" amount="13.000" paidStatus="BELUM DIBAYAR" category="SAMPLE" data-toggle="modal" data-target="#editTransaction" css="{{ asset('css/transactionItem.css') }}"></transaction-item>
-                    <transaction-item name="Seragam SMAN 4 Depok" preview="{{ asset('img/hero-image.jpg') }}" startDate="2020-10-03T21:20:37.613Z" endDate="2020-12-10T21:20:37.613Z" amount="20.000" paidStatus="MENUNGGU VERIFIKASI" category="DEPOSIT" data-toggle="modal" data-target="#editTransaction" css="{{ asset('css/transactionItem.css') }}"></transaction-item>
-                    <transaction-item name="Seragam Kantor" preview="{{ asset('img/hero-image.jpg') }}" startDate="2020-10-03T21:20:37.613Z" endDate="2020-12-10T21:20:37.613Z" amount="24.000" paidStatus="SUDAH DIBAYAR" category="PELUNASAN" data-toggle="modal" data-target="#editTransaction" css="{{ asset('css/transactionItem.css') }}"></transaction-item>
+                    <transaction-item
+                        name="Penyelenggara Relawan COVID"
+                        preview="{{ asset('img/hero-image.jpg') }}"
+                        startDate="2020-10-03T21:20:37.613Z"
+                        endDate="2020-12-10T21:20:37.613Z"
+                        price="13.000"
+                        amount="13.000"
+                        paidStatus="BELUM_DIBAYAR"
+                        category="SAMPLE"
+                        data-toggle="modal" data-target="#editTransaction"
+                        css="{{ asset('css/transactionItem.css') }}">
+                    </transaction-item>
+                    <transaction-item
+                        name="Seragam SMAN 4 Depok"
+                        preview="{{ asset('img/hero-image.jpg') }}"
+                        startDate="2020-10-03T21:20:37.613Z"
+                        endDate="2020-12-10T21:20:37.613Z"
+                        price="20.000"
+                        amount="20.000"
+                        paidStatus="MENUNGGU_VERIFIKASI"
+                        category="DEPOSIT"
+                        data-toggle="modal" data-target="#editTransaction"
+                        css="{{ asset('css/transactionItem.css') }}">
+                    </transaction-item>
+                    <transaction-item
+                        name="Seragam Kantor"
+                        preview="{{ asset('img/hero-image.jpg') }}"
+                        startDate="2020-10-03T21:20:37.613Z"
+                        endDate="2020-12-10T21:20:37.613Z"
+                        price="24.000"
+                        amount="24.000"
+                        paidStatus="SUDAH_DIBAYAR"
+                        category="PELUNASAN"
+                        data-toggle="modal" data-target="#editTransaction"
+                        css="{{ asset('css/transactionItem.css') }}">
+                    </transaction-item>
                 </div>
                 
                 <!-- Penawaran Terbuka -->

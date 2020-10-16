@@ -92,7 +92,7 @@
     transform: translateX(200px);
 }
 
-.upload-files__preview embed {
+.upload-files__preview img {
     border: 1px solid #ddd;
     margin: 5px;
     height: 64px;

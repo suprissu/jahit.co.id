@@ -19,7 +19,7 @@ $(".upload-files__input").on("change", (e) => {
 
     for (let i = 0; i < fileArray.length; i++) {
         const file = fileArray[i];
-        const div = document.createElement("embed");
+        const div = document.createElement("img");
         const urlFile = URL.createObjectURL(file);
         div.setAttribute("src", `${urlFile}`);
         $(".upload-files__preview").prepend(div);

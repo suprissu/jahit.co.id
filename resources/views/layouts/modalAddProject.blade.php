@@ -8,11 +8,11 @@
                 </button>
                 <h4>Tambah Proyek</h4>
                     <div class="form-group">
-                        <label for="project-name">Nama Proyek</label>
-                        <input type="text" class="form-control" id="project-name" aria-describedby="nameHelp">
+                        <label for="add-project-name">Nama Proyek</label>
+                        <input type="text" class="form-control" id="add-project-name" aria-describedby="nameHelp">
                     </div>
                     <div class="form-group">
-                        <label for="project-order">Jumlah Pesanan</label>
+                        <label for="add-project-order">Jumlah Pesanan</label>
                         <select class="form-control">
                             <option value="">Pilih opsi</option>
                             <option value="Seragam Putih">Seragam Putih</option>
@@ -22,28 +22,33 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="project-order">Jumlah Pesanan</label>
-                        <input type="text" class="form-control" id="project-order" aria-describedby="orderHelp">
+                        <label for="add-project-order">Jumlah Pesanan</label>
+                        <input type="text" class="form-control" id="add-project-order" aria-describedby="orderHelp">
                     </div>
                     <div class="form-group">
-                        <label for="project-address">Alamat</label>
-                        <input type="text" class="form-control" id="project-address" aria-describedby="addressHelp">
+                        <label for="add-project-address">Alamat</label>
+                        <input type="text" class="form-control" id="add-project-address" aria-describedby="addressHelp">
                     </div>
                     <div class="form-group">
-                        <label for="project-note">Catatan</label>
-                        <textarea type="text" class="form-control" id="project-note" aria-describedby="noteHelp" rows="3"></textarea>
+                        <label for="add-project-note">Catatan</label>
+                        <textarea type="text" class="form-control" id="add-project-note" aria-describedby="noteHelp" rows="3"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="project-picture">Upload Gambar</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <label for="project-picture" class="input-group-text" id="pictureAddon">Browse</label>
+                        <label for="add-project-picture">Upload Gambar</label>
+                        <div class="upload-files__container">
+                            <div class="upload-files__wrapper">
+                                <input class="upload-files__input" name="project_pict_path[]" id="add-project-picture" type="file" class="form-control @error('project_pict_path.0') is-invalid @enderror" value="{{ old('project_pict_path.0') }}" aria-describedby="pictureAddon" multiple>
+                                <label for="add-project-picture" class="upload-files__add">Upload file</label>
                             </div>
-                            <div class="input-files">
-                                <p class="input-files-filename"></p>
-                                <input id="project-picture" type="file" class="form-control" aria-describedby="pictureAddon">
+                            <div class="upload-files__preview">
                             </div>
                         </div>
+                        @error('project_pict_path.0')
+                        <span class="invalid-feedback" role="alert">
+                            Some files might have invalid format or more than 2,5MB.
+                        </span>
+                        @enderror
+                        <small id="pictureAddon" class="form-text text-muted">Dapat pilih banyak gambar dengan menggunakan CTRL (PC) atau hold image satu per satu (HP)</small>
                     </div>
                 </div>
                 <div class="modal-footer">

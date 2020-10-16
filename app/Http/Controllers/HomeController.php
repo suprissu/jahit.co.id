@@ -43,8 +43,8 @@ class HomeController extends Controller
                     break;
                 case RoleConstant::CUSTOMER:
                     // TO DO: for next phase, uncomment this code
-                    // return $this->customerDashboard($request, $user, $role);
-                    return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
+                    return $this->customerDashboard($request, $user, $role);
+                    // return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
                     break;
                 case RoleConstant::PARTNER:
                     // TO DO: for next phase, uncomment this code

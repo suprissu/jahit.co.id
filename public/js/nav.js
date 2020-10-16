@@ -33,7 +33,7 @@ $(".bottom-navigation a").each((e, val) => {
 });
 
 let navExpand = false;
-$("#expand-button").click(() => {
+$("#expand-button").on("click", () => {
     navExpand = !navExpand;
     if (navExpand) {
         document.getElementById("expand-content-nav").innerHTML = navLinks;
@@ -48,7 +48,7 @@ $("#expand-button").click(() => {
     }
 });
 
-$(window).resize((e) => {
+$(window).on("resize", (e) => {
     if (window.innerWidth <= 768) {
         document.getElementById("expand-trigger").innerHTML = expandButton;
     } else {
@@ -56,7 +56,7 @@ $(window).resize((e) => {
     }
 });
 
-$(window).scroll((e) => {
+$(window).on("scroll", (e) => {
     const scrollPosition = $(document).scrollTop();
     if (
         scrollPosition >= 100 ||

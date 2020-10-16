@@ -46,7 +46,6 @@ class ProjectItem extends HTMLElement {
     }
 
     get rating() {
-        console.log("masuk");
         return this.getAttribute("rating");
     }
 

@@ -25,13 +25,14 @@ $(".upload-files__input").change((e) => {
         $(".upload-files__preview").prepend(div);
     }
 
-    $(".upload-files__preview").css("display", "flex");
-    $(".upload-files__wrapper").hide();
+    e.target.parentElement.style.display = "none";
+    e.target.parentElement.nextElementSibling.style.display = "flex";
 });
 
-$(".upload-files__preview").click(() => {
-    $(".upload-files__wrapper").show();
-    $(".upload-files__preview").hide();
+$(".upload-files__preview").click((e) => {
+    e.target.previousElementSibling.children[0].value = "";
+    e.target.previousElementSibling.style.display = "flex";
+    e.target.style.display = "none";
 });
 
 var dragTimer;

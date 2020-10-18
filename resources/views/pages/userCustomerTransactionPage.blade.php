@@ -7,14 +7,73 @@
 @endsection
 
 @section('prerender-js')
+<script>
+    const dummyData = [
+            {
+                id: "12d11dx",
+                name: "Relawan Covid A",
+                price: "120000",
+                start_date: "10/05/2020, 12:38:00 AM",
+                end_date: "10/30/2020, 12:38:00 AM",
+            },
+            {
+                id: "12d11da",
+                name: "Demo Omnibus Law A",
+                price: "120000",
+                start_date: "10/05/2020, 12:38:00 AM",
+                end_date: "10/30/2020, 12:38:00 AM",
+            },
+        ]
+
+        function getTransactionData(id) {
+
+            const data = dummyData.find((data) => data.id == id);
+            const name = data.name
+            const price = data.price
+            const start_date = new Date(data.start_date)
+            const end_date = new Date(data.end_date)
+
+            return {
+                id,
+                name,
+                price,
+                start_date,
+                end_date,
+            }
+        }
+
+    function getPercentage(start, end) {
+        const startDate = new Date(start).getTime();
+        const endDate = new Date(end).getTime();
+        const today = new Date().getTime();
+        const total = endDate - startDate;
+        const indicator = today - startDate;
+        const progress = indicator / total;
+        return progress.toFixed(2) * 100;
+    }
+
+    function getRemainingDay(end) {
+        const endDate = new Date(end).getTime();
+        const today = new Date().getTime();
+        const difference = endDate - today;
+        const remainingDay = difference / (1000 * 3600 * 24);
+        if (remainingDay > 1) return Math.round(remainingDay) + " hari lagi";
+        else if (remainingDay * 24 > 1)
+            return Math.round(remainingDay * 24) + " jam lagi";
+        else if (remainingDay * 24 * 60 > 1) return Math.round(remainingDay * 24 * 60) + "menit lagi";
+        else return "selesai"
+    }
+</script>
 @endsection
 
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset('css/userCustomerTransaction.css') }}">
     <link rel="stylesheet" href="{{ asset('css/listItem.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
 @section('content')
+@include('layouts/modalUploadPayment')
 
 <div class="userCustomerTransaction">
     <div class="userCustomerTransaction__container">
@@ -33,68 +92,29 @@
                 <!-- Semua Transaksi -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: Make List Item -->
-                    
-                    <!-- TODO: Modal Item -->
-                    <div class="modal fade pl-0" id="editTransaction" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form class="auth-form" method="POST" action="">
-                                    <div class="modal-body">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <span class="badge badge-secondary">Menunggu Pembayaran</span>
-                                        <h4>Penyelenggara Relawan COVID</h4>
-                                        <h5 class="text-danger">Rp.1.300.000</h5>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-danger">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal fade pl-0" id="uploadPayment" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form class="auth-form" method="POST" action="">
-                                    <div class="modal-body">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        <h4>Upload Bukti Pembayaran</h4>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-danger">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="listItem">
-                        <div class="listItem--left" data-toggle="modal"
-                            data-target="#editTransaction">
+                        <a href="/user/customer/transaction/1" class="listItem--left">
                             <div class="listItem__header">
                                 <h5 class="listItem__name mb-0">Penyelenggara Relawan COVID</h5>
                                 <p class="listItem__price">Rp.13.000</p>
                                 <p class="listItem__amount">13.000 buah</p>
                             </div>
-                        </div>
+                        </a>
                         <div class="listItem--right">
-                            <div class="listItem__label" data-toggle="modal"
-                                data-target="#editTransaction">
+                            <a href="/user/customer/transaction/1" class="listItem__label">
                                 <p class="listItem__category">Sample</p>
                                 <p class="listItem__paidStatus">Belum Dibayar</p>
                                 <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
-                                <!-- <div class="listItem__status--progress progress"><div class="progress-bar" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><p>40 Hari Lagi</p></div></div> -->
-                            </div>
+                                <div 
+                                    data-startDate="2020-10-18T02:00"
+                                    data-endDate="2020-12-18T10:00"
+                                    class="listItem__status--progress progress">
+                                    <div class="progress-bar" role="progressbar"></div>
+                                </div>
+                            </a>
                             <div class="listItem__credential">
                                 <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
-                                <!-- <button class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button> -->
+                                <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
                                 <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
                                 <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
                             </div>
@@ -127,4 +147,28 @@
 @endsection
 
 @section('extra-js')
+<script src="{{ asset('js/form.js') }}"></script>
+<script>
+    $(".listItem__status--progress").each((e, el) => {
+        const startDate = el.getAttribute("data-startDate");
+        const endDate = el.getAttribute("data-endDate");
+        const percentage = getPercentage(startDate, endDate);
+        const remainingDay = getRemainingDay(endDate)
+        el.children[0].style.width = `${percentage !== Infinity ? percentage: 100}%`;
+        if (percentage === Infinity || percentage > 100) {
+            el.children[0].style.backgroundColor = "#1CAE94"
+            el.children[0].style.color = "#fff"
+        }
+        el.children[0].innerHTML = `<p>${remainingDay}</p>`
+    })
+
+    $("button[data-target='#uploadPayment']").on("click", (e) => {
+        const id = e.target.getAttribute("data-modalId")
+        const data = getTransactionData(id);
+        $("#payment-id-text").text(data.id);
+        $("#payment-name-text").text(data.name);
+        $("#payment-price-text").text(data.price);
+        $("#payment-id").val(data.id);
+    })
+</script>
 @endsection

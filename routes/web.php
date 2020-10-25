@@ -20,6 +20,7 @@ Route::get('/user/customer/register', 'PageController@userCustomerRegisterPage')
 Route::get('/user/customer/add-project', 'PageController@userCustomerAddProjectPage')->name('userCustomerAddProjectPage');
 Route::get('/user/customer/project', 'PageController@userCustomerProjectPage')->name('userCustomerProjectPage');
 Route::get('/user/customer/transaction', 'PageController@userCustomerTransactionPage')->name('userCustomerTransactionPage');
+Route::get('/user/customer/chat', 'PageController@userCustomerChatPage')->name('userCustomerChatPage');
 Route::get('/user/partner/register', 'PageController@userPartnerRegisterPage')->name('userPartnerRegisterPage');
 Route::get('/notfound', 'PageController@notfound')->name('notfound');
 Route::get('/warning/{type}', 'PageController@warning')->name('warning');

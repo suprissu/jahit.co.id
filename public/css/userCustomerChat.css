@@ -4,7 +4,8 @@
 }
 
 .userCustomerChat__container {
-    width: 1024px;
+    min-width: 720px;
+    width: 80vw;
     margin: 5vh auto;
 }
 
@@ -108,7 +109,6 @@
 
 .chatbox__messages {
     height: 60vh;
-    padding: 0 1rem 1rem 1rem;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -119,14 +119,62 @@
     flex-direction: column-reverse;
     overflow: auto;
     max-height: 100%;
+    padding: 1rem;
 }
 
 .chatbox__message {
     width: fit-content;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    max-width: 80%;
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 20px;
     margin: 5px 0;
+}
+
+.chatbox__message__projectLabel {
+    font-size: 12px;
+}
+
+.chatbox__message__projectTitle {
+    margin: 0;
+}
+
+.chatbox__message__projectAmount,
+.chatbox__message__projectDeadline {
+    font-size: 12px;
+}
+
+.chatbox__message__projectPrice {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ee3d1b;
+}
+
+.chatbox__message__description {
+    font-size: 14px;
+}
+
+.chatbox__message__choice {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.chatbox__message__choice button {
+    font-size: 12px;
+    margin: 10px 2px;
+}
+
+.chatbox__message--me,
+.chatbox__message--other {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.chatbox__message--admin {
+    text-align: center;
+    align-self: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+    font-size: 12px;
 }
 
 .chatbox__message--other {

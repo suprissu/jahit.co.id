@@ -1,25 +1,25 @@
-.userCustomerProject {
+.userProject {
     min-height: 70vh;
     margin-top: 7vh;
 }
 
-.userCustomerProject__container {
+.userProject__container {
     width: 1024px;
     margin: 5vh auto;
 }
 
-.userCustomerProject__header {
+.userProject__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
 }
 
-.userCustomerProject__projects__header {
+.userProject__projects__header {
     display: flex;
     flex-direction: row;
 }
-.userCustomerProject__projects__header a {
+.userProject__projects__header a {
     border: 1px solid rgba(213, 32, 71, 0.4);
     display: flex;
     align-items: center;
@@ -29,26 +29,26 @@
     white-space: nowrap;
 }
 
-.userCustomerProject__projects__header a.active {
+.userProject__projects__header a.active {
     background: rgba(213, 32, 71, 0.4);
     border: transparent;
     font-weight: 500;
     color: #000;
 }
 
-.userCustomerProject__projects__header a:first-child {
+.userProject__projects__header a:first-child {
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
     border-right: 1px solid rgba(213, 32, 71, 0.4);
 }
 
-.userCustomerProject__projects__header a:not(:last-child) {
+.userProject__projects__header a:not(:last-child) {
     border-right: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
 
-.userCustomerProject__projects__header a:last-child {
+.userProject__projects__header a:last-child {
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
     border-top-left-radius: 0;
@@ -56,29 +56,29 @@
 }
 
 @media only screen and (max-width: 1024px) {
-    .userCustomerProject__container {
+    .userProject__container {
         width: auto;
         margin: 5vh 5vw;
     }
 }
 
 @media only screen and (max-width: 767px) {
-    .userCustomerProject__projects__list > div {
+    .userProject__projects__list > div {
         margin-top: 1rem;
         height: 70vh;
         overflow-y: auto;
     }
 
-    .userCustomerProject__projects__list > div::-webkit-scrollbar {
+    .userProject__projects__list > div::-webkit-scrollbar {
         display: none;
     }
 
-    .userCustomerProject__projects__header {
+    .userProject__projects__header {
         overflow-x: auto;
         font-size: 14px;
     }
 
-    .userCustomerProject__projects__header::-webkit-scrollbar {
+    .userProject__projects__header::-webkit-scrollbar {
         display: none;
     }
 }

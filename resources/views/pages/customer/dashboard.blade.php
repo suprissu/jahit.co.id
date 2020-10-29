@@ -7,7 +7,7 @@
 @endsection
 
 @section('prerender-js')
-    <script src="{{ asset('js/userCustomerProject.js') }}"></script>
+    <script src="{{ asset('js/userProject.js') }}"></script>
     <script>
         const dummyData = [
             {
@@ -70,7 +70,7 @@
 @endsection
 
 @section('extra-css')
-    <link rel="stylesheet" href="{{ asset('css/userCustomerProject.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/userProject.css') }}">
     <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
@@ -78,21 +78,21 @@
 @include('layouts/modalAddProject')
 @include('layouts/modalEditProject')
 
-<div class="userCustomerProject">
-    <div class="userCustomerProject__container">
-        <div class="userCustomerProject__header">
-            <h2 class="userCustomerProject__title">Proyek</h2>
-            <button class="userCustomerProject__addProject btn btn-danger" data-toggle="modal" data-target="#addProject">Tambah Proyek</button>
+<div class="userProject">
+    <div class="userProject__container">
+        <div class="userProject__header">
+            <h2 class="userProject__title">Proyek</h2>
+            <button class="userProject__addProject btn btn-danger" data-toggle="modal" data-target="#addProject">Tambah Proyek</button>
         </div>
-        <div class="userCustomerProject__projects">
-            <div class="userCustomerProject__projects__header list-group" id="list-tab" role="tablist">
+        <div class="userProject__projects">
+            <div class="userProject__projects__header list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">Semua</a>
                 <a class="list-group-item list-group-item-action" id="list-open-quotation-list" data-toggle="list" href="#list-open-quotation" role="tab" aria-controls="open-quotation">Penawaran Terbuka</a>
                 <a class="list-group-item list-group-item-action" id="list-progress-list" data-toggle="list" href="#list-progress" role="tab" aria-controls="progress">Dalam Pengerjaan</a>
                 <a class="list-group-item list-group-item-action" id="list-finish-list" data-toggle="list" href="#list-finish" role="tab" aria-controls="finish">Selesai</a>
                 <a class="list-group-item list-group-item-action" id="list-cancel-list" data-toggle="list" href="#list-cancel" role="tab" aria-controls="cancel">Dibatalkan</a>
             </div>
-            <div class="userCustomerProject__projects__list header tab-content" id="nav-tabContent">
+            <div class="userProject__projects__list header tab-content" id="nav-tabContent">
                 
                 <!-- Semua Proyek -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">

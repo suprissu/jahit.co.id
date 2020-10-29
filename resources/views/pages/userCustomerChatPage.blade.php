@@ -8,8 +8,35 @@
 <script>
     const chatProject = [
     {
+        id: "222",
+        userRole: "CLIENT",
+        project: {
+            id: "123123",
+            name: "Relawan Rompi COVID",
+            amount: "13000",
+            price: "1000000",
+            start_date: "2020-10-29T03:59:09",
+            end_date: "2020-11-01T03:59:09",
+            note: "test",
+        },
+        transaction: {
+            id: "123111",
+        },
+        message: [
+            {
+                role: "CLIENT",
+                type: "INISIASI",
+            },
+            {
+                role: "VENDOR",
+                type: "NEGOSIASI",
+                answer: "",
+            },
+        ],
+    },
+    {
         id: "111",
-        userRole: "VENDOR",
+        userRole: "CLIENT",
         project: {
             id: "123123",
             name: "Relawan Rompi COVID",
@@ -40,7 +67,42 @@
     },
     {
         id: "123",
-        userRole: "VENDOR",
+        userRole: "CLIENT",
+        project: {
+            id: "123123",
+            name: "Relawan Rompi COVID",
+            amount: "15000",
+            price: "2000000",
+            start_date: "2020-10-29T03:59:09",
+            end_date: "2020-11-01T03:59:09",
+            note: "test123",
+        },
+        transaction: {
+            id: "123111",
+        },
+        message: [
+            {
+                role: "CLIENT",
+                type: "INISIASI",
+            },
+            {
+                role: "VENDOR",
+                type: "NEGOSIASI",
+                answer: "reject",
+            },
+            {
+                role: "CLIENT",
+                type: "DIAJUKAN",
+            },
+            {
+                role: "VENDOR",
+                type: "SETUJU",
+            },
+        ],
+    },
+    {
+        id: "333",
+        userRole: "CLIENT",
         project: {
             id: "123123",
             name: "Relawan Rompi COVID",
@@ -91,7 +153,27 @@
             <div class="chatbox__navigation navigation">
                 <div class="navigation__story"></div>
 
+                <div class="navigation__item" data-id="222">
+                    <div class="navigation__left">
+                        <h5 class="navigation__title">Rompi Relawan COVID</h5>
+                        <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                    </div>
+                    <div class="navigation__right">
+                        <p class="navigation__date">10 Maret 2020</p>
+                    </div>
+                </div>
+
                 <div class="navigation__item" data-id="111">
+                    <div class="navigation__left">
+                        <h5 class="navigation__title">Rompi Relawan COVID</h5>
+                        <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                    </div>
+                    <div class="navigation__right">
+                        <p class="navigation__date">10 Maret 2020</p>
+                    </div>
+                </div>
+
+                <div class="navigation__item" data-id="333">
                     <div class="navigation__left">
                         <h5 class="navigation__title">Rompi Relawan COVID</h5>
                         <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>

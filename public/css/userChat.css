@@ -1,9 +1,9 @@
-.userCustomerChat {
+.userChat {
     min-height: 70vh;
     margin-top: 7vh;
 }
 
-.userCustomerChat__container {
+.userChat__container {
     min-width: 720px;
     width: 80vw;
     max-width: 1024px;

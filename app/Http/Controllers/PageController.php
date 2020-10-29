@@ -59,6 +59,11 @@ class PageController extends Controller
     {
         return view('pages.userPartnerRegisterPage', get_defined_vars());
     }
+    public function userPartnerChatPage(Request $request)
+    {
+        return view('pages.userPartnerChatPage', get_defined_vars());
+    }
+
     public function notfound(Request $request)
     {
         return view('layouts._customPage', get_defined_vars());

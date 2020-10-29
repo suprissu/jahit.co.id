@@ -1,4 +1,4 @@
-<div class="modal fade pl-0" id="chatVendorNegotiation" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade pl-0" id="chatNegotiation" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form class="auth-form" method="POST" action="">

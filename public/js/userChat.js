@@ -1,72 +1,3 @@
-const chatProject = [
-    {
-        id: "111",
-        userRole: "CLIENT",
-        project: {
-            id: "123123",
-            name: "Relawan Rompi COVID",
-            amount: "13000",
-            price: "1000000",
-            start_date: "2020-10-29T03:59:09",
-            end_date: "2020-11-01T03:59:09",
-            note: "test",
-        },
-        transaction: {
-            id: "123111",
-        },
-        message: [
-            {
-                role: "CLIENT",
-                type: "INISIASI",
-            },
-            {
-                role: "VENDOR",
-                type: "NEGOSIASI",
-                answer: "accept",
-            },
-            {
-                role: "CLIENT",
-                type: "SETUJU",
-            },
-        ],
-    },
-    {
-        id: "123",
-        userRole: "CLIENT",
-        project: {
-            id: "123123",
-            name: "Relawan Rompi COVID",
-            amount: "15000",
-            price: "2000000",
-            start_date: "2020-10-29T03:59:09",
-            end_date: "2020-11-01T03:59:09",
-            note: "test123",
-        },
-        transaction: {
-            id: "123111",
-        },
-        message: [
-            {
-                role: "CLIENT",
-                type: "INISIASI",
-            },
-            {
-                role: "VENDOR",
-                type: "NEGOSIASI",
-                answer: "reject",
-            },
-            {
-                role: "CLIENT",
-                type: "DIAJUKAN",
-            },
-            {
-                role: "VENDOR",
-                type: "SETUJU",
-            },
-        ],
-    },
-];
-
 const dateFormat = (date) => {
     const options = {
         weekday: "long",
@@ -93,12 +24,22 @@ const getChatProject = (chatId) => {
         }
 
         if (chat.message[i].type === "INISIASI") {
-            messages += initiationChat(
-                perspectiveMessage,
-                chat.project.id,
-                chat.project.name,
-                chat.project.amount
-            );
+            if (chat.userRole === "VENDOR") {
+                messages += initiationPartnerChat(
+                    perspectiveMessage,
+                    chat.message[i].answer,
+                    chat.project.id,
+                    chat.project.name,
+                    chat.project.amount
+                );
+            } else {
+                messages += initiationCustomerChat(
+                    perspectiveMessage,
+                    chat.project.id,
+                    chat.project.name,
+                    chat.project.amount
+                );
+            }
         } else if (chat.message[i].type === "DIAJUKAN") {
             messages += proposeChat(
                 perspectiveMessage,

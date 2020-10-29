@@ -26,11 +26,11 @@
             {
                 role: "CLIENT",
                 type: "INISIASI",
+                answer: "accept"
             },
             {
                 role: "VENDOR",
-                type: "NEGOSIASI",
-                answer: "accept",
+                type: "DIAJUKAN",
             },
             {
                 role: "CLIENT",
@@ -57,15 +57,16 @@
             {
                 role: "CLIENT",
                 type: "INISIASI",
+                answer: "reject"
             },
             {
                 role: "VENDOR",
-                type: "NEGOSIASI",
-                answer: "reject",
+                type: "DIAJUKAN",
             },
             {
                 role: "CLIENT",
-                type: "DIAJUKAN",
+                type: "NEGOSIASI",
+                answer: "accept"
             },
             {
                 role: "VENDOR",

@@ -19,6 +19,7 @@ Route::get('/user/choice', 'PageController@choicePage')->name('choicePage');
 Route::get('/user/customer/register', 'PageController@userCustomerRegisterPage')->name('userCustomerRegisterPage');
 Route::get('/user/customer/add-project', 'PageController@userCustomerAddProjectPage')->name('userCustomerAddProjectPage');
 Route::get('/user/customer/project', 'PageController@userCustomerProjectPage')->name('userCustomerProjectPage');
+Route::get('/user/project/123', 'PageController@userProjectDetailPage')->name('userProjectDetailPage');
 Route::get('/user/customer/transaction', 'PageController@userCustomerTransactionPage')->name('userCustomerTransactionPage');
 Route::get('/user/customer/chat', 'PageController@userCustomerChatPage')->name('userCustomerChatPage');
 Route::get('/user/partner/register', 'PageController@userPartnerRegisterPage')->name('userPartnerRegisterPage');

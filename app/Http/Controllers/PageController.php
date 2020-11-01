@@ -46,6 +46,10 @@ class PageController extends Controller
     {
         return view('pages.userCustomerProjectPage', get_defined_vars());
     }
+    public function userProjectDetailPage(Request $request)
+    {
+        return view('pages.userProjectDetailPage', get_defined_vars());
+    }
     public function userCustomerTransactionPage(Request $request)
     {
         return view('pages.userCustomerTransactionPage', get_defined_vars());

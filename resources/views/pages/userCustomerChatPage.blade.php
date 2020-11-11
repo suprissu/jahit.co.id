@@ -11,7 +11,7 @@
         id: "222",
         userRole: "CLIENT",
         project: {
-            id: "123123",
+            id: "123",
             name: "Relawan Rompi COVID",
             amount: "13000",
             price: "1000000",
@@ -38,7 +38,7 @@
         id: "111",
         userRole: "CLIENT",
         project: {
-            id: "123123",
+            id: "123",
             name: "Relawan Rompi COVID",
             amount: "13000",
             price: "1000000",
@@ -214,6 +214,6 @@
 @endsection
 
 @section('extra-js')
-<script src="{{ asset('js/userChat.js') }}"></script>
 <script src="{{ asset('js/chatTemplate.js') }}"></script>
+<script src="{{ asset('js/userChat.js') }}"></script>
 @endsection

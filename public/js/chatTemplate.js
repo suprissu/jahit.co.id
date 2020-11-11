@@ -7,7 +7,7 @@ const initiationPartnerChat = (
 ) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/customer/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
             <h6 class="chatbox__message__projectTitle">${projectName}</h6>
             <p class="chatbox__message__projectAmount">Jumlah: <strong>${projectAmount} buah</strong></p>
@@ -41,7 +41,7 @@ const initiationCustomerChat = (
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
-            <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/user/customer/project/${projectId}">#${projectId}</a>)</p>
+            <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>)</p>
         </div>
     </div>
     `;
@@ -59,7 +59,7 @@ const proposeChat = (
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
-            <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/user/customer/project/${projectId}">#${projectId}</a>) dengan:</p>
+            <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>) dengan:</p>
             <p>Harga: <strong>Rp. ${projectPrice}</strong></p>
             <p>Mulai Pengerjaan: <strong>${projectStartDate}</strong></p>
             <p>Selesai Pengerjaan: <strong>${projectEndDate}</strong></p>
@@ -88,7 +88,7 @@ const negotiationChat = (
 ) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/customer/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
             <p class="chatbox__message__projectPrice">Rp. ${projectPrice}</p>
             <h6 class="chatbox__message__projectTitle">${projectName}</h6>
@@ -125,7 +125,7 @@ const negotiationAcceptChat = (
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
-            <p>Proyek ${projectAmount} buah ${projectName} (<a href="/user/customer/project/${projectId}">#${projectId}</a>) telah disetujui dengan:</p>
+            <p>Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>) telah disetujui dengan:</p>
             <p>Harga: <strong>Rp. ${projectPrice}</strong></p>
             <p>Mulai Pengerjaan: <strong>${projectStartDate}</strong></p>
             <p>Selesai Pengerjaan: <strong>${projectEndDate}</strong></p>

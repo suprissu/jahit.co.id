@@ -107,6 +107,19 @@ nav a.active {
 
 .dropdown-item {
     width: auto;
+    box-shadow: none;
+    border-radius: 5px;
+}
+
+.dropdown-item-danger {
+    color: #d52047 !important;
+}
+
+.text-danger:active,
+.text-danger:focus,
+.dropdown-item:active {
+    color: white !important;
+    box-shadow: none;
 }
 
 .bottom-navigation {

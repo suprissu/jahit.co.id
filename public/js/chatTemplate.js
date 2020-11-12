@@ -29,6 +29,7 @@ const initiationPartnerChat = (
             }
         </div>
     </div>
+    <br/>
     `;
 };
 
@@ -44,6 +45,7 @@ const initiationCustomerChat = (
             <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>)</p>
         </div>
     </div>
+    <br/>
     `;
 };
 
@@ -129,6 +131,88 @@ const negotiationAcceptChat = (
             <p>Harga: <strong>Rp. ${projectPrice}</strong></p>
             <p>Mulai Pengerjaan: <strong>${projectStartDate}</strong></p>
             <p>Selesai Pengerjaan: <strong>${projectEndDate}</strong></p>
+        </div>
+    </div>
+    `;
+};
+
+const runProjectPermission = (answer) => {
+    return `
+    <div class="chatbox__message chatbox__message--other">
+        <div class="chatbox__message__description">
+            <p>Apa yang ingin kamu lakukan ?</p>
+        </div>
+        <div class="chatbox__message__choice">
+        ${
+            answer !== undefined && answer !== null && answer !== ""
+                ? `
+                    <span class="py-2 px-3 badge badge-${
+                        answer === "deal" ? "success" : "light"
+                    }">${
+                      answer === "deal"
+                          ? "Proyek dijalankan"
+                          : "Permintaan sample diajukan"
+                  }</span>`
+                : `
+                    <button class="chatbox__message__negotiationReject btn btn-outline-danger" data-toggle="modal" data-target="#askSample">Minta Sample</button>
+            <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#runProject">Jalankan Proyek</button>
+                    `
+        }
+        </div>
+    </div>
+    `;
+};
+
+const askSample = (role, projectId, projectName, transactionId) => {
+    return `
+    <div class="chatbox__message chatbox__message--${role}">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__description">
+            <p>Kamu telah mengajukan permintaan sample kepada vendor untuk proyek ${projectName}. Klik "Lihat Transaksi" untuk melihat detail transaksi.</p>
+        </div>
+        <div class="chatbox__message__choice">
+            <a href="/user/transaction/${transactionId}"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
+        </div>
+    </div>
+    `;
+};
+
+const sampleDelivered = (answer, projectId) => {
+    return `
+    <div class="chatbox__message chatbox__message--other">
+        <div class="chatbox__message__description">
+            <p>Sample sudah dikirim! Klik <a href="/user/project/${projectId}">di sini</a> untuk melihat sample! Bagaimana pendapatmu?</p>
+        </div>
+        <div class="chatbox__message__choice">
+        ${
+            answer !== undefined && answer !== null && answer !== ""
+                ? `
+                    <span class="py-2 px-3 badge badge-${
+                        answer === "deal" ? "success" : "light"
+                    }">${
+                      answer === "deal"
+                          ? "Proyek dijalankan"
+                          : "Permintaan sample diajukan"
+                  }</span>`
+                : `
+                    <button class="chatbox__message__negotiationReject btn btn-outline-danger" data-toggle="modal" data-target="#askSample">Minta Sample Kembali</button>
+            <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#runProject">Jalankan Proyek</button>
+                    `
+        }
+        </div>
+    </div>
+    `;
+};
+
+const projectDeal = (role, projectId, projectName, transactionId) => {
+    return `
+    <div class="chatbox__message chatbox__message--${role}">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__description">
+            <p>Kamu telah menyetujui proyek ${projectName}. Proyek sedang dikerjakan oleh vendor. Klik "Lihat Transaksi" untuk melihat detail transaksi pembayaran DP.</p>
+        </div>
+        <div class="chatbox__message__choice">
+            <a href="/user/transaction/${transactionId}"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
         </div>
     </div>
     `;

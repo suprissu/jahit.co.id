@@ -113,7 +113,7 @@
             note: "test123",
         },
         transaction: {
-            id: "123111",
+            id: "123",
         },
         message: [
             {
@@ -122,8 +122,8 @@
             },
             {
                 role: "VENDOR",
-                type: "NEGOSIASI",
                 answer: "reject",
+                type: "NEGOSIASI",
             },
             {
                 role: "CLIENT",
@@ -131,7 +131,29 @@
             },
             {
                 role: "VENDOR",
+                answer: "sample",
                 type: "SETUJU",
+            },
+            {
+                role: "CLIENT",
+                type: "SAMPLE",
+            },
+            {
+                role: "ADMIN",
+                type: "VERIFIKASI",
+            },
+            {
+                role: "VENDOR",
+                answer: "deal",
+                type: "SAMPLE TERKIRIM",
+            },
+            {
+                role: "CLIENT",
+                type: "DEAL",
+            },
+            {
+                role: "ADMIN",
+                type: "VERIFIKASI",
             },
         ],
     },
@@ -173,7 +195,7 @@
                     </div>
                 </div>
 
-                <div class="navigation__item" data-id="333">
+                <div class="navigation__item" data-id="123">
                     <div class="navigation__left">
                         <h5 class="navigation__title">Rompi Relawan COVID</h5>
                         <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
@@ -183,7 +205,7 @@
                     </div>
                 </div>
 
-                <div class="navigation__item" data-id="123">
+                <div class="navigation__item" data-id="333">
                     <div class="navigation__left">
                         <h5 class="navigation__title">Rompi Relawan COVID</h5>
                         <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>

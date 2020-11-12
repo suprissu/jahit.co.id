@@ -67,6 +67,7 @@ const getChatProject = (chatId) => {
                 dateFormat(new Date(chat.project.end_date))
             );
         } else if (chat.message[i].type === "SETUJU") {
+            messages += runProjectPermission(chat.message[i].answer);
             messages += negotiationAcceptChat(
                 perspectiveMessage,
                 chat.project.id,
@@ -75,6 +76,25 @@ const getChatProject = (chatId) => {
                 chat.project.price,
                 dateFormat(new Date(chat.project.start_date)),
                 dateFormat(new Date(chat.project.end_date))
+            );
+        } else if (chat.message[i].type === "SAMPLE") {
+            messages += askSample(
+                perspectiveMessage,
+                chat.project.id,
+                chat.project.name,
+                chat.transaction.id
+            );
+        } else if (chat.message[i].type === "SAMPLE TERKIRIM") {
+            messages += sampleDelivered(
+                chat.message[i].answer,
+                chat.project.id
+            );
+        } else if (chat.message[i].type === "DEAL") {
+            messages += projectDeal(
+                perspectiveMessage,
+                chat.project.id,
+                chat.project.name,
+                chat.transaction.id
             );
         }
     }

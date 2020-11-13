@@ -168,6 +168,8 @@
 
 @section('content')
 @include('layouts/modalChatNegotiation')
+@include('layouts/modalChatProjectPermission')
+@include('layouts/modalChatAskSample')
 <div class="userChat">
     <div class="userChat__container">
         <h2 class="userChat__title">Pesan</h2>

@@ -217,3 +217,13 @@ const projectDeal = (role, projectId, projectName, transactionId) => {
     </div>
     `;
 };
+
+const revisionRejected = (projectId, projectName, excuse) => {
+    return `
+    <div class="chatbox__message chatbox__message--other">
+        <div class="chatbox__message__description">
+            <p>Revisi terhadap proyek ${projectName} (#${projectId}) <strong>ditolak</strong> dengan alasan <strong>${excuse}</strong></p>
+        </div>
+    </div>
+    `;
+};

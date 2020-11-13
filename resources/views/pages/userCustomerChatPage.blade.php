@@ -155,6 +155,11 @@
                 role: "ADMIN",
                 type: "VERIFIKASI",
             },
+            {
+                role: "VENDOR",
+                excuse: "Waktu tidak tersedia",
+                type: "REVISI DITOLAK",
+            },
         ],
     },
 ];
@@ -168,6 +173,7 @@
 
 @section('content')
 @include('layouts/modalChatNegotiation')
+@include('layouts/modalChatNegotiationAccept')
 @include('layouts/modalChatProjectPermission')
 @include('layouts/modalChatAskSample')
 <div class="userChat">

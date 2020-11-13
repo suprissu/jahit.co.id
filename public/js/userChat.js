@@ -96,6 +96,12 @@ const getChatProject = (chatId) => {
                 chat.project.name,
                 chat.transaction.id
             );
+        } else if (chat.message[i].type === "REVISI DITOLAK") {
+            messages += revisionRejected(
+                chat.project.id,
+                chat.project.name,
+                chat.message[i].excuse
+            );
         }
     }
 

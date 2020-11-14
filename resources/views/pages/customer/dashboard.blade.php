@@ -104,21 +104,38 @@
                 
                 <!-- Penawaran Terbuka -->
                 <div class="tab-pane fade" id="list-open-quotation" role="tabpanel" aria-labelledby="list-open-quotation-list">
+                    <!-- TODO: Make List Item -->
+                    <div class="text-center">
+                        <img width="50%" height="50%" src="{{ asset('img/warning/work_in_progress.gif') }}">
+                        <p>Mohon maaf. Halaman ini sedang dikerjakan..</p>
+                    </div>
                 </div>
                 
                 <!-- Proyek Dalam Pengerjaan -->
                 <div class="tab-pane fade" id="list-progress" role="tabpanel" aria-labelledby="list-progress-list">
                     <!-- TODO: Make List Item -->
+                    <div class="text-center">
+                        <img width="50%" height="50%" src="{{ asset('img/warning/work_in_progress.gif') }}">
+                        <p>Mohon maaf. Halaman ini sedang dikerjakan..</p>
+                    </div>    
                 </div>
                 
                 <!-- Proyek Selesai -->
                 <div class="tab-pane fade" id="list-finish" role="tabpanel" aria-labelledby="list-finish-list">
                     <!-- TODO: Make List Item -->
+                    <div class="text-center">
+                        <img width="50%" height="50%" src="{{ asset('img/warning/work_in_progress.gif') }}">
+                        <p>Mohon maaf. Halaman ini sedang dikerjakan..</p>
+                    </div>    
                 </div>
                 
                 <!-- Proyek Dibatalkan -->
                 <div class="tab-pane fade" id="list-cancel" role="tabpanel" aria-labelledby="list-cancel-list">
                     <!-- TODO: Make List Item -->
+                    <div class="text-center">
+                        <img width="50%" height="50%" src="{{ asset('img/warning/work_in_progress.gif') }}">
+                        <p>Mohon maaf. Halaman ini sedang dikerjakan..</p>
+                    </div>    
                 </div>
             </div>
         </div>

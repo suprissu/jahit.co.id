@@ -17,7 +17,7 @@
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Proyek</a>
+                    <a class="dropdown-item" href="{{ route('home') }}">Proyek</a>
                     <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Pesan</a>
                     <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Transaksi</a>
                     <div class="dropdown-divider"></div>
@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="bottom-navigation">
-                <a href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">
+                <a href="{{ route('home') }}">
                     <i class="fa fa-hotel" aria-hidden="true"></i><p>Proyek</p>
                 </a>
                 <a href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">

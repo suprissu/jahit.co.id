@@ -1,7 +1,8 @@
 <div class="modal fade pl-0" id="addProject" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="auth-form" method="POST" action="">
+            <form class="auth-form" method="POST" action="{{ route('home.customer.project.add') }}" enctype="multipart/form-data">
+                @csrf
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -9,35 +10,53 @@
                     <h4>Tambah Proyek</h4>
                     <div class="form-group">
                         <label for="add-project-name">Nama Proyek</label>
-                        <input name="project-name" placeholder="Masukkan nama proyek di sini" type="text" class="form-control" id="add-project-name" aria-describedby="nameHelp">
+                        <input name="name" placeholder="Masukkan nama proyek di sini" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" id="add-project-name" aria-describedby="nameHelp" required autofocus>
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-group">
-                        <label for="add-project-order">Jumlah Pesanan</label>
-                        <select class="form-control" name="project-order">
-                            <option value="">Pilih opsi</option>
-                            <option value="Seragam Putih">Seragam Putih</option>
-                            <option value="Seragam Kantoran">Seragam Kantoran</option>
-                            <option value="Seragam TNI">Seragam TNI</option>
-                            <option value="Seragam Pilot">Seragam Pilot</option>
+                        <label for="add-project-order">Kategori</label>
+                        <select class="form-control" name="category" required>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
+                        @error('category')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="add-project-order">Jumlah Pesanan</label>
-                        <input name="project-order" placeholder="Masukkan jumlah pesanan di sini" type="number" class="form-control" id="add-project-order" aria-describedby="orderHelp">
+                        <input name="count" placeholder="Masukkan jumlah pesanan di sini" type="number" class="form-control @error('count') is-invalid @enderror" value="{{ old('count') }}" id="add-project-order" aria-describedby="orderHelp" required>
+                        @error('count')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="add-project-address">Alamat</label>
-                        <input name="project-address" placeholder="Masukkan alamat di sini" type="text" class="form-control" id="add-project-address" aria-describedby="addressHelp">
+                        <input name="address" placeholder="Masukkan alamat di sini" type="text" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" id="add-project-address" aria-describedby="addressHelp" required autocomplete="address">
+                        @error('address')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="add-project-note">Catatan</label>
-                        <textarea name="project-note" placeholder="Masukkan catatan tambahan di sini" type="text" class="form-control" id="add-project-note" aria-describedby="noteHelp" rows="3"></textarea>
+                        <textarea name="note" placeholder="Masukkan catatan tambahan di sini" type="text" class="form-control" id="add-project-note" aria-describedby="noteHelp" rows="3"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="add-project-picture">Upload Gambar</label>
                         <div class="upload-files__container">
                             <div class="upload-files__wrapper">
-                                <input name="project-picture" class="upload-files__input" name="project_pict_path[]" id="add-project-picture" type="file" class="form-control @error('project_pict_path.0') is-invalid @enderror" value="{{ old('project_pict_path.0') }}" aria-describedby="pictureAddon" multiple>
+                                <input name="project_pict_path[]" class="upload-files__input" name="project_pict_path[]" id="add-project-picture" type="file" class="form-control @error('project_pict_path.0') is-invalid @enderror" value="{{ old('project_pict_path.0') }}" aria-describedby="pictureAddon" multiple>
                                 <label for="add-project-picture" class="upload-files__add">Upload file</label>
                             </div>
                             <div class="upload-files__preview">

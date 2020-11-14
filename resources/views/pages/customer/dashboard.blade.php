@@ -97,13 +97,9 @@
                 <!-- Semua Proyek -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: For loop List Item -->
-
-                    <project-item data-modalId="12d11dx" name="Penyelenggara Relawan COVID" price="1.300.000" amount="13.000" quotation="13" status="1" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
-                    <project-item data-modalId="12d11da" name="Seragam SMAN 4 Depok" price="2.400.000" amount="20.000" quotation="11" status="2" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
-                    <project-item data-modalId="12d11dx" name="Seragam Kantor" price="6.200.000" amount="24.000" quotation="14" startDate="2020-10-01T00:34:00Z" endDate="2020-10-30T00:00:00Z" status="3" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
-                    <project-item data-modalId="12d11da" name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" status="4" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
-                    <project-item data-modalId="12d11dx" name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" review="rekomen bgt" rating="4" status="5" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
-                    <project-item data-modalId="12d11da" name="Seragam Damkar" price="3.300.000" amount="50.000" quotation="12" status="6" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                    @foreach ($projects_all as $project)
+                        <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="@if($project->cost != null) {{ $project->cost }} @else - @endif" amount="{{ $project->count }}" quotation="13" status="0" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                    @endforeach
                 </div>
                 
                 <!-- Penawaran Terbuka -->

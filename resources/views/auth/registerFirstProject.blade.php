@@ -54,11 +54,16 @@
                     </div>
                     <div class="form-group">
                         <label for="register-order">Kategori</label>
-                        <select class="form-control" name="category">
+                        <select class="form-control" name="category" required>
                             @foreach ($categories as $category)
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
                         </select>
+                        @error('category')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="register-order">Jumlah Pesanan</label>

@@ -42,7 +42,7 @@ class ProjectTableSeeder extends Seeder
                 $project->name = $categories[array_rand($categories)] . ' ' . $faker->colorName;
                 $project->address = $faker->address;
                 $project->count = rand(1,200);
-                $project->status = ProjectStatusConstant::OPEN;
+                $project->status = ProjectStatusConstant::PROJECT_OPENED;
                 $project->category_id =  rand(1,count($categories));
                 $project->note = $faker->text($maxNbChars = 350);
         

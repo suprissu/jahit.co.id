@@ -347,7 +347,7 @@ class RegisterController extends Controller
             $project->name = $request->name;
             $project->address = $request->address;
             $project->count = $request->count;
-            $project->status = ProjectStatusConstant::OPEN;
+            $project->status = ProjectStatusConstant::PROJECT_OPENED;
             $project->category_id = $request->category;
             if ($request->note != null) {
                 $project->note = $request->note;

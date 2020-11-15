@@ -72,6 +72,7 @@ class ProjectItem extends HTMLElement {
 
     get status() {
         const status = {
+            0: `<div class="userProject__project__status">Segera Dikontak</div>`,
             1: `<div class="userProject__project__status">Penawaran Terbuka</div>`,
             2: `<div class="userProject__project__status">Mengirimkan Sample</div>`,
             3: `<div class="userProject__project__status--progress progress"><div class="progress-bar" role="progressbar" style="width: ${this.progress}%;" aria-valuenow="${this.progress}" aria-valuemin="0" aria-valuemax="100"><p>${this.remainingDay}</p></div></div>`,

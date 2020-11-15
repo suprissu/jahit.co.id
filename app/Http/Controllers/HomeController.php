@@ -65,6 +65,10 @@ class HomeController extends Controller
 
     private function customerDashboard(Request $request, $user, $role)
     {
+        $customer = $user->customer()->first();
+        $projects_all = $customer->projects()->orderBy('created_at', 'desc')->get();
+        $categories = ProjectCategory::all();
+
         return view('pages.customer.dashboard', get_defined_vars());
     }
 

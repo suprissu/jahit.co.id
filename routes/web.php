@@ -42,3 +42,12 @@ Route::group(['prefix' => 'register', 'as' => 'register.'], function () {
 });
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'home', 'as' => 'home.'], function () {
+    Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
+        Route::group(['prefix' => 'project', 'as' => 'project.'], function () {
+            Route::post('/add', 'ProjectController@store')->name('add');
+            Route::post('/edit', 'ProjectController@update')->name('edit');
+        });
+    });
+});

@@ -17,13 +17,13 @@ const initiationPartnerChat = (
         </div>
         <div class="chatbox__message__choice">
             ${
-                answer !== undefined || answer !== null || answer !== ""
+                answer !== undefined && answer !== null && answer !== ""
                     ? `
                     <span class="py-2 px-3 badge badge-${
                         answer === "accept" ? "success" : "danger"
                     }">${answer === "accept" ? "Diajukan" : "Ditolak"}</span>`
                     : `
-                    <button class="chatbox__message__initiationReject btn butline-danger" data-toggle="modal" data-target="#chatReject">Tolak</button>
+                    <button class="chatbox__message__initiationReject btn butline-danger" data-toggle="modal" data-target="#chatInitiationReject">Tolak</button>
                     <button class="chatbox__message__initiationPropose btn btn-danger" data-toggle="modal" data-target="#chatNegotiation">Ajukan</button>
                     `
             }
@@ -213,6 +213,66 @@ const projectDeal = (role, projectId, projectName, transactionId) => {
         </div>
         <div class="chatbox__message__choice">
             <a href="/user/transaction/${transactionId}"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
+        </div>
+    </div>
+    `;
+};
+
+const customerRevisionPurpose = (
+    role,
+    projectId,
+    projectName,
+    projectAmount,
+    projectPrice,
+    projectStartDate,
+    projectEndDate
+) => {
+    return `
+    <div class="chatbox__message chatbox__message--${role}">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__projectDetail">
+            <p class="chatbox__message__projectPrice">Rp. ${projectPrice}</p>
+            <h6 class="chatbox__message__projectTitle">${projectName}</h6>
+            <p class="chatbox__message__projectAmount">Jumlah pesanan: <strong>${projectAmount} buah</strong></p>
+            <p class="chatbox__message__projectDeadline">Mulai: <strong>${projectStartDate}</strong></p>
+            <p class="chatbox__message__projectDeadline">Selesai: <strong>${projectEndDate}</strong></p>
+        </div>
+    </div>
+    `;
+};
+
+const partnerRevisionPurpose = (
+    role,
+    answer,
+    projectId,
+    projectName,
+    projectAmount,
+    projectPrice,
+    projectStartDate,
+    projectEndDate
+) => {
+    return `
+    <div class="chatbox__message chatbox__message--${role}">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__projectDetail">
+            <p class="chatbox__message__projectPrice">Rp. ${projectPrice}</p>
+            <h6 class="chatbox__message__projectTitle">${projectName}</h6>
+            <p class="chatbox__message__projectAmount">Jumlah pesanan: <strong>${projectAmount} buah</strong></p>
+            <p class="chatbox__message__projectDeadline">Mulai: <strong>${projectStartDate}</strong></p>
+            <p class="chatbox__message__projectDeadline">Selesai: <strong>${projectEndDate}</strong></p>
+        </div>
+        <div class="chatbox__message__choice">
+        ${
+            answer !== undefined && answer !== null && answer !== ""
+                ? `
+                    <span class="py-2 px-3 badge badge-${
+                        answer === "accept" ? "success" : "danger"
+                    }">${answer === "accept" ? "Disetujui" : "Ditolak"}</span>`
+                : `
+                    <button class="chatbox__message__negotiationReject btn btn-outline-danger" data-toggle="modal" data-target="#chatNegotiation">Nego</button>
+            <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#chatAccept">Setuju</button>
+                    `
+        }
         </div>
     </div>
     `;

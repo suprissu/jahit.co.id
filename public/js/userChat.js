@@ -24,17 +24,17 @@ const getChatProject = (chatId) => {
         }
 
         if (chat.message[i].type === "INISIASI") {
-            if (chat.userRole === "VENDOR") {
-                messages += initiationPartnerChat(
+            if (chat.userRole === "CLIENT") {
+                messages += initiationCustomerChat(
                     perspectiveMessage,
-                    chat.message[i].answer,
                     chat.project.id,
                     chat.project.name,
                     chat.project.amount
                 );
             } else {
-                messages += initiationCustomerChat(
+                messages += initiationPartnerChat(
                     perspectiveMessage,
+                    chat.message[i].answer,
                     chat.project.id,
                     chat.project.name,
                     chat.project.amount
@@ -67,7 +67,9 @@ const getChatProject = (chatId) => {
                 dateFormat(new Date(chat.project.end_date))
             );
         } else if (chat.message[i].type === "SETUJU") {
-            messages += runProjectPermission(chat.message[i].answer);
+            if (chat.userRole === "CLIENT") {
+                messages += runProjectPermission(chat.message[i].answer);
+            }
             messages += negotiationAcceptChat(
                 perspectiveMessage,
                 chat.project.id,
@@ -96,6 +98,29 @@ const getChatProject = (chatId) => {
                 chat.project.name,
                 chat.transaction.id
             );
+        } else if (chat.message[i].type === "REVISI DIAJUKAN") {
+            if (chat.userRole === "CLIENT") {
+                messages += customerRevisionPurpose(
+                    perspectiveMessage,
+                    chat.project.id,
+                    chat.project.name,
+                    chat.project.amount,
+                    chat.project.price,
+                    dateFormat(new Date(chat.project.start_date)),
+                    dateFormat(new Date(chat.project.end_date))
+                );
+            } else {
+                messages += partnerRevisionPurpose(
+                    perspectiveMessage,
+                    chat.message[i].answer,
+                    chat.project.id,
+                    chat.project.name,
+                    chat.project.amount,
+                    chat.project.price,
+                    dateFormat(new Date(chat.project.start_date)),
+                    dateFormat(new Date(chat.project.end_date))
+                );
+            }
         } else if (chat.message[i].type === "REVISI DITOLAK") {
             messages += revisionRejected(
                 chat.project.id,

@@ -74,6 +74,72 @@
             },
         ],
     },
+    {
+        id: "333",
+        userRole: "VENDOR",
+        project: {
+            id: "123123",
+            name: "Relawan Rompi COVID",
+            amount: "15000",
+            price: "2000000",
+            start_date: "2020-10-29T03:59:09",
+            end_date: "2020-11-01T03:59:09",
+            note: "test123",
+        },
+        transaction: {
+            id: "123",
+        },
+        message: [
+            {
+                role: "CLIENT",
+                answer: "accept",
+                type: "INISIASI",
+            },
+            {
+                role: "VENDOR",
+                type: "DIAJUKAN",
+            },
+            {
+                role: "CLIENT",
+                type: "NEGOSIASI",
+                answer: "accept"
+            },
+            {
+                role: "VENDOR",
+                type: "SETUJU",
+            },
+            {
+                role: "CLIENT",
+                type: "SAMPLE",
+            },
+            {
+                role: "ADMIN",
+                type: "VERIFIKASI",
+            },
+            {
+                role: "VENDOR",
+                answer: "deal",
+                type: "SAMPLE TERKIRIM",
+            },
+            {
+                role: "CLIENT",
+                type: "DEAL",
+            },
+            {
+                role: "ADMIN",
+                type: "VERIFIKASI",
+            },
+            {
+                role: "CLIENT",
+                type: "REVISI DIAJUKAN",
+            },
+            {
+                role: "VENDOR",
+                excuse: "Waktu tidak tersedia",
+                type: "REVISI DITOLAK",
+            },
+        ],
+    },
 ];
 </script>
 @endsection
@@ -85,6 +151,7 @@
 
 @section('content')
 @include('layouts/modalChatNegotiation')
+@include('layouts/modalChatInitiationReject')
 <div class="userChat">
     <div class="userChat__container">
         <h2 class="userChat__title">Pesan</h2>
@@ -103,6 +170,16 @@
                 </div>
 
                 <div class="navigation__item" data-id="123">
+                    <div class="navigation__left">
+                        <h5 class="navigation__title">Rompi Relawan COVID</h5>
+                        <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                    </div>
+                    <div class="navigation__right">
+                        <p class="navigation__date">10 Maret 2020</p>
+                    </div>
+                </div>
+
+                <div class="navigation__item" data-id="333">
                     <div class="navigation__left">
                         <h5 class="navigation__title">Rompi Relawan COVID</h5>
                         <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>

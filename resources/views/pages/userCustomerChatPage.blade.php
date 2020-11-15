@@ -69,7 +69,7 @@
         id: "123",
         userRole: "CLIENT",
         project: {
-            id: "123123",
+            id: "123",
             name: "Relawan Rompi COVID",
             amount: "15000",
             price: "2000000",
@@ -104,7 +104,7 @@
         id: "333",
         userRole: "CLIENT",
         project: {
-            id: "123123",
+            id: "123",
             name: "Relawan Rompi COVID",
             amount: "15000",
             price: "2000000",

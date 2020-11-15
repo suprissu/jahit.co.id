@@ -6,9 +6,8 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <span class="badge badge-secondary">Menunggu Pembayaran</span>
-                    <h4>Penyelenggara Relawan COVID</h4>
-                    <h5 class="text-danger">Rp.1.300.000</h5>
+                    <h4 id="edit-project-name-text"></h4>
+                    <h5 class="text-danger" id="edit-project-price-text"></h5>
                     <input name="project-id" id="edit-project-id" type="text" style="display: none;" >
                     <div class="form-group">
                         <label for="edit-project-name">Nama Proyek</label>
@@ -39,7 +38,7 @@
                     </div>
                     <div class="form-group">
                         <label for="edit-project-vendor">Vendor</label>
-                        <input name="project-vendor" placeholder="Masukkan alamat di sini" type="text" class="form-control" id="edit-project-address" aria-describedby="addressHelp">
+                        <input name="project-vendor" placeholder="Masukkan alamat di sini" type="text" class="form-control" id="edit-project-vendor" aria-describedby="addressHelp">
                     </div>
                     <div class="form-group">
                         <label for="edit-project-startDate">Mulai Pengerjaan</label>
@@ -56,8 +55,6 @@
                     <div class="form-group">
                         <label for="edit-project-picture">Preview Gambar</label>
                         <div class="upload-files__container">
-                            <div class="upload-files__preview--edit">
-                            </div>
                         </div>
                         @error('project_pict_path.0')
                         <span class="invalid-feedback" role="alert">

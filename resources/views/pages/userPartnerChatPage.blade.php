@@ -152,6 +152,8 @@
 @section('content')
 @include('layouts/modalChatNegotiation')
 @include('layouts/modalChatInitiationReject')
+@include('layouts/modalChatRevisionAccept')
+@include('layouts/modalChatRevisionReject')
 <div class="userChat">
     <div class="userChat__container">
         <h2 class="userChat__title">Pesan</h2>

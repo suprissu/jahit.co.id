@@ -49,5 +49,8 @@ Route::group(['prefix' => 'home', 'as' => 'home.'], function () {
             Route::post('/add', 'ProjectController@store')->name('add');
             Route::post('/edit', 'ProjectController@update')->name('edit');
         });
+        Route::group(['prefix' => 'inbox', 'as' => 'inbox.'], function () {
+            Route::get('/all', 'InboxController@index')->name('all');
+        });
     });
 });

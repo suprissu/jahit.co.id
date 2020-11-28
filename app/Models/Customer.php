@@ -24,4 +24,9 @@ class Customer extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+    public function inboxes()
+    {
+        return $this->hasMany(Inbox::class);
+    }
 }

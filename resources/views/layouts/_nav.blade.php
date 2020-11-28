@@ -18,7 +18,7 @@
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{{ route('home') }}">Proyek</a>
-                    <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Pesan</a>
+                    <a class="dropdown-item" href="{{ route('home.customer.inbox.all') }}">Pesan</a>
                     <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Transaksi</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item dropdown-item-danger" href="{{ route('logout') }}"
@@ -31,7 +31,7 @@
                 <a href="{{ route('home') }}">
                     <i class="fa fa-hotel" aria-hidden="true"></i><p>Proyek</p>
                 </a>
-                <a href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">
+                <a href="{{ route('home.customer.inbox.all') }}">
                     <i class="fas fa-envelope" aria-hidden="true"></i><p>Pesan</p>
                 </a>
                 <a href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">

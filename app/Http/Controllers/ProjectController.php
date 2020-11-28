@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\ChatTemplateConstant;
 use App\Constant\RoleConstant;
 use App\Constant\ProjectStatusConstant;
 use App\Constant\WarningStatusConstant;
@@ -9,7 +10,9 @@ use App\Constant\WarningStatusConstant;
 use App\Helper\FileHelper;
 use App\Helper\RedirectionHelper;
 
+use App\Models\Chat;
 use App\Models\Customer;
+use App\Models\Inbox;
 use App\Models\Partner;
 use App\Models\Project;
 use App\Models\ProjectCategory;
@@ -186,6 +189,28 @@ class ProjectController extends Controller
                     $projectImage->project()->associate($project);
                     $projectImage->save();
                 }    
+            }
+
+            $partners = Partner::all();
+            foreach($partners as $partner){
+                $inbox = new Inbox;
+                $inbox->partner_id = $partner->id;
+                $inbox->customer_id = $customer->id;
+                $inbox->project()->associate($project);
+                $inbox->save();
+
+                $chatInit = new Chat;
+                $chatInit->role = ChatTemplateConstant::CUSTOMER_ROLE;
+                $chatInit->type = ChatTemplateConstant::INITIATION_TYPE;
+                $chatInit->inbox()->associate($inbox);
+                $chatInit->save();
+                                
+                $chatNego = new Chat;
+                $chatNego->role = ChatTemplateConstant::CUSTOMER_ROLE;
+                $chatNego->type = ChatTemplateConstant::NEGOTIATION_TYPE;
+                $chatNego->answer = ChatTemplateConstant::BLANK_ANSWER;
+                $chatNego->inbox()->associate($inbox);
+                $chatNego->save();
             }
         }
         return redirect($expectedStage);

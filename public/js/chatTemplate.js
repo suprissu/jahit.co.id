@@ -163,7 +163,7 @@ const runProjectPermission = (answer) => {
     `;
 };
 
-const askSample = (role, projectId, projectName, transactionId) => {
+const customerAskSample = (role, projectId, projectName, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
@@ -177,9 +177,20 @@ const askSample = (role, projectId, projectName, transactionId) => {
     `;
 };
 
-const sampleDelivered = (answer, projectId) => {
+const partnerAskSample = (role, projectId, projectName, transactionId) => {
     return `
-    <div class="chatbox__message chatbox__message--other">
+    <div class="chatbox__message chatbox__message--${role}">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__description">
+            <p>Pelanggan telah mengajukan permintaan sample kepada vendor untuk proyek ${projectName}.</p>
+        </div>
+    </div>
+    `;
+};
+
+const customerSampleDelivered = (role, answer, projectId) => {
+    return `
+    <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
             <p>Sample sudah dikirim! Klik <a href="/user/project/${projectId}">di sini</a> untuk melihat sample! Bagaimana pendapatmu?</p>
         </div>
@@ -204,15 +215,37 @@ const sampleDelivered = (answer, projectId) => {
     `;
 };
 
-const projectDeal = (role, projectId, projectName, transactionId) => {
+const partnerSampleDelivered = (role, projectId, projectName) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__description">
+            <p>Kamu telah mengirimkan sample untuk proyek ${projectName}.</p>
+        </div>
+    </div>
+    `;
+};
+
+const customerProjectDeal = (projectId, projectName, transactionId) => {
+    return `
+    <div class="chatbox__message chatbox__message--me">
         <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Kamu telah menyetujui proyek ${projectName}. Proyek sedang dikerjakan oleh vendor. Klik "Lihat Transaksi" untuk melihat detail transaksi pembayaran DP.</p>
         </div>
         <div class="chatbox__message__choice">
             <a href="/user/transaction/${transactionId}"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
+        </div>
+    </div>
+    `;
+};
+
+const partnerProjectDeal = (projectId, projectName, transactionId) => {
+    return `
+    <div class="chatbox__message chatbox__message--other">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__description">
+            <p>Pelanggan telah menyetujui proyek ${projectName}. Silahkan mulai untuk mengerjakan proyek dari sekarang !</p>
         </div>
     </div>
     `;
@@ -256,7 +289,7 @@ const partnerRevisionPurpose = (
         <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
             <p class="chatbox__message__projectPrice">Rp. ${projectPrice}</p>
-            <h6 class="chatbox__message__projectTitle">${projectName}</h6>
+            <h6 class="chatbox__message__projectTitle">Revisi Proyek ${projectName}</h6>
             <p class="chatbox__message__projectAmount">Jumlah pesanan: <strong>${projectAmount} buah</strong></p>
             <p class="chatbox__message__projectDeadline">Mulai: <strong>${projectStartDate}</strong></p>
             <p class="chatbox__message__projectDeadline">Selesai: <strong>${projectEndDate}</strong></p>
@@ -269,8 +302,8 @@ const partnerRevisionPurpose = (
                         answer === "accept" ? "success" : "danger"
                     }">${answer === "accept" ? "Disetujui" : "Ditolak"}</span>`
                 : `
-                    <button class="chatbox__message__negotiationReject btn btn-outline-danger" data-toggle="modal" data-target="#chatNegotiation">Nego</button>
-            <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#chatAccept">Setuju</button>
+                    <button class="chatbox__message__negotiationReject btn btn-outline-danger" data-toggle="modal" data-target="#revisionReject">Nego</button>
+            <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#revisionAccept">Setuju</button>
                     `
         }
         </div>

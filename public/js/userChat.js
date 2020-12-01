@@ -80,24 +80,49 @@ const getChatProject = (chatId) => {
                 dateFormat(new Date(chat.project.end_date))
             );
         } else if (chat.message[i].type === "SAMPLE") {
-            messages += askSample(
-                perspectiveMessage,
-                chat.project.id,
-                chat.project.name,
-                chat.transaction.id
-            );
+            if (chat.userRole === "CLIENT") {
+                messages += customerAskSample(
+                    perspectiveMessage,
+                    chat.project.id,
+                    chat.project.name,
+                    chat.transaction.id
+                );
+            } else {
+                messages += partnerAskSample(
+                    perspectiveMessage,
+                    chat.project.id,
+                    chat.project.name,
+                    chat.transaction.id
+                );
+            }
         } else if (chat.message[i].type === "SAMPLE TERKIRIM") {
-            messages += sampleDelivered(
-                chat.message[i].answer,
-                chat.project.id
-            );
+            if (chat.userRole === "CLIENT") {
+                messages += customerSampleDelivered(
+                    perspectiveMessage,
+                    chat.message[i].answer,
+                    chat.project.id
+                );
+            } else {
+                messages += partnerSampleDelivered(
+                    perspectiveMessage,
+                    chat.project.id,
+                    chat.project.name
+                );
+            }
         } else if (chat.message[i].type === "DEAL") {
-            messages += projectDeal(
-                perspectiveMessage,
-                chat.project.id,
-                chat.project.name,
-                chat.transaction.id
-            );
+            if (chat.userRole === "CLIENT") {
+                messages += customerProjectDeal(
+                    chat.project.id,
+                    chat.project.name,
+                    chat.transaction.id
+                );
+            } else {
+                messages += partnerProjectDeal(
+                    chat.project.id,
+                    chat.project.name,
+                    chat.transaction.id
+                );
+            }
         } else if (chat.message[i].type === "REVISI DIAJUKAN") {
             if (chat.userRole === "CLIENT") {
                 messages += customerRevisionPurpose(
@@ -122,11 +147,13 @@ const getChatProject = (chatId) => {
                 );
             }
         } else if (chat.message[i].type === "REVISI DITOLAK") {
-            messages += revisionRejected(
-                chat.project.id,
-                chat.project.name,
-                chat.message[i].excuse
-            );
+            if (chat.userRole === "CLIENT") {
+                messages += revisionRejected(
+                    chat.project.id,
+                    chat.project.name,
+                    chat.message[i].excuse
+                );
+            }
         }
     }
 

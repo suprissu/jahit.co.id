@@ -43,9 +43,9 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-group">
-                    <input placeholder="Masukkan password di sini" id="password" type="password" class="form-control @error('password') is-invalid @enderror" aria-describedby="passwordHelp" name="password" required autocomplete="new-password">
+                    <input placeholder="Masukkan password di sini" id="password" type="password" class="form-control @error('password') is-invalid @enderror password" aria-describedby="passwordHelp" name="password" required autocomplete="new-password">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="passwordHelp">
+                        <button class="btn btn-outline-secondary passwordHelp" type="button" id="passwordHelp">
                             <i class="far fa-eye-slash"></i>
                         </button>
                     </div>
@@ -60,9 +60,9 @@
             <div class="form-group">
                 <label for="password-confirm">Konfirmasi Password</label>
                 <div class="input-group">
-                    <input placeholder="Masukkan konfirmasi password di sini" id="password-confirm" type="password" class="form-control" aria-describedby="confirmationPasswordHelp" name="password_confirmation" required autocomplete="new-password">
+                    <input placeholder="Masukkan konfirmasi password di sini" id="password-confirm" type="password" class="form-control password" aria-describedby="confirmationPasswordHelp" name="password_confirmation" required autocomplete="new-password">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="confirmationPasswordHelp">
+                        <button class="btn btn-outline-secondary passwordHelp" type="button" id="confirmationPasswordHelp">
                             <i class="far fa-eye-slash"></i>
                         </button>
                     </div>
@@ -79,5 +79,5 @@
 @endsection
 
 @section('extra-js')
-    <script src="{{ asset('js/userRegisterPage.js') }}"></script>
+    <script src="{{ asset('js/showPassword.js') }}"></script>
 @endsection

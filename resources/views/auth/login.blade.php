@@ -34,9 +34,9 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <div class="input-group">
-                    <input placeholder="Masukkan password di sini" id="password" type="password" aria-describedby="passwordHelp" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <input placeholder="Masukkan password di sini" id="password" type="password" aria-describedby="passwordHelp" class="form-control @error('password') is-invalid @enderror password" name="password" required autocomplete="current-password">
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="passwordHelp">
+                        <button class="btn btn-outline-secondary passwordHelp" type="button" id="passwordHelp">
                             <i class="far fa-eye-slash"></i>
                         </button>
                     </div>
@@ -58,5 +58,5 @@
 @endsection
 
 @section('extra-js')
-    <script src="{{ asset('js/userLoginPage.js') }}"></script>
+    <script src="{{ asset('js/showPassword.js') }}"></script>
 @endsection

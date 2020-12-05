@@ -54,9 +54,13 @@ class PageController extends Controller
     {
         return view('pages.userCustomerTransactionPage', get_defined_vars());
     }
-    public function userTransactionDetailPage(Request $request)
+    public function userPartnerTransactionPage(Request $request)
     {
-        return view('pages.userTransactionDetailPage', get_defined_vars());
+        return view('pages.userPartnerTransactionPage', get_defined_vars());
+    }
+    public function userPartnerAddMaterialPage(Request $request)
+    {
+        return view('pages.userPartnerAddMaterialPage', get_defined_vars());
     }
     public function userCustomerChatPage(Request $request)
     {

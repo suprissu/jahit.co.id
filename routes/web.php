@@ -25,6 +25,8 @@ Route::get('/user/customer/transaction', 'PageController@userCustomerTransaction
 Route::get('/user/customer/chat', 'PageController@userCustomerChatPage')->name('userCustomerChatPage');
 Route::get('/user/partner/register', 'PageController@userPartnerRegisterPage')->name('userPartnerRegisterPage');
 Route::get('/user/partner/chat', 'PageController@userPartnerChatPage')->name('userPartnerChatPage');
+Route::get('/user/partner/transaction', 'PageController@userPartnerTransactionPage')->name('userPartnerTransactionPage');
+Route::get('/user/partner/material/add', 'PageController@userPartnerAddMaterialPage')->name('userPartnerAddMaterialPage');
 Route::get('/notfound', 'PageController@notfound')->name('notfound');
 Route::get('/warning/{type}', 'PageController@warning')->name('warning');
 

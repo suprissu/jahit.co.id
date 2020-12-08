@@ -40,6 +40,21 @@
     flex-direction: column;
 }
 
+.navigation__story {
+    display: flex;
+    align-items: center;
+}
+
+.navigation__story .navigation__item {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin: 5px 5px 1rem 5px;
+}
+
 .navigation__item {
     height: fit-content;
     display: flex;

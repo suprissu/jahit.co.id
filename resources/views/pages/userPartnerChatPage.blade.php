@@ -159,7 +159,11 @@
         <h2 class="userChat__title">Pesan</h2>
         <div class="chatbox">
             <div class="chatbox__navigation navigation">
-                <div class="navigation__story"></div>
+                <div class="navigation__story">
+                    <div class="navigation__item" data-id="111">R</div>
+                    <div class="navigation__item" data-id="111">R</div>
+                    <div class="navigation__item" data-id="111">R</div>
+                </div>
 
                 <div class="navigation__item" data-id="111">
                     <div class="navigation__left">

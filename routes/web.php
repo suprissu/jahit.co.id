@@ -32,6 +32,7 @@ Route::get('/warning/{type}', 'PageController@warning')->name('warning');
 Route::get('/admin/chat', 'PageController@adminChat')->name('adminChat');
 Route::get('/admin/transaction', 'PageController@adminTransaction')->name('adminTransaction');
 Route::get('/admin/material', 'PageController@adminMaterial')->name('adminMaterial');
+Route::get('/admin/user-verification', 'PageController@adminUserVerification')->name('adminUserVerification');
 
 Auth::routes();
 

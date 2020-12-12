@@ -87,6 +87,10 @@ class PageController extends Controller
     {
         return view('pages.adminMaterial', get_defined_vars());
     }
+    public function adminUserVerification(Request $request)
+    {
+        return view('pages.adminUserVerification', get_defined_vars());
+    }
 
     public function notfound(Request $request)
     {

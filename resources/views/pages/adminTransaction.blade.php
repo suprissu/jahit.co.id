@@ -11,27 +11,27 @@
 @endsection
 
 @section('extra-css')
-<link rel="stylesheet" href="{{ asset('css/adminTransaction.css') }}">
+<link rel="stylesheet" href="{{ asset('css/tabular.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form.css') }}">
 @endsection
 
 @section('content')
-<div class="admin__transaction">
-    <div class="admin__transaction___container container">
+<div class="tabular">
+    <div class="tabular___container container">
         <h3 class="mb-3">Transaction Administrator</h3>
         <div class="row">
             <div class="col">
-                <div class="admin__transaction__header list-group" id="list-tab" role="tablist">
+                <div class="tabular__header list-group" id="list-tab" role="tablist">
                         <a class="list-group-item list-group-item-action active" id="list-waiting-list" data-toggle="list" href="#list-waiting" role="tab" aria-controls="customer">Menunggu Verifikasi</a>
                         <a class="list-group-item list-group-item-action" id="list-verified-list" data-toggle="list" href="#list-verified" role="tab" aria-controls="partner">Disetujui</a>
                         <a class="list-group-item list-group-item-action" id="list-reject-list" data-toggle="list" href="#list-reject" role="tab" aria-controls="project">Ditolak</a>
                 </div>
-                <div class="admin__transaction__list header tab-content" id="nav-tabContent">
+                <div class="tabular__list header tab-content" id="nav-tabContent">
                     
                     <!-- Semua Proyek -->
                     <div class="tab-pane fade show active" id="list-waiting" role="tabpanel" aria-labelledby="list-waiting-list">
                         <!-- TODO: Make List Item -->
-                            <ul class="transaction__proof list-group my-3">
+                            <ul class="list-group my-3">
                                 <li class="list-group-item">
                                     <div class="row">
                                         <div class="col-sm-12 col-md-4">
@@ -46,7 +46,7 @@
                                                     <option value="ACCEPT">Disetujui</option>
                                                     <option value="REJECT">Ditolak</option>
                                                 </select>
-                                                <button class="transaction__accept btn btn-danger mt-2 ">Kirim</button>
+                                                <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
                                             </form>
                                         </div>
                                     </div>

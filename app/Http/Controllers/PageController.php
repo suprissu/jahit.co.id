@@ -79,6 +79,10 @@ class PageController extends Controller
     {
         return view('pages.adminChat', get_defined_vars());
     }
+    public function adminTransaction(Request $request)
+    {
+        return view('pages.adminTransaction', get_defined_vars());
+    }
 
     public function notfound(Request $request)
     {

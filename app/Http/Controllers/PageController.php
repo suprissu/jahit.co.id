@@ -75,6 +75,10 @@ class PageController extends Controller
     {
         return view('pages.userPartnerChatPage', get_defined_vars());
     }
+    public function adminChat(Request $request)
+    {
+        return view('pages.adminChat', get_defined_vars());
+    }
 
     public function notfound(Request $request)
     {

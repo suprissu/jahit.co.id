@@ -29,6 +29,7 @@ Route::get('/user/partner/transaction', 'PageController@userPartnerTransactionPa
 Route::get('/user/partner/material/add', 'PageController@userPartnerAddMaterialPage')->name('userPartnerAddMaterialPage');
 Route::get('/notfound', 'PageController@notfound')->name('notfound');
 Route::get('/warning/{type}', 'PageController@warning')->name('warning');
+Route::get('/admin/chat', 'PageController@adminChat')->name('adminChat');
 
 Auth::routes();
 

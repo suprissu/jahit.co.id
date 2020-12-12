@@ -164,11 +164,22 @@ $(".navigation__item").on("click", (e) => {
     $(".navigation__item").removeClass("active");
     const nav = e.currentTarget;
     nav.classList.add("active");
-
-    const chat = getChatProject(nav.getAttribute("data-id"));
+    const chatId = nav.getAttribute("data-id");
+    const chat = getChatProject(chatId);
 
     const chatContent = document.createElement("div");
     chatContent.classList.add("chatbox__messages__wrapper");
     chatContent.innerHTML = chat;
+    const chatInput = `
+        <form action="/admin/chat/${chatId}/add" method="POST">
+            <input name="chat" placeholder="Masukkan pesan anda di sini" type="text" class="form-control">
+            <button type="submit" class="btn btn-danger">Kirim</button>
+        </form>
+    `;
+    const chatInputWrapper = $(".chatbox__input");
+    console.log(chatInputWrapper);
+    if (chatInputWrapper.length > 0) {
+        chatInputWrapper.html(chatInput);
+    }
     $(".chatbox__messages").html(chatContent);
 });

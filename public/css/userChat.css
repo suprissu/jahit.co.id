@@ -253,6 +253,11 @@
     color: #d52047;
 }
 
-.chatbox__input {
-    
+.chatbox__input form {
+    display: flex;
+    padding: 5px;
+}
+
+.chatbox__input input {
+    margin-right: 5px;
 }

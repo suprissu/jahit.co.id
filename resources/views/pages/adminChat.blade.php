@@ -237,8 +237,6 @@
                     </div>
                 </div>
                 <div class="chatbox__input">
-                    <input placeholder="Masukkan pesan anda di sini" type="text" class="form-control">
-                    <button class="btn btn-danger">Kirim</button>
                 </div>
             </div>
         </div>

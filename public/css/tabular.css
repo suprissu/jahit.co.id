@@ -1,0 +1,83 @@
+.tabular {
+    margin: 12vh 0;
+}
+
+.tabular {
+    min-height: 70vh;
+    margin-top: 70px;
+}
+
+.tabular__container {
+    width: 1024px;
+    margin: 5vh auto;
+}
+
+.tabular__header {
+    display: flex;
+    flex-direction: row;
+}
+.tabular__header a {
+    flex: 1;
+    width: auto;
+    border: 1px solid rgba(213, 32, 71, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 0;
+    white-space: nowrap;
+}
+
+.tabular__header a.active {
+    background: rgba(213, 32, 71, 0.4);
+    border: transparent;
+    font-weight: 500;
+    color: #000;
+}
+
+.tabular__header a:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-right: 1px solid rgba(213, 32, 71, 0.4);
+}
+
+.tabular__header a:not(:last-child) {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.tabular__header a:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+@media only screen and (max-width: 1024px) {
+    .tabular__container {
+        width: auto;
+        margin: 5vh 5vw;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .tabular__projects__list > div {
+        margin-top: 1rem;
+        height: 70vh;
+        overflow-y: auto;
+    }
+
+    .tabular__projects__list > div::-webkit-scrollbar {
+        display: none;
+    }
+
+    .tabular__header {
+        overflow-x: auto;
+        font-size: 14px;
+    }
+
+    .tabular__header::-webkit-scrollbar {
+        display: none;
+    }
+}

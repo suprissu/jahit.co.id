@@ -31,6 +31,7 @@ Route::get('/notfound', 'PageController@notfound')->name('notfound');
 Route::get('/warning/{type}', 'PageController@warning')->name('warning');
 Route::get('/admin/chat', 'PageController@adminChat')->name('adminChat');
 Route::get('/admin/transaction', 'PageController@adminTransaction')->name('adminTransaction');
+Route::get('/admin/material', 'PageController@adminMaterial')->name('adminMaterial');
 
 Auth::routes();
 

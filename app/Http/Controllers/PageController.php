@@ -83,6 +83,10 @@ class PageController extends Controller
     {
         return view('pages.adminTransaction', get_defined_vars());
     }
+    public function adminMaterial(Request $request)
+    {
+        return view('pages.adminMaterial', get_defined_vars());
+    }
 
     public function notfound(Request $request)
     {

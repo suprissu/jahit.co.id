@@ -1,68 +1,90 @@
 @extends('layouts.base')
 
-@section('title', 'Inbox Customer')
+@section('title', 'Inbox Partner')
 
 @section('extra-fonts')
 
 @endsection
 
 @section('prerender-js')
-<script>
-    const chatProject = [
-        @foreach( $inboxes as $inbox )
-            {
-                id: "{{ $inbox->id }}",
-                userRole: "{{ $role }}",
-                customerId: "{{ $inbox->customer_id }}",
-                partnerId: "{{ $inbox->partner_id }}",
-                projectId: "{{ $inbox->project_id }}",
-                project: {
-                    id: "{{ $inbox->project->id }}",
-                    name: "{{ $inbox->project->name }}",
-                    amount: "{{ $inbox->project->count }}",
-                    price: "{{ $inbox->project->cost }}",
-                    start_date: "{{ $inbox->project->start_date }}",
-                    end_date: "{{ $inbox->project->end_date }}",
-                    note: "{{ $inbox->project->note }}",
-                },
-                transaction: {
-                    id: "{{ $inbox->project->name }}",
-                },
-                message: [
-                    @foreach( $inbox->chats as $chat )
-                        {
-                            @inject('chatConstants', 'App\Constant\ChatTemplateConstant')
-                            @if (($chat->type != $chatConstants::NEGOTIATION_TYPE || $chat->answer != $chatConstants::BLANK_ANSWER || $chat->role != $role ) &&
-                                ($chat->type != $chatConstants::NEGOTIATION_TYPE || $chat->answer != $chatConstants::REJECT_ANSWER || $chat->role != $role ) &&
-                                ($chat->type != $chatConstants::PROJECT_OFFER_TYPE || $chat->role == $role ))
-
-                                id: "{{ $chat->id }}",
-                                role: "{{ $chat->role }}",
-                                type: "{{ $chat->type }}",
-                                @if( $chat->answer != null )
-                                    answer: "{{ $chat->answer }}",
-                                @endif
-                                @if( $chat->excuse != null )
-                                    excuse: "{{ $chat->excuse }}",
-                                @endif
-                                @if( $chat->negotiation != null )
+    <script>
+        const chatProject = [
+            @foreach( $inboxes as $inbox )
+                {
+                    id: "{{ $inbox->id }}",
+                    userRole: "{{ $role }}",
+                    customerId: "{{ $inbox->customer_id }}",
+                    partnerId: "{{ $inbox->partner_id }}",
+                    projectId: "{{ $inbox->project_id }}",
+                    project: {
+                        id: "{{ $inbox->project->id }}",
+                        name: "{{ $inbox->project->name }}",
+                        amount: "{{ $inbox->project->count }}",
+                        price: "{{ $inbox->project->cost }}",
+                        start_date: "{{ $inbox->project->start_date }}",
+                        end_date: "{{ $inbox->project->end_date }}",
+                        note: "{{ $inbox->project->note }}",
+                    },
+                    transaction: {
+                        id: "{{ $inbox->project->name }}",
+                    },
+                    message: [
+                        @foreach( $inbox->chats as $chat )
+                            {
+                                @inject('chatConstants', 'App\Constant\ChatTemplateConstant')
+                                @if (($chat->type != $chatConstants::NEGOTIATION_TYPE || $chat->answer != $chatConstants::BLANK_ANSWER || $chat->role != $role ) &&
+                                    ($chat->type != $chatConstants::NEGOTIATION_TYPE || $chat->answer != $chatConstants::REJECT_ANSWER || $chat->role != $role ) &&
+                                    ($chat->type != $chatConstants::PROJECT_OFFER_TYPE || $chat->role == $role ))
+                                        
+                                    id: "{{ $chat->id }}",
+                                    role: "{{ $chat->role }}",
+                                    type: "{{ $chat->type }}",
+                                    @if( $chat->answer != null )
+                                        answer: "{{ $chat->answer }}",
+                                    @endif
+                                    @if( $chat->excuse != null )
+                                        excuse: "{{ $chat->excuse }}",
+                                    @endif
+                                    @if( $chat->negotiation != null )
                                     negotiation: {
-                                        id : "{{ $chat->negotiation->id }}",
-                                        price: "{{ $chat->negotiation->cost }}",
-                                        start_date: "{{ $chat->negotiation->start_date }}",
-                                        end_date: "{{ $chat->negotiation->deadline }}",
-                                    },
-                                @else
-                                    negotiation: "",
+                                            id : "{{ $chat->negotiation->id }}",
+                                            price: "{{ $chat->negotiation->cost }}",
+                                            start_date: "{{ $chat->negotiation->start_date }}",
+                                            end_date: "{{ $chat->negotiation->deadline }}",
+                                        },
+                                    @endif
                                 @endif
-                            @endif
-                        },
-                    @endforeach
-                ],
-            },
-        @endforeach
-    ];
-</script>
+                            },
+                        @endforeach
+                    ],
+                },
+            @endforeach
+        ];
+
+        function getInboxData(id) {
+
+            const data = chatProject.find((data) => data.id == id);
+
+            const userRole = data.userRole
+            const customerId = data.customerId
+            const partnerId = data.partnerId
+            const projectId = data.projectId
+            const project = data.project
+            const transaction = data.transaction
+            const message = data.message
+
+            return {
+                id,
+                userRole,
+                customerId,
+                partnerId,
+                projectId,
+                project,
+                transaction,
+                message
+            }
+        }
+    </script>
 @endsection
 
 @section('extra-css')
@@ -73,8 +95,9 @@
 @section('content')
 @include('layouts/modalChatNegotiation')
 @include('layouts/modalChatNegotiationAccept')
-@include('layouts/modalChatProjectPermission')
-@include('layouts/modalChatAskSample')
+@include('layouts/modalChatInitiationReject')
+@include('layouts/modalChatRevisionAccept')
+@include('layouts/modalChatRevisionReject')
 <div class="userChat">
     <div class="userChat__container">
         <h2 class="userChat__title">Pesan</h2>
@@ -85,7 +108,7 @@
                 @foreach( $inboxes as $inbox )
                     <div class="navigation__item" data-id="{{ $inbox->id }}">
                         <div class="navigation__left">
-                            <h5 class="navigation__title">{{ $inbox->partner->company_name }}</h5>
+                            <h5 class="navigation__title">{{ $inbox->customer->company_name }}</h5>
                             <p class="navigation__description">{{ $inbox->project->name }}</p>
                         </div>
                         <div class="navigation__right">
@@ -157,23 +180,6 @@
 
         $("#chat-negotiation-accept-form").attr("action", "{{ route('home.inbox.nego.accept') }}");
         $("#chat-negotiation-accept-form").append('@csrf');
-    }
-
-    var changeModalChatAskSample = function(e) {
-        const projectID = e.getAttribute("data-projectId");
-        const partnerID = e.getAttribute("data-partnerId");
-        const inboxID = e.getAttribute("data-inboxId");
-        const chatID = e.getAttribute("data-chatId");
-        const negotiationID = e.getAttribute("data-negotiationId");
-
-        $(".negotiation-project-id").val(projectID);
-        $(".negotiation-partner-id").val(partnerID);
-        $(".negotiation-inbox-id").val(inboxID);
-        $(".negotiation-chat-id").val(chatID);
-        $(".negotiation-negotiation-id").val(negotiationID);
-
-        $("#chat-ask-sample-form").attr("action", "{{ route('home.inbox.sample.request') }}");
-        $("#chat-ask-sample-form").append('@csrf');
     }
     
 </script>

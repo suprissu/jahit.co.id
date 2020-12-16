@@ -58,6 +58,14 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
             Route::post('/reject', 'InboxController@rejectNego')->name('.reject');
             Route::post('/accept', 'InboxController@acceptNego')->name('.accept');
         });
+        Route::group(['prefix' => 'sample', 'as' => '.sample'], function () {
+            Route::post('/request', 'InboxController@requestSample')->name('.request');
         });
     });
+
+    Route::group(['prefix' => 'transaction', 'as' => '.transaction'], function () {
+        Route::get('', 'TransactionController@userTransaction')->name('');
+        Route::post('/uploadPaymentSlip', 'TransactionController@uploadPaymentSlip')->name('.uploadPaymentSlip');
+    });
+
 });

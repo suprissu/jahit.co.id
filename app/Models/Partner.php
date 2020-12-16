@@ -34,4 +34,9 @@ class Partner extends Model
     {
         return $this->hasMany(Negotiation::class);
     }
+    
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

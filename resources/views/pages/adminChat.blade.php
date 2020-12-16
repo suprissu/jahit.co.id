@@ -8,10 +8,10 @@
 <script>
     const chatProject = [
     {
-        id: "111",
-        userRole: "VENDOR",
+        id: "222",
+        userRole: "CLIENT",
         project: {
-            id: "123123",
+            id: "123",
             name: "Relawan Rompi COVID",
             amount: "13000",
             price: "1000000",
@@ -26,16 +26,38 @@
             {
                 role: "CLIENT",
                 type: "INISIASI",
-                answer: "accept"
             },
             {
                 role: "VENDOR",
-                type: "DIAJUKAN",
-                negotiation: {
-                    price: "1000000",
-                    start_date: "2020-10-29T03:59:09",
-                    end_date: "2020-11-01T03:59:09",
-                }
+                type: "NEGOSIASI",
+                answer: "",
+            },
+        ],
+    },
+    {
+        id: "111",
+        userRole: "CLIENT",
+        project: {
+            id: "123",
+            name: "Relawan Rompi COVID",
+            amount: "13000",
+            price: "1000000",
+            start_date: "2020-10-29T03:59:09",
+            end_date: "2020-11-01T03:59:09",
+            note: "test",
+        },
+        transaction: {
+            id: "123111",
+        },
+        message: [
+            {
+                role: "CLIENT",
+                type: "INISIASI",
+            },
+            {
+                role: "VENDOR",
+                type: "NEGOSIASI",
+                answer: "accept",
             },
             {
                 role: "CLIENT",
@@ -45,9 +67,9 @@
     },
     {
         id: "123",
-        userRole: "VENDOR",
+        userRole: "CLIENT",
         project: {
-            id: "123123",
+            id: "123",
             name: "Relawan Rompi COVID",
             amount: "15000",
             price: "2000000",
@@ -62,43 +84,27 @@
             {
                 role: "CLIENT",
                 type: "INISIASI",
-                answer: "reject"
             },
             {
                 role: "VENDOR",
-                type: "DIAJUKAN",
-                negotiation: {
-                    price: "1000000",
-                    start_date: "2020-10-29T03:59:09",
-                    end_date: "2020-11-01T03:59:09",
-                }
+                type: "NEGOSIASI",
+                answer: "reject",
             },
             {
                 role: "CLIENT",
-                type: "NEGOSIASI",
-                answer: "accept",
-                negotiation: {
-                    price: "1000000",
-                    start_date: "2020-10-29T03:59:09",
-                    end_date: "2020-11-01T03:59:09",
-                }
+                type: "DIAJUKAN",
             },
             {
                 role: "VENDOR",
                 type: "SETUJU",
-                negotiation: {
-                    price: "1000000",
-                    start_date: "2020-10-29T03:59:09",
-                    end_date: "2020-11-01T03:59:09",
-                }
             },
         ],
     },
     {
         id: "333",
-        userRole: "VENDOR",
+        userRole: "CLIENT",
         project: {
-            id: "123123",
+            id: "123",
             name: "Relawan Rompi COVID",
             amount: "15000",
             price: "2000000",
@@ -112,30 +118,20 @@
         message: [
             {
                 role: "CLIENT",
-                answer: "accept",
                 type: "INISIASI",
             },
             {
                 role: "VENDOR",
-                type: "DIAJUKAN",
-                negotiation: {
-                    price: "1000000",
-                    start_date: "2020-10-29T03:59:09",
-                    end_date: "2020-11-01T03:59:09",
-                }
+                answer: "reject",
+                type: "NEGOSIASI",
             },
             {
                 role: "CLIENT",
-                type: "NEGOSIASI",
-                answer: "accept",
-                negotiation: {
-                    price: "1000000",
-                    start_date: "2020-10-29T03:59:09",
-                    end_date: "2020-11-01T03:59:09",
-                }
+                type: "DIAJUKAN",
             },
             {
                 role: "VENDOR",
+                answer: "sample",
                 type: "SETUJU",
             },
             {
@@ -160,10 +156,6 @@
                 type: "VERIFIKASI",
             },
             {
-                role: "CLIENT",
-                type: "REVISI DIAJUKAN",
-            },
-            {
                 role: "VENDOR",
                 excuse: "Waktu tidak tersedia",
                 type: "REVISI DITOLAK",
@@ -181,18 +173,23 @@
 
 @section('content')
 @include('layouts/modalChatNegotiation')
-@include('layouts/modalChatInitiationReject')
-@include('layouts/modalChatRevisionAccept')
-@include('layouts/modalChatRevisionReject')
+@include('layouts/modalChatNegotiationAccept')
+@include('layouts/modalChatProjectPermission')
+@include('layouts/modalChatAskSample')
 <div class="userChat">
     <div class="userChat__container">
         <h2 class="userChat__title">Pesan</h2>
         <div class="chatbox">
             <div class="chatbox__navigation navigation">
-                <div class="navigation__story">
-                    <div class="navigation__item" data-id="111">R</div>
-                    <div class="navigation__item" data-id="111">R</div>
-                    <div class="navigation__item" data-id="111">R</div>
+
+                <div class="navigation__item" data-id="222">
+                    <div class="navigation__left">
+                        <h5 class="navigation__title">Rompi Relawan COVID</h5>
+                        <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                    </div>
+                    <div class="navigation__right">
+                        <p class="navigation__date">10 Maret 2020</p>
+                    </div>
                 </div>
 
                 <div class="navigation__item" data-id="111">
@@ -239,6 +236,8 @@
                         <h5 class="chatbox__noMessages__title">Mulai transaksi untuk melihat chat.</h5>
                     </div>
                 </div>
+                <div class="chatbox__input">
+                </div>
             </div>
         </div>
     </div>
@@ -246,6 +245,6 @@
 @endsection
 
 @section('extra-js')
-<script src="{{ asset('js/userChat.js') }}"></script>
 <script src="{{ asset('js/chatTemplate.js') }}"></script>
+<script src="{{ asset('js/userChat.js') }}"></script>
 @endsection

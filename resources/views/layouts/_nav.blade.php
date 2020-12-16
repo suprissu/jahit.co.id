@@ -12,14 +12,21 @@
             <div class="dropdown">
                 <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <button class="btn btn-outline-light dropdown-toggle">
-                        {{ Auth::user()->name }}
+                        @inject('roleConstants', 'App\Constant\RoleConstant')
+                        @if ( Auth::user()->roles()->first()->name == $roleConstants::CUSTOMER )
+                            {{ Auth::user()->customer->company_name }}
+                        @elseif ( Auth::user()->roles()->first()->name == $roleConstants::PARTNER )
+                            {{ Auth::user()->partner->company_name }}
+                        @else
+                            {{ Auth::user()->name }}
+                        @endif
                     </button>
                 </a>
 
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{{ route('home') }}">Proyek</a>
-                    <a class="dropdown-item" href="{{ route('home.customer.inbox.all') }}">Pesan</a>
-                    <a class="dropdown-item" href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">Transaksi</a>
+                    <a class="dropdown-item" href="{{ route('home.inbox') }}">Pesan</a>
+                    <a class="dropdown-item" href="{{ route('home.transaction') }}">Transaksi</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item dropdown-item-danger" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -31,10 +38,10 @@
                 <a href="{{ route('home') }}">
                     <i class="fa fa-hotel" aria-hidden="true"></i><p>Proyek</p>
                 </a>
-                <a href="{{ route('home.customer.inbox.all') }}">
+                <a href="{{ route('home.inbox') }}">
                     <i class="fas fa-envelope" aria-hidden="true"></i><p>Pesan</p>
                 </a>
-                <a href="{{ route('warning', ['type' => App\Constant\WarningStatusConstant::WORK_IN_PROGRESS]) }}">
+                <a href="{{ route('home.transaction') }}">
                     <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Transaksi</p>
                 </a>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

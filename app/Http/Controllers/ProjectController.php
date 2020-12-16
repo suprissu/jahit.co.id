@@ -107,6 +107,21 @@ class ProjectController extends Controller
                     $projectImage->save();
                 }
             }
+
+            $partners = Partner::all();
+            foreach($partners as $partner){
+                $inbox = new Inbox;
+                $inbox->partner_id = $partner->id;
+                $inbox->customer_id = $customer->id;
+                $inbox->project()->associate($project);
+                $inbox->save();
+
+                $chatInit = new Chat;
+                $chatInit->role = ChatTemplateConstant::CUSTOMER_ROLE;
+                $chatInit->type = ChatTemplateConstant::INITIATION_TYPE;
+                $chatInit->inbox()->associate($inbox);
+                $chatInit->save();
+            }
         }
         return redirect($expectedStage);
     }
@@ -204,13 +219,6 @@ class ProjectController extends Controller
                 $chatInit->type = ChatTemplateConstant::INITIATION_TYPE;
                 $chatInit->inbox()->associate($inbox);
                 $chatInit->save();
-                                
-                $chatNego = new Chat;
-                $chatNego->role = ChatTemplateConstant::CUSTOMER_ROLE;
-                $chatNego->type = ChatTemplateConstant::NEGOTIATION_TYPE;
-                $chatNego->answer = ChatTemplateConstant::BLANK_ANSWER;
-                $chatNego->inbox()->associate($inbox);
-                $chatNego->save();
             }
         }
         return redirect($expectedStage);

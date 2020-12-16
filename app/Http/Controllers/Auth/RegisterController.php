@@ -390,13 +390,6 @@ class RegisterController extends Controller
                 $chatInit->type = ChatTemplateConstant::INITIATION_TYPE;
                 $chatInit->inbox()->associate($inbox);
                 $chatInit->save();
-                                
-                $chatNego = new Chat;
-                $chatNego->role = ChatTemplateConstant::CUSTOMER_ROLE;
-                $chatNego->type = ChatTemplateConstant::NEGOTIATION_TYPE;
-                $chatNego->answer = ChatTemplateConstant::BLANK_ANSWER;
-                $chatNego->inbox()->associate($inbox);
-                $chatNego->save();
             }
 
             $expectedStage = $this->nextPathStage($expectedStage);

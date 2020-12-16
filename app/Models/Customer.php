@@ -29,4 +29,9 @@ class Customer extends Model
     {
         return $this->hasMany(Inbox::class);
     }
+
+    public function negotiations()
+    {
+        return $this->hasMany(Negotiation::class);
+    }
 }

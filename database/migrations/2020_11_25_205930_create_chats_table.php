@@ -16,6 +16,7 @@ class CreateChatsTable extends Migration
         Schema::create('chats', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('inbox_id')->unsigned();
+            $table->integer('negotiation_id')->unsigned()->nullable();
             $table->string('role');
             $table->string('type');
             $table->string('answer')->nullable();

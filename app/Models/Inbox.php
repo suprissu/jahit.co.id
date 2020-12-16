@@ -41,4 +41,9 @@ class Inbox extends Model
     {
         return $this->hasMany(Chat::class);
     }
+
+    public function negotiations()
+    {
+        return $this->hasMany(Negotiation::class);
+    }
 }

@@ -4,22 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Chat extends Model
+class Negotiation extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'chats';
+    protected $table = 'negotiations';
 
     public function inbox()
     {
         return $this->belongsTo(Inbox::class);
     }
 
-    public function negotiation()
+    public function chats()
     {
-        return $this->belongsTo(Negotiation::class);
+        return $this->hasMany(Chat::class);
+    }
+    
+    public function sample()
+    {
+        return $this->hasOne(Sample::class);
     }
 }

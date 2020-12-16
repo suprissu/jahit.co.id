@@ -48,8 +48,8 @@ class HomeController extends Controller
                     break;
                 case RoleConstant::PARTNER:
                     // TO DO: for next phase, uncomment this code
-                    // return $this->partnerDashboard($request, $user, $role);
-                    return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
+                    return $this->partnerDashboard($request, $user, $role);
+                    // return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
                     break;
                 default:
                     return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
@@ -60,6 +60,10 @@ class HomeController extends Controller
 
     private function partnerDashboard(Request $request, $user, $role)
     {
+        $partner = $user->partner()->first();
+        $projects_all = $partner->projects()->orderBy('created_at', 'desc')->get();
+        $categories = ProjectCategory::all();
+
         return view('pages.partner.dashboard', get_defined_vars());
     }
 
@@ -78,6 +82,7 @@ class HomeController extends Controller
         $partners = Partner::all();
         $projects = Project::all();
         $categories = ProjectCategory::all();
+
         return view('pages.administrator.dashboard', get_defined_vars());
     }
 }

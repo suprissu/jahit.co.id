@@ -3,7 +3,11 @@ const initiationPartnerChat = (
     answer,
     projectId,
     projectName,
-    projectAmount
+    projectAmount,
+    customerId,
+    partnerId,
+    inboxId,
+    chatId
 ) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
@@ -23,8 +27,8 @@ const initiationPartnerChat = (
                         answer === "accept" ? "success" : "danger"
                     }">${answer === "accept" ? "Diajukan" : "Ditolak"}</span>`
                     : `
-                    <button class="chatbox__message__initiationReject btn butline-danger" data-toggle="modal" data-target="#chatInitiationReject">Tolak</button>
-                    <button class="chatbox__message__initiationPropose btn btn-danger" data-toggle="modal" data-target="#chatNegotiation">Ajukan</button>
+                    <button onclick="changeModalChatInitiationReject(this)" data-projectId="${projectId}" data-customerId="${customerId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-chatId="${chatId}" class="chatbox__message__initiationReject btn butline-danger" data-toggle="modal" data-target="#chatInitiationReject">Tolak</button>
+                    <button onclick="changeModalChatNegotiation(this)" data-projectId="${projectId}" data-customerId="${customerId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-chatId="${chatId}" class="chatbox__message__initiationPropose btn btn-danger" data-toggle="modal" data-target="#chatNegotiation">Ajukan</button>
                     `
             }
         </div>
@@ -86,7 +90,12 @@ const negotiationChat = (
     projectAmount,
     projectPrice,
     projectStartDate,
-    projectEndDate
+    projectEndDate,
+    customerId,
+    partnerId,
+    inboxId,
+    chatId,
+    negotiationId
 ) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
@@ -106,8 +115,8 @@ const negotiationChat = (
                         answer === "accept" ? "success" : "danger"
                     }">${answer === "accept" ? "Disetujui" : "Ditolak"}</span>`
                 : `
-                    <button class="chatbox__message__negotiationReject btn btn-outline-danger" data-toggle="modal" data-target="#chatNegotiation">Nego</button>
-            <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#chatAccept">Setuju</button>
+                    <button onclick="changeModalChatNegotiation(this)" class="chatbox__message__negotiationReject btn btn-outline-danger" data-projectId="${projectId}" data-customerId="${customerId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-negotiationId="${negotiationId}" data-chatId="${chatId}" data-toggle="modal" data-target="#chatNegotiation">Nego</button>
+                    <button onclick="changeModalChatNegotiationAccept(this)" class="chatbox__message__negotiationAccept btn btn-danger" data-projectId="${projectId}" data-customerId="${customerId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-negotiationId="${negotiationId}" data-chatId="${chatId}" data-toggle="modal" data-target="#chatAccept">Setuju</button>
                     `
         }
         </div>
@@ -136,7 +145,14 @@ const negotiationAcceptChat = (
     `;
 };
 
-const runProjectPermission = (answer) => {
+const runProjectPermission = (
+    answer,
+    projectId,
+    partnerId,
+    inboxId,
+    chatId,
+    negotiationId
+) => {
     return `
     <div class="chatbox__message chatbox__message--other">
         <div class="chatbox__message__description">
@@ -154,8 +170,8 @@ const runProjectPermission = (answer) => {
                           : "Permintaan sample diajukan"
                   }</span>`
                 : `
-                    <button class="chatbox__message__negotiationReject btn btn-outline-danger" data-toggle="modal" data-target="#askSample">Minta Sample</button>
-            <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#runProject">Jalankan Proyek</button>
+                    <button onclick="changeModalChatAskSample(this)" class="chatbox__message__negotiationReject btn btn-outline-danger" data-projectId="${projectId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-negotiationId="${negotiationId}" data-chatId="${chatId}" data-toggle="modal" data-target="#askSample">Minta Sample</button>
+                    <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#runProject">Jalankan Proyek</button>
                     `
         }
         </div>
@@ -171,7 +187,7 @@ const customerAskSample = (role, projectId, projectName, transactionId) => {
             <p>Kamu telah mengajukan permintaan sample kepada vendor untuk proyek ${projectName}. Klik "Lihat Transaksi" untuk melihat detail transaksi.</p>
         </div>
         <div class="chatbox__message__choice">
-            <a href="/user/transaction/${transactionId}"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
+            <a href="/home/transaction"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
         </div>
     </div>
     `;

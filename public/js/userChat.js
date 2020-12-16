@@ -25,6 +25,19 @@ const getChatProject = (chatId) => {
 
         if (chat.message[i].type === "INISIASI") {
             if (chat.userRole === "CLIENT") {
+                if (chat.message[i].answer === "reject") {
+                    messages += initiationPartnerChat(
+                        perspectiveMessage,
+                        chat.message[i].answer,
+                        chat.project.id,
+                        chat.project.name,
+                        chat.project.amount,
+                        chat.customerId,
+                        chat.partnerId,
+                        chat.id,
+                        chat.message[i].id
+                    );
+                }
                 messages += initiationCustomerChat(
                     perspectiveMessage,
                     chat.project.id,
@@ -37,7 +50,11 @@ const getChatProject = (chatId) => {
                     chat.message[i].answer,
                     chat.project.id,
                     chat.project.name,
-                    chat.project.amount
+                    chat.project.amount,
+                    chat.customerId,
+                    chat.partnerId,
+                    chat.id,
+                    chat.message[i].id
                 );
             }
         } else if (chat.message[i].type === "DIAJUKAN") {
@@ -46,9 +63,9 @@ const getChatProject = (chatId) => {
                 chat.project.id,
                 chat.project.name,
                 chat.project.amount,
-                chat.project.price,
-                dateFormat(new Date(chat.project.start_date)),
-                dateFormat(new Date(chat.project.end_date))
+                chat.message[i].negotiation.price,
+                dateFormat(new Date(chat.message[i].negotiation.start_date)),
+                dateFormat(new Date(chat.message[i].negotiation.end_date))
             );
         } else if (chat.message[i].type === "VERIFIKASI") {
             messages += verificationChat(
@@ -62,22 +79,34 @@ const getChatProject = (chatId) => {
                 chat.project.id,
                 chat.project.name,
                 chat.project.amount,
-                chat.project.price,
-                dateFormat(new Date(chat.project.start_date)),
-                dateFormat(new Date(chat.project.end_date))
+                chat.message[i].negotiation.price,
+                dateFormat(new Date(chat.message[i].negotiation.start_date)),
+                dateFormat(new Date(chat.message[i].negotiation.end_date)),
+                chat.customerId,
+                chat.partnerId,
+                chat.id,
+                chat.message[i].id,
+                chat.message[i].negotiation.id 
             );
         } else if (chat.message[i].type === "SETUJU") {
             if (chat.userRole === "CLIENT") {
-                messages += runProjectPermission(chat.message[i].answer);
+                messages += runProjectPermission(
+                    chat.message[i].answer,
+                    chat.project.id,
+                    chat.partnerId,
+                    chat.id,
+                    chat.message[i].id,
+                    chat.message[i].negotiation.id
+                );
             }
             messages += negotiationAcceptChat(
                 perspectiveMessage,
                 chat.project.id,
                 chat.project.name,
                 chat.project.amount,
-                chat.project.price,
-                dateFormat(new Date(chat.project.start_date)),
-                dateFormat(new Date(chat.project.end_date))
+                chat.message[i].negotiation.price,
+                dateFormat(new Date(chat.message[i].negotiation.start_date)),
+                dateFormat(new Date(chat.message[i].negotiation.end_date))
             );
         } else if (chat.message[i].type === "SAMPLE") {
             if (chat.userRole === "CLIENT") {

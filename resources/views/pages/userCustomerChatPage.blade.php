@@ -31,6 +31,11 @@
                 role: "VENDOR",
                 type: "NEGOSIASI",
                 answer: "",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
         ],
     },
@@ -58,6 +63,11 @@
                 role: "VENDOR",
                 type: "NEGOSIASI",
                 answer: "accept",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "CLIENT",
@@ -89,14 +99,29 @@
                 role: "VENDOR",
                 type: "NEGOSIASI",
                 answer: "reject",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "CLIENT",
                 type: "DIAJUKAN",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "VENDOR",
                 type: "SETUJU",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
         ],
     },
@@ -124,15 +149,30 @@
                 role: "VENDOR",
                 answer: "reject",
                 type: "NEGOSIASI",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "CLIENT",
                 type: "DIAJUKAN",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "VENDOR",
                 answer: "sample",
                 type: "SETUJU",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "CLIENT",

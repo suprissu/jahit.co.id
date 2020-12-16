@@ -11,6 +11,7 @@ class ChatTemplateConstant
     public const NEGOTIATION_TYPE           = 'NEGOSIASI';
     public const PROJECT_ACCEPT_TYPE        = 'SETUJU';
     public const PROJECT_OFFER_TYPE         = 'DIAJUKAN';
+    public const SAMPLE_REQUEST_TYPE        = 'SAMPLE';
     public const VERIFICATION_TYPE          = 'VERIFIKASI';
     public const SAMPLE_SENT_TYPE           = 'SAMPLE TERKIRIM';
     public const PROJECT_DEAL_TYPE          = 'DEAL';

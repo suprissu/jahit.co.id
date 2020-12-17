@@ -167,76 +167,78 @@
 @endsection
 
 @section('extra-css')
-<link rel="stylesheet" href="{{ asset('css/userChat.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/adminChat.css') }}"/>
 <link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
 @endsection
 
 @section('content')
-@include('layouts/modalChatNegotiation')
-@include('layouts/modalChatNegotiationAccept')
-@include('layouts/modalChatProjectPermission')
-@include('layouts/modalChatAskSample')
-<div class="userChat">
-    <div class="userChat__container">
-        <h2 class="userChat__title">Pesan</h2>
+@include('layouts/modalAdminAddChat')
+<div class="adminChat">
+    <div class="adminChat__container">
+        <h2 class="adminChat__title">Pesan</h2>
         <div class="chatbox">
-            <div class="chatbox__navigation navigation">
+            <div class="chatbox__navigation navigation list-group" role="tablist">
 
-                <div class="navigation__item" data-id="222">
-                    <div class="navigation__left">
-                        <h5 class="navigation__title">Rompi Relawan COVID</h5>
-                        <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                    </div>
-                    <div class="navigation__right">
-                        <p class="navigation__date">10 Maret 2020</p>
-                    </div>
-                </div>
+                <button data-target="#adminAddChat" data-toggle="modal" class="chatbox__addMessage btn btn-danger"><i class="fas fa-plus" aria-hidden="true"></i></button>
 
-                <div class="navigation__item" data-id="111">
-                    <div class="navigation__left">
-                        <h5 class="navigation__title">Rompi Relawan COVID</h5>
-                        <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                    </div>
-                    <div class="navigation__right">
-                        <p class="navigation__date">10 Maret 2020</p>
-                    </div>
-                </div>
+                <!-- Navigation Item -->
 
-                <div class="navigation__item" data-id="123">
-                    <div class="navigation__left">
-                        <h5 class="navigation__title">Rompi Relawan COVID</h5>
-                        <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                    </div>
-                    <div class="navigation__right">
-                        <p class="navigation__date">10 Maret 2020</p>
-                    </div>
-                </div>
+                <a class="navigation__item" id="13123213" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 1</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
 
-                <div class="navigation__item" data-id="333">
-                    <div class="navigation__left">
-                        <h5 class="navigation__title">Rompi Relawan COVID</h5>
-                        <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                    </div>
-                    <div class="navigation__right">
-                        <p class="navigation__date">10 Maret 2020</p>
-                    </div>
-                </div>
             </div>
 
             <div class="chatbox__container">
                 <div class="chatbox__header">
-                    <h6 class="chatbox__title">Rompi Relawan COVID</h6>
-                    <!-- <div class="chatbox__more">
-                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
-                    </div> -->
+                    <h6 class="chatbox__title"></h6>
                 </div>
-                <div class="chatbox__messages">
-                    <div class="chatbox__noMessages__wrapper">
+                <div class="chatbox__messages tab-content">
+                    <div class="chatbox__noMessages__wrapper" id="no-chat">
                         <img src="{{ asset('img/empty-chat.svg') }}" alt="no-message"/>
                         <h5 class="chatbox__noMessages__title">Mulai transaksi untuk melihat chat.</h5>
                     </div>
-                </div>
-                <div class="chatbox__input">
+                    
+                    <!-- TODO: Change below component -->
+                    
+                    <div class="chatbox__messages__wrapper" id="content-user-13123213">
+                        <div class="chatbox__message chatbox__message--me">
+                            <p>Itu karena bapak tidak baca petunjuk</p>
+                        </div>
+                        <div class="chatbox__message chatbox__message--other">
+                            <p>Kenapa ya saya tuh begini?</p>
+                        </div>
+                    </div>
+
+                    <div class="chatbox__messages__wrapper" id="content-user-32523524">
+                        <div class="chatbox__message chatbox__message--me">
+                            <p>Halo juga</p>
+                        </div>
+                        <div class="chatbox__message chatbox__message--other">
+                            <p>Halo min</p>
+                        </div>
+                    </div>
+                    <div class="chatbox__input">
+                        <form action="" method="POST">
+                            <input name="chat" placeholder="Masukkan pesan anda di sini" type="text" class="form-control">
+                            <button type="submit" class="btn btn-danger">Kirim</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -245,6 +247,35 @@
 @endsection
 
 @section('extra-js')
-<script src="{{ asset('js/chatTemplate.js') }}"></script>
-<script src="{{ asset('js/userChat.js') }}"></script>
+<script>
+    $(".chatbox__header").hide()
+    $(".chatbox__input").hide()
+    $(".chatbox__messages__wrapper").hide()
+    $(".navigation__item").on("click", (e) => {
+        $(".chatbox__noMessages__wrapper").hide()
+        $(".chatbox__messages__wrapper").hide()
+        const userId = e.currentTarget.attributes["id"].value;
+        const userName = e.currentTarget.children[0].children[0].innerText;
+        $(`#content-user-${userId}`).show()
+        $(".chatbox__title").text(userName)
+        $(".chatbox__input").show()
+        console.log($(".chatbox__input form").attr("action"))
+        $(".chatbox__input form").attr("action", `/admin/chat/${userId}/add`)
+        $(".chatbox__input form input").val("")
+        $(".chatbox__header").show()
+    })
+    
+    $(".listAdminAddChat__item").on("click", (e) => {
+        const userId = e.currentTarget.children[0].innerText
+        const userName = e.currentTarget.children[1].innerText
+        $(".chatbox__noMessages__wrapper").show()
+        $(".chatbox__messages__wrapper").hide()
+        $(".chatbox__title").text(userName)
+        $(".chatbox__input").show()
+        console.log($(".chatbox__input form").attr("action"))
+        $(".chatbox__input form").attr("action", `/admin/chat/${userId}/add`)
+        $(".chatbox__input form input").val("")
+        $(".chatbox__header").show()
+    })
+</script>
 @endsection

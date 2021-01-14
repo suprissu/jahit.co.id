@@ -22,6 +22,13 @@ class Transaction extends Model
         'id'
     ];
 
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deadline'];
+
     public function customer()
     {
         return $this->belongsTo(Customer::class);

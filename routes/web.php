@@ -53,6 +53,9 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
     Route::group(['prefix' => 'project', 'as' => '.project'], function () {
         Route::post('/add', 'ProjectController@store')->name('.add');
         Route::post('/edit', 'ProjectController@update')->name('.edit');
+        Route::post('/start/{projectId}', 'ProjectController@startProject')->name('.start');
+        Route::post('/finish/{projectId}', 'ProjectController@finishProject')->name('.finish');
+        Route::post('/send/{projectId}', 'ProjectController@sendProject')->name('.send');
     });
 
     Route::group(['prefix' => 'sample', 'as' => '.sample'], function () {

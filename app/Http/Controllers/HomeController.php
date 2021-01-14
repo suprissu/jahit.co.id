@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constant\ProjectStatusConstant;
 use App\Constant\RoleConstant;
 use App\Constant\SampleStatusConstant;
 use App\Constant\WarningStatusConstant;
@@ -67,6 +68,31 @@ class HomeController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
 
+        $projectsRequest = $partner->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->where('status', ProjectStatusConstant::PROJECT_OPENED)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_DEALT)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_DP_OK)
+                        ->get();
+        
+        $projectsInProgress = $partner->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->where('status', ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS)
+                        ->get();
+        
+        $projectsDone = $partner->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->where('status', ProjectStatusConstant::PROJECT_FINISHED)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_FULL_PAYMENT_OK)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_SENT)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_DONE)
+                        ->get();
+        
+        $projectsRejected = $partner->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->where('status', ProjectStatusConstant::PROJECT_FAILED)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_CANCELED)
+                        ->get();
 
         $samplesAll =  $partner->transactions()
                         ->orderBy('created_at', 'desc')
@@ -122,6 +148,31 @@ class HomeController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->get();
 
+        $projectsRequest = $customer->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->where('status', ProjectStatusConstant::PROJECT_OPENED)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_DEALT)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_DP_OK)
+                        ->get();
+        
+        $projectsInProgress = $customer->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->where('status', ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS)
+                        ->get();
+        
+        $projectsDone = $customer->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->where('status', ProjectStatusConstant::PROJECT_FINISHED)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_FULL_PAYMENT_OK)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_SENT)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_DONE)
+                        ->get();
+        
+        $projectsRejected = $customer->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->where('status', ProjectStatusConstant::PROJECT_FAILED)
+                        ->orWhere('status', ProjectStatusConstant::PROJECT_CANCELED)
+                        ->get();
 
         $samplesAll =  $customer->transactions()
                         ->orderBy('created_at', 'desc')

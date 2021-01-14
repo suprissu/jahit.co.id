@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+
 use App\Constant\ChatTemplateConstant;
 use App\Constant\RoleConstant;
 use App\Constant\ProjectStatusConstant;
 use App\Constant\WarningStatusConstant;
 use App\Constant\SampleStatusConstant;
+use App\Constant\TransactionConstant;
 
 use App\Helper\FileHelper;
 use App\Helper\RedirectionHelper;
@@ -19,6 +22,7 @@ use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\ProjectImage;
 use App\Models\Sample;
+use App\Models\Transaction;
 
 use Illuminate\Http\Request;
 
@@ -292,6 +296,88 @@ class ProjectController extends Controller
             $chatVerification->inbox_id = $inbox->id;
             $chatVerification->negotiation()->associate($negotiation);
             $chatVerification->save();   
+        }
+        return redirect($expectedStage);
+    }
+
+    public function startProject(Request $request, $projectId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $project = Project::find($projectId);
+
+            if ($project == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $project->status = ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS;
+            $project->save();
+        }
+        return redirect($expectedStage);
+    }
+
+    public function finishProject(Request $request, $projectId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $project = Project::find($projectId);
+
+            if ($project == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $project->status = ProjectStatusConstant::PROJECT_FINISHED;
+            $project->save();
+
+            $inbox = Inbox::where('customer_id', $project->customer_id)
+                            ->where('partner_id', $partner->id)
+                            ->where('project_id', $project->id)
+                            ->first();
+            
+            $chatProjectDeal = new Chat;
+            $chatProjectDeal->role = ChatTemplateConstant::PARTNER_ROLE;
+            $chatProjectDeal->type = ChatTemplateConstant::PROJECT_FINISH_TYPE;
+            $chatProjectDeal->inbox_id = $inbox->id;
+            $chatProjectDeal->save();
+
+            $deliveryCost = 0;
+            $dpPercentage = 0.5;
+            $transactionCost = $dpPercentage * $project->cost * $project->count + $deliveryCost;
+
+            $transaction = new Transaction;
+            $transaction->customer_id = $project->customer_id;
+            $transaction->partner_id = $partner->id;
+            $transaction->project_id = $projectId;
+            $transaction->status = TransactionConstant::PAY_WAIT;
+            $transaction->type = TransactionConstant::PELUNASAN_TYPE;
+            $transaction->cost = $transactionCost;
+            $transaction->deadline = Carbon::now()->addDays(3);
+            $transaction->save();
+        }
+        return redirect($expectedStage);
+    }
+
+    public function sendProject(Request $request, $projectId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $project = Project::find($projectId);
+
+            if ($project == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $project->status = ProjectStatusConstant::PROJECT_SENT;
+            $project->save();
         }
         return redirect($expectedStage);
     }

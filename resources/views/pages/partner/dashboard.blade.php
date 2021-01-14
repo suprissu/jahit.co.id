@@ -136,6 +136,7 @@
 @include('layouts/modalAddProject')
 @include('layouts/modalEditProject')
 @inject('sampleStatusConstant', 'App\Constant\SampleStatusConstant')
+@inject('projectStatusConstant', 'App\Constant\ProjectStatusConstant')
 
 <div class="userProject">
     <div class="userProject__container">
@@ -158,6 +159,25 @@
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: For loop List Item -->
                     @foreach ($projectsAll as $project)
+                        @if ($project->status == $projectStatusConstant::PROJECT_DEALT)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_DP_OK)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.start', ['projectId' => $project->id]) }}" buttonText="Mulai Kerjakan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_WORK_IN_PROGRESS)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="3" startDate="{{ $project->start_date }}" endDate="{{ $project->deadline }}" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.finish', ['projectId' => $project->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_FINISHED)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_FULL_PAYMENT_OK)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.send', ['projectId' => $project->id]) }}" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_SENT)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_DONE)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>    
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_FAILED)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="2" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_CANCELED)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="2" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @endif
                     @endforeach
                 </div>
                                 
@@ -193,6 +213,13 @@
                             <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.start', ['sampleId' => $project->sample->id]) }}" buttonText="Mulai Kerjakan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                         @endif
                     @endforeach
+                    @foreach ($projectsRequest as $project)
+                        @if ($project->status == $projectStatusConstant::PROJECT_DEALT)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_DP_OK)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.start', ['projectId' => $project->id]) }}" buttonText="Mulai Kerjakan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @endif
+                    @endforeach
                 </div>
                 
                 <!-- Proyek Dalam Pengerjaan -->
@@ -200,6 +227,9 @@
                     <!-- TODO: Make List Item -->
                     @foreach ($samplesInProgress as $project)
                         <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.finish', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                    @endforeach
+                    @foreach ($projectsInProgress as $project)
+                        <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="3" startDate="{{ $project->start_date }}" endDate="{{ $project->deadline }}" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.finish', ['projectId' => $project->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                     @endforeach
                 </div>
                 
@@ -215,6 +245,17 @@
                             <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                         @endif
                     @endforeach
+                    @foreach ($projectsDone as $project)
+                        @if ($project->status == $projectStatusConstant::PROJECT_FINISHED)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_FULL_PAYMENT_OK)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.send', ['projectId' => $project->id]) }}" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_SENT)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->status == $projectStatusConstant::PROJECT_DONE)
+                            <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>    
+                        @endif
+                    @endforeach
                 </div>
                 
                 <!-- Proyek Dibatalkan -->
@@ -223,6 +264,9 @@
                     @foreach ($samplesRejected as $project)
                         <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="2" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                     @endforeach
+                    @foreach ($projectsRejected as $project)
+                        <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="2" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                    @endforeach 
                 </div>
             </div>
         </div>

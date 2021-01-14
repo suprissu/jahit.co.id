@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Beranda')
+@section('title', 'Transaksi')
 
 @section('extra-fonts')
 
@@ -66,7 +66,7 @@
         $(".transaction-id").val(data.id);
         $(".deadline").val(data.end_date);
 
-        $("#upload-payment-form").attr("action", "{{ route('home.transaction.uploadPaymentSlip') }}");
+        $("#upload-payment-form").attr("action", "{{ route('home.transaction.slip.submit') }}");
         $("#upload-payment-form").append('@csrf');
     }
 </script>
@@ -88,13 +88,12 @@
         </div>
         <div class="userCustomerTransaction__transactions">
             <div class="userCustomerTransaction__transactions__header list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">Semua</a>
-                <a class="list-group-item list-group-item-action" id="list-sample-list" data-toggle="list" href="#list-sample" role="tab" aria-controls="sample">Sample</a>
+                <a class="list-group-item list-group-item-action active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">Bayar</a>
+                <a class="list-group-item list-group-item-action" id="list-sample-list" data-toggle="list" href="#list-sample" role="tab" aria-controls="sample">Sampel</a>
                 <a class="list-group-item list-group-item-action" id="list-deposit-list" data-toggle="list" href="#list-deposit" role="tab" aria-controls="deposit">Deposit</a>
                 <a class="list-group-item list-group-item-action" id="list-repayment-list" data-toggle="list" href="#list-repayment" role="tab" aria-controls="repayment">Pelunasan</a>
             </div>
             <div class="userCustomerTransaction__transactions__list header tab-content" id="nav-tabContent">
-                {{ $errors }}
                 <!-- Semua Transaksi -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: Make List Item -->
@@ -132,21 +131,107 @@
                 
                 <!-- Penawaran Terbuka -->
                 <div class="tab-pane fade" id="list-sample" role="tabpanel" aria-labelledby="list-sample-list">
+                    <!-- TODO: Make List Item -->
+                    @foreach( $sample_transactions as $transaction )
+                        <div class="listItem">
+                            <a href="/user/customer/transaction/1" class="listItem--left">
+                                <div class="listItem__header">
+                                    <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
+                                    <p class="listItem__price">Rp {{ $transaction->cost }}</p>
+                                    <p class="listItem__amount">{{ $transaction->project->count }} buah</p>
+                                </div>
+                            </a>
+                            <div class="listItem--right">
+                                <a href="/user/customer/transaction/1" class="listItem__label">
+                                    <p class="listItem__category">{{ $transaction->type }}</p>
+                                    <p class="listItem__paidStatus">{{ $transaction->status }}</p>
+                                    <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
+                                    <div 
+                                        data-startDate="{{ $transaction->created_at }}"
+                                        data-endDate="{{ $transaction->deadline }}"
+                                        class="listItem__status--progress progress">
+                                        <div class="progress-bar" role="progressbar"></div>
+                                    </div>
+                                </a>
+                                <div class="listItem__credential">
+                                    <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
+                                    <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
+                                    <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
+                                    <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
                 
                 <!-- Transaksi Dalam Pengerjaan -->
                 <div class="tab-pane fade" id="list-deposit" role="tabpanel" aria-labelledby="list-deposit-list">
                     <!-- TODO: Make List Item -->
+                    @foreach( $dp_transactions as $transaction )
+                        <div class="listItem">
+                            <a href="/user/customer/transaction/1" class="listItem--left">
+                                <div class="listItem__header">
+                                    <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
+                                    <p class="listItem__price">Rp {{ $transaction->cost }}</p>
+                                    <p class="listItem__amount">{{ $transaction->project->count }} buah</p>
+                                </div>
+                            </a>
+                            <div class="listItem--right">
+                                <a href="/user/customer/transaction/1" class="listItem__label">
+                                    <p class="listItem__category">{{ $transaction->type }}</p>
+                                    <p class="listItem__paidStatus">{{ $transaction->status }}</p>
+                                    <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
+                                    <div 
+                                        data-startDate="{{ $transaction->created_at }}"
+                                        data-endDate="{{ $transaction->deadline }}"
+                                        class="listItem__status--progress progress">
+                                        <div class="progress-bar" role="progressbar"></div>
+                                    </div>
+                                </a>
+                                <div class="listItem__credential">
+                                    <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
+                                    <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
+                                    <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
+                                    <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
                 
                 <!-- Transaksi Selesai -->
                 <div class="tab-pane fade" id="list-repayment" role="tabpanel" aria-labelledby="list-repayment-list">
                     <!-- TODO: Make List Item -->
-                </div>
-                
-                <!-- Transaksi Dibatalkan -->
-                <div class="tab-pane fade" id="list-cancel" role="tabpanel" aria-labelledby="list-cancel-list">
-                    <!-- TODO: Make List Item -->
+                    @foreach( $full_transactions as $transaction )
+                        <div class="listItem">
+                            <a href="/user/customer/transaction/1" class="listItem--left">
+                                <div class="listItem__header">
+                                    <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
+                                    <p class="listItem__price">Rp {{ $transaction->cost }}</p>
+                                    <p class="listItem__amount">{{ $transaction->project->count }} buah</p>
+                                </div>
+                            </a>
+                            <div class="listItem--right">
+                                <a href="/user/customer/transaction/1" class="listItem__label">
+                                    <p class="listItem__category">{{ $transaction->type }}</p>
+                                    <p class="listItem__paidStatus">{{ $transaction->status }}</p>
+                                    <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
+                                    <div 
+                                        data-startDate="{{ $transaction->created_at }}"
+                                        data-endDate="{{ $transaction->deadline }}"
+                                        class="listItem__status--progress progress">
+                                        <div class="progress-bar" role="progressbar"></div>
+                                    </div>
+                                </a>
+                                <div class="listItem__credential">
+                                    <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
+                                    <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
+                                    <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
+                                    <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>

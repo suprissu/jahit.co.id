@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constant\RoleConstant;
+use App\Constant\TransactionConstant;
 use App\Constant\WarningStatusConstant;
 
 use App\Model\PaymentSlip;
@@ -60,7 +61,27 @@ class TransactionController extends Controller
     public function customerTransaction(Request $request, $user, $role)
     {
         $customer = $user->customer()->first();
-        $transactions = $customer->transactions()->orderBy('created_at', 'desc')->get();
+        $transactions = $customer->transactions()
+                            ->where('status', TransactionConstant::PAY_WAIT)
+                            ->orWhere('status', TransactionConstant::PAY_IN_VERIF)
+                            ->orWhere('status', TransactionConstant::PAY_FAIL)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $sample_transactions = $customer->transactions()
+                            ->where('type', TransactionConstant::SAMPLE_TYPE)
+                            ->where('status', TransactionConstant::PAY_OK)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $dp_transactions = $customer->transactions()
+                            ->where('type', TransactionConstant::DOWN_PAYMENT_TYPE)
+                            ->where('status', TransactionConstant::PAY_OK)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $full_transactions = $customer->transactions()
+                            ->where('type', TransactionConstant::PELUNASAN_TYPE)
+                            ->where('status', TransactionConstant::PAY_OK)
+                            ->orderBy('created_at', 'desc')
+                            ->get();
 
         return view('pages.customer.transaction', get_defined_vars());
     }

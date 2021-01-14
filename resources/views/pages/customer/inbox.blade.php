@@ -77,7 +77,7 @@
 @include('layouts/modalChatAskSample')
 <div class="userChat">
     <div class="userChat__container">
-        <h2 class="userChat__title">Pesan</h2>
+        <h2 class="userChat__title">Pesan {{ $errors }}</h2>
         <div class="chatbox">
             <div class="chatbox__navigation navigation">
                 <div class="navigation__story"></div>
@@ -174,6 +174,23 @@
 
         $("#chat-ask-sample-form").attr("action", "{{ route('home.inbox.sample.request') }}");
         $("#chat-ask-sample-form").append('@csrf');
+    }
+
+    var changeModalChatProjectPermission =  function(e) {
+        const projectID = e.getAttribute("data-projectId");
+        const partnerID = e.getAttribute("data-partnerId");
+        const inboxID = e.getAttribute("data-inboxId");
+        const chatID = e.getAttribute("data-chatId");
+        const negotiationID = e.getAttribute("data-negotiationId");
+
+        $(".negotiation-project-id").val(projectID);
+        $(".negotiation-partner-id").val(partnerID);
+        $(".negotiation-inbox-id").val(inboxID);
+        $(".negotiation-chat-id").val(chatID);
+        $(".negotiation-negotiation-id").val(negotiationID);
+
+        $("#chat-project-permission-form").attr("action", "{{ route('home.inbox.sample.deal') }}");
+        $("#chat-project-permission-form").append('@csrf');
     }
     
 </script>

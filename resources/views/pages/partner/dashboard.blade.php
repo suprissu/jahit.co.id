@@ -9,12 +9,12 @@
 @section('prerender-js')
     <script src="{{ asset('js/userProject.js') }}"></script>
     <script>
-        const dummyData = [
-            @foreach( $projects_all as $project )
+        const projectData = [
+            @foreach( $projectsAll as $project )
             {
                 id: "{{ $project->id }}",
                 name: "{{ $project->name }}",
-                status: "Segera Dikontak",
+                status: "{{ $project->status }}",
                 category: "{{ $project->category->id }}",
                 order: "{{ $project->count }}",
                 amount: "Rp @if($project->cost != null) {{ $project->cost }} @else - @endif",
@@ -33,9 +33,67 @@
             @endforeach
         ]
 
+        const sampleData = [
+            @foreach( $samplesAll as $project )
+            {
+                id: "{{ $project->id }}",
+                name: "{{ $project->project->name }}",
+                status: "{{ $project->sample->status }}",
+                category: "{{ $project->project->category->id }}",
+                order: "1",
+                amount: "Rp @if($project->cost != null) {{ $project->cost }} @else - @endif",
+                quotation: "-",
+                address: "{{ $project->project->address }}",
+                vendor: "{{ $project->partner->name }}",
+                start_date: "{{ $project->project->start_date }}",
+                end_date: "{{ $project->project->deadline }}",
+                note: "{{ $project->project->note }}",
+                picture: [
+                    @foreach($project->project->images as $image)
+                        "{{ asset($image->path) }}",
+                    @endforeach
+                ]
+            },
+            @endforeach
+        ]
+
         function getProjectData(id) {
 
-            const data = dummyData.find((data) => data.id == id);
+            const data = projectData.find((data) => data.id == id);
+
+            const name = data.name
+            const status = data.status
+            const category = data.category
+            const order = data.order
+            const amount = data.amount
+            const quotation = data.quotation
+            const address = data.address
+            const vendor = data.vendor
+            const start_date = data.start_date !== "" ? new Date(data.start_date) : null
+            const end_date = data.end_date !== "" ? new Date(data.end_date) : null
+            const note = data.note
+            const picture = data.picture
+
+            return {
+                id,
+                name,
+                status,
+                category,
+                order,
+                amount,
+                quotation,
+                address,
+                vendor,
+                start_date,
+                end_date,
+                note,
+                picture
+            }
+        }
+
+        function getSampleData(id) {
+
+            const data = sampleData.find((data) => data.id == id);
 
             const name = data.name
             const status = data.status
@@ -77,6 +135,7 @@
 @section('content')
 @include('layouts/modalAddProject')
 @include('layouts/modalEditProject')
+@inject('sampleStatusConstant', 'App\Constant\SampleStatusConstant')
 
 <div class="userProject">
     <div class="userProject__container">
@@ -86,8 +145,9 @@
         </div>
         <div class="userProject__projects">
             <div class="userProject__projects__header list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">Semua</a>
-                <a class="list-group-item list-group-item-action" id="list-open-quotation-list" data-toggle="list" href="#list-open-quotation" role="tab" aria-controls="open-quotation">Penawaran Terbuka</a>
+                <a class="list-group-item list-group-item-action active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">Project</a>
+                <a class="list-group-item list-group-item-action" id="list-sample-list" data-toggle="list" href="#list-sample" role="tab" aria-controls="sample">Sampel</a>
+                <a class="list-group-item list-group-item-action" id="list-open-quotation-list" data-toggle="list" href="#list-open-quotation" role="tab" aria-controls="open-quotation">Pesanan</a>
                 <a class="list-group-item list-group-item-action" id="list-progress-list" data-toggle="list" href="#list-progress" role="tab" aria-controls="progress">Dalam Pengerjaan</a>
                 <a class="list-group-item list-group-item-action" id="list-finish-list" data-toggle="list" href="#list-finish" role="tab" aria-controls="finish">Selesai</a>
                 <a class="list-group-item list-group-item-action" id="list-cancel-list" data-toggle="list" href="#list-cancel" role="tab" aria-controls="cancel">Dibatalkan</a>
@@ -97,45 +157,72 @@
                 <!-- Semua Proyek -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: For loop List Item -->
-                    @foreach ($projects_all as $project)
-                        <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="@if($project->cost != null) {{ $project->cost }} @else - @endif" amount="{{ $project->count }}" quotation="13" status="0" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                    @foreach ($projectsAll as $project)
+                    @endforeach
+                </div>
+                                
+                <!-- Sample -->
+                <div class="tab-pane fade" id="list-sample" role="tabpanel" aria-labelledby="list-sample-list">
+                    <!-- TODO: Make List Item -->
+                    @foreach ($samplesAll as $project)
+                        @if ($project->sample->status == $sampleStatusConstant::SAMPLE_WAIT_PAYMENT)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_PAYMENT_OK)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.start', ['sampleId' => $project->sample->id]) }}" buttonText="Mulai Kerjakan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_WORK_IN_PROGRESS)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.finish', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_FINISHED)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_SENT)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_APPROVED)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_REJECTED)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="2" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @endif
                     @endforeach
                 </div>
                 
                 <!-- Penawaran Terbuka -->
                 <div class="tab-pane fade" id="list-open-quotation" role="tabpanel" aria-labelledby="list-open-quotation-list">
                     <!-- TODO: Make List Item -->
-                    <div class="text-center">
-                        <img width="50%" height="50%" src="{{ asset('img/warning/work_in_progress.gif') }}">
-                        <p>Mohon maaf. Halaman ini sedang dikerjakan..</p>
-                    </div>
+                    @foreach ($samplesRequest as $project)
+                        @if ($project->sample->status == $sampleStatusConstant::SAMPLE_WAIT_PAYMENT)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_PAYMENT_OK)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.start', ['sampleId' => $project->sample->id]) }}" buttonText="Mulai Kerjakan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @endif
+                    @endforeach
                 </div>
                 
                 <!-- Proyek Dalam Pengerjaan -->
                 <div class="tab-pane fade" id="list-progress" role="tabpanel" aria-labelledby="list-progress-list">
                     <!-- TODO: Make List Item -->
-                    <div class="text-center">
-                        <img width="50%" height="50%" src="{{ asset('img/warning/work_in_progress.gif') }}">
-                        <p>Mohon maaf. Halaman ini sedang dikerjakan..</p>
-                    </div>    
+                    @foreach ($samplesInProgress as $project)
+                        <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.finish', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                    @endforeach
                 </div>
                 
                 <!-- Proyek Selesai -->
                 <div class="tab-pane fade" id="list-finish" role="tabpanel" aria-labelledby="list-finish-list">
                     <!-- TODO: Make List Item -->
-                    <div class="text-center">
-                        <img width="50%" height="50%" src="{{ asset('img/warning/work_in_progress.gif') }}">
-                        <p>Mohon maaf. Halaman ini sedang dikerjakan..</p>
-                    </div>    
+                    @foreach ($samplesDone as $project)
+                        @if ($project->sample->status == $sampleStatusConstant::SAMPLE_FINISHED)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_SENT)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_APPROVED)
+                            <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                        @endif
+                    @endforeach
                 </div>
                 
                 <!-- Proyek Dibatalkan -->
                 <div class="tab-pane fade" id="list-cancel" role="tabpanel" aria-labelledby="list-cancel-list">
                     <!-- TODO: Make List Item -->
-                    <div class="text-center">
-                        <img width="50%" height="50%" src="{{ asset('img/warning/work_in_progress.gif') }}">
-                        <p>Mohon maaf. Halaman ini sedang dikerjakan..</p>
-                    </div>    
+                    @foreach ($samplesRejected as $project)
+                        <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="2" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                    @endforeach
                 </div>
             </div>
         </div>

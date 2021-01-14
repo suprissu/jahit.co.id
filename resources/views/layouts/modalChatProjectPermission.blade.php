@@ -9,8 +9,13 @@
                     <span id="negotiation-project-id-text" class="badge badge-danger"></span>
                     <h4 id="negotiation-project-name-text">Persetujuan Proyek</h4>
                     <p id="negotiation-project-description-text">Proyek akan dilanjutkan ke tahap pengerjaan. Apakah kamu bersedia untuk lanjut?</p>
-                    <input name="project-id" id="negotiation-project-id" type="text" style="display: none;" >
-                    <input name="project-deal" id="negotiation-project-deal" type="text" value="1" style="display: none;" >
+                    
+                    <input name="projectID" class="negotiation-project-id" type="text" style="display: none;" required>
+                    <input name="partnerID" class="negotiation-partner-id" type="text" style="display: none;" required>
+                    <input name="inboxID" class="negotiation-inbox-id" type="text" style="display: none;" required>
+                    <input name="chatID" class="negotiation-chat-id" type="text" style="display: none;" required>
+                    <input name="negotiationID" class="negotiation-negotiation-id" type="text" style="display: none;" required>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constant\RoleConstant;
+use App\Constant\SampleStatusConstant;
 use App\Constant\WarningStatusConstant;
 
 use App\Helper\RedirectionHelper;
@@ -61,7 +62,53 @@ class HomeController extends Controller
     private function partnerDashboard(Request $request, $user, $role)
     {
         $partner = $user->partner()->first();
-        $projects_all = $partner->projects()->orderBy('created_at', 'desc')->get();
+        
+        $projectsAll = $partner->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+
+        $samplesAll =  $partner->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample')
+                        ->get();
+
+        $samplesRequest = $partner->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample', function($query) {
+                            $query->where('status', SampleStatusConstant::SAMPLE_WAIT_PAYMENT)
+                                ->orWhere('status', SampleStatusConstant::SAMPLE_PAYMENT_OK);
+                        })
+                        ->get();
+        
+        $samplesInProgress = $partner->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample', function($query) {
+                            $query->where('status', SampleStatusConstant::SAMPLE_WORK_IN_PROGRESS);
+                        })
+                        ->get();
+        
+        $samplesDone = $partner->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample', function($query) {
+                            $query->where('status', SampleStatusConstant::SAMPLE_FINISHED)
+                                ->orWhere('status', SampleStatusConstant::SAMPLE_SENT)
+                                ->orWhere('status', SampleStatusConstant::SAMPLE_APPROVED);
+                        })
+                        ->get();
+        
+        $samplesRejected = $partner->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample', function($query) {
+                            $query->where('status', SampleStatusConstant::SAMPLE_REJECTED);
+                        })
+                        ->get();
+        
         $categories = ProjectCategory::all();
 
         return view('pages.partner.dashboard', get_defined_vars());
@@ -70,7 +117,53 @@ class HomeController extends Controller
     private function customerDashboard(Request $request, $user, $role)
     {
         $customer = $user->customer()->first();
-        $projects_all = $customer->projects()->orderBy('created_at', 'desc')->get();
+
+        $projectsAll = $customer->projects()
+                        ->orderBy('created_at', 'desc')
+                        ->get();
+
+
+        $samplesAll =  $customer->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample')
+                        ->get();
+
+        $samplesRequest = $customer->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample', function($query) {
+                            $query->where('status', SampleStatusConstant::SAMPLE_WAIT_PAYMENT)
+                                ->orWhere('status', SampleStatusConstant::SAMPLE_PAYMENT_OK);
+                        })
+                        ->get();
+        
+        $samplesInProgress = $customer->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample', function($query) {
+                            $query->where('status', SampleStatusConstant::SAMPLE_WORK_IN_PROGRESS);
+                        })
+                        ->get();
+        
+        $samplesDone = $customer->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample', function($query) {
+                            $query->where('status', SampleStatusConstant::SAMPLE_FINISHED)
+                                ->orWhere('status', SampleStatusConstant::SAMPLE_SENT)
+                                ->orWhere('status', SampleStatusConstant::SAMPLE_APPROVED);
+                        })
+                        ->get();
+        
+        $samplesRejected = $customer->transactions()
+                        ->orderBy('created_at', 'desc')
+                        ->with('sample', 'project')
+                        ->whereHas('sample', function($query) {
+                            $query->where('status', SampleStatusConstant::SAMPLE_REJECTED);
+                        })
+                        ->get();
+        
         $categories = ProjectCategory::all();
 
         return view('pages.customer.dashboard', get_defined_vars());

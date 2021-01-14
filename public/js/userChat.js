@@ -134,7 +134,11 @@ const getChatProject = (chatId) => {
                 messages += customerSampleDelivered(
                     perspectiveMessage,
                     chat.message[i].answer,
-                    chat.project.id
+                    chat.project.id,
+                    chat.partnerId,
+                    chat.id,
+                    chat.message[i].negotiation.id,
+                    chat.message[i].id
                 );
             } else {
                 messages += partnerSampleDelivered(
@@ -152,6 +156,20 @@ const getChatProject = (chatId) => {
                 );
             } else {
                 messages += partnerProjectDeal(
+                    chat.project.id,
+                    chat.project.name,
+                    chat.transaction.id
+                );
+            }
+        } else if (chat.message[i].type === "FINISH") {
+            if (chat.userRole === "CLIENT") {
+                messages += customerProjectFinish(
+                    chat.project.id,
+                    chat.project.name,
+                    chat.transaction.id
+                );
+            } else {
+                messages += partnerProjectFinish(
                     chat.project.id,
                     chat.project.name,
                     chat.transaction.id

@@ -55,6 +55,12 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
         Route::post('/edit', 'ProjectController@update')->name('.edit');
     });
 
+    Route::group(['prefix' => 'sample', 'as' => '.sample'], function () {
+        Route::post('/start/{sampleId}', 'ProjectController@startSample')->name('.start');
+        Route::post('/finish/{sampleId}', 'ProjectController@finishSample')->name('.finish');
+        Route::post('/send/{sampleId}', 'ProjectController@sendSample')->name('.send');
+    });
+
     Route::group(['prefix' => 'administrator', 'as' => '.administrator'], function () {
         Route::group(['prefix' => 'verification', 'as' => '.verification'], function () {
             Route::post('paymentVerification', 'AdministratorController@paymentVerification')->name('.payment.submit');

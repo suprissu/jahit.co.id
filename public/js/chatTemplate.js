@@ -212,7 +212,15 @@ const partnerAskSample = (role, projectId, projectName, transactionId) => {
     `;
 };
 
-const customerSampleDelivered = (role, answer, projectId) => {
+const customerSampleDelivered = (
+    role,
+    answer,
+    projectId,
+    partnerId,
+    inboxId,
+    negotiationId,
+    chatId
+) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
@@ -230,8 +238,8 @@ const customerSampleDelivered = (role, answer, projectId) => {
                           : "Permintaan sample diajukan"
                   }</span>`
                 : `
-                    <button class="chatbox__message__negotiationReject btn btn-outline-danger" data-toggle="modal" data-target="#askSample">Minta Sample Kembali</button>
-            <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#runProject">Jalankan Proyek</button>
+                <button onclick="changeModalChatAskSample(this)" class="chatbox__message__negotiationReject btn btn-outline-danger" data-projectId="${projectId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-negotiationId="${negotiationId}" data-chatId="${chatId}" data-toggle="modal" data-target="#askSample">Minta Sample Kembali</button>
+                <button onclick="changeModalChatProjectPermission(this)" class="chatbox__message__negotiationAccept btn btn-danger" data-projectId="${projectId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-negotiationId="${negotiationId}" data-chatId="${chatId}" data-toggle="modal" data-target="#runProject" data-projectId="${projectId}">Jalankan Proyek</button>
                     `
         }
         </div>
@@ -270,6 +278,31 @@ const partnerProjectDeal = (projectId, projectName, transactionId) => {
         <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Pelanggan telah menyetujui proyek ${projectName}. Silahkan mulai untuk mengerjakan proyek dari sekarang !</p>
+        </div>
+    </div>
+    `;
+};
+
+const customerProjectFinish = (projectId, projectName, transactionId) => {
+    return `
+    <div class="chatbox__message chatbox__message--other">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__description">
+            <p>Proyek ${projectName} telah selesai dikerjakan oleh vendor. Klik "Lihat Transaksi" untuk melihat detail transaksi pembayaran pelunasan.</p>
+        </div>
+        <div class="chatbox__message__choice">
+            <a href="/user/transaction/${transactionId}"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
+        </div>
+    </div>
+    `;
+};
+
+const partnerProjectFinish = (projectId, projectName, transactionId) => {
+    return `
+    <div class="chatbox__message chatbox__message--other">
+        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <div class="chatbox__message__description">
+            <p>Proyek ${projectName} telah selesai dikerjakan.</p>
         </div>
     </div>
     `;

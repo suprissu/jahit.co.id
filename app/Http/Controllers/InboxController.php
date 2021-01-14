@@ -322,7 +322,10 @@ class InboxController extends Controller
 
             $negotiation = Negotiation::find($request->negotiationID);
 
-            $transactionCost = $negotiation->cost * 1;
+            // TO DO: Delivery cost
+            $deliveryCost = 0;
+            $sampleCount = 1;
+            $transactionCost = $negotiation->cost * $sampleCount + $deliveryCost;
 
             $transaction->project_id = $request->projectID;
             $transaction->cost = $transactionCost;

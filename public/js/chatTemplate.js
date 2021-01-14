@@ -82,6 +82,14 @@ const verificationChat = (role, transactionId) => {
     `;
 };
 
+const verificationRejectChat = (role, transactionId) => {
+    return `
+    <div class="chatbox__message chatbox__message--${role}">
+        <p>Transaksi <a href="/user/customer/transaction/${transactionId}" data-toggle="tooltip" data-placement="top" title="Klik untuk melihat detail">#${transactionId}</a> gagal diverifikasi. Silahkan ulangi </p>
+    </div>
+    `;
+};
+
 const negotiationChat = (
     role,
     answer,

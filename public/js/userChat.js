@@ -72,6 +72,11 @@ const getChatProject = (chatId) => {
                 perspectiveMessage,
                 chat.transaction.id
             );
+        } else if (chat.message[i].type === "VERIFIKASI DITOLAK") {
+            messages += verificationRejectChat(
+                perspectiveMessage,
+                chat.transaction.id
+            );  
         } else if (chat.message[i].type === "NEGOSIASI") {
             messages += negotiationChat(
                 perspectiveMessage,

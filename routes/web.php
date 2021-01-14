@@ -54,6 +54,10 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
         Route::group(['prefix' => 'project', 'as' => '.project'], function () {
             Route::post('/add', 'ProjectController@store')->name('.add');
             Route::post('/edit', 'ProjectController@update')->name('.edit');
+
+    Route::group(['prefix' => 'administrator', 'as' => '.administrator'], function () {
+        Route::group(['prefix' => 'verification', 'as' => '.verification'], function () {
+            Route::post('paymentVerification', 'AdministratorController@paymentVerification')->name('.payment.submit');
         });
     });
 

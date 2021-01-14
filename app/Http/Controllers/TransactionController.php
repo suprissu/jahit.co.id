@@ -41,7 +41,7 @@ class TransactionController extends Controller
             $role = $user->roles()->first()->name;
             switch ($role) {
                 case RoleConstant::ADMINISTRATOR:
-                    return redirect()->route('warning', ['type' => WarningStatusConstant::WORK_IN_PROGRESS]);
+                    return $this->administratorTransaction($request, $user, $role);
                     break;
                 case RoleConstant::CUSTOMER:
                     return $this->customerTransaction($request, $user, $role);
@@ -100,6 +100,28 @@ class TransactionController extends Controller
         $transactions = $partner->transactions()->orderBy('created_at', 'desc')->get();
 
         return view('pages.partner.transaction', get_defined_vars());
+    }
+
+    /**
+     * Show the admin's transaction.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function administratorTransaction(Request $request)
+    {
+        $transactionsCheck = Transaction::where('status', TransactionConstant::PAY_IN_VERIF)
+                                    ->orderBy('created_at', 'desc')
+                                    ->get();
+        
+        $transactionsVerified = Transaction::where('status', TransactionConstant::PAY_OK)
+                                    ->orderBy('created_at', 'desc')
+                                    ->get();
+     
+        $transactionsFailed = Transaction::where('status', TransactionConstant::PAY_FAIL)
+                                    ->orderBy('created_at', 'desc')
+                                    ->get();
+
+        return view('pages.administrator.transaction', get_defined_vars());
     }
 
     public function uploadPaymentSlip(Request $request)

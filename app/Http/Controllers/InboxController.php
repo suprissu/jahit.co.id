@@ -12,6 +12,7 @@ use App\Models\Sample;
 use App\Models\Transaction;
 
 use App\Constant\ChatTemplateConstant;
+use App\Constant\ProjectStatusConstant;
 use App\Constant\RoleConstant;
 use App\Constant\WarningStatusConstant;
 use App\Constant\SampleStatusConstant;
@@ -352,5 +353,90 @@ class InboxController extends Controller
         return redirect($expectedStage);
     }
 
+    public function dealSample(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.inbox'));
+        if ($expectedStage == route('home.inbox')) {
+            $this->validate($request, [
+                'projectID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'partnerID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'inboxID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'chatID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'negotiationID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+            ]);
 
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            if ($role == RoleConstant::CUSTOMER) {
+                $customer = $user->customer;
+                
+                $transaction = new Transaction;
+                $transaction->partner_id = $request->partnerID;
+                $transaction->customer_id = $customer->id;
+
+                $chatSampleRequest = new Chat;
+                $chatSampleRequest->role = ChatTemplateConstant::CUSTOMER_ROLE;
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+
+            $negotiation = Negotiation::find($request->negotiationID);
+            
+            $project = $customer->first()->projects()->find($request->projectID);
+            $project->partner_id = $request->partnerID;
+            $project->status = ProjectStatusConstant::PROJECT_DEALT;
+            $project->cost = $negotiation->cost * $project->count;
+            $project->start_date = Carbon::now();
+            $project->deadline = $negotiation->deadline;
+            $project->save();
+
+            // TO DO: Delivery cost
+            $deliveryCost = 0;
+            $dpPercentage = 0.5;
+            $transactionCost = $dpPercentage * $negotiation->cost * $project->count + $deliveryCost;
+
+            $transaction->project_id = $request->projectID;
+            $transaction->cost = $transactionCost;
+            $transaction->status = TransactionConstant::PAY_WAIT;
+            $transaction->type = TransactionConstant::DOWN_PAYMENT_TYPE;
+            $transaction->deadline = Carbon::now()->addDays(1);
+            $transaction->save();
+
+            $sample = $negotiation->sample;
+            $sample->status = SampleStatusConstant::SAMPLE_APPROVED;
+            $sample->save();
+
+            $chatPrevious = Chat::find($request->chatID);
+            $chatPrevious->answer = ChatTemplateConstant::DEAL_ANSWER;
+            $chatPrevious->save();
+
+            $chatSampleDeal = new Chat;
+            $chatSampleDeal->role = ChatTemplateConstant::CUSTOMER_ROLE;
+            $chatSampleDeal->type = ChatTemplateConstant::PROJECT_DEAL_TYPE;
+            $chatSampleDeal->inbox_id = $request->inboxID;
+            $chatSampleDeal->negotiation()->associate($negotiation);
+            $chatSampleDeal->save();
+        }
+        return redirect($expectedStage);
+    }
 }

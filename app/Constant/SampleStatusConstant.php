@@ -10,4 +10,5 @@ class SampleStatusConstant
     public const SAMPLE_FINISHED            = 'Sampel Selesai';
     public const SAMPLE_SENT                = 'Sampel Dikirim';
     public const SAMPLE_APPROVED            = 'Sampel Disetujui';
+    public const SAMPLE_REJECTED            = 'Sampel Ditolak';
 }

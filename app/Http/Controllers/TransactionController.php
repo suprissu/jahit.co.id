@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+
 use App\Constant\RoleConstant;
 use App\Constant\TransactionConstant;
 use App\Constant\WarningStatusConstant;
 
-use App\Model\PaymentSlip;
+use App\Models\PaymentSlip;
+use App\Models\Transaction;
 
 use App\Helper\FileHelper;
 use App\Helper\RedirectionHelper;
@@ -120,21 +123,23 @@ class TransactionController extends Controller
 
         $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.transaction'));
         if ($expectedStage == route('home.transaction')) {
-            // TO DO: check deadline > now
-            $transaction = Transaction::find($request->transactionID);
-            $transaction->status = TransactionConstant::PAY_IN_VERIF;
-            $transaction->save();
-
-            $file_path_prefix = '/img/customer/transaction/';
             
-            $files = $request->file('payment_slip_path');
-            if ($files != null) {
-                foreach($files as $imageFile){
-                    $paymentSlip = new PaymentSlip;
-                    $paymentSlip->path = FileHelper::saveResizedImageToPublic($imageFile, $file_path_prefix . 'paymentslip');;
-                    $paymentSlip->transaction()->associate($transaction);
-                    $paymentSlip->save();
-                }    
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            if ($role == RoleConstant::CUSTOMER) {
+                // TO DO: check deadline > now
+                $transaction = Transaction::find($request->transactionID);
+                $transaction->status = TransactionConstant::PAY_IN_VERIF;
+                $transaction->save();
+
+                $file_path_prefix = '/img/customer/transaction/';
+                
+                $paymentSlip = new PaymentSlip;
+                $paymentSlip->path = FileHelper::saveResizedImageToPublic($request->file('payment_slip_path'), $file_path_prefix . 'paymentslip');;
+                $paymentSlip->transaction_id = $request->transactionID;
+                $paymentSlip->save();
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }
         }
         return redirect($expectedStage);

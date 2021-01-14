@@ -40,6 +40,11 @@
             {
                 role: "CLIENT",
                 type: "SETUJU",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
         ],
     },
@@ -137,10 +142,20 @@
             {
                 role: "VENDOR",
                 type: "SETUJU",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "CLIENT",
                 type: "SAMPLE",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "ADMIN",
@@ -150,6 +165,11 @@
                 role: "VENDOR",
                 answer: "deal",
                 type: "SAMPLE TERKIRIM",
+                negotiation: {
+                    price: "1000000",
+                    start_date: "2020-10-29T03:59:09",
+                    end_date: "2020-11-01T03:59:09",
+                }
             },
             {
                 role: "CLIENT",

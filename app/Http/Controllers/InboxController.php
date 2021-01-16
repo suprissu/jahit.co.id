@@ -90,6 +90,19 @@ class InboxController extends Controller
     {
         $partner = $user->partner()->first();
         $inboxes = $partner->inboxes()->orderBy('updated_at', 'desc')->get();
+        $offers = Chat::whereHas('inbox', function($query) use($partner) {
+                            $query->where('partner_id', $partner->id);
+                        })
+                        ->where('type', ChatTemplateConstant::INITIATION_TYPE)
+                        ->with('inbox')
+                        ->orderBy('updated_at', 'desc')
+                        ->get();
+                        
+        if ($offers->count() == 0) {
+            $offerLastDate = "";
+        } else {
+            $offerLastDate = $offers->last()->created_at->format('j F Y');
+        }
         $role = "VENDOR";
 
         return view('pages.partner.inbox', get_defined_vars());
@@ -423,8 +436,10 @@ class InboxController extends Controller
             $transaction->save();
 
             $sample = $negotiation->sample;
-            $sample->status = SampleStatusConstant::SAMPLE_APPROVED;
-            $sample->save();
+            if ($sample != null) {
+                $sample->status = SampleStatusConstant::SAMPLE_APPROVED;
+                $sample->save();
+            }
 
             $chatPrevious = Chat::find($request->chatID);
             $chatPrevious->answer = ChatTemplateConstant::DEAL_ANSWER;
@@ -436,6 +451,11 @@ class InboxController extends Controller
             $chatSampleDeal->inbox_id = $request->inboxID;
             $chatSampleDeal->negotiation()->associate($negotiation);
             $chatSampleDeal->save();
+
+            $otherInboxes = Inbox::where('project_id', $request->projectID)
+                        ->where('customer_id', $customer->id)
+                        ->where('partner_id', '!=', $request->partnerID)
+                        ->delete();
         }
         return redirect($expectedStage);
     }

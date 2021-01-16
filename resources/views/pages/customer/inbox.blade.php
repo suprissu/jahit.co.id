@@ -77,21 +77,23 @@
 @include('layouts/modalChatAskSample')
 <div class="userChat">
     <div class="userChat__container">
-        <h2 class="userChat__title">Pesan {{ $errors }}</h2>
+        <h2 class="userChat__title">Pesan</h2>
         <div class="chatbox">
             <div class="chatbox__navigation navigation">
                 <div class="navigation__story"></div>
 
-                @foreach( $inboxes as $inbox )
-                    <div class="navigation__item" data-id="{{ $inbox->id }}">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">{{ $inbox->partner->company_name }}</h5>
-                            <p class="navigation__description">{{ $inbox->project->name }}</p>
+                @foreach ( $inboxes as $inbox )
+                    @if ( $inbox->chats->count() > 1 )
+                        <div class="navigation__item" data-id="{{ $inbox->id }}">
+                            <div class="navigation__left">
+                                <h5 class="navigation__title">{{ $inbox->partner->company_name }}</h5>
+                                <p class="navigation__description">{{ $inbox->project->name }}</p>
+                            </div>
+                            <div class="navigation__right">
+                                <p class="navigation__date">{{ $inbox->chats->last()->created_at->format('j F Y') }}</p>
+                            </div>
                         </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">{{ $inbox->chats->last()->created_at->format('j F Y') }}</p>
-                        </div>
-                    </div>
+                    @endif
                 @endforeach
                
             </div>

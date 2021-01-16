@@ -9,6 +9,56 @@
 @section('prerender-js')
     <script>
         const chatProject = [
+            {
+                id: "_OFFER_",
+                userRole: "{{ $role }}",
+                customerId: "-",
+                partnerId: "{{ $partner->id }}",
+                projectId: "-",
+                project: {
+                    id: "-",
+                    name: "-",
+                    amount: "-",
+                    price: "-",
+                    start_date: "-",
+                    end_date: "-",
+                    note: "-",
+                },
+                transaction: {
+                    id: "-",
+                },
+                message: [
+                    @foreach( $offers as $chat )
+                    @inject('chatConstants', 'App\Constant\ChatTemplateConstant')
+                    @if( $chat->answer != $chatConstants::REJECT_ANSWER)
+                        {
+                            id: "{{ $chat->id }}",
+                            role: "{{ $chat->role }}",
+                            type: "{{ $chat->type }}",
+                            @if( $chat->answer != null )
+                                answer: "{{ $chat->answer }}",
+                            @endif
+                            @if( $chat->excuse != null )
+                                excuse: "{{ $chat->excuse }}",
+                            @endif
+                            customerId: "{{ $chat->inbox->customer_id }}",
+                            partnerId: "{{ $chat->inbox->partner_id }}",
+                            projectId: "{{ $chat->inbox->project_id }}",
+                            inboxId: "{{ $chat->inbox->id }}",
+                            project: {
+                                id: "{{ $chat->inbox->project->id }}",
+                                name: "{{ $chat->inbox->project->name }}",
+                                amount: "{{ $chat->inbox->project->count }}",
+                                price: "{{ $chat->inbox->project->cost }}",
+                                start_date: "{{ $chat->inbox->project->start_date }}",
+                                end_date: "{{ $chat->inbox->project->end_date }}",
+                                note: "{{ $chat->inbox->project->note }}",
+                            },
+                        },
+                    @endif
+                    @endforeach
+                ],
+            },
             @foreach( $inboxes as $inbox )
                 {
                     id: "{{ $inbox->id }}",
@@ -105,16 +155,28 @@
             <div class="chatbox__navigation navigation">
                 <div class="navigation__story"></div>
 
-                @foreach( $inboxes as $inbox )
-                    <div class="navigation__item" data-id="{{ $inbox->id }}">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">{{ $inbox->customer->company_name }}</h5>
-                            <p class="navigation__description">{{ $inbox->project->name }}</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">{{ $inbox->chats->last()->created_at->format('j F Y') }}</p>
-                        </div>
+                <div class="navigation__item" data-id="_OFFER_">
+                    <div class="navigation__left">
+                        <h5 class="navigation__title">Penawaran</h5>
+                        <p class="navigation__description">{{ $offers->count() }} penawaran</p>
                     </div>
+                    <div class="navigation__right">
+                        <p class="navigation__date">{{ $offerLastDate }}</p>
+                    </div>
+                </div>
+
+                @foreach( $inboxes as $inbox )
+                    @if ( $inbox->chats->count() > 1 )
+                        <div class="navigation__item" data-id="{{ $inbox->id }}">
+                            <div class="navigation__left">
+                                <h5 class="navigation__title">{{ $inbox->customer->company_name }}</h5>
+                                <p class="navigation__description">{{ $inbox->project->name }}</p>
+                            </div>
+                            <div class="navigation__right">
+                                <p class="navigation__date">{{ $inbox->chats->last()->created_at->format('j F Y') }}</p>
+                            </div>
+                        </div>
+                    @endif
                 @endforeach
                
             </div>

@@ -17,7 +17,7 @@ const initiationPartnerChat = (
             <p class="chatbox__message__projectAmount">Jumlah: <strong>${projectAmount} buah</strong></p>
         </div>
         <div class="chatbox__message__description">
-            <p>Ahmad telah menambah proyek. Ajukan penawaran sekarang!</p>
+            <p>Ajukan penawaran sekarang!</p>
         </div>
         <div class="chatbox__message__choice">
             ${
@@ -173,13 +173,13 @@ const runProjectPermission = (
                     <span class="py-2 px-3 badge badge-${
                         answer === "deal" ? "success" : "light"
                     }">${
-                      answer === "deal"
+                      answer  === "deal"
                           ? "Proyek dijalankan"
                           : "Permintaan sample diajukan"
                   }</span>`
                 : `
                     <button onclick="changeModalChatAskSample(this)" class="chatbox__message__negotiationReject btn btn-outline-danger" data-projectId="${projectId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-negotiationId="${negotiationId}" data-chatId="${chatId}" data-toggle="modal" data-target="#askSample">Minta Sample</button>
-                    <button class="chatbox__message__negotiationAccept btn btn-danger" data-toggle="modal" data-target="#runProject">Jalankan Proyek</button>
+                    <button onclick="changeModalChatProjectPermission(this)" class="chatbox__message__negotiationAccept btn btn-danger" data-projectId="${projectId}" data-partnerId="${partnerId}" data-inboxId="${inboxId}" data-negotiationId="${negotiationId}" data-chatId="${chatId}" data-toggle="modal" data-target="#runProject" data-projectId="${projectId}">Jalankan Proyek</button>
                     `
         }
         </div>

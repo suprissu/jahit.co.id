@@ -25,6 +25,11 @@ class Partner extends Model
         return $this->hasMany(Project::class);
     }
 
+    public function materialRequests()
+    {
+        return $this->hasMany(MaterialRequest::class);
+    }
+
     public function inboxes()
     {
         return $this->hasMany(Inbox::class);

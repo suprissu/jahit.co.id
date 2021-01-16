@@ -85,7 +85,9 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
 
     Route::group(['prefix' => 'transaction', 'as' => '.transaction'], function () {
         Route::get('', 'TransactionController@userTransaction')->name('');
+        Route::get('/requestMaterial', 'TransactionController@requestMaterialPage')->name('.material.request.page');
         Route::post('/uploadPaymentSlip', 'TransactionController@uploadPaymentSlip')->name('.slip.submit');
+        Route::post('/requestMaterial', 'TransactionController@requestMaterial')->name('.material.request');
     });
 
 });

@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 
+use App\Constant\MaterialRequestStatusConstant;
 use App\Constant\RoleConstant;
 use App\Constant\TransactionConstant;
 use App\Constant\WarningStatusConstant;
 
+use App\Models\Material;
+use App\Models\MaterialRequest;
 use App\Models\PaymentSlip;
 use App\Models\Transaction;
 
@@ -97,8 +100,24 @@ class TransactionController extends Controller
     public function partnerTransaction(Request $request, $user, $role)
     {
         $partner = $user->partner()->first();
-        $transactions = $partner->transactions()->orderBy('created_at', 'desc')->get();
 
+        $requestsAll = $partner->materialRequests()
+                            ->orderBy('updated_at', 'desc')
+                            ->get();
+        $requestsRequested = $partner->materialRequests()
+                            ->where('status', MaterialRequestStatusConstant::MATERIAL_REQUESTED)
+                            ->orderBy('updated_at', 'desc')
+                            ->get();
+        $requestsApproved = $partner->materialRequests()
+                            ->where('status', MaterialRequestStatusConstant::MATERIAL_APPROVED)
+                            ->orWhere('status', MaterialRequestStatusConstant::MATERIAL_SENT)
+                            ->orderBy('updated_at', 'desc')
+                            ->get();
+        $requestsRejected = $partner->materialRequests()
+                            ->where('status', MaterialRequestStatusConstant::MATERIAL_REJECTED)
+                            ->orderBy('updated_at', 'desc')
+                            ->get();
+                            
         return view('pages.partner.transaction', get_defined_vars());
     }
 
@@ -160,6 +179,76 @@ class TransactionController extends Controller
                 $paymentSlip->path = FileHelper::saveResizedImageToPublic($request->file('payment_slip_path'), $file_path_prefix . 'paymentslip');;
                 $paymentSlip->transaction_id = $request->transactionID;
                 $paymentSlip->save();
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function requestMaterialPage(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.transaction.material.request.page'));
+        if ($expectedStage == route('home.transaction.material.request.page')) {
+            
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+
+            if ($role == RoleConstant::PARTNER) {
+                $partner = $user->partner()->first();
+                
+                $projects = $partner->projects();
+                $materials = Material::all();
+
+                return view('pages.partner.material', get_defined_vars());
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);    
+    }
+
+    public function requestMaterial(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.transaction.material.request.page'));
+        if ($expectedStage == route('home.transaction.material.request.page')) {
+            
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+
+            if ($role == RoleConstant::PARTNER) {
+                $partner = $user->partner()->first();
+
+                $this->validate($request, [
+                    'projectID' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                    'materialID' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                    'materialName' => [
+                        'string'
+                    ],
+                    'quantity' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                ]);
+
+                $materialRequest = new MaterialRequest;
+                $materialRequest->partner_id = $partner->id;
+                $materialRequest->project_id = $request->projectID;
+                $materialRequest->material_id = $request->materialID;
+                $materialRequest->material = $request->materialName;
+                $materialRequest->status = MaterialRequestStatusConstant::MATERIAL_REQUESTED;
+                $materialRequest->quantity = $request->quantity;
+                $materialRequest->note = $request->note;
+                $materialRequest->save();
             } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }

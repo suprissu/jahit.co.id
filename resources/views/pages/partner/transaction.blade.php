@@ -9,33 +9,38 @@
 @section('prerender-js')
 <script>
     const dummyData = [
-        @foreach( $transactions as $transaction )
-            {
-                id: "{{ $transaction->id }}",
-                name: "{{ $transaction->project->name }}",
-                price: "{{ $transaction->cost }}",
-                start_date: "{{ $transaction->created_at }}",
-                end_date: "{{ $transaction->deadline }}",
-            },
-        @endforeach
-        ]
+        {
+            id: "12d11dx",
+            name: "Relawan Covid A",
+            price: "120000",
+            start_date: "10/05/2020, 12:38:00 AM",
+            end_date: "10/30/2020, 12:38:00 AM",
+        },
+        {
+            id: "12d11da",
+            name: "Demo Omnibus Law A",
+            price: "120000",
+            start_date: "10/05/2020, 12:38:00 AM",
+            end_date: "10/30/2020, 12:38:00 AM",
+        },
+    ]
 
-        function getTransactionData(id) {
+    function getTransactionData(id) {
 
-            const data = dummyData.find((data) => data.id == id);
-            const name = data.name
-            const price = data.price
-            const start_date = new Date(data.start_date)
-            const end_date = new Date(data.end_date)
+        const data = dummyData.find((data) => data.id == id);
+        const name = data.name
+        const price = data.price
+        const start_date = new Date(data.start_date)
+        const end_date = new Date(data.end_date)
 
-            return {
-                id,
-                name,
-                price,
-                start_date,
-                end_date,
-            }
+        return {
+            id,
+            name,
+            price,
+            start_date,
+            end_date,
         }
+    }
 
     function getPercentage(start, end) {
         const startDate = new Date(start).getTime();
@@ -74,36 +79,44 @@
     <div class="userCustomerTransaction__container">
         <div class="userCustomerTransaction__header">
             <h2 class="userCustomerTransaction__title">Transaksi</h2>
+            <a href="{{ route('home.transaction.material.request.page') }}"><button class="btn btn-danger">Minta bahan</button></a>
         </div>
         <div class="userCustomerTransaction__transactions">
             <div class="userCustomerTransaction__transactions__header list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">Semua</a>
-                <a class="list-group-item list-group-item-action" id="list-sample-list" data-toggle="list" href="#list-sample" role="tab" aria-controls="sample">Sample</a>
-                <a class="list-group-item list-group-item-action" id="list-deposit-list" data-toggle="list" href="#list-deposit" role="tab" aria-controls="deposit">Deposit</a>
-                <a class="list-group-item list-group-item-action" id="list-repayment-list" data-toggle="list" href="#list-repayment" role="tab" aria-controls="repayment">Pelunasan</a>
+                <a class="list-group-item list-group-item-action" id="list-material-list" data-toggle="list" href="#list-material" role="tab" aria-controls="sample">Menunggu Bahan</a>
+                <a class="list-group-item list-group-item-action" id="list-accept-list" data-toggle="list" href="#list-accept" role="tab" aria-controls="accept">Disetujui</a>
+                <a class="list-group-item list-group-item-action" id="list-cancel-list" data-toggle="list" href="#list-cancel" role="tab" aria-controls="cancel">Dibatalkan</a>
             </div>
             <div class="userCustomerTransaction__transactions__list header tab-content" id="nav-tabContent">
                 
                 <!-- Semua Transaksi -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: Make List Item -->
-                    @foreach( $transactions as $transaction )
+
+                    @foreach( $requestsAll as $request )
                         <div class="listItem">
                             <a href="/user/customer/transaction/1" class="listItem--left">
                                 <div class="listItem__header">
-                                    <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
-                                    <p class="listItem__price">Rp {{ $transaction->cost }}</p>
-                                    <p class="listItem__amount">{{ $transaction->project->count }} buah</p>
+                                    <h5 class="listItem__name mb-0">Penyelenggara Relawan COVID</h5>
+                                    <p class="listItem__price">Rp.13.000</p>
+                                    <p class="listItem__amount">13.000 buah</p>
+                                    <div class="listItem__material">
+                                        <p class="listItem__material__title">Bahan:</p>
+                                        <p class="listItem__material__description">Spunband 75 Gsm</p>
+                                        <p class="listItem__material__description">10.000 buah x 2.5 meter</p>
+                                        <p class="listItem__material__description">25.000 meter</p>
+                                    </div>
                                 </div>
                             </a>
                             <div class="listItem--right">
                                 <a href="/user/customer/transaction/1" class="listItem__label">
-                                    <p class="listItem__category">{{ $transaction->type }}</p>
-                                    <p class="listItem__paidStatus">{{ $transaction->status }}</p>
+                                    <p class="listItem__category">Sample</p>
+                                    <p class="listItem__paidStatus">Belum Dibayar</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
                                     <div 
-                                        data-startDate="{{ $transaction->created_at }}"
-                                        data-endDate="{{ $transaction->deadline }}"
+                                        data-startDate="2020-10-18T02:00"
+                                        data-endDate="2020-12-18T10:00"
                                         class="listItem__status--progress progress">
                                         <div class="progress-bar" role="progressbar"></div>
                                     </div>
@@ -117,19 +130,20 @@
                             </div>
                         </div>
                     @endforeach
+
                 </div>
                 
                 <!-- Penawaran Terbuka -->
-                <div class="tab-pane fade" id="list-sample" role="tabpanel" aria-labelledby="list-sample-list">
+                <div class="tab-pane fade" id="list-material" role="tabpanel" aria-labelledby="list-material-list">
                 </div>
                 
                 <!-- Transaksi Dalam Pengerjaan -->
-                <div class="tab-pane fade" id="list-deposit" role="tabpanel" aria-labelledby="list-deposit-list">
+                <div class="tab-pane fade" id="list-accept" role="tabpanel" aria-labelledby="list-accept-list">
                     <!-- TODO: Make List Item -->
                 </div>
                 
                 <!-- Transaksi Selesai -->
-                <div class="tab-pane fade" id="list-repayment" role="tabpanel" aria-labelledby="list-repayment-list">
+                <div class="tab-pane fade" id="list-cancel" role="tabpanel" aria-labelledby="list-cancel-list">
                     <!-- TODO: Make List Item -->
                 </div>
                 

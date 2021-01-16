@@ -43,7 +43,7 @@ class AdministratorController extends Controller
         if ($expectedStage == route('home.transaction')) {
             if ($role == RoleConstant::ADMINISTRATOR) {
 
-                $paymentSlips = PaymentSlip::orderBy('created_at', 'desc')->get();
+                $paymentSlips = PaymentSlip::orderBy('updated_at', 'desc')->get();
                 return view('pages.administrator.paymentVerification', get_defined_vars());
 
             } else {

@@ -68,22 +68,22 @@ class TransactionController extends Controller
                             ->where('status', TransactionConstant::PAY_WAIT)
                             ->orWhere('status', TransactionConstant::PAY_IN_VERIF)
                             ->orWhere('status', TransactionConstant::PAY_FAIL)
-                            ->orderBy('created_at', 'desc')
+                            ->orderBy('updated_at', 'desc')
                             ->get();
         $sample_transactions = $customer->transactions()
                             ->where('type', TransactionConstant::SAMPLE_TYPE)
                             ->where('status', TransactionConstant::PAY_OK)
-                            ->orderBy('created_at', 'desc')
+                            ->orderBy('updated_at', 'desc')
                             ->get();
         $dp_transactions = $customer->transactions()
                             ->where('type', TransactionConstant::DOWN_PAYMENT_TYPE)
                             ->where('status', TransactionConstant::PAY_OK)
-                            ->orderBy('created_at', 'desc')
+                            ->orderBy('updated_at', 'desc')
                             ->get();
         $full_transactions = $customer->transactions()
                             ->where('type', TransactionConstant::PELUNASAN_TYPE)
                             ->where('status', TransactionConstant::PAY_OK)
-                            ->orderBy('created_at', 'desc')
+                            ->orderBy('updated_at', 'desc')
                             ->get();
 
         return view('pages.customer.transaction', get_defined_vars());
@@ -110,15 +110,15 @@ class TransactionController extends Controller
     public function administratorTransaction(Request $request)
     {
         $transactionsCheck = Transaction::where('status', TransactionConstant::PAY_IN_VERIF)
-                                    ->orderBy('created_at', 'desc')
+                                    ->orderBy('updated_at', 'desc')
                                     ->get();
         
         $transactionsVerified = Transaction::where('status', TransactionConstant::PAY_OK)
-                                    ->orderBy('created_at', 'desc')
+                                    ->orderBy('updated_at', 'desc')
                                     ->get();
      
         $transactionsFailed = Transaction::where('status', TransactionConstant::PAY_FAIL)
-                                    ->orderBy('created_at', 'desc')
+                                    ->orderBy('updated_at', 'desc')
                                     ->get();
 
         return view('pages.administrator.transaction', get_defined_vars());

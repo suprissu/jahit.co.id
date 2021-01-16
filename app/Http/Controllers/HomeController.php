@@ -65,23 +65,23 @@ class HomeController extends Controller
         $partner = $user->partner()->first();
         
         $projectsAll = $partner->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->get();
 
         $projectsRequest = $partner->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_OPENED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_DEALT)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_DP_OK)
                         ->get();
         
         $projectsInProgress = $partner->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS)
                         ->get();
         
         $projectsDone = $partner->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FINISHED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_FULL_PAYMENT_OK)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_SENT)
@@ -89,19 +89,19 @@ class HomeController extends Controller
                         ->get();
         
         $projectsRejected = $partner->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FAILED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_CANCELED)
                         ->get();
 
         $samplesAll =  $partner->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample')
                         ->get();
 
         $samplesRequest = $partner->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_WAIT_PAYMENT)
@@ -110,7 +110,7 @@ class HomeController extends Controller
                         ->get();
         
         $samplesInProgress = $partner->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_WORK_IN_PROGRESS);
@@ -118,7 +118,7 @@ class HomeController extends Controller
                         ->get();
         
         $samplesDone = $partner->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_FINISHED)
@@ -128,7 +128,7 @@ class HomeController extends Controller
                         ->get();
         
         $samplesRejected = $partner->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_REJECTED);
@@ -145,23 +145,23 @@ class HomeController extends Controller
         $customer = $user->customer()->first();
 
         $projectsAll = $customer->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->get();
 
         $projectsRequest = $customer->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_OPENED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_DEALT)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_DP_OK)
                         ->get();
         
         $projectsInProgress = $customer->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS)
                         ->get();
         
         $projectsDone = $customer->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FINISHED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_FULL_PAYMENT_OK)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_SENT)
@@ -169,19 +169,19 @@ class HomeController extends Controller
                         ->get();
         
         $projectsRejected = $customer->projects()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FAILED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_CANCELED)
                         ->get();
 
         $samplesAll =  $customer->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample')
                         ->get();
 
         $samplesRequest = $customer->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_WAIT_PAYMENT)
@@ -190,7 +190,7 @@ class HomeController extends Controller
                         ->get();
         
         $samplesInProgress = $customer->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_WORK_IN_PROGRESS);
@@ -198,7 +198,7 @@ class HomeController extends Controller
                         ->get();
         
         $samplesDone = $customer->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_FINISHED)
@@ -208,7 +208,7 @@ class HomeController extends Controller
                         ->get();
         
         $samplesRejected = $customer->transactions()
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('updated_at', 'desc')
                         ->with('sample', 'project')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_REJECTED);

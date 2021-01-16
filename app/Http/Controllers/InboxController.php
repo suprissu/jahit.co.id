@@ -75,7 +75,7 @@ class InboxController extends Controller
     public function customerInbox(Request $request, $user, $role)
     {
         $customer = $user->customer()->first();
-        $inboxes = $customer->inboxes()->orderBy('created_at', 'desc')->get();
+        $inboxes = $customer->inboxes()->orderBy('updated_at', 'desc')->get();
         $role = "CLIENT";
 
         return view('pages.customer.inbox', get_defined_vars());
@@ -89,7 +89,7 @@ class InboxController extends Controller
     public function partnerInbox(Request $request, $user, $role)
     {
         $partner = $user->partner()->first();
-        $inboxes = $partner->inboxes()->orderBy('created_at', 'desc')->get();
+        $inboxes = $partner->inboxes()->orderBy('updated_at', 'desc')->get();
         $role = "VENDOR";
 
         return view('pages.partner.inbox', get_defined_vars());

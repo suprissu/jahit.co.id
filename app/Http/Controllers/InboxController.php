@@ -415,7 +415,7 @@ class InboxController extends Controller
 
             $negotiation = Negotiation::find($request->negotiationID);
             
-            $project = $customer->first()->projects()->find($request->projectID);
+            $project = $customer->projects->find($request->projectID);
             $project->partner_id = $request->partnerID;
             $project->status = ProjectStatusConstant::PROJECT_DEALT;
             $project->cost = $negotiation->cost * $project->count;

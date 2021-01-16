@@ -80,6 +80,7 @@
 
 @section('content')
 @include('layouts/modalUploadPayment')
+@inject('transactionConstant', 'App\Constant\TransactionConstant')
 
 <div class="userCustomerTransaction">
     <div class="userCustomerTransaction__container">
@@ -111,12 +112,14 @@
                                     <p class="listItem__category">{{ $transaction->type }}</p>
                                     <p class="listItem__paidStatus">{{ $transaction->status }}</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
-                                    <div 
-                                        data-startDate="{{ $transaction->created_at }}"
-                                        data-endDate="{{ $transaction->deadline }}"
-                                        class="listItem__status--progress progress">
-                                        <div class="progress-bar" role="progressbar"></div>
-                                    </div>
+                                    @if ($transaction->status == $transactionConstant::PAY_WAIT)
+                                        <div 
+                                            data-startDate="{{ $transaction->created_at }}"
+                                            data-endDate="{{ $transaction->deadline }}"
+                                            class="listItem__status--progress progress">
+                                            <div class="progress-bar" role="progressbar"></div>
+                                        </div>
+                                    @endif
                                 </a>
                                 <div class="listItem__credential">
                                     <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
@@ -146,12 +149,14 @@
                                     <p class="listItem__category">{{ $transaction->type }}</p>
                                     <p class="listItem__paidStatus">{{ $transaction->status }}</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
-                                    <div 
-                                        data-startDate="{{ $transaction->created_at }}"
-                                        data-endDate="{{ $transaction->deadline }}"
-                                        class="listItem__status--progress progress">
-                                        <div class="progress-bar" role="progressbar"></div>
-                                    </div>
+                                    @if ($transaction->status == $transactionConstant::PAY_WAIT)
+                                        <div 
+                                            data-startDate="{{ $transaction->created_at }}"
+                                            data-endDate="{{ $transaction->deadline }}"
+                                            class="listItem__status--progress progress">
+                                            <div class="progress-bar" role="progressbar"></div>
+                                        </div>
+                                    @endif
                                 </a>
                                 <div class="listItem__credential">
                                     <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
@@ -181,12 +186,14 @@
                                     <p class="listItem__category">{{ $transaction->type }}</p>
                                     <p class="listItem__paidStatus">{{ $transaction->status }}</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
-                                    <div 
-                                        data-startDate="{{ $transaction->created_at }}"
-                                        data-endDate="{{ $transaction->deadline }}"
-                                        class="listItem__status--progress progress">
-                                        <div class="progress-bar" role="progressbar"></div>
-                                    </div>
+                                    @if ($transaction->status == $transactionConstant::PAY_WAIT)
+                                        <div 
+                                            data-startDate="{{ $transaction->created_at }}"
+                                            data-endDate="{{ $transaction->deadline }}"
+                                            class="listItem__status--progress progress">
+                                            <div class="progress-bar" role="progressbar"></div>
+                                        </div>
+                                    @endif
                                 </a>
                                 <div class="listItem__credential">
                                     <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
@@ -216,12 +223,14 @@
                                     <p class="listItem__category">{{ $transaction->type }}</p>
                                     <p class="listItem__paidStatus">{{ $transaction->status }}</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
-                                    <div 
-                                        data-startDate="{{ $transaction->created_at }}"
-                                        data-endDate="{{ $transaction->deadline }}"
-                                        class="listItem__status--progress progress">
-                                        <div class="progress-bar" role="progressbar"></div>
-                                    </div>
+                                    @if ($transaction->status == $transactionConstant::PAY_WAIT)
+                                        <div 
+                                            data-startDate="{{ $transaction->created_at }}"
+                                            data-endDate="{{ $transaction->deadline }}"
+                                            class="listItem__status--progress progress">
+                                            <div class="progress-bar" role="progressbar"></div>
+                                        </div>
+                                    @endif
                                 </a>
                                 <div class="listItem__credential">
                                     <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->

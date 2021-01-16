@@ -45,7 +45,7 @@
     function getPercentage(start, end) {
         const startDate = new Date(start).getTime();
         const endDate = new Date(end).getTime();
-        const today = new Date().getTime();
+        const today = new Date().getTime() + new Date().getTimezoneOffset() * 60000;
         const total = endDate - startDate;
         const indicator = today - startDate;
         const progress = indicator / total;
@@ -55,7 +55,7 @@
     function getRemainingDay(end) {
         const endDate = new Date(end).getTime();
         const today = new Date().getTime();
-        const difference = endDate - today;
+        const difference = endDate - today + new Date().getTimezoneOffset() * 60000;
         const remainingDay = difference / (1000 * 3600 * 24);
         if (remainingDay > 1) return Math.round(remainingDay) + " hari lagi";
         else if (remainingDay * 24 > 1)

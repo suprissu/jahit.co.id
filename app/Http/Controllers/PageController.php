@@ -18,7 +18,85 @@ class PageController extends Controller
         return view('pages.aboutpage', get_defined_vars());
     }
 
-    public function warning(Request $request, $type)
+    public function choicePage(Request $request)
+    {
+        return view('pages.choicePage', get_defined_vars());
+    }
+
+    public function userLoginPage(Request $request)
+    {
+        return view('pages.userLoginPage', get_defined_vars());
+    }
+
+    public function userRegisterPage(Request $request)
+    {
+        return view('pages.userRegisterPage', get_defined_vars());
+    }
+
+    public function userCustomerRegisterPage(Request $request)
+    {
+        return view('pages.userCustomerRegisterPage', get_defined_vars());
+    }
+    
+    public function userCustomerAddProjectPage(Request $request)
+    {
+        return view('pages.userCustomerAddProjectPage', get_defined_vars());
+    }
+    public function userCustomerProjectPage(Request $request)
+    {
+        return view('pages.userCustomerProjectPage', get_defined_vars());
+    }
+    public function userProjectDetailPage(Request $request)
+    {
+        return view('pages.userProjectDetailPage', get_defined_vars());
+    }
+    public function userCustomerTransactionPage(Request $request)
+    {
+        return view('pages.userCustomerTransactionPage', get_defined_vars());
+    }
+    public function userPartnerTransactionPage(Request $request)
+    {
+        return view('pages.userPartnerTransactionPage', get_defined_vars());
+    }
+    public function userPartnerAddMaterialPage(Request $request)
+    {
+        return view('pages.userPartnerAddMaterialPage', get_defined_vars());
+    }
+    public function userCustomerChatPage(Request $request)
+    {
+        return view('pages.userCustomerChatPage', get_defined_vars());
+    }
+
+    public function userPartnerRegisterPage(Request $request)
+    {
+        return view('pages.userPartnerRegisterPage', get_defined_vars());
+    }
+    public function userPartnerChatPage(Request $request)
+    {
+        return view('pages.userPartnerChatPage', get_defined_vars());
+    }
+    public function adminChat(Request $request)
+    {
+        return view('pages.adminChat', get_defined_vars());
+    }
+    public function adminTransaction(Request $request)
+    {
+        return view('pages.adminTransaction', get_defined_vars());
+    }
+    public function adminMaterial(Request $request)
+    {
+        return view('pages.adminMaterial', get_defined_vars());
+    }
+    public function adminUserVerification(Request $request)
+    {
+        return view('pages.adminUserVerification', get_defined_vars());
+    }
+
+    public function notfound(Request $request)
+    {
+        return view('layouts._customPage', get_defined_vars());
+    }
+        public function warning(Request $request, $type)
     {
         $warningPicturePath = 'img/warning/';
 

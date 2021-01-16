@@ -39,8 +39,12 @@ class customPage extends HTMLElement {
                 }
 
                 .blankPage__image {
-                    max-width: 100%;
-                    max-height: 100%;
+                    width: 420px;
+                    height: 420px;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    clip-path: circle(50% at 50% 50%);
                 }
 
                 .blankPage__title {
@@ -52,11 +56,20 @@ class customPage extends HTMLElement {
                     margin-top: 1rem;
                 }
 
+                a {
+                    color: #d52047;
+                    text-decoration: none;
+                }
+
+                a:hover {
+                    color: black;
+                }
+
             </style>
 
             <div class="blankPage">
                 <div class="blankPage__container">
-                    <img height="50%" width="50%" class="blankPage__image" src=${this.image} alt="info-image"/>
+                    <div class="blankPage__image" style="background-image: url('${this.image}')"></div>
                     <h1 class="blankPage__title">${this.title}</h1>
                     <p class="blankPage__message">${this.message}</p>
                     <a href="${this.backUrl}" class="btn btn-warning">Kembali</a>

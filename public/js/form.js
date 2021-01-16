@@ -11,7 +11,7 @@ $(".input-files").each((e, node) => {
 
 $(".upload-files__preview").hide();
 
-$(".upload-files__input").change((e) => {
+$(".upload-files__input").on("change", (e) => {
     $(".upload-files__add").removeClass("hover");
     $(".upload-files__preview").html("");
 
@@ -19,19 +19,20 @@ $(".upload-files__input").change((e) => {
 
     for (let i = 0; i < fileArray.length; i++) {
         const file = fileArray[i];
-        const div = document.createElement("span");
+        const div = document.createElement("img");
         const urlFile = URL.createObjectURL(file);
-        div.style.backgroundImage = `url(${urlFile})`;
+        div.setAttribute("src", `${urlFile}`);
         $(".upload-files__preview").prepend(div);
     }
 
-    $(".upload-files__preview").css("display", "flex");
-    $(".upload-files__wrapper").hide();
+    e.target.parentElement.style.display = "none";
+    e.target.parentElement.nextElementSibling.style.display = "flex";
 });
 
-$(".upload-files__preview").click(() => {
-    $(".upload-files__wrapper").show();
-    $(".upload-files__preview").hide();
+$(".upload-files__preview").on("click", (e) => {
+    e.target.previousElementSibling.children[0].value = "";
+    e.target.previousElementSibling.style.display = "flex";
+    e.target.style.display = "none";
 });
 
 var dragTimer;

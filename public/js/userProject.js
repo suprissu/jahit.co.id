@@ -4,7 +4,7 @@ function review(color) {
 
 function reviews(stars) {
     const colors = ["#D52047", "#000000"];
-    let result = `<div class="userCustomerProject__project__status userCustomerProject__project__status--review">`;
+    let result = `<div class="userProject__project__status userProject__project__status--review">`;
     for (let i = 0; i < 5; i++) {
         if (i < stars) result += review(colors[0]);
         else result += review(colors[1]);
@@ -46,8 +46,23 @@ class ProjectItem extends HTMLElement {
     }
 
     get rating() {
-        console.log("masuk");
         return this.getAttribute("rating");
+    }
+
+    get statusText() {
+        return this.getAttribute("statusText");
+    }
+
+    get buttonAction() {
+        return this.getAttribute("buttonAction");
+    }
+
+    get buttonText() {
+        return this.getAttribute("buttonText");
+    }
+
+    get buttonToken() {
+        return this.getAttribute("buttonToken");
     }
 
     get remainingDay() {
@@ -73,12 +88,13 @@ class ProjectItem extends HTMLElement {
 
     get status() {
         const status = {
-            1: `<div class="userCustomerProject__project__status">Penawaran Terbuka</div>`,
-            2: `<div class="userCustomerProject__project__status">Mengirimkan Sample</div>`,
-            3: `<div class="userCustomerProject__project__status--progress progress"><div class="progress-bar" role="progressbar" style="width: ${this.progress}%;" aria-valuenow="${this.progress}" aria-valuemin="0" aria-valuemax="100"><p>${this.remainingDay}</p></div></div>`,
-            4: `<div class="userCustomerProject__project__status userCustomerProject__project__status--finish">Siap Mengirim</div>`,
+            0: `<div class="userProject__project__status">${this.statusText}</div>`,
+            1: `<div class="userProject__project__status userProject__project__status--finish">${this.statusText}</div>`,
+            2: `<div class="userProject__project__status userProject__project__status--cancel">${this.statusText}</div>`,
+            3: `<div class="userProject__project__status--progress progress"><div class="progress-bar" role="progressbar" style="width: ${this.progress}%;" aria-valuenow="${this.progress}" aria-valuemin="0" aria-valuemax="100"><p>${this.remainingDay}</p></div></div>`,
+            4: `<div class="userProject__project__status userProject__project__status--finish">Siap Mengirim</div>`,
             5: reviews(this.rating),
-            6: `<div class="userCustomerProject__project__status userCustomerProject__project__status--cancel">Dibatalkan</div>`,
+            6: `<div class="userProject__project__status userProject__project__status--cancel">Dibatalkan</div>`,
         };
         return status[this.getAttribute("status")];
     }
@@ -92,23 +108,28 @@ class ProjectItem extends HTMLElement {
             <link rel="stylesheet" href=${this.css} crossorigin="anonymous">
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-            <div class="userCustomerProject__project userCustomerProject__project--quotation">
-                <div class="userCustomerProject__project--left">
-                    <p class="userCustomerProject__project__name">${
-                        this.name
-                    }</p>
-                    <p class="userCustomerProject__project__price">Rp.${
-                        this.price
-                    }</p>
-                    <p class="userCustomerProject__project__amount">${
+            <div class="userProject__project userProject__project--quotation">
+                <div class="userProject__project--left">
+                    <p class="userProject__project__name">${this.name}</p>
+                    <p class="userProject__project__price">Rp.${this.price}</p>
+                    <p class="userProject__project__amount">${
                         this.amount
                     } buah</p>
                 </div>
-                <div class="userCustomerProject__project--right">
-                    <p class="userCustomerProject__project__quotation">${
+                <div class="userProject__project--right">
+                    <div class="userProject__project__quotation">
+                    ${this.buttonAction !== null && this.buttonText !== null && this.buttonToken !== null
+                        ? `<form method="POST" action="${this.buttonAction}">
+                                <input type="hidden" name="_token" value="${this.buttonToken}" />
+                                <input type="submit" class="btn btn-danger value="${this.buttonText}" />    
+                            </form>`
+                        : ''
+                    }
+                    </div>
+                    <p class="userProject__project__quotation">${
                         this.review !== null
                             ? '"' + this.review + '"'
-                            : this.quotation + " Quotation"
+                            : (this.quotation !== null ? this.quotation + " Quotation" : "")
                     }</p>
                     ${this.status}
                 </div>

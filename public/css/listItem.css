@@ -1,0 +1,224 @@
+.listItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    padding: 1rem 2rem;
+    margin-top: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.listItem a {
+    color: black;
+    text-decoration: none;
+}
+
+.listItem:hover {
+    border: 1px solid rgba(213, 32, 71, 0.2);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.listItem:active {
+    border: 1px solid #d52047;
+    background: rgba(213, 32, 71, 0.12);
+}
+
+.listItem p {
+    margin-bottom: 0;
+    margin-top: 0;
+    white-space: nowrap;
+}
+
+.listItem__header {
+    display: flex;
+    flex-direction: column;
+}
+
+.listItem__image {
+    background: #d52047;
+    width: 180px;
+    margin-right: 10px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.listItem__image img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.listItem--left {
+    flex: 3;
+    display: flex;
+    align-items: flex-end;
+    height: 100%;
+}
+
+.listItem--right {
+    flex: 2;
+    gap: 1rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.listItem--right button {
+    margin: 2px;
+    font-size: 14px;
+}
+
+.listItem__label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.listItem__credential {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+.listItem__description p span {
+    font-weight: 600;
+}
+
+.listItem__name {
+    font-weight: bold;
+    white-space: pre-wrap;
+}
+
+.listItem__price {
+    color: #ee3d1b;
+    font-size: 18px;
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.listItem__amount {
+    font-size: 14px;
+}
+
+.listItem__status {
+    border-radius: 5px;
+    background: #e0e0e0;
+    padding: 5px 0;
+    font-size: 14px;
+    width: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+.listItem__category {
+    font-size: 14px;
+}
+
+.listItem__paidStatus {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 2px !important;
+}
+
+.listItem__status--finish {
+    background: #1cae94;
+    color: #ffffff;
+}
+
+.listItem__status--cancel {
+    background: #d52047;
+    color: #ffffff;
+}
+
+.listItem__status--progress {
+    width: 160px;
+    height: 26px !important;
+}
+
+.listItem__status--review {
+    background: transparent;
+}
+
+.listItem__status--progress .progress-bar {
+    background-color: #f2c94c;
+    color: #000;
+    white-space: nowrap;
+    display: flex;
+    position: relative;
+}
+
+.listItem__status--progress .progress-bar p {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    padding: 0 10px;
+}
+
+.listItem__material__title {
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+    .listItem {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .listItem > div {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .listItem__header {
+        width: 100%;
+    }
+
+    .listItem__content {
+        flex-direction: column;
+    }
+
+    .listItem__image {
+        min-width: 100%;
+        max-width: 100%;
+        max-height: 128px;
+        min-height: 128px;
+        margin: 5px 0;
+    }
+
+    .listItem--right {
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .listItem__status--progress {
+        width: 100%;
+    }
+
+    .listItem__credential {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .listItem__credential button,
+    .listItem__credential a {
+        flex: 1;
+        width: 100%;
+        white-space: pre-wrap;
+    }
+
+    .listItem__label {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

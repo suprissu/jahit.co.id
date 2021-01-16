@@ -1,0 +1,24 @@
+.userTransactionDetail {
+    min-height: 70vh;
+    margin-top: 7vh;
+}
+
+.userTransactionDetail__container {
+    min-width: 720px;
+    width: 40vw;
+    max-width: 1024px;
+    margin: 10vh auto;
+    border: 1px dashed rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    padding: 1rem;
+}
+
+.userTransactionDetail__container p {
+    margin: 0;
+}
+
+.userTransactionDetail__header {
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.12);
+    margin-bottom: 1rem;
+    text-align: center;
+}

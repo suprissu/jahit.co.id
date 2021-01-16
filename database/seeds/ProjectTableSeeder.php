@@ -3,9 +3,13 @@
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 
+use App\Constant\ChatTemplateConstant;
 use App\Constant\ProjectStatusConstant;
 
+use App\Models\Chat;
 use App\Models\Customer;
+use App\Models\Inbox;
+use App\Models\Partner;
 use App\Models\Project;
 use App\Models\ProjectImage;
 
@@ -42,7 +46,7 @@ class ProjectTableSeeder extends Seeder
                 $project->name = $categories[array_rand($categories)] . ' ' . $faker->colorName;
                 $project->address = $faker->address;
                 $project->count = rand(1,200);
-                $project->status = ProjectStatusConstant::OPEN;
+                $project->status = ProjectStatusConstant::PROJECT_OPENED;
                 $project->category_id =  rand(1,count($categories));
                 $project->note = $faker->text($maxNbChars = 350);
         
@@ -53,6 +57,21 @@ class ProjectTableSeeder extends Seeder
                     $projectImage->path = '/img/customer/project/design/dummy-' . rand(1,10) . '.jpg';
                     $projectImage->project()->associate($project);
                     $projectImage->save();
+                }
+
+                $partners = Partner::all();
+                foreach($partners as $partner){
+                    $inbox = new Inbox;
+                    $inbox->partner_id = $partner->id;
+                    $inbox->customer_id = $customer->id;
+                    $inbox->project()->associate($project);
+                    $inbox->save();
+
+                    $chatInit = new Chat;
+                    $chatInit->role = ChatTemplateConstant::CUSTOMER_ROLE;
+                    $chatInit->type = ChatTemplateConstant::INITIATION_TYPE;
+                    $chatInit->inbox()->associate($inbox);
+                    $chatInit->save();
                 }
             }
         }

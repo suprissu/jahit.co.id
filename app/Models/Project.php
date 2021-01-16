@@ -34,4 +34,14 @@ class Project extends Model
     {
         return $this->hasMany(ProjectImage::class);
     }
+
+    public function inbox()
+    {
+        return $this->hasOne(Inbox::class);
+    }
+
+    public function negotiations()
+    {
+        return $this->hasMany(Negotiation::class);
+    }
 }

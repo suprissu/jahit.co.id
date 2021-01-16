@@ -223,6 +223,12 @@ const getChatProject = (chatId) => {
                     chat.message[i].excuse
                 );
             }
+        } else if (chat.message[i].type === "REVIEW") {
+            messages += reviewProject(
+                chat.project.id,
+                chat.project.name,
+                perspectiveMessage
+            );
         }
     }
 

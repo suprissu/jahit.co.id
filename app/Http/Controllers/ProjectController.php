@@ -2,18 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+
+use App\Constant\ChatTemplateConstant;
 use App\Constant\RoleConstant;
 use App\Constant\ProjectStatusConstant;
 use App\Constant\WarningStatusConstant;
+use App\Constant\SampleStatusConstant;
+use App\Constant\TransactionConstant;
 
 use App\Helper\FileHelper;
 use App\Helper\RedirectionHelper;
 
+use App\Models\Chat;
 use App\Models\Customer;
+use App\Models\Inbox;
 use App\Models\Partner;
 use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\ProjectImage;
+use App\Models\Sample;
+use App\Models\Transaction;
 
 use Illuminate\Http\Request;
 
@@ -104,6 +113,21 @@ class ProjectController extends Controller
                     $projectImage->save();
                 }
             }
+
+            $partners = Partner::all();
+            foreach($partners as $partner){
+                $inbox = new Inbox;
+                $inbox->partner_id = $partner->id;
+                $inbox->customer_id = $customer->id;
+                $inbox->project()->associate($project);
+                $inbox->save();
+
+                $chatInit = new Chat;
+                $chatInit->role = ChatTemplateConstant::CUSTOMER_ROLE;
+                $chatInit->type = ChatTemplateConstant::INITIATION_TYPE;
+                $chatInit->inbox()->associate($inbox);
+                $chatInit->save();
+            }
         }
         return redirect($expectedStage);
     }
@@ -187,6 +211,173 @@ class ProjectController extends Controller
                     $projectImage->save();
                 }    
             }
+
+            $partners = Partner::all();
+            foreach($partners as $partner){
+                $inbox = new Inbox;
+                $inbox->partner_id = $partner->id;
+                $inbox->customer_id = $customer->id;
+                $inbox->project()->associate($project);
+                $inbox->save();
+
+                $chatInit = new Chat;
+                $chatInit->role = ChatTemplateConstant::CUSTOMER_ROLE;
+                $chatInit->type = ChatTemplateConstant::INITIATION_TYPE;
+                $chatInit->inbox()->associate($inbox);
+                $chatInit->save();
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function startSample(Request $request, $sampleId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $sample = Sample::find($sampleId);
+
+            if ($sample == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $sample->status = SampleStatusConstant::SAMPLE_WORK_IN_PROGRESS;
+            $sample->save();
+        }
+        return redirect($expectedStage);
+    }
+
+    public function finishSample(Request $request, $sampleId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $sample = Sample::find($sampleId);
+
+            if ($sample == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $sample->status = SampleStatusConstant::SAMPLE_FINISHED;
+            $sample->save();
+        }
+        return redirect($expectedStage);
+    }
+
+    public function sendSample(Request $request, $sampleId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $sample = Sample::find($sampleId);
+
+            if ($sample == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $sample->status = SampleStatusConstant::SAMPLE_SENT;
+            $sample->save();
+            
+            $negotiation = Negotiation::find($sample->negotiation_id);
+            $transaction = Transaction::find($sample->transaction_id);
+            $inbox = Inbox::where("customer_id", $transaction->customer_id)
+                        ->where("partner_id", $transaction->partner_id)
+                        ->first();
+            
+            $chatVerification = new Chat;
+            $chatVerification->role = ChatTemplateConstant::PARTNER_ROLE;
+            $chatVerification->type = ChatTemplateConstant::SAMPLE_SENT_TYPE;
+            $chatVerification->inbox_id = $inbox->id;
+            $chatVerification->negotiation()->associate($negotiation);
+            $chatVerification->save();   
+        }
+        return redirect($expectedStage);
+    }
+
+    public function startProject(Request $request, $projectId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $project = Project::find($projectId);
+
+            if ($project == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $project->status = ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS;
+            $project->save();
+        }
+        return redirect($expectedStage);
+    }
+
+    public function finishProject(Request $request, $projectId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $project = Project::find($projectId);
+
+            if ($project == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $project->status = ProjectStatusConstant::PROJECT_FINISHED;
+            $project->save();
+
+            $inbox = Inbox::where('customer_id', $project->customer_id)
+                            ->where('partner_id', $partner->id)
+                            ->where('project_id', $project->id)
+                            ->first();
+            
+            $chatProjectDeal = new Chat;
+            $chatProjectDeal->role = ChatTemplateConstant::PARTNER_ROLE;
+            $chatProjectDeal->type = ChatTemplateConstant::PROJECT_FINISH_TYPE;
+            $chatProjectDeal->inbox_id = $inbox->id;
+            $chatProjectDeal->save();
+
+            $deliveryCost = 0;
+            $dpPercentage = 0.5;
+            $transactionCost = $dpPercentage * $project->cost * $project->count + $deliveryCost;
+
+            $transaction = new Transaction;
+            $transaction->customer_id = $project->customer_id;
+            $transaction->partner_id = $partner->id;
+            $transaction->project_id = $projectId;
+            $transaction->status = TransactionConstant::PAY_WAIT;
+            $transaction->type = TransactionConstant::PELUNASAN_TYPE;
+            $transaction->cost = $transactionCost;
+            $transaction->deadline = Carbon::now()->addDays(3);
+            $transaction->save();
+        }
+        return redirect($expectedStage);
+    }
+
+    public function sendProject(Request $request, $projectId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+            $user = auth()->user();
+            $partner = $user->partner;
+
+            $project = Project::find($projectId);
+
+            if ($project == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $project->status = ProjectStatusConstant::PROJECT_SENT;
+            $project->save();
         }
         return redirect($expectedStage);
     }

@@ -47,13 +47,47 @@ Route::group(['prefix' => 'register', 'as' => 'register.'], function () {
     Route::post('/customer/project', 'Auth\RegisterController@registerProjectSubmit')->name('customer.project.submit');
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => 'home', 'as' => 'home'], function () {
+    Route::get('', 'HomeController@index')->name('');
 
-Route::group(['prefix' => 'home', 'as' => 'home.'], function () {
-    Route::group(['prefix' => 'customer', 'as' => 'customer.'], function () {
-        Route::group(['prefix' => 'project', 'as' => 'project.'], function () {
-            Route::post('/add', 'ProjectController@store')->name('add');
-            Route::post('/edit', 'ProjectController@update')->name('edit');
+    Route::group(['prefix' => 'project', 'as' => '.project'], function () {
+        Route::post('/add', 'ProjectController@store')->name('.add');
+        Route::post('/edit', 'ProjectController@update')->name('.edit');
+        Route::post('/start/{projectId}', 'ProjectController@startProject')->name('.start');
+        Route::post('/finish/{projectId}', 'ProjectController@finishProject')->name('.finish');
+        Route::post('/send/{projectId}', 'ProjectController@sendProject')->name('.send');
+    });
+
+    Route::group(['prefix' => 'sample', 'as' => '.sample'], function () {
+        Route::post('/start/{sampleId}', 'ProjectController@startSample')->name('.start');
+        Route::post('/finish/{sampleId}', 'ProjectController@finishSample')->name('.finish');
+        Route::post('/send/{sampleId}', 'ProjectController@sendSample')->name('.send');
+    });
+
+    Route::group(['prefix' => 'administrator', 'as' => '.administrator'], function () {
+        Route::group(['prefix' => 'verification', 'as' => '.verification'], function () {
+            Route::post('paymentVerification', 'AdministratorController@paymentVerification')->name('.payment.submit');
         });
     });
+
+    Route::group(['prefix' => 'inbox', 'as' => '.inbox'], function () {
+        Route::get('', 'InboxController@userInbox')->name('');
+        Route::group(['prefix' => 'nego', 'as' => '.nego'], function () {
+            Route::post('/offer', 'InboxController@offerNego')->name('.offer');
+            Route::post('/reject', 'InboxController@rejectNego')->name('.reject');
+            Route::post('/accept', 'InboxController@acceptNego')->name('.accept');
+        });
+        Route::group(['prefix' => 'sample', 'as' => '.sample'], function () {
+            Route::post('/request', 'InboxController@requestSample')->name('.request');
+            Route::post('/deal', 'InboxController@dealSample')->name('.deal');
+        });
+    });
+
+    Route::group(['prefix' => 'transaction', 'as' => '.transaction'], function () {
+        Route::get('', 'TransactionController@userTransaction')->name('');
+        Route::get('/requestMaterial', 'TransactionController@requestMaterialPage')->name('.material.request.page');
+        Route::post('/uploadPaymentSlip', 'TransactionController@uploadPaymentSlip')->name('.slip.submit');
+        Route::post('/requestMaterial', 'TransactionController@requestMaterial')->name('.material.request');
+    });
+
 });

@@ -1,7 +1,7 @@
 <div class="modal fade pl-0" id="revisionReject" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="auth-form" method="POST" action="">
+            <form id="chat-revision-reject-form" class="auth-form" method="POST" action="">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -17,7 +17,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger">Tolak Revisi</button>
+                    <button type="submit" class="btn btn-danger">Tolak Revisi</button>
                 </div>
             </form>
         </div>

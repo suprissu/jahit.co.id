@@ -4,8 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Inbox extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'inboxes';
+
     /**
      * The attributes that are not mass assignable.
      *
@@ -14,6 +21,11 @@ class Project extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 
     public function customer()
     {
@@ -25,19 +37,9 @@ class Project extends Model
         return $this->belongsTo(Partner::class);
     }
 
-    public function category()
+    public function chats()
     {
-        return $this->belongsTo(ProjectCategory::class);
-    }
-
-    public function images()
-    {
-        return $this->hasMany(ProjectImage::class);
-    }
-
-    public function inbox()
-    {
-        return $this->hasOne(Inbox::class);
+        return $this->hasMany(Chat::class);
     }
 
     public function negotiations()

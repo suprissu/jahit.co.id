@@ -24,4 +24,19 @@ class Customer extends Model
     {
         return $this->hasMany(Project::class);
     }
+
+    public function inboxes()
+    {
+        return $this->hasMany(Inbox::class);
+    }
+
+    public function negotiations()
+    {
+        return $this->hasMany(Negotiation::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

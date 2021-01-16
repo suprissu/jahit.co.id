@@ -49,6 +49,22 @@ class ProjectItem extends HTMLElement {
         return this.getAttribute("rating");
     }
 
+    get statusText() {
+        return this.getAttribute("statusText");
+    }
+
+    get buttonAction() {
+        return this.getAttribute("buttonAction");
+    }
+
+    get buttonText() {
+        return this.getAttribute("buttonText");
+    }
+
+    get buttonToken() {
+        return this.getAttribute("buttonToken");
+    }
+
     get remainingDay() {
         const endDate = new Date(this.endDate).getTime();
         const today = new Date().getTime();
@@ -72,9 +88,9 @@ class ProjectItem extends HTMLElement {
 
     get status() {
         const status = {
-            0: `<div class="userProject__project__status">Segera Dikontak</div>`,
-            1: `<div class="userProject__project__status">Penawaran Terbuka</div>`,
-            2: `<div class="userProject__project__status">Mengirimkan Sample</div>`,
+            0: `<div class="userProject__project__status">${this.statusText}</div>`,
+            1: `<div class="userProject__project__status userProject__project__status--finish">${this.statusText}</div>`,
+            2: `<div class="userProject__project__status userProject__project__status--cancel">${this.statusText}</div>`,
             3: `<div class="userProject__project__status--progress progress"><div class="progress-bar" role="progressbar" style="width: ${this.progress}%;" aria-valuenow="${this.progress}" aria-valuemin="0" aria-valuemax="100"><p>${this.remainingDay}</p></div></div>`,
             4: `<div class="userProject__project__status userProject__project__status--finish">Siap Mengirim</div>`,
             5: reviews(this.rating),
@@ -101,10 +117,19 @@ class ProjectItem extends HTMLElement {
                     } buah</p>
                 </div>
                 <div class="userProject__project--right">
+                    <div class="userProject__project__quotation">
+                    ${this.buttonAction !== null && this.buttonText !== null && this.buttonToken !== null
+                        ? `<form method="POST" action="${this.buttonAction}">
+                                <input type="hidden" name="_token" value="${this.buttonToken}" />
+                                <input type="submit" class="btn btn-danger value="${this.buttonText}" />    
+                            </form>`
+                        : ''
+                    }
+                    </div>
                     <p class="userProject__project__quotation">${
                         this.review !== null
                             ? '"' + this.review + '"'
-                            : this.quotation + " Quotation"
+                            : (this.quotation !== null ? this.quotation + " Quotation" : "")
                     }</p>
                     ${this.status}
                 </div>

@@ -101,20 +101,41 @@ class TransactionController extends Controller
     {
         $partner = $user->partner()->first();
 
-        $requestsAll = $partner->materialRequests()
+        $requestsAll = $partner->projects()
+                            ->whereHas('materialRequests')
+                            ->with('materialRequests')
                             ->orderBy('updated_at', 'desc')
                             ->get();
-        $requestsRequested = $partner->materialRequests()
-                            ->where('status', MaterialRequestStatusConstant::MATERIAL_REQUESTED)
+
+        $requestsRequested = $partner->projects()
+                            ->whereHas('materialRequests', function($query) {
+                                $query->where('status', MaterialRequestStatusConstant::MATERIAL_REQUESTED);
+                            })
+                            ->with('materialRequests')
                             ->orderBy('updated_at', 'desc')
                             ->get();
-        $requestsApproved = $partner->materialRequests()
-                            ->where('status', MaterialRequestStatusConstant::MATERIAL_APPROVED)
-                            ->orWhere('status', MaterialRequestStatusConstant::MATERIAL_SENT)
+
+        $requestsApproved = $partner->projects()
+                            ->whereHas('materialRequests', function($query) {
+                                $query->where('status', MaterialRequestStatusConstant::MATERIAL_APPROVED);
+                            })
+                            ->with('materialRequests')
                             ->orderBy('updated_at', 'desc')
                             ->get();
-        $requestsRejected = $partner->materialRequests()
-                            ->where('status', MaterialRequestStatusConstant::MATERIAL_REJECTED)
+        
+        $requestsSent = $partner->projects()
+                            ->whereHas('materialRequests', function($query) {
+                                $query->where('status', MaterialRequestStatusConstant::MATERIAL_SENT);
+                            })
+                            ->with('materialRequests')
+                            ->orderBy('updated_at', 'desc')
+                            ->get();
+
+        $requestsRejected = $partner->projects()
+                            ->whereHas('materialRequests', function($query) {
+                                $query->where('status', MaterialRequestStatusConstant::MATERIAL_REJECTED);
+                            })
+                            ->with('materialRequests')
                             ->orderBy('updated_at', 'desc')
                             ->get();
                             
@@ -197,7 +218,7 @@ class TransactionController extends Controller
             if ($role == RoleConstant::PARTNER) {
                 $partner = $user->partner()->first();
                 
-                $projects = $partner->projects();
+                $projects = $partner->projects;
                 $materials = Material::all();
 
                 return view('pages.partner.material', get_defined_vars());
@@ -210,8 +231,8 @@ class TransactionController extends Controller
 
     public function requestMaterial(Request $request)
     {
-        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.transaction.material.request.page'));
-        if ($expectedStage == route('home.transaction.material.request.page')) {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.transaction'));
+        if ($expectedStage == route('home.transaction')) {
             
             $user = auth()->user();
             $role = $user->roles()->first()->name;
@@ -230,9 +251,6 @@ class TransactionController extends Controller
                         'integer',
                         'min:1'
                     ],
-                    'materialName' => [
-                        'string'
-                    ],
                     'quantity' => [
                         'required',
                         'integer',
@@ -244,7 +262,7 @@ class TransactionController extends Controller
                 $materialRequest->partner_id = $partner->id;
                 $materialRequest->project_id = $request->projectID;
                 $materialRequest->material_id = $request->materialID;
-                $materialRequest->material = $request->materialName;
+                $materialRequest->additional_info = $request->additionalInfo;
                 $materialRequest->status = MaterialRequestStatusConstant::MATERIAL_REQUESTED;
                 $materialRequest->quantity = $request->quantity;
                 $materialRequest->note = $request->note;

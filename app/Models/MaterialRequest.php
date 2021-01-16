@@ -24,6 +24,16 @@ class MaterialRequest extends Model
 
     public function partner()
     {
-        return $this->belongsTo(Partner::class, 'category_id', 'id');
+        return $this->belongsTo(Partner::class);
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
     }
 }

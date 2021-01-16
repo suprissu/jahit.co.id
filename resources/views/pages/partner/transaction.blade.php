@@ -74,6 +74,7 @@
 
 @section('content')
 @include('layouts/modalUploadPayment')
+@inject('materialRequestStatusConstant', 'App\Constant\MaterialRequestStatusConstant')
 
 <div class="userCustomerTransaction">
     <div class="userCustomerTransaction__container">
@@ -84,73 +85,120 @@
         <div class="userCustomerTransaction__transactions">
             <div class="userCustomerTransaction__transactions__header list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action active" id="list-all-list" data-toggle="list" href="#list-all" role="tab" aria-controls="all">Semua</a>
-                <a class="list-group-item list-group-item-action" id="list-material-list" data-toggle="list" href="#list-material" role="tab" aria-controls="sample">Menunggu Bahan</a>
+                <a class="list-group-item list-group-item-action" id="list-material-list" data-toggle="list" href="#list-material" role="tab" aria-controls="sample">Diajukan</a>
                 <a class="list-group-item list-group-item-action" id="list-accept-list" data-toggle="list" href="#list-accept" role="tab" aria-controls="accept">Disetujui</a>
+                <a class="list-group-item list-group-item-action" id="list-sent-list" data-toggle="list" href="#list-sent" role="tab" aria-controls="sent">Dikirim</a>
                 <a class="list-group-item list-group-item-action" id="list-cancel-list" data-toggle="list" href="#list-cancel" role="tab" aria-controls="cancel">Dibatalkan</a>
             </div>
             <div class="userCustomerTransaction__transactions__list header tab-content" id="nav-tabContent">
                 
-                <!-- Semua Transaksi -->
                 <div class="tab-pane fade show active" id="list-all" role="tabpanel" aria-labelledby="list-all-list">
                     <!-- TODO: Make List Item -->
-
-                    @foreach( $requestsAll as $request )
+                    @foreach( $requestsAll as $project )
                         <div class="listItem">
                             <a href="/user/customer/transaction/1" class="listItem--left">
                                 <div class="listItem__header">
-                                    <h5 class="listItem__name mb-0">Penyelenggara Relawan COVID</h5>
-                                    <p class="listItem__price">Rp.13.000</p>
-                                    <p class="listItem__amount">13.000 buah</p>
+                                    <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
+                                    <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
                                     <div class="listItem__material">
                                         <p class="listItem__material__title">Bahan:</p>
-                                        <p class="listItem__material__description">Spunband 75 Gsm</p>
-                                        <p class="listItem__material__description">10.000 buah x 2.5 meter</p>
-                                        <p class="listItem__material__description">25.000 meter</p>
+                                        @foreach ( $project->materialRequests as $materialRequest )
+                                        <p class="listItem__material__description">{{ $materialRequest->quantity }} {{ $materialRequest->material->metric }} @if ($materialRequest->additional_info != null) {{ $materialRequest->additional_info }} @else {{ $materialRequest->material->name }} @endif <span class="listItem__price"><i>{{ '[' . $materialRequest->status . ']' }}</i></span></p>
+                                        @endforeach
                                     </div>
                                 </div>
                             </a>
-                            <div class="listItem--right">
-                                <a href="/user/customer/transaction/1" class="listItem__label">
-                                    <p class="listItem__category">Sample</p>
-                                    <p class="listItem__paidStatus">Belum Dibayar</p>
-                                    <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
-                                    <div 
-                                        data-startDate="2020-10-18T02:00"
-                                        data-endDate="2020-12-18T10:00"
-                                        class="listItem__status--progress progress">
-                                        <div class="progress-bar" role="progressbar"></div>
-                                    </div>
-                                </a>
-                                <div class="listItem__credential">
-                                    <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
-                                    <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
-                                    <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
-                                    <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
-                                </div>
-                            </div>
                         </div>
                     @endforeach
-
                 </div>
                 
-                <!-- Penawaran Terbuka -->
                 <div class="tab-pane fade" id="list-material" role="tabpanel" aria-labelledby="list-material-list">
+                    @foreach( $requestsRequested as $project )
+                        <div class="listItem">
+                            <a href="/user/customer/transaction/1" class="listItem--left">
+                                <div class="listItem__header">
+                                    <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
+                                    <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
+                                    <div class="listItem__material">
+                                        <p class="listItem__material__title">Bahan:</p>
+                                        @foreach ( $project->materialRequests as $materialRequest )
+                                            @if ( $materialRequest->status == $materialRequestStatusConstant::MATERIAL_REQUESTED)
+                                                <p class="listItem__material__description">{{ $materialRequest->quantity }} {{ $materialRequest->material->metric }} @if ($materialRequest->additional_info != null) {{ $materialRequest->additional_info }} @else {{ $materialRequest->material->name }} @endif <span class="listItem__price"><i>{{ '[' . $materialRequest->status . ']' }}</i></span></p>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
                 
-                <!-- Transaksi Dalam Pengerjaan -->
                 <div class="tab-pane fade" id="list-accept" role="tabpanel" aria-labelledby="list-accept-list">
                     <!-- TODO: Make List Item -->
+                    @foreach( $requestsApproved as $project )
+                        <div class="listItem">
+                            <a href="/user/customer/transaction/1" class="listItem--left">
+                                <div class="listItem__header">
+                                    <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
+                                    <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
+                                    <div class="listItem__material">
+                                        <p class="listItem__material__title">Bahan:</p>
+                                        @foreach ( $project->materialRequests as $materialRequest )
+                                            @if ( $materialRequest->status == $materialRequestStatusConstant::MATERIAL_APPROVED)
+                                                <p class="listItem__material__description">{{ $materialRequest->quantity }} {{ $materialRequest->material->metric }} @if ($materialRequest->additional_info != null) {{ $materialRequest->additional_info }} @else {{ $materialRequest->material->name }} @endif <span class="listItem__price"><i>{{ '[' . $materialRequest->status . ']' }}</i></span></p>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
                 
-                <!-- Transaksi Selesai -->
+                <div class="tab-pane fade" id="list-sent" role="tabpanel" aria-labelledby="list-sent-list">
+                    <!-- TODO: Make List Item -->
+                    @foreach( $requestsSent as $project )
+                        <div class="listItem">
+                            <a href="/user/customer/transaction/1" class="listItem--left">
+                                <div class="listItem__header">
+                                    <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
+                                    <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
+                                    <div class="listItem__material">
+                                        <p class="listItem__material__title">Bahan:</p>
+                                        @foreach ( $project->materialRequests as $materialRequest )
+                                            @if ( $materialRequest->status == $materialRequestStatusConstant::MATERIAL_SENT)
+                                                <p class="listItem__material__description">{{ $materialRequest->quantity }} {{ $materialRequest->material->metric }} @if ($materialRequest->additional_info != null) {{ $materialRequest->additional_info }} @else {{ $materialRequest->material->name }} @endif <span class="listItem__price"><i>{{ '[' . $materialRequest->status . ']' }}</i></span></p>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+
                 <div class="tab-pane fade" id="list-cancel" role="tabpanel" aria-labelledby="list-cancel-list">
                     <!-- TODO: Make List Item -->
+                    @foreach( $requestsRejected as $project )
+                        <div class="listItem">
+                            <a href="/user/customer/transaction/1" class="listItem--left">
+                                <div class="listItem__header">
+                                    <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
+                                    <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
+                                    <div class="listItem__material">
+                                        <p class="listItem__material__title">Bahan:</p>
+                                        @foreach ( $project->materialRequests as $materialRequest )
+                                            @if ( $materialRequest->status == $materialRequestStatusConstant::MATERIAL_REJECTED)
+                                                <p class="listItem__material__description">{{ $materialRequest->quantity }} {{ $materialRequest->material->metric }} @if ($materialRequest->additional_info != null) {{ $materialRequest->additional_info }} @else {{ $materialRequest->material->name }} @endif <span class="listItem__price"><i>{{ '[' . $materialRequest->status . ']' }}</i></span></p>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
                 </div>
                 
-                <!-- Transaksi Dibatalkan -->
-                <div class="tab-pane fade" id="list-cancel" role="tabpanel" aria-labelledby="list-cancel-list">
-                    <!-- TODO: Make List Item -->
-                </div>
             </div>
         </div>
     </div>

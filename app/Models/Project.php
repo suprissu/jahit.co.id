@@ -25,6 +25,11 @@ class Project extends Model
         return $this->belongsTo(Partner::class);
     }
 
+    public function materialRequests()
+    {
+        return $this->hasMany(MaterialRequest::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(ProjectCategory::class);

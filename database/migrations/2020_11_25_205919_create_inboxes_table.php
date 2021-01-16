@@ -18,6 +18,8 @@ class CreateInboxesTable extends Migration
             $table->integer('customer_id')->unsigned();
             $table->integer('partner_id')->unsigned();
             $table->integer('project_id')->unsigned();
+            $table->boolean('customer_read')->default(false);
+            $table->boolean('partner_read')->default(false);
             $table->timestamps();
         });
     }

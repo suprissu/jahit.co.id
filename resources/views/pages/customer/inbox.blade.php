@@ -198,4 +198,5 @@
 </script>
 <script src="{{ asset('js/chatTemplate.js') }}"></script>
 <script src="{{ asset('js/userChat.js') }}"></script>
+<script src="{{ asset('js/helper.js') }}"></script>
 @endsection

@@ -66,7 +66,7 @@ const proposeChat = (
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
             <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>) dengan:</p>
-            <p>Harga: <strong>Rp. ${projectPrice}</strong></p>
+            <p>Harga: <strong>${projectPrice}</strong></p>
             <p>Mulai Pengerjaan: <strong>${projectStartDate}</strong></p>
             <p>Selesai Pengerjaan: <strong>${projectEndDate}</strong></p>
         </div>
@@ -109,7 +109,7 @@ const negotiationChat = (
     <div class="chatbox__message chatbox__message--${role}">
         <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
-            <p class="chatbox__message__projectPrice">Rp. ${projectPrice}</p>
+            <p class="chatbox__message__projectPrice">${projectPrice}</p>
             <h6 class="chatbox__message__projectTitle">${projectName}</h6>
             <p class="chatbox__message__projectAmount">Jumlah pesanan: <strong>${projectAmount} buah</strong></p>
             <p class="chatbox__message__projectDeadline">Mulai: <strong>${projectStartDate}</strong></p>
@@ -145,7 +145,7 @@ const negotiationAcceptChat = (
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
             <p>Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>) telah disetujui dengan:</p>
-            <p>Harga: <strong>Rp. ${projectPrice}</strong></p>
+            <p>Harga: <strong>${projectPrice}</strong></p>
             <p>Mulai Pengerjaan: <strong>${projectStartDate}</strong></p>
             <p>Selesai Pengerjaan: <strong>${projectEndDate}</strong></p>
         </div>
@@ -173,7 +173,7 @@ const runProjectPermission = (
                     <span class="py-2 px-3 badge badge-${
                         answer === "deal" ? "success" : "light"
                     }">${
-                      answer  === "deal"
+                      answer === "deal"
                           ? "Proyek dijalankan"
                           : "Permintaan sample diajukan"
                   }</span>`
@@ -321,7 +321,7 @@ const customerRevisionPurpose = (
     <div class="chatbox__message chatbox__message--${role}">
         <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
-            <p class="chatbox__message__projectPrice">Rp. ${projectPrice}</p>
+            <p class="chatbox__message__projectPrice">${projectPrice}</p>
             <h6 class="chatbox__message__projectTitle">${projectName}</h6>
             <p class="chatbox__message__projectAmount">Jumlah pesanan: <strong>${projectAmount} buah</strong></p>
             <p class="chatbox__message__projectDeadline">Mulai: <strong>${projectStartDate}</strong></p>
@@ -345,7 +345,7 @@ const partnerRevisionPurpose = (
     <div class="chatbox__message chatbox__message--${role}">
         <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
-            <p class="chatbox__message__projectPrice">Rp. ${projectPrice}</p>
+            <p class="chatbox__message__projectPrice">${projectPrice}</p>
             <h6 class="chatbox__message__projectTitle">Revisi Proyek ${projectName}</h6>
             <p class="chatbox__message__projectAmount">Jumlah pesanan: <strong>${projectAmount} buah</strong></p>
             <p class="chatbox__message__projectDeadline">Mulai: <strong>${projectStartDate}</strong></p>

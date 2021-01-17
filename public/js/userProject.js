@@ -99,6 +99,15 @@ class ProjectItem extends HTMLElement {
         return status[this.getAttribute("status")];
     }
 
+    get priceFormat(num) {
+        const numberFormat = new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+        });
+        const price = numberFormat.format(num);
+        return price.split(",")[0];
+    }
+
     connectedCallback() {
         this.render();
     }
@@ -111,25 +120,30 @@ class ProjectItem extends HTMLElement {
             <div class="userProject__project userProject__project--quotation">
                 <div class="userProject__project--left">
                     <p class="userProject__project__name">${this.name}</p>
-                    <p class="userProject__project__price">Rp.${this.price}</p>
+                    <p class="userProject__project__price">${this.priceFormat(this.price)}</p>
                     <p class="userProject__project__amount">${
                         this.amount
                     } buah</p>
                 </div>
                 <div class="userProject__project--right">
                     <div class="userProject__project__quotation">
-                    ${this.buttonAction !== null && this.buttonText !== null && this.buttonToken !== null
-                        ? `<form method="POST" action="${this.buttonAction}">
+                    ${
+                        this.buttonAction !== null &&
+                        this.buttonText !== null &&
+                        this.buttonToken !== null
+                            ? `<form method="POST" action="${this.buttonAction}">
                                 <input type="hidden" name="_token" value="${this.buttonToken}" />
-                                <input type="submit" class="btn btn-danger value="${this.buttonText}" />    
+                                <button type="submit" class="btn btn-danger">${this.buttonText}</button>    
                             </form>`
-                        : ''
+                            : ""
                     }
                     </div>
                     <p class="userProject__project__quotation">${
                         this.review !== null
                             ? '"' + this.review + '"'
-                            : (this.quotation !== null ? this.quotation + " Quotation" : "")
+                            : this.quotation !== null
+                            ? this.quotation + " Quotation"
+                            : ""
                     }</p>
                     ${this.status}
                 </div>

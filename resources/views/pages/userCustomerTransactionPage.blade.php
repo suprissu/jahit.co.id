@@ -95,15 +95,15 @@
                     <div class="listItem">
                         <a href="/user/customer/transaction/1" class="listItem--left">
                             <div class="listItem__header">
-                                <h5 class="listItem__name mb-0">Penyelenggara Relawan COVID</h5>
-                                <p class="listItem__price">Rp.13.000</p>
-                                <p class="listItem__amount">13.000 buah</p>
+                                <h5 class="listItem__name mb-0"></h5>
+                                <p class="listItem__price"></p>
+                                <p class="listItem__amount"></p>
                             </div>
                         </a>
                         <div class="listItem--right">
                             <a href="/user/customer/transaction/1" class="listItem__label">
-                                <p class="listItem__category">Sample</p>
-                                <p class="listItem__paidStatus">Belum Dibayar</p>
+                                <p class="listItem__category"></p>
+                                <p class="listItem__paidStatus"></p>
                                 <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
                                 <div 
                                     data-startDate="2020-10-18T02:00"
@@ -148,6 +148,7 @@
 
 @section('extra-js')
 <script src="{{ asset('js/form.js') }}"></script>
+<script src="{{ asset('js/helper.js') }}"></script>
 <script>
     $(".listItem__status--progress").each((e, el) => {
         const startDate = el.getAttribute("data-startDate");
@@ -167,7 +168,7 @@
         const data = getTransactionData(id);
         $("#payment-id-text").text(data.id);
         $("#payment-name-text").text(data.name);
-        $("#payment-price-text").text(data.price);
+        $("#payment-price-text").text(priceFormat(data.price));
         $("#payment-id").val(data.id);
     })
 </script>

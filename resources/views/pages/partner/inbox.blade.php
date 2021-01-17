@@ -166,7 +166,7 @@
                 </div>
 
                 @foreach( $inboxes as $inbox )
-                    @if ( $inbox->chats->count() > 1 )
+                    @if ( $inbox->chats->count() > 0 )
                         <div class="navigation__item" data-id="{{ $inbox->id }}">
                             <div class="navigation__left">
                                 <h5 class="navigation__title">{{ $inbox->customer->company_name }}</h5>
@@ -247,4 +247,5 @@
 </script>
 <script src="{{ asset('js/chatTemplate.js') }}"></script>
 <script src="{{ asset('js/userChat.js') }}"></script>
+<script src="{{ asset('js/helper.js') }}"></script>
 @endsection

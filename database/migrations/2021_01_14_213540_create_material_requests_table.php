@@ -18,7 +18,7 @@ class CreateMaterialRequestsTable extends Migration
             $table->integer('partner_id')->unsigned();
             $table->integer('project_id')->unsigned();
             $table->integer('material_id')->unsigned()->nullable();
-            $table->string('material')->nullable();
+            $table->string('additional_info')->nullable();
             $table->string('status');
             $table->integer('quantity');
             $table->longText('note')->nullable();

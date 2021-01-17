@@ -21,4 +21,9 @@ class Material extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function materialRequests()
+    {
+        return $this->hasMany(MaterialRequest::class);
+    }
 }

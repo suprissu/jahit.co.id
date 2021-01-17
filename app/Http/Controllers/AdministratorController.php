@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constant\ChatTemplateConstant;
 use App\Constant\ProjectStatusConstant;
+use App\Constant\MaterialRequestStatusConstant;
 use App\Constant\RoleConstant;
 use App\Constant\SampleStatusConstant;
 use App\Constant\TransactionConstant;
@@ -16,6 +17,7 @@ use App\Models\Customer;
 use App\Models\Inbox;
 use App\Models\Partner;
 use App\Models\Project;
+use App\Models\MaterialRequest;
 use App\Models\Transaction;
 
 use Illuminate\Http\Request;
@@ -149,6 +151,96 @@ class AdministratorController extends Controller
                         return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
                 }
                 $transaction->save();
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function materialRequestVerificationPage(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.material'));
+        if ($expectedStage == route('home.material')) {
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            if ($role == RoleConstant::ADMINISTRATOR) {
+
+                $requestsRequested = Project::whereHas('materialRequests', function($query) {
+                                    $query->where('status', MaterialRequestStatusConstant::MATERIAL_REQUESTED);
+                                })
+                                ->with('materialRequests')
+                                ->orderBy('updated_at', 'desc')
+                                ->get();
+
+                $requestsApproved = Project::whereHas('materialRequests', function($query) {
+                                    $query->where('status', MaterialRequestStatusConstant::MATERIAL_APPROVED);
+                                })
+                                ->with('materialRequests')
+                                ->orderBy('updated_at', 'desc')
+                                ->get();
+
+                $requestsSent = Project::whereHas('materialRequests', function($query) {
+                                    $query->where('status', MaterialRequestStatusConstant::MATERIAL_SENT);
+                                })
+                                ->with('materialRequests')
+                                ->orderBy('updated_at', 'desc')
+                                ->get();
+
+                $requestsRejected = Project::whereHas('materialRequests', function($query) {
+                                    $query->where('status', MaterialRequestStatusConstant::MATERIAL_REJECTED);
+                                })
+                                ->with('materialRequests')
+                                ->orderBy('updated_at', 'desc')
+                                ->get();
+
+                return view('pages.administrator.material', get_defined_vars());
+
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function materialRequestVerification(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.material'));
+        if ($expectedStage == route('home.material')) {
+            $this->validate($request, [
+                'materialRequestID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'status' => [
+                    'required',
+                    'string'
+                ],
+            ]);
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            if ($role == RoleConstant::ADMINISTRATOR) {
+                $materialRequest = MaterialRequest::find($request->materialRequestID);
+
+                switch ($request->status) {
+                    case "WAITING":
+                        $materialRequest->status = MaterialRequestStatusConstant::MATERIAL_REQUESTED;
+                        break;    
+                    case "ACCEPT":
+                        $materialRequest->status = MaterialRequestStatusConstant::MATERIAL_APPROVED;
+                        break;
+                    case "SENT":
+                        $materialRequest->status = MaterialRequestStatusConstant::MATERIAL_SENT;
+                        break;
+                    case "REJECT":
+                        $materialRequest->status = MaterialRequestStatusConstant::MATERIAL_REJECTED;
+                        break;
+                    default:
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
+                }
+                $materialRequest->save();
             } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }

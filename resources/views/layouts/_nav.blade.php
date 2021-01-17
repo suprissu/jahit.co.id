@@ -26,7 +26,14 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{{ route('home') }}">Proyek</a>
                     <a class="dropdown-item" href="{{ route('home.inbox') }}">Pesan</a>
-                    <a class="dropdown-item" href="{{ route('home.transaction') }}">Transaksi</a>
+                    @if ( Auth::user()->roles()->first()->name == $roleConstants::PARTNER )
+                        <a class="dropdown-item" href="{{ route('home.transaction') }}">Bahan</a>
+                    @else
+                        <a class="dropdown-item" href="{{ route('home.transaction') }}">Transaksi</a>
+                    @endif
+                    @if ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
+                        <a class="dropdown-item" href="{{ route('home.material') }}">Material</a>
+                    @endif
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item dropdown-item-danger" href="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -42,8 +49,17 @@
                     <i class="fas fa-envelope" aria-hidden="true"></i><p>Pesan</p>
                 </a>
                 <a href="{{ route('home.transaction') }}">
+                @if ( Auth::user()->roles()->first()->name == $roleConstants::PARTNER )
+                    <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Bahan</p>
+                @else
                     <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Transaksi</p>
+                @endif
                 </a>
+                @if ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
+                    <a href="{{ route('home.material') }}">
+                        <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Bahan</p>
+                    </a>
+                @endif
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out-alt" aria-hidden="true"></i><p>Keluar</p>
                 </a>

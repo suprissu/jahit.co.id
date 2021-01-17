@@ -66,7 +66,8 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
 
     Route::group(['prefix' => 'administrator', 'as' => '.administrator'], function () {
         Route::group(['prefix' => 'verification', 'as' => '.verification'], function () {
-            Route::post('paymentVerification', 'AdministratorController@paymentVerification')->name('.payment.submit');
+            Route::post('/payment', 'AdministratorController@paymentVerification')->name('.payment.submit');
+            Route::post('/materialRequest', 'AdministratorController@materialRequestVerification')->name('.material.request');
         });
     });
 
@@ -90,4 +91,7 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
         Route::post('/requestMaterial', 'TransactionController@requestMaterial')->name('.material.request');
     });
 
+    Route::group(['prefix' => 'material', 'as' => '.material'], function () {
+        Route::get('', 'AdministratorController@materialRequestVerificationPage')->name('');
+    });
 });

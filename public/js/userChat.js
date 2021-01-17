@@ -223,6 +223,12 @@ const getChatProject = (chatId) => {
                     chat.message[i].excuse
                 );
             }
+        } else if (chat.message[i].type === "REVIEW") {
+            messages += reviewProject(
+                chat.project.id,
+                chat.project.name,
+                perspectiveMessage
+            );
         }
     }
 
@@ -239,16 +245,5 @@ $(".navigation__item").on("click", (e) => {
     const chatContent = document.createElement("div");
     chatContent.classList.add("chatbox__messages__wrapper");
     chatContent.innerHTML = chat;
-    const chatInput = `
-        <form action="/admin/chat/${chatId}/add" method="POST">
-            <input name="chat" placeholder="Masukkan pesan anda di sini" type="text" class="form-control">
-            <button type="submit" class="btn btn-danger">Kirim</button>
-        </form>
-    `;
-    const chatInputWrapper = $(".chatbox__input");
-    console.log(chatInputWrapper);
-    if (chatInputWrapper.length > 0) {
-        chatInputWrapper.html(chatInput);
-    }
     $(".chatbox__messages").html(chatContent);
 });

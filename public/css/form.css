@@ -130,3 +130,32 @@
     color: #222;
     border: 1px dashed #222;
 }
+
+.review {
+    display: flex;
+}
+
+.review input {
+    display: none;
+}
+
+.review__star svg {
+    fill: #d52047;
+    cursor: pointer;
+}
+
+.review input:hover ~ .review__star svg {
+    fill: black !important;
+}
+
+.review input:hover + .review__star svg {
+    fill: #d52047 !important;
+}
+
+.review input:checked ~ .review__star svg {
+    fill: black;
+}
+
+.review input:checked + .review__star svg {
+    fill: #d52047;
+}

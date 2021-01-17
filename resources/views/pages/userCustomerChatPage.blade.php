@@ -210,6 +210,10 @@
                 excuse: "Waktu tidak tersedia",
                 type: "REVISI DITOLAK",
             },
+            {
+                role: "VENDOR",
+                type: "REVIEW"
+            }
         ],
     },
 ];

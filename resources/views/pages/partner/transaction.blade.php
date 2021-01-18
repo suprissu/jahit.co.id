@@ -207,6 +207,7 @@
 
 @section('extra-js')
 <script src="{{ asset('js/form.js') }}"></script>
+<script src="{{ asset('js/helper.js') }}"></script>
 <script>
     $(".listItem__status--progress").each((e, el) => {
         const startDate = el.getAttribute("data-startDate");
@@ -226,7 +227,7 @@
         const data = getTransactionData(id);
         $("#payment-id-text").text(data.id);
         $("#payment-name-text").text(data.name);
-        $("#payment-price-text").text(data.price);
+        $("#payment-price-text").text(priceFormat(data.price));
         $("#payment-id").val(data.id);
     })
 </script>

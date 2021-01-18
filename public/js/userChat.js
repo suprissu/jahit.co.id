@@ -80,7 +80,7 @@ const getChatProject = (chatId) => {
                 project.id,
                 project.name,
                 project.amount,
-                chat.message[i].negotiation.price,
+                priceFormat(chat.message[i].negotiation.price),
                 dateFormat(new Date(chat.message[i].negotiation.start_date)),
                 dateFormat(new Date(chat.message[i].negotiation.end_date))
             );
@@ -93,7 +93,7 @@ const getChatProject = (chatId) => {
             messages += verificationRejectChat(
                 perspectiveMessage,
                 chat.transaction.id
-            );  
+            );
         } else if (chat.message[i].type === "NEGOSIASI") {
             messages += negotiationChat(
                 perspectiveMessage,
@@ -101,14 +101,14 @@ const getChatProject = (chatId) => {
                 project.id,
                 project.name,
                 project.amount,
-                chat.message[i].negotiation.price,
+                priceFormat(chat.message[i].negotiation.price),
                 dateFormat(new Date(chat.message[i].negotiation.start_date)),
                 dateFormat(new Date(chat.message[i].negotiation.end_date)),
                 customerId,
                 chat.partnerId,
                 inboxId,
                 chat.message[i].id,
-                chat.message[i].negotiation.id 
+                chat.message[i].negotiation.id
             );
         } else if (chat.message[i].type === "SETUJU") {
             if (chat.userRole === "CLIENT") {
@@ -126,7 +126,7 @@ const getChatProject = (chatId) => {
                 project.id,
                 project.name,
                 project.amount,
-                chat.message[i].negotiation.price,
+                priceFormat(chat.message[i].negotiation.price),
                 dateFormat(new Date(chat.message[i].negotiation.start_date)),
                 dateFormat(new Date(chat.message[i].negotiation.end_date))
             );
@@ -199,7 +199,7 @@ const getChatProject = (chatId) => {
                     project.id,
                     project.name,
                     project.amount,
-                    project.price,
+                    priceFormat(project.price),
                     dateFormat(new Date(project.start_date)),
                     dateFormat(new Date(project.end_date))
                 );
@@ -210,7 +210,7 @@ const getChatProject = (chatId) => {
                     project.id,
                     project.name,
                     project.amount,
-                    project.price,
+                    priceFormat(project.price),
                     dateFormat(new Date(project.start_date)),
                     dateFormat(new Date(project.end_date))
                 );

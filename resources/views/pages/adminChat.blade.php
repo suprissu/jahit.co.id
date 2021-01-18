@@ -233,6 +233,7 @@
                             <p>Halo min</p>
                         </div>
                     </div>
+                    
                     <div class="chatbox__input">
                         <form action="" method="POST">
                             <input name="chat" placeholder="Masukkan pesan anda di sini" type="text" class="form-control">

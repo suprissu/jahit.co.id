@@ -29,20 +29,37 @@
                 <div class="tabular__list header tab-content" id="nav-tabContent">
                     
                     <!-- Semua Proyek -->
-                    <div class="tab-pane fade show active" id="list-waiting" role="tabpanel" aria-labelledby="list-waiting-list">
+                    <div class="tab-pane fade show active tabular__pane" id="list-waiting" role="tabpanel" aria-labelledby="list-waiting-list">
                         <!-- TODO: Make List Item -->
                         @foreach( $transactionsCheck as $transaction )
-                            <ul class="list-group my-3">
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-4">
-                                            <img class="rounded w-100" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
+                            <div class="tabular__pane__item p-2 my-2">
+                                <div class="tabular__pane__item__preview">
+                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}" alt="payment-slip" data-toggle="modal" data-target="#image-fullscreen"/>
+                                    <div class="modal fade pl-0" id="image-fullscreen" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <img src="{{ asset( $transaction->paymentSlip->path ) }}" alt="payment-slip"/>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col mt-2">
-                                            <a class="badge bg-light" href="">#{{ $transaction->id }}</a>
-                                            <h4 class="mb-2">{{ $transaction->project->name }}</h4>
-                                            <p class="mb-2">Rp {{ $transaction->cost }}</p>
-                                            <p class="mb-2">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
+                                    </div>
+                                </div>
+                                <div class="tabular__pane__item__description">
+                                    <div class="tabular__pane__item__description__main px-2">
+                                        <div class="row mx-0">
+                                            <p class="mb-0" style="font-weight: bold">{{ $transaction->project->name }}</p>
+                                            <a class="badge bg-light ml-1" href="">#{{ $transaction->id }}</a>
+                                        </div>
+                                        <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
+                                    </div>
+                                    <div class="tabular__pane__item__description__extra px-2">
+                                        <p class="text-muted fs-6 mb-0" style="font-size: 12px">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
+                                        <button class="btn btn-ouline-secondary mt-2"  data-toggle="collapse" data-target="#transaction-{{ $transaction->id  }}" aria-expanded="false" aria-controls="#order-{{ $transaction->id  }}">Detail</button>
+                                        <div class="collapse pt-3" id="transaction-{{$transaction->id }}">
                                             <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST">
                                                 @csrf
                                                 <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
@@ -52,29 +69,60 @@
                                                     <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
                                                     <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
                                                 </select>
+                                                <p class="text-muted my-1">Upload MOU:</p>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="transactionMOU" name="transactionMOU">
+                                                    <label class="custom-file-label" for="transactionMOU">Choose file</label>
+                                                </div>
+                                                <p class="text-muted my-1">Upload Invoice:</p>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="transactionINVOICE" name="transactionINVOICE">
+                                                    <label class="custom-file-label" for="transactionINVOICE">Choose file</label>
+                                                </div>
                                                 <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
                                             </form>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                     
                     <!-- Penawaran Terbuka -->
-                    <div class="tab-pane fade" id="list-verified" role="tabpanel" aria-labelledby="list-verified-list">
+                    <div class="tab-pane fade tabular__pane" id="list-verified" role="tabpanel" aria-labelledby="list-verified-list">
                         @foreach( $transactionsVerified as $transaction )
-                            <ul class="list-group my-3">
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-4">
-                                            <img class="rounded w-100" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
+                            <div class="tabular__pane__item p-2 my-2">
+                                <div class="tabular__pane__item__preview">
+                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}"  alt="payment-slip" data-toggle="modal" data-target="#image-fullscreen"/>
+                                    <div class="modal fade pl-0" id="image-fullscreen" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <img src="{{ asset( $transaction->paymentSlip->path ) }}" alt="payment-slip"/>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col mt-2">
-                                            <a class="badge bg-light" href="">#{{ $transaction->id }}</a>
-                                            <h4 class="mb-2">{{ $transaction->project->name }}</h4>
-                                            <p class="mb-2">Rp {{ $transaction->cost }}</p>
-                                            <p class="mb-2">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
+                                    </div>
+                                </div>
+                                <div class="tabular__pane__item__description">
+                                    <div class="tabular__pane__item__description__main px-2">
+                                        <div class="row mx-0">
+                                            <p class="mb-0" style="font-weight: bold">{{ $transaction->project->name }}</p>
+                                            <a class="badge bg-light ml-1" href="">#{{ $transaction->id }}</a>
+                                        </div>
+                                        <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
+                                    </div>
+                                    <div class="tabular__pane__item__description__extra px-2">
+                                        <p class="text-muted fs-6 mb-0" style="font-size: 12px">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
+                                        <div class="row mt-2">
+                                            <a href=""><button class="mx-1 btn btn-outline-danger">Download MOU</button></a>
+                                            <a href=""><button class="mx-1 btn btn-outline-danger">Download Invoice</button></a>
+                                            <button class="mx-1 btn btn-ouline-secondary"  data-toggle="collapse" data-target="#transaction-{{ $transaction->id  }}" aria-expanded="false" aria-controls="#order-{{ $transaction->id  }}">Detail</button>
+                                        </div>
+                                        <div class="collapse pt-3" id="transaction-{{$transaction->id }}">
                                             <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST">
                                                 @csrf
                                                 <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
@@ -88,26 +136,43 @@
                                             </form>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                     
                     <!-- Proyek Dalam Pengerjaan -->
-                    <div class="tab-pane fade" id="list-reject" role="tabpanel" aria-labelledby="list-reject-list">
+                    <div class="tab-pane fade tabular__pane" id="list-reject" role="tabpanel" aria-labelledby="list-reject-list">
                         <!-- TODO: Make List Item -->
                         @foreach( $transactionsFailed as $transaction )
-                            <ul class="list-group my-3">
-                                <li class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-4">
-                                            <img class="rounded w-100" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
+                            <div class="tabular__pane__item p-2 my-2">
+                                <div class="tabular__pane__item__preview">
+                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}"  alt="payment-slip" data-toggle="modal" data-target="#image-fullscreen"/>
+                                    <div class="modal fade pl-0" id="image-fullscreen" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <img src="{{ asset( $transaction->paymentSlip->path ) }}" alt="payment-slip"/>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="col mt-2">
-                                            <a class="badge bg-light" href="">#{{ $transaction->id }}</a>
-                                            <h4 class="mb-2">{{ $transaction->project->name }}</h4>
-                                            <p class="mb-2">Rp {{ $transaction->cost }}</p>
-                                            <p class="mb-2">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
+                                    </div>
+                                </div>
+                                <div class="tabular__pane__item__description">
+                                    <div class="tabular__pane__item__description__main px-2">
+                                        <div class="row mx-0">
+                                            <p class="mb-0" style="font-weight: bold">{{ $transaction->project->name }}</p>
+                                            <a class="badge bg-light ml-1" href="">#{{ $transaction->id }}</a>
+                                        </div>
+                                        <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
+                                    </div>
+                                    <div class="tabular__pane__item__description__extra px-2">
+                                        <p class="text-muted fs-6 mb-0" style="font-size: 12px">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
+                                        <button class="btn btn-ouline-secondary mt-2"  data-toggle="collapse" data-target="#transaction-{{ $transaction->id  }}" aria-expanded="false" aria-controls="#order-{{ $transaction->id  }}">Detail</button>
+                                        <div class="collapse pt-3" id="transaction-{{$transaction->id }}">
                                             <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST">
                                                 @csrf
                                                 <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
@@ -121,8 +186,8 @@
                                             </form>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -132,4 +197,10 @@
 @endsection
 
 @section('extra-js')
+<script>
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
 @endsection

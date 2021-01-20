@@ -32,7 +32,7 @@
                     <div class="tab-pane fade show active tabular__pane" id="list-waiting" role="tabpanel" aria-labelledby="list-waiting-list">
                         <!-- TODO: Make List Item -->
                         @foreach( $transactionsCheck as $transaction )
-                            <div class="tabular__pane__item p-2 my-4">
+                            <div class="tabular__pane__item p-2 my-2">
                                 <div class="tabular__pane__item__preview">
                                     <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
                                 </div>
@@ -79,7 +79,7 @@
                     <!-- Penawaran Terbuka -->
                     <div class="tab-pane fade tabular__pane" id="list-verified" role="tabpanel" aria-labelledby="list-verified-list">
                         @foreach( $transactionsVerified as $transaction )
-                            <div class="tabular__pane__item p-2 my-4">
+                            <div class="tabular__pane__item p-2 my-2">
                                 <div class="tabular__pane__item__preview">
                                     <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
                                 </div>
@@ -121,7 +121,7 @@
                     <div class="tab-pane fade tabular__pane" id="list-reject" role="tabpanel" aria-labelledby="list-reject-list">
                         <!-- TODO: Make List Item -->
                         @foreach( $transactionsFailed as $transaction )
-                            <div class="tabular__pane__item p-2 my-4">
+                            <div class="tabular__pane__item p-2 my-2">
                                 <div class="tabular__pane__item__preview">
                                     <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
                                 </div>

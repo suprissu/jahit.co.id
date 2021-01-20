@@ -72,7 +72,15 @@
                         @foreach ($partners->sortByDesc('created_at') as $counter=>$partner)
                             <div class="card my-3">
                                 <div class="card-body">
-                                    <h4 class="mb-4">{{ $partner->user->name }}</h4>
+                                    <div class="row justify-content-between mx-0">
+                                        <h4 class="mb-4">{{ $partner->user->name }}</h4>
+                                        <form action="">
+                                            <input name="" value="" style="display: none;" required>
+                                            <button type="submit" class="btn btn-outline-danger">Activate</button>
+                                        </form>
+                                        <!-- UNCOMMENT THIS AFTER ACTIVATED -->
+                                        <!-- <span><p class="badge badge-success p-2">Activated</p></span> -->
+                                    </div>
                                     <p><strong>Email :</strong><br/> {{ $partner->user->email }}</p>
                                     <p><strong>Perusahaan :</strong><br/> {{ $partner->company_name }}</p>
                                     <p><strong>Nomor Telepon :</strong><br/> {{ $partner->phone_number }}</p>

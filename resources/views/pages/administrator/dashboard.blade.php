@@ -80,6 +80,11 @@
                                         </form>
                                         <!-- UNCOMMENT THIS AFTER ACTIVATED -->
                                         <!-- <span><p class="badge badge-success p-2">Activated</p></span> -->
+                                        <!-- OR THIS TO DEACTIVATE -->
+                                        <!-- <form action="">
+                                            <input name="" value="" style="display: none;" required>
+                                            <button type="submit" class="btn btn-danger">Deactivate</button>
+                                        </form> -->
                                     </div>
                                     <p><strong>Email :</strong><br/> {{ $partner->user->email }}</p>
                                     <p><strong>Perusahaan :</strong><br/> {{ $partner->company_name }}</p>

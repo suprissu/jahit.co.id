@@ -139,6 +139,7 @@
 
 @section('extra-css')
 <link rel="stylesheet" href="{{ asset('css/userChat.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/chatbox.css') }}"/>
 <link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
 @endsection
 

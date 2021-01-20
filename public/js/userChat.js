@@ -245,5 +245,5 @@ $(".navigation__item").on("click", (e) => {
     const chatContent = document.createElement("div");
     chatContent.classList.add("chatbox__messages__wrapper");
     chatContent.innerHTML = chat;
-    $(".chatbox__messages").html(chatContent);
+    $(".userChat .chatbox__messages").html(chatContent);
 });

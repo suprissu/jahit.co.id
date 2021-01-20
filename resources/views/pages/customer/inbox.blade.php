@@ -67,6 +67,8 @@
 
 @section('extra-css')
 <link rel="stylesheet" href="{{ asset('css/userChat.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/chatbox.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/customerAdminChat.css') }}">
 <link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
 @endsection
 
@@ -75,6 +77,7 @@
 @include('layouts/modalChatNegotiationAccept')
 @include('layouts/modalChatProjectPermission')
 @include('layouts/modalChatAskSample')
+@include('layouts/customerAdminChat')
 <div class="userChat">
     <div class="userChat__container">
         <h2 class="userChat__title">Pesan</h2>

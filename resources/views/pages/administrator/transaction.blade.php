@@ -93,7 +93,11 @@
                                     </div>
                                     <div class="tabular__pane__item__description__extra px-2">
                                         <p class="text-muted fs-6 mb-0" style="font-size: 12px">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
-                                        <button class="btn btn-ouline-secondary mt-2"  data-toggle="collapse" data-target="#transaction-{{ $transaction->id  }}" aria-expanded="false" aria-controls="#order-{{ $transaction->id  }}">Detail</button>
+                                        <div class="row mt-2">
+                                            <a href=""><button class="mx-1 btn btn-outline-danger">Download MOU</button></a>
+                                            <a href=""><button class="mx-1 btn btn-outline-danger">Download Invoice</button></a>
+                                            <button class="mx-1 btn btn-ouline-secondary"  data-toggle="collapse" data-target="#transaction-{{ $transaction->id  }}" aria-expanded="false" aria-controls="#order-{{ $transaction->id  }}">Detail</button>
+                                        </div>
                                         <div class="collapse pt-3" id="transaction-{{$transaction->id }}">
                                             <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST">
                                                 @csrf
@@ -104,16 +108,6 @@
                                                     <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
                                                     <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
                                                 </select>
-                                                <p class="text-muted my-1">Upload MOU:</p>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="transactionMOU" name="transactionMOU">
-                                                    <label class="custom-file-label" for="transactionMOU">Choose file</label>
-                                                </div>
-                                                <p class="text-muted my-1">Upload Invoice:</p>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="transactionINVOICE" name="transactionINVOICE">
-                                                    <label class="custom-file-label" for="transactionINVOICE">Choose file</label>
-                                                </div>
                                                 <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
                                             </form>
                                         </div>
@@ -152,16 +146,6 @@
                                                     <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
                                                     <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
                                                 </select>
-                                                <p class="text-muted my-1">Upload MOU:</p>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="transactionMOU" name="transactionMOU">
-                                                    <label class="custom-file-label" for="transactionMOU">Choose file</label>
-                                                </div>
-                                                <p class="text-muted my-1">Upload Invoice:</p>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="transactionINVOICE" name="transactionINVOICE">
-                                                    <label class="custom-file-label" for="transactionINVOICE">Choose file</label>
-                                                </div>
                                                 <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
                                             </form>
                                         </div>

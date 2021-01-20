@@ -34,7 +34,19 @@
                         @foreach( $transactionsCheck as $transaction )
                             <div class="tabular__pane__item p-2 my-2">
                                 <div class="tabular__pane__item__preview">
-                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
+                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}" alt="payment-slip" data-toggle="modal" data-target="#image-fullscreen"/>
+                                    <div class="modal fade pl-0" id="image-fullscreen" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <img src="{{ asset( $transaction->paymentSlip->path ) }}" alt="payment-slip"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tabular__pane__item__description">
                                     <div class="tabular__pane__item__description__main px-2">
@@ -81,7 +93,19 @@
                         @foreach( $transactionsVerified as $transaction )
                             <div class="tabular__pane__item p-2 my-2">
                                 <div class="tabular__pane__item__preview">
-                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
+                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}"  alt="payment-slip" data-toggle="modal" data-target="#image-fullscreen"/>
+                                    <div class="modal fade pl-0" id="image-fullscreen" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <img src="{{ asset( $transaction->paymentSlip->path ) }}" alt="payment-slip"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tabular__pane__item__description">
                                     <div class="tabular__pane__item__description__main px-2">
@@ -123,7 +147,19 @@
                         @foreach( $transactionsFailed as $transaction )
                             <div class="tabular__pane__item p-2 my-2">
                                 <div class="tabular__pane__item__preview">
-                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}" alt=""/>
+                                    <img class="img-thumbnail" src="{{ asset( $transaction->paymentSlip->path ) }}"  alt="payment-slip" data-toggle="modal" data-target="#image-fullscreen"/>
+                                    <div class="modal fade pl-0" id="image-fullscreen" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl">
+                                            <div class="modal-content">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <img src="{{ asset( $transaction->paymentSlip->path ) }}" alt="payment-slip"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="tabular__pane__item__description">
                                     <div class="tabular__pane__item__description__main px-2">

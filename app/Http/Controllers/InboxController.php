@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 
+use App\Models\AdminInbox;
 use App\Models\Chat;
 use App\Models\Inbox;
 use App\Models\Negotiation;
@@ -47,8 +48,8 @@ class InboxController extends Controller
             $role = $user->roles()->first()->name;
             switch ($role) {
                 case RoleConstant::ADMINISTRATOR:
-                    return redirect()->route('warning', ['type' => WarningStatusConstant::WORK_IN_PROGRESS]);
-                    // return $this->administratorDashboard($request, $user, $role);
+                    // return redirect()->route('warning', ['type' => WarningStatusConstant::WORK_IN_PROGRESS]);
+                    return $this->administratorDashboard($request, $user, $role);
                     break;
                 case RoleConstant::CUSTOMER:
                     // TO DO: for next phase, uncomment this code
@@ -65,6 +66,19 @@ class InboxController extends Controller
             }
         }
         return redirect($expectedStage);
+    }
+
+    /**
+     * Show the administrator's inbox.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function administratorDashboard(Request $request, $user, $role)
+    {
+        $inboxes = AdminInbox::orderBy('updated_at', 'desc')->get();
+        $role = "ADMIN";
+        
+        return view('pages.administrator.inbox', get_defined_vars());
     }
 
     /**
@@ -95,7 +109,7 @@ class InboxController extends Controller
                         })
                         ->where('type', ChatTemplateConstant::INITIATION_TYPE)
                         ->with('inbox')
-                        ->orderBy('updated_at', 'desc')
+                        ->orderBy('updated_at')
                         ->get();
                         
         if ($offers->count() == 0) {
@@ -456,6 +470,79 @@ class InboxController extends Controller
                         ->where('customer_id', $customer->id)
                         ->where('partner_id', '!=', $request->partnerID)
                         ->delete();
+        }
+        return redirect($expectedStage);
+    }
+
+    public function chatAdmin(Request $request, $inboxId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.inbox'));
+        if ($expectedStage == route('home.inbox')) {
+            $this->validate($request, [
+                'message' => [
+                    'required',
+                    'string'
+                ],
+            ]);
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            if ($role != RoleConstant::ADMINISTRATOR) {
+
+                $inbox = AdminInbox::find($inboxId);
+
+                if ($inbox == null) {
+                    $inbox = new AdminInbox;
+                    $inbox->receiver_user_id = $user->id;
+                    $inbox->save();
+                }
+
+                $chat = new AdminChat;
+                $chat->admin_inbox_id = $inbox->id;
+                $chat->role = $role;
+                $chat->message = $request->messsage;
+                $chat->save();
+                    
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function replyAdmin(Request $request, $inboxId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.inbox'));
+        if ($expectedStage == route('home.inbox')) {
+            $this->validate($request, [
+                'message' => [
+                    'required',
+                    'string'
+                ],
+            ]);
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            if ($role == RoleConstant::ADMINISTRATOR) {
+
+                $inbox = AdminInbox::find($inboxId);
+
+                if ($inbox == null) {
+                    $inbox = new AdminInbox;
+                    $inbox->receiver_user_id = $user->id;
+                    $inbox->save();
+                }
+
+                $chat = new AdminChat;
+                $chat->admin_user_id = $user->id;
+                $chat->admin_inbox_id = $inbox->id;
+                $chat->role = $role;
+                $chat->message = $request->messsage;
+                $chat->save();
+                    
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
         }
         return redirect($expectedStage);
     }

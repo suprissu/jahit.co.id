@@ -1,7 +1,8 @@
 <nav>
     <div class="navbar">
         <div class="navbar__container">
-            <div id="expand-trigger"></div>
+            <button id="expand-button" class="btn btn-outline-light"><i class="fas fa-bars"></i></button>
+            <div class="navbar__links"><a href="/">Beranda</a><a href="/about">Tentang Kami</a></div>
             <div class="navbar__logo"></div>
         </div>
         <div class="navbar__auth">

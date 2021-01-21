@@ -73,6 +73,9 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
 
     Route::group(['prefix' => 'inbox', 'as' => '.inbox'], function () {
         Route::get('', 'InboxController@userInbox')->name('');
+        Route::post('/chatAdmin/{inboxId}', 'InboxController@chatAdmin')->name('chatAdmin');
+        Route::post('/replyAdmin/{inboxId}', 'InboxController@replyAdmin')->name('replyAdmin');
+        
         Route::group(['prefix' => 'nego', 'as' => '.nego'], function () {
             Route::post('/offer', 'InboxController@offerNego')->name('.offer');
             Route::post('/reject', 'InboxController@rejectNego')->name('.reject');

@@ -84,4 +84,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Partner::class);
     }
+
+    public function adminInboxes()
+    {
+        return $this->hasOne(AdminInbox::class, 'receiver_user_id', 'id');
+    }
+
+    public function adminChats()
+    {
+        return $this->hasMany(AdminChat::class, 'admin_user_id', 'id');
+    }
 }

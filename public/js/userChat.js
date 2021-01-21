@@ -239,6 +239,7 @@ $(".navigation__item").on("click", (e) => {
     $(".navigation__item").removeClass("active");
     const nav = e.currentTarget;
     nav.classList.add("active");
+
     const chatId = nav.getAttribute("data-id");
     const chat = getChatProject(chatId);
 

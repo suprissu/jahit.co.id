@@ -167,25 +167,108 @@
 @endsection
 
 @section('extra-css')
-<link rel="stylesheet" href="{{ asset('css/adminChat.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/userChat.css') }}"/>
 <link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/chatbox.css') }}"/>
 @endsection
 
 @section('content')
 @include('layouts/modalAdminAddChat')
-<div class="adminChat">
-    <div class="adminChat__container">
-        <h2 class="adminChat__title">Pesan</h2>
+<div class="userChat">
+    <div class="userChat__container">
+        <div class="row mx-0 align-items-center">
+            <h2 class="userChat__title">Pesan</h2>
+            <button data-target="#adminAddChat" data-toggle="modal" class="chatbox__addMessage btn btn-danger ml-2"><i class="fas fa-plus" aria-hidden="true"></i></button>
+        </div>
         <div class="chatbox">
             <div class="chatbox__navigation navigation list-group" role="tablist">
-
-                <button data-target="#adminAddChat" data-toggle="modal" class="chatbox__addMessage btn btn-danger"><i class="fas fa-plus" aria-hidden="true"></i></button>
 
                 <!-- Navigation Item -->
 
                 <a class="navigation__item" id="13123213" aria-controls="user">
                         <div class="navigation__left">
                             <h5 class="navigation__title">User 1</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
+                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                        </div>
+                        <div class="navigation__right">
+                            <p class="navigation__date">10 Maret 2020</p>
+                        </div>
+                </a>
+                <a class="navigation__item" id="32523524" aria-controls="user">
+                        <div class="navigation__left">
+                            <h5 class="navigation__title">User 2</h5>
                             <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
                         </div>
                         <div class="navigation__right">
@@ -253,6 +336,10 @@
     $(".chatbox__input").hide()
     $(".chatbox__messages__wrapper").hide()
     $(".navigation__item").on("click", (e) => {
+        $(".navigation__item").removeClass("active");
+        const nav = e.currentTarget;
+        nav.classList.add("active");
+
         $(".chatbox__noMessages__wrapper").hide()
         $(".chatbox__messages__wrapper").hide()
         const userId = e.currentTarget.attributes["id"].value;

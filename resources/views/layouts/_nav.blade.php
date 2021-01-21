@@ -14,9 +14,9 @@
                 <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <button class="btn btn-outline-light dropdown-toggle">
                         @inject('roleConstants', 'App\Constant\RoleConstant')
-                        @if ( Auth::user()->roles()->first()->name == $roleConstants::CUSTOMER )
+                        @if ( Auth::user()->roles()->first() == $roleConstants::CUSTOMER )
                             {{ Auth::user()->customer->company_name }}
-                        @elseif ( Auth::user()->roles()->first()->name == $roleConstants::PARTNER )
+                        @elseif ( Auth::user()->roles()->first() == $roleConstants::PARTNER )
                             {{ Auth::user()->partner->company_name }}
                         @else
                             {{ Auth::user()->name }}

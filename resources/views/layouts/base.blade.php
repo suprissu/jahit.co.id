@@ -27,6 +27,7 @@
         @include('layouts/_nav')
         @yield('content')
         @include('layouts/_footer')
+        @include('layouts/modalImageFullscreen')
         <script src="{{ asset('lib/jquery-3.3.1.min.js') }}"></script>
         <script src="{{ asset('lib/popper.min.js') }}"></script>
         <script src="{{ asset('lib/bootstrap.min.js') }}"></script>

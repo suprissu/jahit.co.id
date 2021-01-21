@@ -42,10 +42,10 @@
                                             <p class="mb-1"><strong>Nomor Telepon:</strong> +6281231231</p>
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <img data-toggle="modal" data-target="#imageShow-1" class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
+                                                    <img data-toggle="modal" data-target="#image-fullscreen" class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
                                                 </div>
                                                 <div class="col-2">
-                                                    <img data-toggle="modal" data-target="#imageShow-2" class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
+                                                    <img data-toggle="modal" data-target="#image-fullscreen" class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
                                                 </div>
                                             </div>
                                             <form class="mt-4" action="/admin/material" method="POST">
@@ -60,24 +60,6 @@
                                     </div>
                                 </li>
                             </ul>
-                            <div class="modal fade" id="imageShow-1" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <img class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal fade" id="imageShow-2" tabindex="-1" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <img class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                     </div>
                     
                     <!-- Penawaran Terbuka -->
@@ -86,7 +68,7 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-4">
-                                        <img class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
+                                        <img data-toggle="modal" data-target="#image-fullscreen" class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
                                     </div>
                                     <div class="col">
                                         <span class="badge bg-light">#123123</span>
@@ -105,7 +87,7 @@
                             <li class="list-group-item">
                                 <div class="row">
                                     <div class="col-4">
-                                        <img class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
+                                        <img data-toggle="modal" data-target="#image-fullscreen" class="rounded w-100" src="{{ asset('/img/dummy-img.jpg') }}" alt=""/>
                                     </div>
                                     <div class="col">
                                         <span class="badge bg-light">#123123</span>

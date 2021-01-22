@@ -56,7 +56,12 @@
 
 .tabular__pane__item {
     display: flex;
+    flex-direction: column;
     border: 1px solid #eeeeee;
+}
+
+.tabular__pane__item__detail {
+    display: flex;
 }
 
 .tabular__pane__item__description {
@@ -66,13 +71,16 @@
 
 .tabular__pane__item__description__main {
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .tabular__pane__item__description__extra {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
     justify-content: flex-end;
-    align-items: flex-end;
+    gap: 5px;
 }
 
 .tabular__pane__item__preview > img {
@@ -110,5 +118,30 @@
 
     .tabular__header::-webkit-scrollbar {
         display: none;
+    }
+
+    .tabular__pane__item__description {
+        margin-top: 10px;
+        flex-direction: column;
+    }
+
+    .tabular__pane__item__description__extra {
+        flex-direction: column;
+    }
+
+    .tabular__pane__item__description__extra button,
+    .tabular__pane__item__description__extra a,
+    .tabular__pane__item__description__extra a button {
+        flex: 1;
+        width: 100%;
+    }
+
+    .tabular__pane__item__detail {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tabular__pane__item__preview > img {
+        height: auto;
     }
 }

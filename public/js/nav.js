@@ -1,14 +1,3 @@
-const expandButton =
-    '<button id="expand-button" class="btn btn-outline-light"><i class="fas fa-bars"></i></button>';
-const navLinks =
-    '<div class="navbar__links"><a href="/">Beranda</a><a href="/about">Tentang Kami</a></div>';
-
-if (window.innerWidth <= 768) {
-    document.getElementById("expand-trigger").innerHTML = expandButton;
-} else {
-    document.getElementById("expand-trigger").innerHTML = navLinks;
-}
-
 const pathNavAllowed = ["/", "/about"];
 if (pathNavAllowed.includes(window.location.pathname)) {
     $("nav").removeClass("invert");
@@ -36,7 +25,8 @@ let navExpand = false;
 $("#expand-button").on("click", () => {
     navExpand = !navExpand;
     if (navExpand) {
-        document.getElementById("expand-content-nav").innerHTML = navLinks;
+        document.getElementById("expand-content-nav").innerHTML =
+            '<div class="navbar__links"><a href="/">Beranda</a><a href="/about">Tentang Kami</a></div>';
         $("nav").css("box-shadow", "0 0 6px rgba(0,0,0,0.2)");
         $("nav").addClass("scrolled");
     } else {
@@ -45,14 +35,6 @@ $("#expand-button").on("click", () => {
         if (pathNavAllowed.includes(window.location.pathname)) {
             $("nav").removeClass("scrolled");
         }
-    }
-});
-
-$(window).on("resize", (e) => {
-    if (window.innerWidth <= 768) {
-        document.getElementById("expand-trigger").innerHTML = expandButton;
-    } else {
-        document.getElementById("expand-trigger").innerHTML = navLinks;
     }
 });
 

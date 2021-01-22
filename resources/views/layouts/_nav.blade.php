@@ -1,7 +1,8 @@
 <nav>
     <div class="navbar">
         <div class="navbar__container">
-            <div id="expand-trigger"></div>
+            <button id="expand-button" class="btn btn-outline-light"><i class="fas fa-bars"></i></button>
+            <div class="navbar__links"><a href="/">Beranda</a><a href="/about">Tentang Kami</a></div>
             <div class="navbar__logo"></div>
         </div>
         <div class="navbar__auth">
@@ -13,9 +14,9 @@
                 <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <button class="btn btn-outline-light dropdown-toggle">
                         @inject('roleConstants', 'App\Constant\RoleConstant')
-                        @if ( Auth::user()->roles()->first()->name == $roleConstants::CUSTOMER )
+                        @if ( Auth::user()->roles()->first() == $roleConstants::CUSTOMER )
                             {{ Auth::user()->customer->company_name }}
-                        @elseif ( Auth::user()->roles()->first()->name == $roleConstants::PARTNER )
+                        @elseif ( Auth::user()->roles()->first() == $roleConstants::PARTNER )
                             {{ Auth::user()->partner->company_name }}
                         @else
                             {{ Auth::user()->name }}

@@ -169,7 +169,7 @@
                 </div>
 
                 @foreach( $inboxes as $inbox )
-                    @if ( $inbox->chats->count() > 0 )
+                    @if ( $inbox->chats->count() > 1 )
                         <div class="navigation__item" data-id="{{ $inbox->id }}">
                             <div class="navigation__left">
                                 <h5 class="navigation__title">{{ $inbox->customer->company_name }}</h5>
@@ -186,7 +186,7 @@
 
             <div class="chatbox__container">
                 <div class="chatbox__header">
-                    <h6 class="chatbox__title">Rompi Relawan COVID</h6>
+                    <h6 class="chatbox__title"></h6>
                     <!-- <div class="chatbox__more">
                         <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                     </div> -->

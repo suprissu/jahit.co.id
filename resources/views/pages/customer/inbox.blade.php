@@ -103,7 +103,7 @@
 
             <div class="chatbox__container">
                 <div class="chatbox__header">
-                    <h6 class="chatbox__title">Rompi Relawan COVID</h6>
+                    <h6 class="chatbox__title"></h6>
                     <!-- <div class="chatbox__more">
                         <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
                     </div> -->

@@ -15,11 +15,11 @@ class AdminInbox extends Model
 
     public function receiver()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'receiver_user_id', 'id');
     }
 
     public function adminChats()
     {
-        return $this->hasMany(AdminChat::class, 'admin_inbox_id', 'id');
+        return $this->hasMany(AdminChat::class);
     }
 }

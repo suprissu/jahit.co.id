@@ -5,165 +5,6 @@
 @endsection
 
 @section('prerender-js')
-<script>
-    const chatProject = [
-    {
-        id: "222",
-        userRole: "CLIENT",
-        project: {
-            id: "123",
-            name: "Relawan Rompi COVID",
-            amount: "13000",
-            price: "1000000",
-            start_date: "2020-10-29T03:59:09",
-            end_date: "2020-11-01T03:59:09",
-            note: "test",
-        },
-        transaction: {
-            id: "123111",
-        },
-        message: [
-            {
-                role: "CLIENT",
-                type: "INISIASI",
-            },
-            {
-                role: "VENDOR",
-                type: "NEGOSIASI",
-                answer: "",
-            },
-        ],
-    },
-    {
-        id: "111",
-        userRole: "CLIENT",
-        project: {
-            id: "123",
-            name: "Relawan Rompi COVID",
-            amount: "13000",
-            price: "1000000",
-            start_date: "2020-10-29T03:59:09",
-            end_date: "2020-11-01T03:59:09",
-            note: "test",
-        },
-        transaction: {
-            id: "123111",
-        },
-        message: [
-            {
-                role: "CLIENT",
-                type: "INISIASI",
-            },
-            {
-                role: "VENDOR",
-                type: "NEGOSIASI",
-                answer: "accept",
-            },
-            {
-                role: "CLIENT",
-                type: "SETUJU",
-            },
-        ],
-    },
-    {
-        id: "123",
-        userRole: "CLIENT",
-        project: {
-            id: "123",
-            name: "Relawan Rompi COVID",
-            amount: "15000",
-            price: "2000000",
-            start_date: "2020-10-29T03:59:09",
-            end_date: "2020-11-01T03:59:09",
-            note: "test123",
-        },
-        transaction: {
-            id: "123111",
-        },
-        message: [
-            {
-                role: "CLIENT",
-                type: "INISIASI",
-            },
-            {
-                role: "VENDOR",
-                type: "NEGOSIASI",
-                answer: "reject",
-            },
-            {
-                role: "CLIENT",
-                type: "DIAJUKAN",
-            },
-            {
-                role: "VENDOR",
-                type: "SETUJU",
-            },
-        ],
-    },
-    {
-        id: "333",
-        userRole: "CLIENT",
-        project: {
-            id: "123",
-            name: "Relawan Rompi COVID",
-            amount: "15000",
-            price: "2000000",
-            start_date: "2020-10-29T03:59:09",
-            end_date: "2020-11-01T03:59:09",
-            note: "test123",
-        },
-        transaction: {
-            id: "123",
-        },
-        message: [
-            {
-                role: "CLIENT",
-                type: "INISIASI",
-            },
-            {
-                role: "VENDOR",
-                answer: "reject",
-                type: "NEGOSIASI",
-            },
-            {
-                role: "CLIENT",
-                type: "DIAJUKAN",
-            },
-            {
-                role: "VENDOR",
-                answer: "sample",
-                type: "SETUJU",
-            },
-            {
-                role: "CLIENT",
-                type: "SAMPLE",
-            },
-            {
-                role: "ADMIN",
-                type: "VERIFIKASI",
-            },
-            {
-                role: "VENDOR",
-                answer: "deal",
-                type: "SAMPLE TERKIRIM",
-            },
-            {
-                role: "CLIENT",
-                type: "DEAL",
-            },
-            {
-                role: "ADMIN",
-                type: "VERIFIKASI",
-            },
-            {
-                role: "VENDOR",
-                excuse: "Waktu tidak tersedia",
-                type: "REVISI DITOLAK",
-            },
-        ],
-    },
-];
-</script>
 @endsection
 
 @section('extra-css')
@@ -174,116 +15,29 @@
 
 @section('content')
 @include('layouts/modalAdminAddChat')
+@inject('roleConstants', 'App\Constant\RoleConstant')
+
 <div class="userChat">
     <div class="userChat__container">
         <div class="row mx-0 align-items-center">
             <h2 class="userChat__title">Pesan</h2>
-            <button data-target="#adminAddChat" data-toggle="modal" class="chatbox__addMessage btn btn-danger ml-2"><i class="fas fa-plus" aria-hidden="true"></i></button>
+            <!-- <button data-target="#adminAddChat" data-toggle="modal" class="chatbox__addMessage btn btn-danger ml-2"><i class="fas fa-plus" aria-hidden="true"></i></button> -->
         </div>
         <div class="chatbox">
             <div class="chatbox__navigation navigation list-group" role="tablist">
 
                 <!-- Navigation Item -->
-
-                <a class="navigation__item" id="13123213" aria-controls="user">
+                @foreach ( $inboxes as $inbox )
+                <a class="navigation__item" id="{{ $inbox->id }}" aria-controls="user">
                         <div class="navigation__left">
-                            <h5 class="navigation__title">User 1</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                            <h5 class="navigation__title">{{ $inbox->receiver->name }}</h5>
+                            <p class="navigation__description">{{ $inbox->adminChats->last()->message }}</p>
                         </div>
                         <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
+                            <p class="navigation__date">{{ $inbox->adminChats->last()->created_at->format('j F Y') }}</p>
                         </div>
                 </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
-                <a class="navigation__item" id="32523524" aria-controls="user">
-                        <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
-                        </div>
-                        <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
-                        </div>
-                </a>
+                @endforeach
 
             </div>
 
@@ -299,23 +53,19 @@
                     
                     <!-- TODO: Change below component -->
                     
-                    <div class="chatbox__messages__wrapper" id="content-user-13123213">
-                        <div class="chatbox__message chatbox__message--me">
-                            <p>Itu karena bapak tidak baca petunjuk</p>
-                        </div>
-                        <div class="chatbox__message chatbox__message--other">
-                            <p>Kenapa ya saya tuh begini?</p>
-                        </div>
+                    @foreach ( $inboxes as $inbox )
+                        <div class="chatbox__messages__wrapper" id="content-user-13123213">
+                            @foreach ( $inbox->adminChats as $chat )
+                                @if ( $chat->role == $roleConstants::ADMINISTRATOR )
+                                    <div class="chatbox__message chatbox__message--me">
+                                @else
+                                    <div class="chatbox__message chatbox__message--other">
+                                @endif
+                                    <p>{{ $chat->message }}</p>
+                                </div>
+                            @endforeach
                     </div>
-
-                    <div class="chatbox__messages__wrapper" id="content-user-32523524">
-                        <div class="chatbox__message chatbox__message--me">
-                            <p>Halo juga</p>
-                        </div>
-                        <div class="chatbox__message chatbox__message--other">
-                            <p>Halo min</p>
-                        </div>
-                    </div>
+                    @endforeach
                     
                     <div class="chatbox__input">
                         <form action="" method="POST">

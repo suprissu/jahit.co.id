@@ -15,11 +15,11 @@ class AdminChat extends Model
 
     public function adminInboxes()
     {
-        return $this->belongsTo(AdminInbox::class);
+        return $this->belongsTo(AdminInbox::class, 'admin_inbox_id', 'id');
     }
 
     public function admin()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'admin_user_id', 'id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 
+use App\Models\AdminChat;
 use App\Models\AdminInbox;
 use App\Models\Chat;
 use App\Models\Inbox;
@@ -92,6 +93,8 @@ class InboxController extends Controller
         $inboxes = $customer->inboxes()->orderBy('updated_at', 'desc')->get();
         $role = "CLIENT";
 
+        $adminInbox = $user->adminInboxes;
+
         return view('pages.customer.inbox', get_defined_vars());
     }
 
@@ -118,6 +121,8 @@ class InboxController extends Controller
             $offerLastDate = $offers->last()->created_at->format('j F Y');
         }
         $role = "VENDOR";
+
+        $adminInbox = $user->adminInboxes;
 
         return view('pages.partner.inbox', get_defined_vars());
     }
@@ -487,20 +492,15 @@ class InboxController extends Controller
 
             $user = auth()->user();
             $role = $user->roles()->first()->name;
-            if ($role != RoleConstant::ADMINISTRATOR) {
+            if ($role == RoleConstant::ADMINISTRATOR) {
 
                 $inbox = AdminInbox::find($inboxId);
 
-                if ($inbox == null) {
-                    $inbox = new AdminInbox;
-                    $inbox->receiver_user_id = $user->id;
-                    $inbox->save();
-                }
-
                 $chat = new AdminChat;
+                $chat->admin_user_id = $user->id;
                 $chat->admin_inbox_id = $inbox->id;
                 $chat->role = $role;
-                $chat->message = $request->messsage;
+                $chat->message = $request->message;
                 $chat->save();
                     
             } else {
@@ -523,21 +523,23 @@ class InboxController extends Controller
 
             $user = auth()->user();
             $role = $user->roles()->first()->name;
-            if ($role == RoleConstant::ADMINISTRATOR) {
+            if ($role != RoleConstant::ADMINISTRATOR) {
 
-                $inbox = AdminInbox::find($inboxId);
+                $inbox = $user->adminInboxes;
 
                 if ($inbox == null) {
                     $inbox = new AdminInbox;
                     $inbox->receiver_user_id = $user->id;
                     $inbox->save();
+                } else {
+                    $inbox = $inbox->find($inboxId);
                 }
 
                 $chat = new AdminChat;
                 $chat->admin_user_id = $user->id;
                 $chat->admin_inbox_id = $inbox->id;
                 $chat->role = $role;
-                $chat->message = $request->messsage;
+                $chat->message = $request->message;
                 $chat->save();
                     
             } else {

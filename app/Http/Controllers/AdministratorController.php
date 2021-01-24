@@ -19,6 +19,7 @@ use App\Models\Partner;
 use App\Models\Project;
 use App\Models\MaterialRequest;
 use App\Models\Transaction;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
@@ -241,6 +242,62 @@ class AdministratorController extends Controller
                         return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
                 }
                 $materialRequest->save();
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function activateUser(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+
+            if ($role == RoleConstant::ADMINISTRATOR) {
+                $this->validate($request, [
+                    'userID' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                ]);
+
+                $targetUser = User::find($request->userID);
+                $targetUser->is_active = true;
+                $targetUser->save();
+
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function deactivateUser(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+
+            if ($role == RoleConstant::ADMINISTRATOR) {
+                $this->validate($request, [
+                    'userID' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                ]);
+
+                $targetUser = User::find($request->userID);
+                $targetUser->is_active = false;
+                $targetUser->save();
+
             } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }

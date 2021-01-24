@@ -68,6 +68,8 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
         Route::group(['prefix' => 'verification', 'as' => '.verification'], function () {
             Route::post('/payment', 'AdministratorController@paymentVerification')->name('.payment.submit');
             Route::post('/materialRequest', 'AdministratorController@materialRequestVerification')->name('.material.request');
+            Route::post('/user/activate', 'AdministratorController@activateUser')->name('.user.activate');
+            Route::post('/user/deactivate', 'AdministratorController@deactivateUser')->name('.user.deactivate');
         });
     });
 

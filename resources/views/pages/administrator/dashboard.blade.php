@@ -74,17 +74,20 @@
                                 <div class="card-body">
                                     <div class="row justify-content-between mx-0">
                                         <h4 class="mb-4">{{ $partner->user->name }}</h4>
-                                        <form action="">
-                                            <input name="" value="" style="display: none;" required>
-                                            <button type="submit" class="btn btn-outline-danger">Activate</button>
-                                        </form>
-                                        <!-- UNCOMMENT THIS AFTER ACTIVATED -->
-                                        <!-- <span><p class="badge badge-success p-2">Activated</p></span> -->
-                                        <!-- OR THIS TO DEACTIVATE -->
-                                        <!-- <form action="">
-                                            <input name="" value="" style="display: none;" required>
-                                            <button type="submit" class="btn btn-danger">Deactivate</button>
-                                        </form> -->
+                                        @if ( $partner->user->is_active == true )
+                                            <span><p class="badge badge-success p-2">Activated</p></span>
+                                            <form action="{{ route('home.administrator.verification.user.deactivate') }}" method="POST">
+                                                @csrf
+                                                <input name="userID" value="{{ $partner->user->id }}" style="display: none;" required>
+                                                <button type="submit" class="btn btn-danger">Deactivate</button>
+                                            </form>
+                                        @else
+                                            <form action="{{ route('home.administrator.verification.user.activate') }}" method="POST">
+                                                @csrf
+                                                <input name="userID" value="{{ $partner->user->id }}" style="display: none;" required>
+                                                <button type="submit" class="btn btn-outline-danger">Activate</button>
+                                            </form>
+                                        @endif
                                     </div>
                                     <p><strong>Email :</strong><br/> {{ $partner->user->email }}</p>
                                     <p><strong>Perusahaan :</strong><br/> {{ $partner->company_name }}</p>

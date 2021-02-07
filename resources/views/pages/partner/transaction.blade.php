@@ -96,7 +96,7 @@
                     <!-- TODO: Make List Item -->
                     @foreach( $requestsAll as $project )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
                                     <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
@@ -115,7 +115,7 @@
                 <div class="tab-pane fade" id="list-material" role="tabpanel" aria-labelledby="list-material-list">
                     @foreach( $requestsRequested as $project )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
                                     <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
@@ -137,7 +137,7 @@
                     <!-- TODO: Make List Item -->
                     @foreach( $requestsApproved as $project )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
                                     <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
@@ -159,7 +159,7 @@
                     <!-- TODO: Make List Item -->
                     @foreach( $requestsSent as $project )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
                                     <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>
@@ -181,7 +181,7 @@
                     <!-- TODO: Make List Item -->
                     @foreach( $requestsRejected as $project )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $project->name }}</h5>
                                     <p class="listItem__price">{{ $project->materialRequests->count() }} Pesanan</p>

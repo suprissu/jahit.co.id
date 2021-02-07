@@ -108,7 +108,6 @@
                     
                     <!-- Semua Proyek -->
                         <div class="tab-pane fade show active" id="list-all-project" role="tabpanel" aria-labelledby="list-all-project-list">
-                        all project
                             @foreach ($projectsAll as $project)
                                 @if ($project->status == $projectStatusConstant::PROJECT_DEALT)
                                     <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="{{ $project->count }}" status="0" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
@@ -122,7 +121,6 @@
                             @endforeach
                         </div>
                         <div class="tab-pane fade show" id="list-all-sample" role="tabpanel" aria-labelledby="list-all-sample-list">
-                        all sample
                             @foreach ($samplesAll as $project)
                                 @if ($project->sample->status == $sampleStatusConstant::SAMPLE_WAIT_PAYMENT || $project->sample->status == $sampleStatusConstant::SAMPLE_WORK_IN_PROGRESS)
                                     <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
@@ -147,7 +145,6 @@
                     
                     <!-- Semua Proyek -->
                         <div class="tab-pane fade show active" id="list-open-project" role="tabpanel" aria-labelledby="list-open-project-list">
-                            open project
                             @foreach ($projectsRequest as $project)
                                 @if ($project->status == $projectStatusConstant::PROJECT_DEALT)
                                     <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="{{ $project->count }}" status="0" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
@@ -157,7 +154,6 @@
                             @endforeach
                         </div>
                         <div class="tab-pane fade show" id="list-open-sample" role="tabpanel" aria-labelledby="list-open-sample-list">
-                            open sample
                             @foreach ($samplesRequest as $project)
                                 @if ($project->sample->status == $sampleStatusConstant::SAMPLE_WAIT_PAYMENT)
                                     <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
@@ -180,13 +176,11 @@
                     
                     <!-- Semua Proyek -->
                         <div class="tab-pane fade show active" id="list-progress-project" role="tabpanel" aria-labelledby="list-progress-project-list">
-                            progress project
                             @foreach ($projectsInProgress as $project)
                                 <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="{{ $project->count }}" status="3" startDate="{{ $project->start_date }}" endDate="{{ $project->deadline }}" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @endforeach
                         </div>
                         <div class="tab-pane fade show" id="list-progress-sample" role="tabpanel" aria-labelledby="list-progress-sample-list">
-                            progress sample
                             @foreach ($samplesInProgress as $project)
                                 <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @endforeach
@@ -205,13 +199,11 @@
                     
                     <!-- Semua Proyek -->
                         <div class="tab-pane fade show active" id="list-finish-project" role="tabpanel" aria-labelledby="list-finish-project-list">
-                            finish project
                             @foreach ($projectsDone as $project)
                                 <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="{{ $project->count }}" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @endforeach
                         </div>
                         <div class="tab-pane fade show" id="list-finish-sample" role="tabpanel" aria-labelledby="list-finish-sample-list">
-                            finish sample
                             @foreach ($samplesDone as $project)
                                 <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @endforeach
@@ -230,13 +222,11 @@
                     
                         <!-- Semua Proyek -->
                         <div class="tab-pane fade show active" id="list-cancel-project" role="tabpanel" aria-labelledby="list-cancel-project-list">
-                            cancel project
                             @foreach ($projectsRejected as $project)
                                 <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="2" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @endforeach   
                         </div>
                         <div class="tab-pane fade show" id="list-cancel-sample" role="tabpanel" aria-labelledby="list-cancel-sample-list">
-                            cancel sample
                             @foreach ($samplesRejected as $project)
                                 <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="2" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @endforeach

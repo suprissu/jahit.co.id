@@ -39,13 +39,32 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the project detail.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index(Request $request, $projectId)
     {
-        // TO DO
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.project.detail', ['projectId' => $projectId]));
+        if ($expectedStage == route('home.project.detail', ['projectId' => $projectId])) {
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            
+            if ($role == RoleConstant::CUSTOMER) {
+                $customer = $user->customer;
+                $project = $customer->projects->find($projectId);
+            } else if ($role == RoleConstant::ADMINISTRATOR || $role == RoleConstant::PARTNER) {
+                $project = Project::find($projectId);
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+            if ($project == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
+            }
+            return view('pages.projectDetail', get_defined_vars());
+        }
+        return redirect($expectedStage);
     }
 
     /**

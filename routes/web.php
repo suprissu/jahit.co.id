@@ -51,6 +51,7 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
     Route::get('', 'HomeController@index')->name('');
 
     Route::group(['prefix' => 'project', 'as' => '.project'], function () {
+        Route::get('/{projectId}', 'ProjectController@index')->name('.detail');
         Route::post('/add', 'ProjectController@store')->name('.add');
         Route::post('/edit', 'ProjectController@update')->name('.edit');
         Route::post('/start/{projectId}', 'ProjectController@startProject')->name('.start');
@@ -91,6 +92,8 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
 
     Route::group(['prefix' => 'transaction', 'as' => '.transaction'], function () {
         Route::get('', 'TransactionController@userTransaction')->name('');
+        Route::get('/download/mou/{mouId}', 'TransactionController@downloadMou')->name('.download.mou');
+        Route::get('/download/invoice/{invoiceId}', 'TransactionController@downloadInvoice')->name('.download.invoice');
         Route::get('/requestMaterial', 'TransactionController@requestMaterialPage')->name('.material.request.page');
         Route::post('/uploadPaymentSlip', 'TransactionController@uploadPaymentSlip')->name('.slip.submit');
         Route::post('/requestMaterial', 'TransactionController@requestMaterial')->name('.material.request');

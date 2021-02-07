@@ -100,7 +100,7 @@
                     <!-- TODO: Make List Item -->
                     @foreach( $transactions as $transaction )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
                                     <p class="listItem__price">Rp {{ $transaction->cost }}</p>
@@ -108,7 +108,7 @@
                                 </div>
                             </a>
                             <div class="listItem--right">
-                                <a href="/user/customer/transaction/1" class="listItem__label">
+                                <a href="#" class="listItem__label">
                                     <p class="listItem__category">{{ $transaction->type }}</p>
                                     <p class="listItem__paidStatus">{{ $transaction->status }}</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
@@ -124,8 +124,12 @@
                                 <div class="listItem__credential">
                                     <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
                                     <button onclick="changeModalUploadPayment(this)" data-transactionId="{{ $transaction->id }}" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
-                                    <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
-                                    <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                    @if ($transaction->mou != null)
+                                        <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a>
+                                    @endif
+                                    @if ($transaction->invoice != null)
+                                        <a href="{{ route('home.transaction.download.invoice', ['invoiceId' => $transaction->invoice->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -137,7 +141,7 @@
                     <!-- TODO: Make List Item -->
                     @foreach( $sample_transactions as $transaction )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
                                     <p class="listItem__price">Rp {{ $transaction->cost }}</p>
@@ -145,7 +149,7 @@
                                 </div>
                             </a>
                             <div class="listItem--right">
-                                <a href="/user/customer/transaction/1" class="listItem__label">
+                                <a href="#" class="listItem__label">
                                     <p class="listItem__category">{{ $transaction->type }}</p>
                                     <p class="listItem__paidStatus">{{ $transaction->status }}</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
@@ -161,8 +165,12 @@
                                 <div class="listItem__credential">
                                     <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
                                     <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
-                                    <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
-                                    <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                    @if ($transaction->mou != null)
+                                        <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a>
+                                    @endif
+                                    @if ($transaction->invoice != null)
+                                        <a href="{{ route('home.transaction.download.invoice', ['invoiceId' => $transaction->invoice->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -174,7 +182,7 @@
                     <!-- TODO: Make List Item -->
                     @foreach( $dp_transactions as $transaction )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
                                     <p class="listItem__price">Rp {{ $transaction->cost }}</p>
@@ -182,7 +190,7 @@
                                 </div>
                             </a>
                             <div class="listItem--right">
-                                <a href="/user/customer/transaction/1" class="listItem__label">
+                                <a href="#" class="listItem__label">
                                     <p class="listItem__category">{{ $transaction->type }}</p>
                                     <p class="listItem__paidStatus">{{ $transaction->status }}</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
@@ -198,8 +206,12 @@
                                 <div class="listItem__credential">
                                     <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
                                     <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
-                                    <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
-                                    <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                    @if ($transaction->mou != null)
+                                        <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a>
+                                    @endif
+                                    @if ($transaction->invoice != null)
+                                        <a href="{{ route('home.transaction.download.invoice', ['invoiceId' => $transaction->invoice->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -211,7 +223,7 @@
                     <!-- TODO: Make List Item -->
                     @foreach( $full_transactions as $transaction )
                         <div class="listItem">
-                            <a href="/user/customer/transaction/1" class="listItem--left">
+                            <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
                                     <p class="listItem__price">Rp {{ $transaction->cost }}</p>
@@ -219,7 +231,7 @@
                                 </div>
                             </a>
                             <div class="listItem--right">
-                                <a href="/user/customer/transaction/1" class="listItem__label">
+                                <a href="#" class="listItem__label">
                                     <p class="listItem__category">{{ $transaction->type }}</p>
                                     <p class="listItem__paidStatus">{{ $transaction->status }}</p>
                                     <!-- Uncomment if paidStatus is not SUDAH DIBAYAR -->
@@ -235,8 +247,12 @@
                                 <div class="listItem__credential">
                                     <!-- Uncomment one of element if paidStatus is BELUM DIBAYAR or SUDAH DIBAYAR  -->
                                     <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
-                                    <!-- <a href="#"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a> -->
-                                    <a href="#"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                    @if ($transaction->mou != null)
+                                        <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a>
+                                    @endif
+                                    @if ($transaction->invoice != null)
+                                        <a href="{{ route('home.transaction.download.invoice', ['invoiceId' => $transaction->invoice->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh Invoice</button></a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

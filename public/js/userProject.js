@@ -99,7 +99,7 @@ class ProjectItem extends HTMLElement {
         return status[this.getAttribute("status")];
     }
 
-    get priceFormat(num) {
+    priceFormat(num) {
         const numberFormat = new Intl.NumberFormat("id-ID", {
             style: "currency",
             currency: "IDR",

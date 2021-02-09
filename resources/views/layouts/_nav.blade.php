@@ -58,7 +58,7 @@
                 </a>
                 @if ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
                     <a href="{{ route('home.material') }}">
-                        <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Bahan</p>
+                        <i class="fa fa-tshirt" aria-hidden="true"></i><p>Bahan</p>
                     </a>
                 @endif
                 <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

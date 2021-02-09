@@ -331,4 +331,32 @@ class AdministratorController extends Controller
         }
         return redirect($expectedStage);
     }
+
+    public function payProject(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+
+            if ($role == RoleConstant::ADMINISTRATOR) {
+                $this->validate($request, [
+                    'projectID' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                ]);
+
+                $project = Project::find($request->projectID);
+                $project->status = ProjectStatusConstant::PROJECT_DONE;
+                $project->save();
+
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
 }

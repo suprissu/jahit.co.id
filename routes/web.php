@@ -71,6 +71,7 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
             Route::post('/materialRequest', 'AdministratorController@materialRequestVerification')->name('.material.request');
             Route::post('/user/activate', 'AdministratorController@activateUser')->name('.user.activate');
             Route::post('/user/deactivate', 'AdministratorController@deactivateUser')->name('.user.deactivate');
+            Route::post('/project/pay', 'AdministratorController@payProject')->name('.project.pay');
         });
     });
 

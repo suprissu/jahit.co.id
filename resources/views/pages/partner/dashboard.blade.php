@@ -17,10 +17,10 @@
                 status: "{{ $project->status }}",
                 category: "{{ $project->category->id }}",
                 order: "{{ $project->count }}",
-                amount: "Rp @if($project->cost != null) {{ $project->cost }} @else - @endif",
+                amount: "@if($project->cost != null) Rp {{ number_format($project->cost, 2, ',', '.') }} @else - @endif",
                 quotation: "-",
                 address: "{{ $project->address }}",
-                vendor: @if($project->partner != null) "{{ $project->partner->name }}" @else "-" @endif,
+                vendor: @if($project->partner != null) "{{ $project->partner->company_name }}" @else "-" @endif,
                 start_date: "{{ $project->start_date }}",
                 end_date: "{{ $project->deadline }}",
                 note: "{{ $project->note }}",
@@ -41,10 +41,10 @@
                 status: "{{ $project->sample->status }}",
                 category: "{{ $project->project->category->id }}",
                 order: "1",
-                amount: "Rp @if($project->cost != null) {{ $project->cost }} @else - @endif",
+                amount: "@if($project->cost != null) Rp {{ number_format($project->cost, 2, ',', '.') }} @else - @endif",
                 quotation: "-",
                 address: "{{ $project->project->address }}",
-                vendor: "{{ $project->partner->name }}",
+                vendor: @if($project->partner != null) "{{ $project->partner->company_name }}" @else "-" @endif,
                 start_date: "{{ $project->project->start_date }}",
                 end_date: "{{ $project->project->deadline }}",
                 note: "{{ $project->project->note }}",
@@ -198,7 +198,7 @@
                                 @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_FINISHED)
                                     <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_SENT)
-                                    <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                                    <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_APPROVED)
                                     <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_REJECTED)

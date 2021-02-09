@@ -38,7 +38,7 @@
 
             <div class="userProjectDetail__wrapper">
                 @if (!empty($project->cost))
-                    <h4 class="userProjectDetail__price mb-1">Rp. {{ $project->cost }}</h4>
+                    <h4 class="userProjectDetail__price mb-1">Rp {{ number_format($project->cost, 2, ',', '.') }}</h4>
                 @endif
                 <h2 class="userProjectDetail__title mb-0">{{ $project->name }}</h2>
                 <p class="userProjectDetail__amount">Jumlah: {{ $project->count }} buah</p>

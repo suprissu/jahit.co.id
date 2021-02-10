@@ -15,6 +15,7 @@
                 userRole: "{{ $role }}",
                 customerId: "{{ $inbox->customer_id }}",
                 partnerId: "{{ $inbox->partner_id }}",
+                csrf: "{{ csrf_token() }}",
                 projectId: "{{ $inbox->project_id }}",
                 project: {
                     id: "{{ $inbox->project->id }}",

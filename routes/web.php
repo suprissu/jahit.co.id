@@ -89,6 +89,8 @@ Route::group(['prefix' => 'home', 'as' => 'home'], function () {
             Route::post('/request', 'InboxController@requestSample')->name('.request');
             Route::post('/deal', 'InboxController@dealSample')->name('.deal');
         });
+
+        Route::post('/review', 'InboxController@reviewProject')->name('.review');
     });
 
     Route::group(['prefix' => 'transaction', 'as' => '.transaction'], function () {

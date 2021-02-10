@@ -17,6 +17,7 @@ use App\Helper\RedirectionHelper;
 use App\Models\Chat;
 use App\Models\Customer;
 use App\Models\Inbox;
+use App\Models\Negotiation;
 use App\Models\Partner;
 use App\Models\Project;
 use App\Models\ProjectCategory;
@@ -365,6 +366,7 @@ class ProjectController extends Controller
             $chatProjectDeal->inbox_id = $inbox->id;
             $chatProjectDeal->save();
 
+            // TO DO: Delivery cost
             $deliveryCost = 0;
             $dpPercentage = 0.5;
             $transactionCost = $dpPercentage * $project->cost * $project->count + $deliveryCost;
@@ -397,6 +399,14 @@ class ProjectController extends Controller
 
             $project->status = ProjectStatusConstant::PROJECT_SENT;
             $project->save();
+
+            $inbox = $project->inbox;
+            
+            $chatReview = new Chat;
+            $chatReview->role = ChatTemplateConstant::CUSTOMER_ROLE;
+            $chatReview->type = ChatTemplateConstant::REVIEW_TYPE;
+            $chatReview->inbox_id = $inbox->id;
+            $chatReview->save();
         }
         return redirect($expectedStage);
     }

@@ -19,6 +19,7 @@ class ChatTemplateConstant
     public const PROJECT_DEAL_TYPE          = 'DEAL';
     public const PROJECT_FINISH_TYPE        = 'FINISH';
     public const REVISION_REJECTED_TYPE     = 'REVISI DITOLAK';
+    public const REVIEW_TYPE                = 'REVIEW';
 
     public const BLANK_ANSWER               = "";
     public const ACCEPT_ANSWER              = "accept";

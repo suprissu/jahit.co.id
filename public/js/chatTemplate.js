@@ -378,44 +378,125 @@ const revisionRejected = (projectId, projectName, excuse) => {
     `;
 };
 
-const reviewProject = (projectId, projectName, role) => {
+const reviewProject = (projectId, projectName, role, inboxId, chatId, csrf, answer) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Project ${projectName} telah dikirim! Ulas proyek ini untuk mengetahui pendapat anda tentang pelayanan kami.</p>
         </div>
-        <form class="auth-form" method="POST" action="/chat/review/${projectId}">
+        <form class="auth-form" method="POST" action="/home/inbox/review">
             <div class="body">
                 <div class="review" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="star" value="1" id="star1" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="1" id="star1" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "1"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="1" id="star1" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="1" id="star1" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star1">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
 
-                    <input type="radio" class="btn-check" name="star" value="2" id="star2" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="2" id="star2" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "2"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="2" id="star2" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="2" id="star2" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star2">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
 
-                    <input type="radio" class="btn-check" name="star" value="3" id="star3" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="3" id="star3" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "3"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="3" id="star3" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="3" id="star3" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star3">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
 
-                    <input type="radio" class="btn-check" name="star" value="4" id="star4" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="4" id="star4" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "4"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="4" id="star4" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="4" id="star4" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star4">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
 
-                    <input type="radio" class="btn-check" name="star" value="5" id="star5" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="5" id="star5" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "5"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="5" id="star5" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="5" id="star5" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star5">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
+
+                    <input type="hidden" name="_token" value="${csrf}">
+                    <input name="projectID" class="review-project-id" type="text" style="display: none;" value="${projectId}" required>
+                    <input name="inboxID" class="review-inbox-id" type="text" style="display: none;" value="${inboxId}" required>
+                    <input name="chatID" class="review-chat-id" type="text" style="display: none;" value="${chatId}" required>
+
                 </div>
             </div>
             <div class="chatbox__message__choice">
-                <button type="submit" class="btn btn-danger">Ulas Sekarang!</button>
+                <button type="submit" data-projectId="${projectId}" data-inboxId="${inboxId}" class="btn btn-danger">Ulas Sekarang!</button>
             </div>
         </form>
     </div>

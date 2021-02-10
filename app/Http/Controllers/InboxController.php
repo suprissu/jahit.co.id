@@ -10,6 +10,7 @@ use App\Models\Chat;
 use App\Models\Inbox;
 use App\Models\Negotiation;
 use App\Models\Project;
+use App\Models\Review;
 use App\Models\Sample;
 use App\Models\Transaction;
 
@@ -542,6 +543,62 @@ class InboxController extends Controller
                 $chat->message = $request->message;
                 $chat->save();
                     
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function reviewProject(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.inbox'));
+        if ($expectedStage == route('home.inbox')) {
+            $this->validate($request, [
+                'projectID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'inboxID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'chatID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'star' => [
+                    'required',
+                    'integer',
+                    'min:1',
+                    'max:5'
+                ]
+            ]);
+            
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            if ($role == RoleConstant::CUSTOMER) {
+                $customer = $user->customer;
+                
+                $project = $customer->projects->find($request->projectID);
+
+                $chatPrevious = Chat::find($request->chatID);
+                $chatPrevious->answer = $request->star;
+                $chatPrevious->save();
+
+                $review = new Review;
+                $review->project_id = $project->id;
+                $review->stars = $request->star;
+                $review->save();
+
+                $partner = $project->partner;
+                $partner->review_number = $partner->review_number + 1;
+                $partner->rating = $partner->rating + $request->star;
+                $partner->save();
+
             } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }

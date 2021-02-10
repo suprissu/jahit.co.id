@@ -49,4 +49,9 @@ class Project extends Model
     {
         return $this->hasMany(Negotiation::class);
     }
+
+    public function review()
+    {
+        return $this->hasOne(Review::class);
+    }
 }

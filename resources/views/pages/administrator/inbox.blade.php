@@ -30,7 +30,7 @@
                 @foreach ( $inboxes as $inbox )
                 <a class="navigation__item" id="{{ $inbox->id }}" aria-controls="user">
                         <div class="navigation__left">
-                            <h5 class="navigation__title">{{ $inbox->receiver->name }}</h5>
+                            <h5 class="navigation__title">@if ($inbox->receiver->roles->first()->name == $roleConstants::PARTNER) {{$inbox->receiver->partner->company_name}} [VENDOR] @else {{$inbox->receiver->customer->company_name}} [CUSTOMER] @endif </h5>
                             <p class="navigation__description">{{ $inbox->adminChats->last()->message }}</p>
                         </div>
                         <div class="navigation__right">

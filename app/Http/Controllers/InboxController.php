@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 
+use App\Models\AdminChat;
 use App\Models\AdminInbox;
 use App\Models\Chat;
 use App\Models\Inbox;
 use App\Models\Negotiation;
 use App\Models\Project;
+use App\Models\Review;
 use App\Models\Sample;
 use App\Models\Transaction;
 
@@ -92,6 +94,8 @@ class InboxController extends Controller
         $inboxes = $customer->inboxes()->orderBy('updated_at', 'desc')->get();
         $role = "CLIENT";
 
+        $adminInbox = $user->adminInboxes;
+
         return view('pages.customer.inbox', get_defined_vars());
     }
 
@@ -118,6 +122,8 @@ class InboxController extends Controller
             $offerLastDate = $offers->last()->created_at->format('j F Y');
         }
         $role = "VENDOR";
+
+        $adminInbox = $user->adminInboxes;
 
         return view('pages.partner.inbox', get_defined_vars());
     }
@@ -487,20 +493,15 @@ class InboxController extends Controller
 
             $user = auth()->user();
             $role = $user->roles()->first()->name;
-            if ($role != RoleConstant::ADMINISTRATOR) {
+            if ($role == RoleConstant::ADMINISTRATOR) {
 
                 $inbox = AdminInbox::find($inboxId);
 
-                if ($inbox == null) {
-                    $inbox = new AdminInbox;
-                    $inbox->receiver_user_id = $user->id;
-                    $inbox->save();
-                }
-
                 $chat = new AdminChat;
+                $chat->admin_user_id = $user->id;
                 $chat->admin_inbox_id = $inbox->id;
                 $chat->role = $role;
-                $chat->message = $request->messsage;
+                $chat->message = $request->message;
                 $chat->save();
                     
             } else {
@@ -523,23 +524,81 @@ class InboxController extends Controller
 
             $user = auth()->user();
             $role = $user->roles()->first()->name;
-            if ($role == RoleConstant::ADMINISTRATOR) {
+            if ($role != RoleConstant::ADMINISTRATOR) {
 
-                $inbox = AdminInbox::find($inboxId);
+                $inbox = $user->adminInboxes;
 
                 if ($inbox == null) {
                     $inbox = new AdminInbox;
                     $inbox->receiver_user_id = $user->id;
                     $inbox->save();
+                } else {
+                    $inbox = $inbox->find($inboxId);
                 }
 
                 $chat = new AdminChat;
                 $chat->admin_user_id = $user->id;
                 $chat->admin_inbox_id = $inbox->id;
                 $chat->role = $role;
-                $chat->message = $request->messsage;
+                $chat->message = $request->message;
                 $chat->save();
                     
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function reviewProject(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.inbox'));
+        if ($expectedStage == route('home.inbox')) {
+            $this->validate($request, [
+                'projectID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'inboxID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'chatID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'star' => [
+                    'required',
+                    'integer',
+                    'min:1',
+                    'max:5'
+                ]
+            ]);
+            
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            if ($role == RoleConstant::CUSTOMER) {
+                $customer = $user->customer;
+                
+                $project = $customer->projects->find($request->projectID);
+
+                $chatPrevious = Chat::find($request->chatID);
+                $chatPrevious->answer = $request->star;
+                $chatPrevious->save();
+
+                $review = new Review;
+                $review->project_id = $project->id;
+                $review->stars = $request->star;
+                $review->save();
+
+                $partner = $project->partner;
+                $partner->review_number = $partner->review_number + 1;
+                $partner->rating = $partner->rating + $request->star;
+                $partner->save();
+
             } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }

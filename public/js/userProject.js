@@ -57,6 +57,10 @@ class ProjectItem extends HTMLElement {
         return this.getAttribute("buttonAction");
     }
 
+    get buttonTarget() {
+        return this.getAttribute("buttonTarget");
+    }
+
     get buttonText() {
         return this.getAttribute("buttonText");
     }
@@ -99,7 +103,7 @@ class ProjectItem extends HTMLElement {
         return status[this.getAttribute("status")];
     }
 
-    get priceFormat(num) {
+    priceFormat(num) {
         const numberFormat = new Intl.NumberFormat("id-ID", {
             style: "currency",
             currency: "IDR",
@@ -128,15 +132,26 @@ class ProjectItem extends HTMLElement {
                 <div class="userProject__project--right">
                     <div class="userProject__project__quotation">
                     ${
-                        this.buttonAction !== null &&
-                        this.buttonText !== null &&
-                        this.buttonToken !== null
-                            ? `<form method="POST" action="${this.buttonAction}">
-                                <input type="hidden" name="_token" value="${this.buttonToken}" />
-                                <button type="submit" class="btn btn-danger">${this.buttonText}</button>    
-                            </form>`
-                            : ""
+                        this.buttonTarget !== null &&
+                        this.buttonText !== null ?
+                        `
+                            <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="${this.buttonTarget}">${this.buttonText}</button>
+                        `
+                        :
+                        `
+                        ${
+                            this.buttonAction !== null &&
+                            this.buttonText !== null &&
+                            this.buttonToken !== null
+                                ? `<form method="POST" action="${this.buttonAction}">
+                                    <input type="hidden" name="_token" value="${this.buttonToken}" />
+                                    <button type="submit" class="btn btn-danger">${this.buttonText}</button>    
+                                </form>`
+                                : ""
+                        }
+                        `    
                     }
+                    
                     </div>
                     <p class="userProject__project__quotation">${
                         this.review !== null

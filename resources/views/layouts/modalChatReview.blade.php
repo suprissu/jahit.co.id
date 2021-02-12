@@ -6,11 +6,14 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <span id="revision-project-id-text" class="badge badge-danger"></span>
-                    <h4 id="revision-project-name-text">Persetujuan Revisi Proyek</h4>
-                    <p id="revision-project-description-text">Apakah kamu menyetujui untuk mengerjakan revisi proyek?</p>
-                    <input name="revision-project-id" id="revision-project-id" type="text" style="display: none;" >
-                    <input name="revision-project-accept" id="revision-project-accept" type="text" value="1" style="display: none;" >
+                    <span id="review-project-id-text" class="badge badge-danger"></span>
+                    <h4 id="review-project-name-text">Persetujuan Revisi Proyek</h4>
+                    <p id="review-project-description-text">Apakah kamu menyetujui untuk mengerjakan revisi proyek?</p>
+                    
+                    <input name="projectID" class="review-project-id" type="text" style="display: none;" required>
+                    <input name="inboxID" class="review-inbox-id" type="text" style="display: none;" required>
+                    <input name="chatID" class="review-chat-id" type="text" style="display: none;" required>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Batal</button>

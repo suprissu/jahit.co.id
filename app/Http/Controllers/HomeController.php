@@ -223,9 +223,16 @@ class HomeController extends Controller
     private function administratorDashboard(Request $request, $user, $role)
     {
         $customers = Customer::all();
-        $partners = Partner::all();
+        $partners = Partner::orderBy('created_at', 'desc')->get();
+        $waitingPartners = Partner::whereHas('user', function($query) {
+                                $query->where('is_active', false);
+                            })
+                            ->get();
         $projects = Project::all();
         $categories = ProjectCategory::all();
+        $finishedProjects = Project::where('status', ProjectStatusConstant::PROJECT_SENT)
+                        ->orderBy('updated_at', 'desc')
+                        ->get();
 
         return view('pages.administrator.dashboard', get_defined_vars());
     }

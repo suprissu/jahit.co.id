@@ -16,6 +16,7 @@
 @endsection
 
 @section('content')
+@inject('transactionConstant', 'App\Constant\TransactionConstant')
 <div class="tabular">
     <div class="tabular___container container">
         <h3 class="mb-3">Transaction Administrator</h3>
@@ -42,40 +43,47 @@
                                             <p class="text-muted fs-6 mb-0" style="font-size: 12px">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
                                             <div class="row mx-0">
                                                 <p class="mb-0" style="font-weight: bold">{{ $transaction->project->name }}
-                                                    <a class="badge bg-light ml-1" href="">#{{ $transaction->id }}</a>
+                                                    <a class="badge bg-light ml-1" href="{{ route('home.project.detail', ['projectId' => $transaction->project->id]) }}">#{{ $transaction->id }}</a>
                                                 </p>
                                             </div>
                                             <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
                                         </div>
                                         <div class="tabular__pane__item__description__extra">
+                                            @if ($transaction->mou != null)
+                                                <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger">Download MOU</button></a>
+                                            @endif
+                                            @if ($transaction->invoice != null)
+                                                <a href="{{ route('home.transaction.download.invoice', ['invoiceId' => $transaction->invoice->id]) }}"><button class="btn btn-outline-danger">Download Invoice</button></a>
+                                            @endif
                                             <button class="btn btn-ouline-secondary"  data-toggle="collapse" data-target="#transaction-{{ $transaction->id  }}" aria-expanded="false" aria-controls="#order-{{ $transaction->id  }}">Detail</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tabular__pane__item__collapsible">
                                     <div class="collapse pt-3" id="transaction-{{$transaction->id }}">
-                                            <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST">
-                                                @csrf
-                                                <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
-                                                <select class="form-control" id="role-option" name="status" required>
-                                                    @inject('transactionConstant', 'App\Constant\TransactionConstant')
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_IN_VERIF ) selected="selected" @endif value="WAITING">Menunggu Verifikasi</option>
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
-                                                </select>
-                                                <p class="text-muted my-1">Upload MOU:</p>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="transactionMOU" name="transactionMOU">
-                                                    <label class="custom-file-label" for="transactionMOU">Choose file</label>
-                                                </div>
-                                                <p class="text-muted my-1">Upload Invoice:</p>
-                                                <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="transactionINVOICE" name="transactionINVOICE">
-                                                    <label class="custom-file-label" for="transactionINVOICE">Choose file</label>
-                                                </div>
-                                                <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
-                                            </form>
-                                        </div>
+                                        <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
+                                            <select class="form-control" id="role-option" name="status" required>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_IN_VERIF ) selected="selected" @endif value="WAITING">Menunggu Verifikasi</option>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
+                                            </select>
+                                            @if ($transaction->type == $transactionConstant::DOWN_PAYMENT_TYPE)
+                                            <p class="text-muted my-1">Upload MOU:</p>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="transactionMOU" name="mou_path">
+                                                <label class="custom-file-label" for="transactionMOU">Choose file</label>
+                                            </div>
+                                            @endif
+                                            <p class="text-muted my-1">Upload Invoice:</p>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="transactionINVOICE" name="invoice_path">
+                                                <label class="custom-file-label" for="transactionINVOICE">Choose file</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -94,32 +102,47 @@
                                             <p class="text-muted fs-6 mb-0" style="font-size: 12px">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
                                             <div class="row mx-0">
                                                 <p class="mb-0" style="font-weight: bold">{{ $transaction->project->name }}
-                                                    <a class="badge bg-light ml-1" href="">#{{ $transaction->id }}</a>
+                                                    <a class="badge bg-light ml-1" href="{{ route('home.project.detail', ['projectId' => $transaction->project->id]) }}">#{{ $transaction->id }}</a>
                                                 </p>
                                             </div>
                                             <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
                                         </div>
                                         <div class="tabular__pane__item__description__extra">
-                                            <a href=""><button class="btn btn-outline-danger">Download MOU</button></a>
-                                            <a href=""><button class="btn btn-outline-danger">Download Invoice</button></a>
+                                            @if ($transaction->mou != null)
+                                                <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger">Download MOU</button></a>
+                                            @endif
+                                            @if ($transaction->invoice != null)
+                                                <a href="{{ route('home.transaction.download.invoice', ['invoiceId' => $transaction->invoice->id]) }}"><button class="btn btn-outline-danger">Download Invoice</button></a>
+                                            @endif
                                             <button class="btn btn-ouline-secondary"  data-toggle="collapse" data-target="#transaction-{{ $transaction->id  }}" aria-expanded="false" aria-controls="#order-{{ $transaction->id  }}">Detail</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tabular__pane__item__collapsible">
                                     <div class="collapse pt-3" id="transaction-{{$transaction->id }}">
-                                            <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST">
-                                                @csrf
-                                                <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
-                                                <select class="form-control" id="role-option" name="status" required>
-                                                    @inject('transactionConstant', 'App\Constant\TransactionConstant')
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_IN_VERIF ) selected="selected" @endif value="WAITING">Menunggu Verifikasi</option>
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
-                                                </select>
-                                                <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
-                                            </form>
-                                        </div>
+                                        <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
+                                            <select class="form-control" id="role-option" name="status" required>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_IN_VERIF ) selected="selected" @endif value="WAITING">Menunggu Verifikasi</option>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
+                                            </select>
+                                            @if ($transaction->type == $transactionConstant::DOWN_PAYMENT_TYPE)
+                                            <p class="text-muted my-1">Upload MOU:</p>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="transactionMOU" name="mou_path">
+                                                <label class="custom-file-label" for="transactionMOU">Choose file</label>
+                                            </div>
+                                            @endif
+                                            <p class="text-muted my-1">Upload Invoice:</p>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="transactionINVOICE" name="invoice_path">
+                                                <label class="custom-file-label" for="transactionINVOICE">Choose file</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach
@@ -139,30 +162,47 @@
                                             <p class="text-muted fs-6 mb-0" style="font-size: 12px">{{ $transaction->deadline->formatLocalized('%A, %d %B %Y [%H:%I]') }}</p>
                                             <div class="row mx-0">
                                                 <p class="mb-0" style="font-weight: bold">{{ $transaction->project->name }}
-                                                    <a class="badge bg-light ml-1" href="">#{{ $transaction->id }}</a>
+                                                    <a class="badge bg-light ml-1" href="{{ route('home.project.detail', ['projectId' => $transaction->project->id]) }}">#{{ $transaction->id }}</a>
                                                 </p>
                                             </div>
                                             <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
                                         </div>
                                         <div class="tabular__pane__item__description__extra">
+                                            @if ($transaction->mou != null)
+                                                <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger">Download MOU</button></a>
+                                            @endif
+                                            @if ($transaction->invoice != null)
+                                                <a href="{{ route('home.transaction.download.invoice', ['invoiceId' => $transaction->invoice->id]) }}"><button class="btn btn-outline-danger">Download Invoice</button></a>
+                                            @endif
                                             <button class="btn btn-ouline-secondary"  data-toggle="collapse" data-target="#transaction-{{ $transaction->id  }}" aria-expanded="false" aria-controls="#order-{{ $transaction->id  }}">Detail</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="tabular__pane__item__collapsible">
                                     <div class="collapse pt-3" id="transaction-{{$transaction->id }}">
-                                            <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST">
-                                                @csrf
-                                                <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
-                                                <select class="form-control" id="role-option" name="status" required>
-                                                    @inject('transactionConstant', 'App\Constant\TransactionConstant')
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_IN_VERIF ) selected="selected" @endif value="WAITING">Menunggu Verifikasi</option>
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
-                                                    <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
-                                                </select>
-                                                <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
-                                            </form>
-                                        </div>
+                                        <form action="{{ route('home.administrator.verification.payment.submit') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <input name="transactionID" value="{{ $transaction->id }}" class="transaction-id" type="text" style="display: none;" required>
+                                            <select class="form-control" id="role-option" name="status" required>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_IN_VERIF ) selected="selected" @endif value="WAITING">Menunggu Verifikasi</option>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_OK ) selected="selected" @endif value="ACCEPT">Disetujui</option>
+                                                <option @if( $transaction->status == $transactionConstant::PAY_FAIL ) selected="selected" @endif value="REJECT">Ditolak</option>
+                                            </select>
+                                            @if ($transaction->type == $transactionConstant::DOWN_PAYMENT_TYPE)
+                                            <p class="text-muted my-1">Upload MOU:</p>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="transactionMOU" name="mou_path">
+                                                <label class="custom-file-label" for="transactionMOU">Choose file</label>
+                                            </div>
+                                            @endif
+                                            <p class="text-muted my-1">Upload Invoice:</p>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="transactionINVOICE" name="invoice_path">
+                                                <label class="custom-file-label" for="transactionINVOICE">Choose file</label>
+                                            </div>
+                                            <button type="submit" class="btn btn-danger mt-2 float-right">Kirim</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

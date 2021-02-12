@@ -22,6 +22,7 @@ class CreatePartnersTable extends Migration
             $table->string('ktp_pict_link');
             $table->string('npwp_pict_link');
             $table->float('rating')->default(0);
+            $table->integer('review_number')->default(0);
             $table->timestamps();
         });
     }

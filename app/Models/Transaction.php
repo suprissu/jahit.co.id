@@ -53,4 +53,14 @@ class Transaction extends Model
     {
         return $this->hasOne(Sample::class);
     }
+
+    public function mou()
+    {
+        return $this->hasOne(MouFile::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(InvoiceFile::class);
+    }
 }

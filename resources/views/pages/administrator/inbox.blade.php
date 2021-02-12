@@ -8,44 +8,36 @@
 @endsection
 
 @section('extra-css')
-<link rel="stylesheet" href="{{ asset('css/adminChat.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/userChat.css') }}"/>
 <link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
+<link rel="stylesheet" href="{{ asset('css/chatbox.css') }}"/>
 @endsection
 
 @section('content')
 @include('layouts/modalAdminAddChat')
-@inject('chatConstants', 'App\Constant\ChatTemplateConstant')
+@inject('roleConstants', 'App\Constant\RoleConstant')
 
-<div class="adminChat">
-    <div class="adminChat__container">
-        <h2 class="adminChat__title">Pesan</h2>
+<div class="userChat">
+    <div class="userChat__container">
+        <div class="row mx-0 align-items-center">
+            <h2 class="userChat__title">Pesan</h2>
+            <!-- <button data-target="#adminAddChat" data-toggle="modal" class="chatbox__addMessage btn btn-danger ml-2"><i class="fas fa-plus" aria-hidden="true"></i></button> -->
+        </div>
         <div class="chatbox">
             <div class="chatbox__navigation navigation list-group" role="tablist">
 
-                <button data-target="#adminAddChat" data-toggle="modal" class="chatbox__addMessage btn btn-danger"><i class="fas fa-plus" aria-hidden="true"></i></button>
-
                 <!-- Navigation Item -->
                 @foreach ( $inboxes as $inbox )
-
-                    <a class="navigation__item" id="ADM-{{ $inbox->id }}<" aria-controls="user">
-                            <div class="navigation__left">
-                                <h5 class="navigation__title">{{ $inbox->receiver->name }}</h5>
-                                <p class="navigation__description">{{ $inbox->adminChats->last()->message }}</p>
-                            </div>
-                            <div class="navigation__right">
-                                <p class="navigation__date">{{ $inbox->adminChats->last()->created_at->format('j F Y') }}</p>
-                            </div>
-                    </a>
-                @endforeach
-                <a class="navigation__item" id="32523524" aria-controls="user">
+                <a class="navigation__item" id="{{ $inbox->id }}" aria-controls="user">
                         <div class="navigation__left">
-                            <h5 class="navigation__title">User 2</h5>
-                            <p class="navigation__description">Transaksi #123231 sudah terverifikasi . . .</p>
+                            <h5 class="navigation__title">@if ($inbox->receiver->roles->first()->name == $roleConstants::PARTNER) {{$inbox->receiver->partner->company_name}} [VENDOR] @else {{$inbox->receiver->customer->company_name}} [CUSTOMER] @endif </h5>
+                            <p class="navigation__description">{{ $inbox->adminChats->last()->message }}</p>
                         </div>
                         <div class="navigation__right">
-                            <p class="navigation__date">10 Maret 2020</p>
+                            <p class="navigation__date">{{ $inbox->adminChats->last()->created_at->format('j F Y') }}</p>
                         </div>
                 </a>
+                @endforeach
 
             </div>
 
@@ -60,10 +52,11 @@
                     </div>
                     
                     <!-- TODO: Change below component -->
+                    
                     @foreach ( $inboxes as $inbox )
-                        <div class="chatbox__messages__wrapper" id="content-user-ADM-{{ $inbox->id }}">
-                            @foreach ( $inbox->adminChats as $chat )
-                                @if ( $chat->role == $chatConstants::ADMIN_ROLE )
+                        <div class="chatbox__messages__wrapper" id="content-user-{{ $inbox->id }}">
+                            @foreach ( $inbox->adminChats->sortByDesc('updated_at') as $chat )
+                                @if ( $chat->role == $roleConstants::ADMINISTRATOR )
                                     <div class="chatbox__message chatbox__message--me">
                                 @else
                                     <div class="chatbox__message chatbox__message--other">
@@ -71,24 +64,13 @@
                                     <p>{{ $chat->message }}</p>
                                 </div>
                             @endforeach
-                            <div class="chatbox__message chatbox__message--other">
-                                <p>Kenapa ya saya tuh begini?</p>
-                            </div>
                         </div>
                     @endforeach
-
-                    <div class="chatbox__messages__wrapper" id="content-user-32523524">
-                        <div class="chatbox__message chatbox__message--me">
-                            <p>Halo juga</p>
-                        </div>
-                        <div class="chatbox__message chatbox__message--other">
-                            <p>Halo min</p>
-                        </div>
-                    </div>
                     
                     <div class="chatbox__input">
-                        <form action="" method="POST">
-                            <input name="chat" placeholder="Masukkan pesan anda di sini" type="text" class="form-control">
+                        <form action="{{ route('home.inbox.replyAdmin', ['inboxId' => -1]) }}" method="POST">
+                            @csrf
+                            <input id="message" name="message" placeholder="Masukkan pesan anda di sini" type="text" class="form-control">
                             <button type="submit" class="btn btn-danger">Kirim</button>
                         </form>
                     </div>
@@ -105,6 +87,10 @@
     $(".chatbox__input").hide()
     $(".chatbox__messages__wrapper").hide()
     $(".navigation__item").on("click", (e) => {
+        $(".navigation__item").removeClass("active");
+        const nav = e.currentTarget;
+        nav.classList.add("active");
+
         $(".chatbox__noMessages__wrapper").hide()
         $(".chatbox__messages__wrapper").hide()
         const userId = e.currentTarget.attributes["id"].value;
@@ -112,9 +98,8 @@
         $(`#content-user-${userId}`).show()
         $(".chatbox__title").text(userName)
         $(".chatbox__input").show()
-        console.log($(".chatbox__input form").attr("action"))
-        $(".chatbox__input form").attr("action", `/admin/chat/${userId}/add`)
-        $(".chatbox__input form input").val("")
+        $(".chatbox__input form").attr("action", `/home/inbox/chatAdmin/${userId}`)
+        $(".chatbox__input form #message").val("")
         $(".chatbox__header").show()
     })
     
@@ -125,9 +110,8 @@
         $(".chatbox__messages__wrapper").hide()
         $(".chatbox__title").text(userName)
         $(".chatbox__input").show()
-        console.log($(".chatbox__input form").attr("action"))
-        $(".chatbox__input form").attr("action", `/admin/chat/${userId}/add`)
-        $(".chatbox__input form input").val("")
+        $(".chatbox__input form").attr("action", `/home/inbox/chatAdmin/${userId}`)
+        $(".chatbox__input form #message").val("")
         $(".chatbox__header").show()
     })
 </script>

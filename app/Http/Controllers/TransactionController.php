@@ -9,8 +9,10 @@ use App\Constant\RoleConstant;
 use App\Constant\TransactionConstant;
 use App\Constant\WarningStatusConstant;
 
+use App\Models\InvoiceFile;
 use App\Models\Material;
 use App\Models\MaterialRequest;
+use App\Models\MouFile;
 use App\Models\PaymentSlip;
 use App\Models\Transaction;
 
@@ -29,6 +31,42 @@ class TransactionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+    }
+
+    /**
+     * Show the transaction detail.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function index(Request $request, $transactionId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.transaction.detail', ['transactionId' => $transactionId]));
+        if ($expectedStage == route('home.transaction.detail', ['transactionId' => $transactionId])) {
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            
+            switch ($role) {
+                case RoleConstant::ADMINISTRATOR:
+                    $transaction = Transaction::find($transactionId);
+                    break;
+                case RoleConstant::CUSTOMER:
+                    $customer = $user->customer;
+                    $transaction = $customer->projects->find($transactionId);
+                    break;
+                case RoleConstant::PARTNER:
+                    $partner = $user->partner;
+                    $transaction = $partner->projects->find($transactionId);
+                    break;
+                default:
+                    return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+            if ($transaction == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
+            }
+            return view('pages.projectDetail', get_defined_vars());
+        }
+        return redirect($expectedStage);
     }
 
     /**
@@ -270,6 +308,100 @@ class TransactionController extends Controller
             } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function downloadMou(Request $request, $mouId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.transaction'));
+        if ($expectedStage == route('home.transaction')) {
+            
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            switch ($role) {
+                case RoleConstant::ADMINISTRATOR:
+                    $mou = MouFile::find($mouId);
+                    break;
+                case RoleConstant::CUSTOMER:
+                    $customer = $user->customer;
+                    $mou = MouFile::find($mouId);
+                    if ($mou == null) {
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
+                    }
+                    if ($customer->id != $mou->transaction->customer->id) {
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+                    }
+                    break;
+                case RoleConstant::PARTNER:
+                    $partner = $user->partner;
+                    $mou = MouFile::find($mouId);
+                    if ($mou == null) {
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
+                    }
+                    if ($partner->id != $mou->transaction->partner->id) {
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+                    }
+                    break;
+                default:
+                    return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+            $file = public_path() . $mou->path;
+
+            $headers = array(
+                'Content-Type: application/pdf',
+            );
+
+            $filename = "MOU " . $mou->transaction->project->name . ".pdf"; 
+        
+            return response()->download($file, $filename, $headers);
+        }
+        return redirect($expectedStage);
+    }
+
+    public function downloadInvoice(Request $request, $invoiceId)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home.transaction'));
+        if ($expectedStage == route('home.transaction')) {
+            
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+            switch ($role) {
+                case RoleConstant::ADMINISTRATOR:
+                    $invoice = InvoiceFile::find($invoiceId);
+                    break;
+                case RoleConstant::CUSTOMER:
+                    $customer = $user->customer;
+                    $invoice = InvoiceFile::find($invoiceId);
+                    if ($invoice == null) {
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
+                    }
+                    if ($customer->id != $invoice->transaction->customer->id) {
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+                    }
+                    break;
+                case RoleConstant::PARTNER:
+                    $partner = $user->partner;
+                    $invoice = InvoiceFile::find($invoiceId);
+                    if ($invoice == null) {
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
+                    }
+                    if ($partner->id != $invoice->transaction->partner->id) {
+                        return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+                    }
+                    break;
+                default:
+                    return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+            $file = public_path() . $invoice->path;
+
+            $headers = array(
+                'Content-Type: application/pdf',
+            );
+
+            $filename = "Invoice " . $invoice->transaction->project->name . ".pdf"; 
+        
+            return response()->download($file, $filename, $headers);
         }
         return redirect($expectedStage);
     }

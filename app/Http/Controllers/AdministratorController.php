@@ -10,15 +10,19 @@ use App\Constant\SampleStatusConstant;
 use App\Constant\TransactionConstant;
 use App\Constant\WarningStatusConstant;
 
+use App\Helper\FileHelper;
 use App\Helper\RedirectionHelper;
 
 use App\Models\Chat;
 use App\Models\Customer;
 use App\Models\Inbox;
+use App\Models\InvoiceFile;
 use App\Models\Partner;
 use App\Models\Project;
 use App\Models\MaterialRequest;
+use App\Models\MouFile;
 use App\Models\Transaction;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
@@ -69,6 +73,14 @@ class AdministratorController extends Controller
                     'required',
                     'string'
                 ],
+                'mou_path' => [
+                    'mimes:pdf',
+                    'max:25000'
+                ],
+                'invoice_path' => [
+                    'mimes:pdf',
+                    'max:25000'
+                ],
             ]);
 
             $user = auth()->user();
@@ -76,6 +88,22 @@ class AdministratorController extends Controller
             if ($role == RoleConstant::ADMINISTRATOR) {
                 
                 $transaction = Transaction::find($request->transactionID);
+
+                $file_path_prefix = '/img/customer/transaction/';
+
+                if ($request->invoice_path != null) {
+                    $invoiceFile = new InvoiceFile;
+                    $invoiceFile->path = FileHelper::saveFileToPublic($request->file('invoice_path'), $file_path_prefix . 'invoice');
+                    $invoiceFile->transaction_id = $request->transactionID;
+                    $invoiceFile->save();
+                }
+
+                if ($request->mou_path != null) {
+                    $mouFile = new MouFile;
+                    $mouFile->path = FileHelper::saveFileToPublic($request->file('mou_path'), $file_path_prefix . 'mou');
+                    $mouFile->transaction_id = $request->transactionID;
+                    $mouFile->save();
+                }
 
                 switch ($request->status) {
                     case "WAITING":
@@ -241,6 +269,90 @@ class AdministratorController extends Controller
                         return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]);
                 }
                 $materialRequest->save();
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function activateUser(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+
+            if ($role == RoleConstant::ADMINISTRATOR) {
+                $this->validate($request, [
+                    'userID' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                ]);
+
+                $targetUser = User::find($request->userID);
+                $targetUser->is_active = true;
+                $targetUser->save();
+
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function deactivateUser(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+
+            if ($role == RoleConstant::ADMINISTRATOR) {
+                $this->validate($request, [
+                    'userID' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                ]);
+
+                $targetUser = User::find($request->userID);
+                $targetUser->is_active = false;
+                $targetUser->save();
+
+            } else {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
+            }
+        }
+        return redirect($expectedStage);
+    }
+
+    public function payProject(Request $request)
+    {
+        $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
+        if ($expectedStage == route('home')) {
+
+            $user = auth()->user();
+            $role = $user->roles()->first()->name;
+
+            if ($role == RoleConstant::ADMINISTRATOR) {
+                $this->validate($request, [
+                    'projectID' => [
+                        'required',
+                        'integer',
+                        'min:1'
+                    ],
+                ]);
+
+                $project = Project::find($request->projectID);
+                $project->status = ProjectStatusConstant::PROJECT_DONE;
+                $project->save();
+
             } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }

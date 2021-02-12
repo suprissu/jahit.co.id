@@ -1,3 +1,5 @@
+@inject('roleConstants', 'App\Constant\RoleConstant')
+
 <div class="modal fade pl-0" id="editProject" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -18,7 +20,7 @@
                     @enderror
                     <div class="form-group">
                         <label for="edit-project-name">Nama Proyek</label>
-                        <input name="name" placeholder="Masukkan nama proyek di sini" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" id="edit-project-name" aria-describedby="nameHelp" required autofocus>
+                        <input name="name" placeholder="Masukkan nama proyek di sini" type="text" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" id="edit-project-name" aria-describedby="nameHelp" required autofocus disabled>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -27,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         <label for="edit-project-category">Kategori</label>
-                        <select class="form-control" name="category" id="edit-project-category" required>
+                        <select class="form-control" name="category" id="edit-project-category" required disabled>
                             @foreach( $categories as $category )
                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                             @endforeach
@@ -40,21 +42,21 @@
                     </div>
                     <div class="form-group">
                         <label for="edit-project-order">Jumlah Pesanan</label>
-                        <input name="count" placeholder="Masukkan jumlah pesanan di sini" type="number" class="form-control @error('count') is-invalid @enderror" value="{{ old('count') }}" id="edit-project-order" aria-describedby="orderHelp" required>
+                        <input name="count" placeholder="Masukkan jumlah pesanan di sini" type="number" class="form-control @error('count') is-invalid @enderror" value="{{ old('count') }}" id="edit-project-order" aria-describedby="orderHelp" required disabled>
                         @error('count')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                         @enderror
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="edit-project-quotation">Jumlah Penawaran</label>
                         <input name="quotation" type="number" class="form-control" id="edit-project-quotation" aria-describedby="quotationHelp" disabled>
                         <button class="btn btn-danger mt-1" disabled>Lihat Penawaran</button>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="edit-project-address">Alamat</label>
-                        <input name="address" placeholder="Masukkan alamat di sini" type="text" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" id="edit-project-address" aria-describedby="addressHelp" required autocomplete="address">
+                        <input name="address" placeholder="Masukkan alamat di sini" type="text" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') }}" id="edit-project-address" aria-describedby="addressHelp" required autocomplete="address" disabled>
                         @error('address')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -63,7 +65,7 @@
                     </div>
                     <div class="form-group">
                         <label for="edit-project-vendor">Vendor</label>
-                        <input name="project-vendor" placeholder="Masukkan alamat di sini" type="text" class="form-control" id="edit-project-vendor" aria-describedby="addressHelp">
+                        <input name="project-vendor" placeholder="Nama vendor" type="text" class="form-control" id="edit-project-vendor" aria-describedby="addressHelp" disabled>
                     </div>
                     <div class="form-group">
                         <label for="edit-project-startDate">Mulai Pengerjaan</label>
@@ -75,7 +77,7 @@
                     </div>
                     <div class="form-group">
                         <label for="edit-project-note">Catatan</label>
-                        <textarea name="note" placeholder="Masukkan catatan tambahan di sini" type="text" class="form-control" id="edit-project-note" aria-describedby="noteHelp" rows="3"></textarea>
+                        <textarea name="note" placeholder="Masukkan catatan tambahan di sini" type="text" class="form-control" id="edit-project-note" aria-describedby="noteHelp" rows="3" disabled></textarea>
                     </div>
                     <div class="form-group">
                         <label for="edit-project-picture">Preview Gambar</label>
@@ -89,10 +91,12 @@
                         <small id="pictureAddon" class="form-text text-muted">Dapat pilih banyak gambar dengan menggunakan CTRL (PC) atau hold image satu per satu (HP)</small>
                     </div>
                 </div>
+                <!-- @if ( Auth::user()->roles()->first() == $roleConstants::CUSTOMER )
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-danger">Save</button>
                 </div>
+                @endif -->
             </form>
         </div>
     </div>

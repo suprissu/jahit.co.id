@@ -16,8 +16,8 @@
                     <input name="chatID" class="negotiation-chat-id" type="text" style="display: none;" required>
 
                     <div class="form-group">
-                        <label for="negotiation-project-price">Harga Proyek</label>
-                        <input name="cost" placeholder="Masukkan harga proyek di sini" type="number" class="form-control" id="negotiation-project-price" aria-describedby="priceHelp" required>
+                        <label for="negotiation-project-price">Harga per Unit</label>
+                        <input name="cost" placeholder="Masukkan harga per unit di sini" type="number" class="form-control" id="negotiation-project-price" aria-describedby="priceHelp" required>
                     </div>
                     <div class="form-group">
                         <label for="negotiation-project-startDate">Mulai Pengerjaan</label>

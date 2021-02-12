@@ -224,11 +224,17 @@ const getChatProject = (chatId) => {
                 );
             }
         } else if (chat.message[i].type === "REVIEW") {
-            messages += reviewProject(
-                chat.project.id,
-                chat.project.name,
-                perspectiveMessage
-            );
+            if (chat.userRole === "CLIENT") {
+                messages += reviewProject(
+                    project.id,
+                    chat.project.name,
+                    perspectiveMessage,
+                    inboxId,
+                    chat.message[i].id,
+                    chat.csrf,
+                    chat.message[i].answer
+                );
+            }
         }
     }
 

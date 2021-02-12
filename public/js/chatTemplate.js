@@ -11,7 +11,7 @@ const initiationPartnerChat = (
 ) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
             <h6 class="chatbox__message__projectTitle">${projectName}</h6>
             <p class="chatbox__message__projectAmount">Jumlah: <strong>${projectAmount} buah</strong></p>
@@ -46,7 +46,7 @@ const initiationCustomerChat = (
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
-            <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>)</p>
+            <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/home/project/${projectId}">#${projectId}</a>)</p>
         </div>
     </div>
     <br/>
@@ -65,7 +65,7 @@ const proposeChat = (
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
-            <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>) dengan:</p>
+            <p>Kamu mengajukan Proyek ${projectAmount} buah ${projectName} (<a href="/home/project/${projectId}">#${projectId}</a>) dengan:</p>
             <p>Harga: <strong>${projectPrice}</strong></p>
             <p>Mulai Pengerjaan: <strong>${projectStartDate}</strong></p>
             <p>Selesai Pengerjaan: <strong>${projectEndDate}</strong></p>
@@ -77,7 +77,7 @@ const proposeChat = (
 const verificationChat = (role, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p>Transaksi <a href="/user/customer/transaction/${transactionId}" data-toggle="tooltip" data-placement="top" title="Klik untuk melihat detail">#${transactionId}</a> telah diverifikasi.</p>
+        <p>Transaksi <a href="/home/transaction" data-toggle="tooltip" data-placement="top" title="Klik untuk melihat detail">#${transactionId}</a> telah diverifikasi.</p>
     </div>
     `;
 };
@@ -85,7 +85,7 @@ const verificationChat = (role, transactionId) => {
 const verificationRejectChat = (role, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p>Transaksi <a href="/user/customer/transaction/${transactionId}" data-toggle="tooltip" data-placement="top" title="Klik untuk melihat detail">#${transactionId}</a> gagal diverifikasi. Silahkan ulangi </p>
+        <p>Transaksi <a href="/home/transaction" data-toggle="tooltip" data-placement="top" title="Klik untuk melihat detail">#${transactionId}</a> gagal diverifikasi. Silahkan ulangi </p>
     </div>
     `;
 };
@@ -107,7 +107,7 @@ const negotiationChat = (
 ) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
             <p class="chatbox__message__projectPrice">${projectPrice}</p>
             <h6 class="chatbox__message__projectTitle">${projectName}</h6>
@@ -144,7 +144,7 @@ const negotiationAcceptChat = (
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
-            <p>Proyek ${projectAmount} buah ${projectName} (<a href="/user/project/${projectId}">#${projectId}</a>) telah disetujui dengan:</p>
+            <p>Proyek ${projectAmount} buah ${projectName} (<a href="/home/project/${projectId}">#${projectId}</a>) telah disetujui dengan:</p>
             <p>Harga: <strong>${projectPrice}</strong></p>
             <p>Mulai Pengerjaan: <strong>${projectStartDate}</strong></p>
             <p>Selesai Pengerjaan: <strong>${projectEndDate}</strong></p>
@@ -190,7 +190,7 @@ const runProjectPermission = (
 const customerAskSample = (role, projectId, projectName, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Kamu telah mengajukan permintaan sample kepada vendor untuk proyek ${projectName}. Klik "Lihat Transaksi" untuk melihat detail transaksi.</p>
         </div>
@@ -204,7 +204,7 @@ const customerAskSample = (role, projectId, projectName, transactionId) => {
 const partnerAskSample = (role, projectId, projectName, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Pelanggan telah mengajukan permintaan sample kepada vendor untuk proyek ${projectName}.</p>
         </div>
@@ -224,7 +224,7 @@ const customerSampleDelivered = (
     return `
     <div class="chatbox__message chatbox__message--${role}">
         <div class="chatbox__message__description">
-            <p>Sample sudah dikirim! Klik <a href="/user/project/${projectId}">di sini</a> untuk melihat sample! Bagaimana pendapatmu?</p>
+            <p>Sample sudah dikirim! Klik <a href="/home/project/${projectId}">di sini</a> untuk melihat sample! Bagaimana pendapatmu?</p>
         </div>
         <div class="chatbox__message__choice">
         ${
@@ -250,7 +250,7 @@ const customerSampleDelivered = (
 const partnerSampleDelivered = (role, projectId, projectName) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Kamu telah mengirimkan sample untuk proyek ${projectName}.</p>
         </div>
@@ -261,12 +261,12 @@ const partnerSampleDelivered = (role, projectId, projectName) => {
 const customerProjectDeal = (projectId, projectName, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--me">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Kamu telah menyetujui proyek ${projectName}. Proyek sedang dikerjakan oleh vendor. Klik "Lihat Transaksi" untuk melihat detail transaksi pembayaran DP.</p>
         </div>
         <div class="chatbox__message__choice">
-            <a href="/user/transaction/${transactionId}"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
+            <a href="/home/transaction"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
         </div>
     </div>
     `;
@@ -275,7 +275,7 @@ const customerProjectDeal = (projectId, projectName, transactionId) => {
 const partnerProjectDeal = (projectId, projectName, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--other">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Pelanggan telah menyetujui proyek ${projectName}. Silahkan mulai untuk mengerjakan proyek dari sekarang !</p>
         </div>
@@ -286,12 +286,12 @@ const partnerProjectDeal = (projectId, projectName, transactionId) => {
 const customerProjectFinish = (projectId, projectName, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--other">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Proyek ${projectName} telah selesai dikerjakan oleh vendor. Klik "Lihat Transaksi" untuk melihat detail transaksi pembayaran pelunasan.</p>
         </div>
         <div class="chatbox__message__choice">
-            <a href="/user/transaction/${transactionId}"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
+            <a href="/home/transaction"><button class="chatbox__message__negotiationAccept btn btn-outline-danger">Lihat Transaksi</button></a>
         </div>
     </div>
     `;
@@ -300,7 +300,7 @@ const customerProjectFinish = (projectId, projectName, transactionId) => {
 const partnerProjectFinish = (projectId, projectName, transactionId) => {
     return `
     <div class="chatbox__message chatbox__message--other">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Proyek ${projectName} telah selesai dikerjakan.</p>
         </div>
@@ -319,7 +319,7 @@ const customerRevisionPurpose = (
 ) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
             <p class="chatbox__message__projectPrice">${projectPrice}</p>
             <h6 class="chatbox__message__projectTitle">${projectName}</h6>
@@ -343,7 +343,7 @@ const partnerRevisionPurpose = (
 ) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__projectDetail">
             <p class="chatbox__message__projectPrice">${projectPrice}</p>
             <h6 class="chatbox__message__projectTitle">Revisi Proyek ${projectName}</h6>
@@ -378,44 +378,125 @@ const revisionRejected = (projectId, projectName, excuse) => {
     `;
 };
 
-const reviewProject = (projectId, projectName, role) => {
+const reviewProject = (projectId, projectName, role, inboxId, chatId, csrf, answer) => {
     return `
     <div class="chatbox__message chatbox__message--${role}">
-        <p class="chatbox__message__projectLabel">Proyek <a href="/user/project/${projectId}">#${projectId}</a></p>
+        <p class="chatbox__message__projectLabel">Proyek <a href="/home/project/${projectId}">#${projectId}</a></p>
         <div class="chatbox__message__description">
             <p>Project ${projectName} telah dikirim! Ulas proyek ini untuk mengetahui pendapat anda tentang pelayanan kami.</p>
         </div>
-        <form class="auth-form" method="POST" action="/chat/review/${projectId}">
+        <form class="auth-form" method="POST" action="/home/inbox/review">
             <div class="body">
                 <div class="review" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="star" value="1" id="star1" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="1" id="star1" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "1"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="1" id="star1" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="1" id="star1" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star1">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
 
-                    <input type="radio" class="btn-check" name="star" value="2" id="star2" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="2" id="star2" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "2"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="2" id="star2" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="2" id="star2" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star2">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
 
-                    <input type="radio" class="btn-check" name="star" value="3" id="star3" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="3" id="star3" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "3"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="3" id="star3" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="3" id="star3" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star3">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
 
-                    <input type="radio" class="btn-check" name="star" value="4" id="star4" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="4" id="star4" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "4"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="4" id="star4" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="4" id="star4" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star4">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
 
-                    <input type="radio" class="btn-check" name="star" value="5" id="star5" autocomplete="off">
+                    ${answer === undefined || answer === null
+                        ? `
+                        <input type="radio" class="btn-check" name="star" value="5" id="star5" autocomplete="off">
+                        `
+                        :
+                        `
+                        ${answer === "5"
+                            ? `
+                            <input type="radio" class="btn-check" name="star" value="5" id="star5" autocomplete="off" checked>
+                            `
+                            : `
+                            <input type="radio" class="btn-check" name="star" value="5" id="star5" autocomplete="off">
+                            `
+                        }
+                        `
+                    }
                     <label class="review__star" for="star5">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </label>
+
+                    <input type="hidden" name="_token" value="${csrf}">
+                    <input name="projectID" class="review-project-id" type="text" style="display: none;" value="${projectId}" required>
+                    <input name="inboxID" class="review-inbox-id" type="text" style="display: none;" value="${inboxId}" required>
+                    <input name="chatID" class="review-chat-id" type="text" style="display: none;" value="${chatId}" required>
+
                 </div>
             </div>
             <div class="chatbox__message__choice">
-                <button type="submit" class="btn btn-danger">Ulas Sekarang!</button>
+                <button type="submit" data-projectId="${projectId}" data-inboxId="${inboxId}" class="btn btn-danger">Ulas Sekarang!</button>
             </div>
         </form>
     </div>

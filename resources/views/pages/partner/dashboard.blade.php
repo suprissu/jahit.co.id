@@ -33,67 +33,9 @@
             @endforeach
         ]
 
-        const sampleData = [
-            @foreach( $samplesAll as $project )
-            {
-                id: "{{ $project->id }}",
-                name: "{{ $project->project->name }}",
-                status: "{{ $project->sample->status }}",
-                category: "{{ $project->project->category->id }}",
-                order: "1",
-                amount: "@if($project->cost != null) Rp {{ number_format($project->cost, 2, ',', '.') }} @else - @endif",
-                quotation: "-",
-                address: "{{ $project->project->address }}",
-                vendor: @if($project->partner != null) "{{ $project->partner->company_name }}" @else "-" @endif,
-                start_date: "{{ $project->project->start_date }}",
-                end_date: "{{ $project->project->deadline }}",
-                note: "{{ $project->project->note }}",
-                picture: [
-                    @foreach($project->project->images as $image)
-                        "{{ asset($image->path) }}",
-                    @endforeach
-                ]
-            },
-            @endforeach
-        ]
-
         function getProjectData(id) {
 
             const data = projectData.find((data) => data.id == id);
-
-            const name = data.name
-            const status = data.status
-            const category = data.category
-            const order = data.order
-            const amount = data.amount
-            const quotation = data.quotation
-            const address = data.address
-            const vendor = data.vendor
-            const start_date = data.start_date !== "" ? new Date(data.start_date) : null
-            const end_date = data.end_date !== "" ? new Date(data.end_date) : null
-            const note = data.note
-            const picture = data.picture
-
-            return {
-                id,
-                name,
-                status,
-                category,
-                order,
-                amount,
-                quotation,
-                address,
-                vendor,
-                start_date,
-                end_date,
-                note,
-                picture
-            }
-        }
-
-        function getSampleData(id) {
-
-            const data = sampleData.find((data) => data.id == id);
 
             const name = data.name
             const status = data.status
@@ -142,7 +84,7 @@
     <div class="userProject__container">
         <div class="userProject__header">
             <h2 class="userProject__title">Proyek</h2>
-            <button class="userProject__addProject btn btn-danger" data-toggle="modal" data-target="#addProject">Tambah Proyek</button>
+            <!-- <button class="userProject__addProject btn btn-danger" data-toggle="modal" data-target="#addProject">Tambah Proyek</button> -->
         </div>
         <div class="userProject__projects">
             <div class="userProject__projects__header list-group" id="tab-main" role="tablist">
@@ -175,7 +117,7 @@
                                 @elseif ($project->status == $projectStatusConstant::PROJECT_FINISHED)
                                     <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->status == $projectStatusConstant::PROJECT_FULL_PAYMENT_OK)
-                                    <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.send', ['projectId' => $project->id]) }}" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                                    <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.send', ['projectId' => $project->id]) }}" buttonTarget="#editShipment" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->status == $projectStatusConstant::PROJECT_SENT)
                                     <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->status == $projectStatusConstant::PROJECT_DONE)
@@ -196,7 +138,7 @@
                                 @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_WORK_IN_PROGRESS)
                                     <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="0" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.finish', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_FINISHED)
-                                    <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonText="Selesaikan" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                                    <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonTarget="#editShipment" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_SENT)
                                     <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                                 @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_APPROVED)
@@ -279,7 +221,7 @@
                             @if ($project->status == $projectStatusConstant::PROJECT_FINISHED)
                                 <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @elseif ($project->status == $projectStatusConstant::PROJECT_FULL_PAYMENT_OK)
-                                <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.send', ['projectId' => $project->id]) }}" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                                <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" buttonAction="{{ route('home.project.send', ['projectId' => $project->id]) }}" buttonTarget="#uploadShipment" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @elseif ($project->status == $projectStatusConstant::PROJECT_SENT)
                                 <project-item data-modalId="{{ $project->id }}" name="{{ $project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @elseif ($project->status == $projectStatusConstant::PROJECT_DONE)
@@ -290,7 +232,7 @@
                     <div class="tab-pane fade show" id="list-finish-sample" role="tabpanel" aria-labelledby="list-finish-sample-list">
                         @foreach ($samplesDone as $project)
                             @if ($project->sample->status == $sampleStatusConstant::SAMPLE_FINISHED)
-                                <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
+                                <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" buttonAction="{{ route('home.sample.send', ['sampleId' => $project->sample->id]) }}" buttonTarget="#uploadShipment" buttonText="Kirim" buttonToken="{{ csrf_token() }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_SENT)
                                 <project-item data-modalId="{{ $project->id }}" name="[SAMPEL] {{ $project->project->name }}" price="{{ $project->cost }}" amount="1" status="1" statusText="{{ $project->sample->status }}" data-toggle="modal" data-target="#editProject" css="{{ asset('css/projectItem.css') }}"></project-item>
                             @elseif ($project->sample->status == $sampleStatusConstant::SAMPLE_APPROVED)

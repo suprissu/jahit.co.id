@@ -40,6 +40,12 @@ class Project extends Model
         return $this->hasMany(ProjectImage::class);
     }
 
+    public function receipt()
+    {
+        return $this->hasOne(ShipmentReceipt::class);
+    }
+
+
     public function inbox()
     {
         return $this->hasOne(Inbox::class);

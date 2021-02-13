@@ -61,9 +61,8 @@
 .userProject__project__status {
     border-radius: 5px;
     background: #e0e0e0;
-    padding: 5px 0;
+    padding: 5px;
     font-size: 14px;
-    width: 160px;
     display: flex;
     align-items: center;
     justify-content: center;

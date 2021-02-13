@@ -15,7 +15,8 @@ class CreateShipmentReceipts extends Migration
     {
         Schema::create('shipment_receipts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id')->unsigned();
+            $table->integer('project_id')->unsigned()->nullable();
+            $table->integer('sample_id')->unsigned()->nullable();
             $table->string('path');
             $table->timestamps();
         });

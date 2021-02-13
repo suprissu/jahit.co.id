@@ -8,7 +8,7 @@
                     </button>
                     <span class="shipment-id-text badge badge-danger"></span>
 
-                    <input name="transactionID" class="transaction-id" type="text" style="display: none;" required>
+                    <input name="projectID" class="project-id" type="text" style="display: none;" required>
                     
                     <div class="form-group">
                         <label for="shipment-pict">Upload Bukti Resi</label>

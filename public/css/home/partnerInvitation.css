@@ -3,7 +3,7 @@
 }
 
 .partnerInvitation__container {
-    width: 80%;
+    width: 60%;
     margin: 5vh auto;
     text-align: center;
 }
@@ -11,4 +11,10 @@
 .partnerInvitation button {
     font-size: 12px;
     text-transform: uppercase;
+}
+
+@media only screen and (max-width: 768px) {
+    .partnerInvitation__container {
+        width: 80%;
+    }
 }

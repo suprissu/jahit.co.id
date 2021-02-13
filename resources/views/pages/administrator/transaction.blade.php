@@ -46,7 +46,7 @@
                                                     <a class="badge bg-light ml-1" href="{{ route('home.project.detail', ['projectId' => $transaction->project->id]) }}">#{{ $transaction->id }}</a>
                                                 </p>
                                             </div>
-                                            <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
+                                            <p class="mb-2">{{ number_format($transaction->cost, 0, ',', '.') }}</p>
                                         </div>
                                         <div class="tabular__pane__item__description__extra">
                                             @if ($transaction->mou != null)
@@ -105,7 +105,7 @@
                                                     <a class="badge bg-light ml-1" href="{{ route('home.project.detail', ['projectId' => $transaction->project->id]) }}">#{{ $transaction->id }}</a>
                                                 </p>
                                             </div>
-                                            <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
+                                            <p class="mb-2">Rp {{ number_format($transaction->cost, 0, ',', '.') }}</p>
                                         </div>
                                         <div class="tabular__pane__item__description__extra">
                                             @if ($transaction->mou != null)
@@ -165,7 +165,7 @@
                                                     <a class="badge bg-light ml-1" href="{{ route('home.project.detail', ['projectId' => $transaction->project->id]) }}">#{{ $transaction->id }}</a>
                                                 </p>
                                             </div>
-                                            <p class="mb-2">Rp.{{ number_format($transaction->cost, 0, ',', '.') }}</p>
+                                            <p class="mb-2">{{ number_format($transaction->cost, 0, ',', '.') }}</p>
                                         </div>
                                         <div class="tabular__pane__item__description__extra">
                                             @if ($transaction->mou != null)

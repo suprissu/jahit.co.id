@@ -221,14 +221,5 @@
         }
         el.children[0].innerHTML = `<p>${remainingDay}</p>`
     })
-
-    $("button[data-target='#uploadPayment']").on("click", (e) => {
-        const id = e.target.getAttribute("data-modalId")
-        const data = getTransactionData(id);
-        $("#payment-id-text").text(data.id);
-        $("#payment-name-text").text(data.name);
-        $("#payment-price-text").text(priceFormat(data.price));
-        $("#payment-id").val(data.id);
-    })
 </script>
 @endsection

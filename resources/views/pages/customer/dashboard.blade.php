@@ -17,7 +17,7 @@
                 status: "Segera Dikontak",
                 category: "{{ $project->category->id }}",
                 order: "{{ $project->count }}",
-                amount: "@if($project->cost != null) Rp {{ number_format($project->cost, 2, ',', '.') }} @else - @endif",
+                amount: "@if($project->cost != null) Rp {{ number_format($project->cost, 0, ',', '.') }} @else - @endif",
                 quotation: "-",
                 address: "{{ $project->address }}",
                 vendor: @if($project->partner != null) "{{ $project->partner->company_name }}" @else "-" @endif,

@@ -7,7 +7,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <span class="payment-id-text badge badge-danger"></span>
-                    <h5 class="text-danger">Rp.<span class="payment-price-text"></span></h5>
+                    <h5 class="text-danger"><span class="payment-price-text"></span></h5>
 
                     <input name="transactionID" class="transaction-id" type="text" style="display: none;" required>
                     <input name="deadline" class="deadline" type="text" style="display: none;" required>

@@ -7,6 +7,7 @@
 @endsection
 
 @section('prerender-js')
+<script src="{{ asset('js/helper.js') }}"></script>
 <script>
     const dummyData = [
         @foreach( $transactions as $transaction )
@@ -62,7 +63,7 @@
         const data = getTransactionData(id);
 
         $(".payment-id-text").text(data.id);
-        $(".payment-price-text").text(data.price);
+        $(".payment-price-text").text(priceFormat(data.price));
         $(".transaction-id").val(data.id);
         $(".deadline").val(data.end_date);
 
@@ -103,7 +104,7 @@
                             <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
-                                    <p class="listItem__price">Rp {{ number_format($transaction->cost, 2, ",", ".") }}</p>
+                                    <p class="listItem__price">Rp {{ number_format($transaction->cost, 0, ",", ".") }}</p>
                                     <p class="listItem__amount">{{ $transaction->project->count }} buah</p>
                                 </div>
                             </a>
@@ -145,7 +146,7 @@
                             <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
-                                    <p class="listItem__price">Rp {{ number_format($transaction->cost, 2, ",", ".") }}</p>
+                                    <p class="listItem__price">Rp {{ number_format($transaction->cost, 0, ",", ".") }}</p>
                                     <p class="listItem__amount">{{ $transaction->project->count }} buah</p>
                                 </div>
                             </a>
@@ -187,7 +188,7 @@
                             <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
-                                    <p class="listItem__price">Rp {{ number_format($transaction->cost, 2, ",", ".") }}</p>
+                                    <p class="listItem__price">Rp {{ number_format($transaction->cost, 0, ",", ".") }}</p>
                                     <p class="listItem__amount">{{ $transaction->project->count }} buah</p>
                                 </div>
                             </a>
@@ -207,7 +208,7 @@
                                 </a>
                                 <div class="listItem__credential">
                                     @if ($transaction->status == $transactionConstant::PAY_WAIT || $transaction->status == $transactionConstant::PAY_FAIL)
-                                        <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
+                                        <button onclick="changeModalUploadPayment(this)" data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
                                     @endif
                                     @if ($transaction->mou != null)
                                         <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a>
@@ -229,7 +230,7 @@
                             <a href="#" class="listItem--left">
                                 <div class="listItem__header">
                                     <h5 class="listItem__name mb-0">{{ $transaction->project->name }}</h5>
-                                    <p class="listItem__price">Rp {{ number_format($transaction->cost, 2, ",", ".") }}</p>
+                                    <p class="listItem__price">Rp {{ number_format($transaction->cost, 0, ",", ".") }}</p>
                                     <p class="listItem__amount">{{ $transaction->project->count }} buah</p>
                                 </div>
                             </a>
@@ -249,7 +250,7 @@
                                 </a>
                                 <div class="listItem__credential">
                                     @if ($transaction->status == $transactionConstant::PAY_WAIT || $transaction->status == $transactionConstant::PAY_FAIL)
-                                        <button data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
+                                        <button onclick="changeModalUploadPayment(this)" data-modalId="12d11dx" class="btn btn-outline-danger mr-0" data-toggle="modal" data-target="#uploadPayment">Unggah Bukti Pembayaran</button>
                                     @endif
                                     @if ($transaction->mou != null)
                                         <a href="{{ route('home.transaction.download.mou', ['mouId' => $transaction->mou->id]) }}"><button class="btn btn-outline-danger mr-0">Unduh MOU</button></a>

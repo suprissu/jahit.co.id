@@ -213,7 +213,7 @@
                                     <p><strong>Alamat :</strong><br/> {{ $project->address }}</p>
                                     <p><strong>Catatan :</strong><br/> {{ $project->note }}</p>
                                     <p><strong>Vendor :</strong><br/> {{ $project->partner->company_name }}</p>
-                                    <p><strong>Harga :</strong><br/> Rp {{ number_format($project->cost, 2, ',', '.') }}</p>
+                                    <p><strong>Harga :</strong><br/> Rp {{ number_format($project->cost, 0, ',', '.') }}</p>
                                     <p><strong>Kategori :</strong><br/> {{ $project->category->name }}</p>
                                     <p><strong>Desain :</strong><br/></p>
                                     <div class="row mx-2">

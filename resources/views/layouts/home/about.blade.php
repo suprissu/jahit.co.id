@@ -5,8 +5,5 @@
 Industri Fashion Dalam Negeri!</h3>
             <p class="about__text">JAHIT.CO.ID lahir pada tahun 2020 di era pandemic COVID 19, Kami mempunyai semangat untuk meningkatkan Industri textile dan fashion dalam negeri. Kami membantu para penjahit yang sudah kami verifikasi menjadi bagian dari partner kami untuk mendapatkan customer lebih luas dan lebih cepat melalui platform kami. Pelanggan akan langsung mendapatkan balasan dari jaringan penjahit kami lebih cepat mudah dan terjangkau.</p>
         </div>
-        <div class="about__media">
-            <iframe class="about__media--video" title="video" src="https://www.youtube.com/embed/wylWYSHkzoQ?controls=0&disablekb=1&fs=0&loop=1&modestbranding=1&playsinline=1"></iframe>
-        </div>
     </div>
 </div>

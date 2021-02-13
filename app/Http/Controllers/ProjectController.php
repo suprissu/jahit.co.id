@@ -23,6 +23,7 @@ use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\ProjectImage;
 use App\Models\Sample;
+use App\Models\ShipmentReceipt;
 use App\Models\Transaction;
 
 use Illuminate\Http\Request;

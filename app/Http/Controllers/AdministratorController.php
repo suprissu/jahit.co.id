@@ -89,7 +89,7 @@ class AdministratorController extends Controller
                 
                 $transaction = Transaction::find($request->transactionID);
 
-                $file_path_prefix = '/img/customer/transaction/';
+                $file_path_prefix = '/file/transaction/';
 
                 if ($request->invoice_path != null) {
                     $invoiceFile = new InvoiceFile;

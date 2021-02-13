@@ -23,6 +23,7 @@ use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\ProjectImage;
 use App\Models\Sample;
+use App\Models\ShipmentReceipt;
 use App\Models\Transaction;
 
 use Illuminate\Http\Request;
@@ -292,12 +293,37 @@ class ProjectController extends Controller
     {
         $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
         if ($expectedStage == route('home')) {
+            $this->validate($request, [
+                'sampleID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'shipment_receipt_path' => [
+                    'mimes:jpeg,jpg,png,gif,bmp,svg',
+                    'max:25000'
+                ],
+            ]);
+
             $user = auth()->user();
             $partner = $user->partner;
 
             $sample = Sample::find($sampleId);
+            // $sample = Sample::find($request->sampleID);
 
             if ($sample == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $file_path_prefix = '/img/customer/transaction/';
+
+            $imageFile = $request->file('shipment_receipt_path');
+            if ($imageFile != null) {
+                $shipmentReceipt = new ShipmentReceipt;
+                $shipmentReceipt->path = FileHelper::saveResizedImageToPublic($imageFile, $file_path_prefix . 'shipmentReceipt');;
+                $shipmentReceipt->sample()->associate($sample);
+                $shipmentReceipt->save();
+            } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
             }
 
@@ -388,12 +414,37 @@ class ProjectController extends Controller
     {
         $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
         if ($expectedStage == route('home')) {
+            $this->validate($request, [
+                'projectID' => [
+                    'required',
+                    'integer',
+                    'min:1'
+                ],
+                'shipment_receipt_path' => [
+                    'mimes:jpeg,jpg,png,gif,bmp,svg',
+                    'max:25000'
+                ],
+            ]);
+
             $user = auth()->user();
             $partner = $user->partner;
 
             $project = Project::find($projectId);
+            // $project = Project::find($request->projectID);
 
             if ($project == null) {
+                return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
+            }
+
+            $file_path_prefix = '/img/customer/transaction/';
+
+            $imageFile = $request->file('shipment_receipt_path');
+            if ($imageFile != null) {
+                $shipmentReceipt = new ShipmentReceipt;
+                $shipmentReceipt->path = FileHelper::saveResizedImageToPublic($imageFile, $file_path_prefix . 'shipmentReceipt');;
+                $shipmentReceipt->project()->associate($project);
+                $shipmentReceipt->save();
+            } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::NOT_FOUND]); 
             }
 
@@ -401,7 +452,7 @@ class ProjectController extends Controller
             $project->save();
 
             $inbox = $project->inbox;
-            
+
             $chatReview = new Chat;
             $chatReview->role = ChatTemplateConstant::CUSTOMER_ROLE;
             $chatReview->type = ChatTemplateConstant::REVIEW_TYPE;

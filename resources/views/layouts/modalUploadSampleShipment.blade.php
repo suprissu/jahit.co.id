@@ -1,14 +1,14 @@
-<div class="modal fade pl-0" id="uploadShipment" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade pl-0" id="uploadSampleShipment" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form id="upload-shipment-form" class="auth-form" method="POST" action="" enctype="multipart/form-data">
+            <form id="upload-sample-shipment-form" class="auth-form" method="POST" action="" enctype="multipart/form-data">
                 <div class="modal-body">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <span class="shipment-id-text badge badge-danger"></span>
 
-                    <input name="transactionID" class="transaction-id" type="text" style="display: none;" required>
+                    <input name="sampleID" class="sample-id" type="text" style="display: none;" required>
                     
                     <div class="form-group">
                         <label for="shipment-pict">Upload Bukti Resi</label>

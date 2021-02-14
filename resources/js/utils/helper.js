@@ -1,14 +1,14 @@
-var currencyFormat = function currencyFormat(num) {
-    var numberFormat = new Intl.NumberFormat("id-ID", {
+const currencyFormat = num => {
+    const numberFormat = new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR"
     });
-    var price = numberFormat.format(num);
+    const price = numberFormat.format(num);
     return price.split(",")[0];
 };
 
-var dateFormat = function dateFormat(date) {
-    var options = {
+const dateFormat = date => {
+    const options = {
         year: "numeric",
         month: "long",
         day: "numeric"
@@ -17,6 +17,6 @@ var dateFormat = function dateFormat(date) {
 };
 
 module.exports = {
-    currencyFormat: currencyFormat,
-    dateFormat: dateFormat
+    currencyFormat,
+    dateFormat
 };

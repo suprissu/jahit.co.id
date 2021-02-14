@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
     Box,
     Heading,
@@ -11,8 +11,11 @@ import {
 } from "@chakra-ui/react";
 import CustomTag from "./CustomTag";
 import { currencyFormat, dateFormat } from "../../utils/helper";
+import { Context } from "../../utils/context";
 
 const CustomTab = function CustomTab({ data }) {
+    const { setSelectedData, setIsOpen } = useContext(Context);
+
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <HStack justifyContent="space-between">
@@ -33,6 +36,7 @@ const CustomTab = function CustomTab({ data }) {
                         objectFit="cover"
                         borderRadius="5px"
                         src={data.images[1].path}
+                        fallbackSrc="https://via.placeholder.com/54"
                         alt="preview"
                     />
                 ) : null}
@@ -48,7 +52,15 @@ const CustomTab = function CustomTab({ data }) {
                         {currencyFormat(data.cost ?? 0)}
                     </Text>
                 </Box>
-                <Button size="sm">Detail</Button>
+                <Button
+                    size="sm"
+                    onClick={() => {
+                        setSelectedData(data);
+                        setIsOpen(true);
+                    }}
+                >
+                    Detail
+                </Button>
             </HStack>
         </Box>
     );

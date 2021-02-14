@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import CustomTabs from "./CustomTabs";
 
-const CustomPanels = ({ data }) => {
+const CustomPanels = ({ data, setSelectedData }) => {
     return (
         <Tabs variant="soft-rounded" colorScheme="red">
             <TabList

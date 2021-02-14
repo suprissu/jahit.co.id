@@ -66,6 +66,7 @@
                 picture
             }
         }
+        
     </script>
 @endsection
 
@@ -80,8 +81,10 @@
 @inject('sampleStatusConstant', 'App\Constant\SampleStatusConstant')
 @inject('projectStatusConstant', 'App\Constant\ProjectStatusConstant')
 
-<div class="userProject">
-    <div class="userProject__container">
+<div class="custom-container">
+    <div class="custom-wrapper">
+        <div id="projects" ></div>
+
         <div class="userProject__header">
             <h2 class="userProject__title">Proyek</h2>
             <button class="userProject__addProject btn btn-danger" data-toggle="modal" data-target="#addProject">Tambah Proyek</button>
@@ -240,6 +243,25 @@
 @endsection
 
 @section('extra-js')
+<script>
+window.props = {
+    projects: {
+        all:"{{$projectsAll}}",
+        request:"{{$projectsRequest}}",
+        inProgress:"{{$projectsInProgress}}",
+        done:"{{$projectsDone}}",
+        rejected:"{{$projectsRejected}}",
+    },
+    samples: {
+        all:"{{$samplesAll}}",
+        request:"{{$samplesRequest}}",
+        inProgress:"{{$samplesInProgress}}",
+        done:"{{$samplesDone}}",
+        rejected:"{{$samplesRejected}}"
+    }
+}
+</script>
+<script src="{{ asset('js/app.js') }}"></script>
 <script src="{{ asset('js/form.js') }}"></script>
 <script src="{{ asset('js/helper.js') }}"></script>
 <script>

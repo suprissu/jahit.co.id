@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     ChakraProvider,
     Heading,
@@ -16,8 +16,15 @@ export default function Projects({ projects, samples }) {
     return (
         <ChakraProvider>
             <Heading marginY={3}> Dashboard</Heading>
-            <Tabs isLazy colorScheme="red">
-                <TabList>
+            <Tabs isLazy isFitted variant="enclosed" colorScheme="red">
+                <TabList
+                    backgroundColor="white"
+                    position="sticky"
+                    top="52px"
+                    left="0"
+                    right="0"
+                    zIndex="998"
+                >
                     <Tab>Proyek</Tab>
                     <Tab>Sample</Tab>
                 </TabList>
@@ -47,7 +54,6 @@ function customizer(value) {
 const root = document.getElementById("projects");
 
 if (root) {
-    console.log("test");
     const props = _.mapValues(window.props, customizer);
 
     ReactDOM.render(<Projects {...props} />, root);

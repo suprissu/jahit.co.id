@@ -14,7 +14,7 @@ import { currencyFormat, dateFormat } from "../../utils/helper";
 
 const CustomTab = function CustomTab({ data }) {
     return (
-        <Box p={5} shadow="md" borderWidth="1px">
+        <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <HStack justifyContent="space-between">
                 <VStack alignItems="start">
                     <Text size="sm" fontSize="xs">

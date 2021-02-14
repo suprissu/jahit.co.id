@@ -32,12 +32,6 @@ const CustomPanels = ({ data }) => {
                 {Object.values(data).map((node, index) => (
                     <TabPanel paddingX="0px" paddingBottom="4rem" key={index}>
                         <CustomTabs type={node} />
-                        <CustomTabs type={node} />
-                        <CustomTabs type={node} />
-                        <CustomTabs type={node} />
-                        <CustomTabs type={node} />
-                        <CustomTabs type={node} />
-                        <CustomTabs type={node} />
                     </TabPanel>
                 ))}
                 ;

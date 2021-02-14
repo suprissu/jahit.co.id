@@ -15,8 +15,8 @@ import CustomPanels from "./CustomPanels";
 export default function Projects({ projects, samples }) {
     return (
         <ChakraProvider>
-            <Heading marginY={3}> Proyek</Heading>
-            <Tabs colorScheme="red">
+            <Heading marginY={3}> Dashboard</Heading>
+            <Tabs isLazy colorScheme="red">
                 <TabList>
                     <Tab>Proyek</Tab>
                     <Tab>Sample</Tab>

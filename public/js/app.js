@@ -98087,7 +98087,9 @@ var CustomTab = function CustomTab(_ref) {
     data: data
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Divider"], {
     my: 2
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["HStack"], null, data.images ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Image"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["HStack"], {
+    justifyContent: "space-between"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["HStack"], null, data.images ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Image"], {
     boxSize: "54px",
     objectFit: "cover",
     borderRadius: "5px",
@@ -98100,10 +98102,16 @@ var CustomTab = function CustomTab(_ref) {
     fontSize: "md"
   }, data.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Text"], {
     fontSize: "sm"
-  }, data.count, " buah"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["HStack"], {
+  }, data.count, " buah"))), !data.cost ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    size: "sm",
+    onClick: function onClick() {
+      setSelectedData(data);
+      setIsOpen(true);
+    }
+  }, "Detail") : null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["HStack"], {
     mt: 2,
     justifyContent: "space-between"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
+  }, data.cost ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
     alignItems: "start"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Text"], {
     fontSize: "sm"
@@ -98116,7 +98124,7 @@ var CustomTab = function CustomTab(_ref) {
       setSelectedData(data);
       setIsOpen(true);
     }
-  }, "Detail")));
+  }, "Detail")) : null));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (CustomTab);
@@ -98461,7 +98469,6 @@ var ProjectDetail = function ProjectDetail(_ref3) {
   var _data$cost;
 
   var data = _ref3.data;
-  console.log(data);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["Box"], {
     marginY: 2
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__["HStack"], {

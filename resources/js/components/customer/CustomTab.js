@@ -29,38 +29,55 @@ const CustomTab = function CustomTab({ data }) {
                 </VStack>
             </HStack>
             <Divider my={2} />
-            <HStack>
-                {data.images ? (
-                    <Image
-                        boxSize="54px"
-                        objectFit="cover"
-                        borderRadius="5px"
-                        src={data.images[0].path}
-                        fallbackSrc="https://via.placeholder.com/54"
-                        alt="preview"
-                    />
+            <HStack justifyContent="space-between">
+                <HStack>
+                    {data.images ? (
+                        <Image
+                            boxSize="54px"
+                            objectFit="cover"
+                            borderRadius="5px"
+                            src={data.images[0].path}
+                            fallbackSrc="https://via.placeholder.com/54"
+                            alt="preview"
+                        />
+                    ) : null}
+                    <Box alignItems="start">
+                        <Heading fontSize="md">{data.name}</Heading>
+                        <Text fontSize="sm">{data.count} buah</Text>
+                    </Box>
+                </HStack>
+                {!data.cost ? (
+                    <Button
+                        size="sm"
+                        onClick={() => {
+                            setSelectedData(data);
+                            setIsOpen(true);
+                        }}
+                    >
+                        Detail
+                    </Button>
                 ) : null}
-                <Box alignItems="start">
-                    <Heading fontSize="md">{data.name}</Heading>
-                    <Text fontSize="sm">{data.count} buah</Text>
-                </Box>
             </HStack>
             <HStack mt={2} justifyContent="space-between">
-                <Box alignItems="start">
-                    <Text fontSize="sm">Total harga: </Text>
-                    <Text color="orange" fontSize="sm">
-                        {currencyFormat(data.cost ?? 0)}
-                    </Text>
-                </Box>
-                <Button
-                    size="sm"
-                    onClick={() => {
-                        setSelectedData(data);
-                        setIsOpen(true);
-                    }}
-                >
-                    Detail
-                </Button>
+                {data.cost ? (
+                    <>
+                        <Box alignItems="start">
+                            <Text fontSize="sm">Total harga: </Text>
+                            <Text color="orange" fontSize="sm">
+                                {currencyFormat(data.cost ?? 0)}
+                            </Text>
+                        </Box>
+                        <Button
+                            size="sm"
+                            onClick={() => {
+                                setSelectedData(data);
+                                setIsOpen(true);
+                            }}
+                        >
+                            Detail
+                        </Button>
+                    </>
+                ) : null}
             </HStack>
         </Box>
     );

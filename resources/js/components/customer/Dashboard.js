@@ -159,7 +159,6 @@ const PreviewImage = ({ images }) => {
 };
 
 const ProjectDetail = ({ data }) => {
-    console.log(data);
     return (
         <Box marginY={2}>
             <HStack justifyContent="space-between">

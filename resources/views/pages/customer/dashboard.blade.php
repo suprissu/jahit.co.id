@@ -47,6 +47,7 @@ const dummyData = [
 ]
 
 window.props = {
+    categories: @json($categories),
     projects: {
         all: @json($projectsAll),
         request: @json($projectsRequest),

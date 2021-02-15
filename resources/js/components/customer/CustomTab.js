@@ -7,17 +7,26 @@ import {
     Divider,
     Image,
     Text,
-    Button
+    Button,
+    useDisclosure
 } from "@chakra-ui/react";
 import CustomTag from "./CustomTag";
 import { currencyFormat, dateFormat } from "../../utils/helper";
-import { Context } from "../../utils/context";
+import { useData } from "../../utils/CustomerContext";
+import CustomAlert from "../CustomAlert";
+import ProjectDetail from "./ProjectDetail";
 
 const CustomTab = function CustomTab({ data }) {
-    const { setSelectedData, setIsOpen } = useContext(Context);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const { selectedData, setSelectedData, setIsOpen } = useData();
 
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
+            <CustomAlert
+                content={<ProjectDetail data={selectedData} />}
+                isOpen={isOpen}
+                onClose={onClose}
+            />
             <HStack justifyContent="space-between">
                 <VStack alignItems="start">
                     <Text size="sm" fontSize="xs">
@@ -71,7 +80,7 @@ const CustomTab = function CustomTab({ data }) {
                             size="sm"
                             onClick={() => {
                                 setSelectedData(data);
-                                setIsOpen(true);
+                                onOpen();
                             }}
                         >
                             Detail

@@ -17,7 +17,6 @@ const CustomAlert = ({ title, content, isOpen, onClose }) => {
             leastDestructiveRef={cancelRef}
             onClose={onClose}
             isOpen={isOpen}
-            isCentered
         >
             <AlertDialogOverlay />
 

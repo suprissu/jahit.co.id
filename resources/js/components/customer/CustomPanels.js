@@ -15,10 +15,12 @@ const CustomPanels = ({ data, setSelectedData }) => {
             <TabList
                 backgroundColor="white"
                 position="sticky"
-                top="94px"
+                top="98px"
                 left="0"
                 right="0"
                 zIndex="998"
+                boxShadow="lg"
+                rounded="md"
                 padding={4}
                 overflowX="auto"
             >
@@ -26,7 +28,7 @@ const CustomPanels = ({ data, setSelectedData }) => {
                 <Tab paddingY="0px">Pesanan</Tab>
                 <Tab paddingY="0px">Dalam Pengerjaan</Tab>
                 <Tab paddingY="0px">Selesai</Tab>
-                <Tab>Batal</Tab>
+                <Tab paddingY="0px">Batal</Tab>
             </TabList>
             <TabPanels>
                 {Object.values(data).map((node, index) => (

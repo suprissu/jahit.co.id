@@ -2,6 +2,15 @@ body {
     font-family: "Raleway", sans-serif;
 }
 
+* {
+    outline: none !important;
+}
+
+*:focus {
+    box-shadow: none !important;
+    outline: none !important;
+}
+
 .custom-container {
     min-height: 100vh;
     padding-top: 4rem;

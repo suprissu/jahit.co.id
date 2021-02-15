@@ -35,7 +35,7 @@ const CustomTab = function CustomTab({ data }) {
                         boxSize="54px"
                         objectFit="cover"
                         borderRadius="5px"
-                        src={data.images[1].path}
+                        src={data.images[0].path}
                         fallbackSrc="https://via.placeholder.com/54"
                         alt="preview"
                     />

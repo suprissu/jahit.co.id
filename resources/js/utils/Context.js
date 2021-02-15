@@ -3,7 +3,6 @@ export const Context = createContext();
 
 const ContextProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [modalTitle, setModalTitle] = useState("Tambah Proyek");
     const [selectedData, setSelectedData] = useState(null);
 
     return (
@@ -11,8 +10,6 @@ const ContextProvider = ({ children }) => {
             value={{
                 isOpen,
                 setIsOpen,
-                modalTitle,
-                setModalTitle,
                 selectedData,
                 setSelectedData
             }}

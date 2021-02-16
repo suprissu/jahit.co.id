@@ -8,7 +8,9 @@ import {
 } from "@chakra-ui/react";
 import NormalInput from "../NormalInput";
 import { Dropdown } from "semantic-ui-react";
+import Dropzone from "../Dropzone";
 import { useProps } from "../../utils/CustomerContext";
+import axios from "axios";
 
 const CategorySelect = ({
     placeholder,
@@ -60,21 +62,41 @@ const ProjectForm = ({ data, onClose }) => {
     const [id, setId] = useState(null);
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
-    const [categoryId, setCategoryId] = useState("");
+    const [category, setCategory] = useState("");
     const [count, setCount] = useState("");
-    const [deadline, setDeadline] = useState("");
     const [note, setNote] = useState("");
+    const [picture, setPicture] = useState([]);
 
     useEffect(() => {
         if (data !== null) {
             setId(data.id);
             setName(data.name);
-            setCategoryId(data.category_id);
+            setCategory(data.category_id);
             setCount(data.count);
             setDeadline(data.deadline);
             setNote(data.note);
         }
     }, [data]);
+
+    const submitForm = async () => {
+        await axios
+            .post("/home/project/add", {
+                id,
+                name,
+                address,
+                category,
+                count,
+                note,
+                project_pict_path: picture
+            })
+            .then(response => {
+                console.log(response);
+                window.location = response.data.redirect;
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
 
     const isDisabled = data !== undefined && data !== null;
 
@@ -93,8 +115,9 @@ const ProjectForm = ({ data, onClose }) => {
             <CategorySelect
                 name="category"
                 title="Kategori Proyek"
-                value={categoryId}
-                setValue={setCategoryId}
+                placeholder="Masukkan kategori"
+                value={category}
+                setValue={setCategory}
                 disabled={isDisabled}
                 options={categoryOptions}
             />
@@ -119,16 +142,6 @@ const ProjectForm = ({ data, onClose }) => {
                 disabled={isDisabled}
             />
             <NormalInput
-                title="Selesai Pengerjaan"
-                placeholder="Masukkan deadline"
-                name="deadline"
-                type="text"
-                isRequired={true}
-                value={deadline}
-                setValue={setDeadline}
-                disabled={isDisabled}
-            />
-            <NormalInput
                 title="Catatan"
                 placeholder="Masukkan catatan"
                 name="note"
@@ -138,9 +151,17 @@ const ProjectForm = ({ data, onClose }) => {
                 setValue={setNote}
                 disabled={isDisabled}
             />
+            <Dropzone
+                title="Upload Gambar Proyek"
+                name="project_pict_path"
+                value={picture}
+                setValue={setPicture}
+            />
             <HStack width="100%" my={2} justifyContent="flex-end">
                 <Button onClick={onClose}>Cancel</Button>
-                <Button colorScheme="teal">Submit</Button>
+                <Button colorScheme="teal" onClick={submitForm}>
+                    Submit
+                </Button>
             </HStack>
         </VStack>
     );

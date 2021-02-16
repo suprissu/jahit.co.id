@@ -40,7 +40,7 @@ const CustomTab = function CustomTab({ data }) {
             <Divider my={2} />
             <HStack justifyContent="space-between">
                 <HStack>
-                    {data.images ? (
+                    {data.images && data.images.length !== 0 ? (
                         <Image
                             boxSize="54px"
                             objectFit="cover"
@@ -60,7 +60,7 @@ const CustomTab = function CustomTab({ data }) {
                         size="sm"
                         onClick={() => {
                             setSelectedData(data);
-                            setIsOpen(true);
+                            onOpen();
                         }}
                     >
                         Detail

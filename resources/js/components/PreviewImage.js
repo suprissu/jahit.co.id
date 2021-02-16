@@ -4,6 +4,8 @@ import { HStack, VStack, Image } from "@chakra-ui/react";
 const PreviewImage = ({ images }) => {
     const [selectedImage, setSelectedImage] = useState("");
 
+    if (images && images.length === 0) return null;
+
     useEffect(() => {
         setSelectedImage(images[0].path);
     }, []);

@@ -19,7 +19,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 
 const djsConfig = {
     addRemoveLinks: true,
-    acceptedFiles: "image/jpeg,image/png,image/gif",
+    acceptedFiles: ".png, .jpg",
     autoProcessQueue: false
 };
 

@@ -7,7 +7,7 @@ import {
     Button
 } from "@chakra-ui/react";
 import NormalInput from "../NormalInput";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Form } from "semantic-ui-react";
 import Dropzone from "../Dropzone";
 import { useProps } from "../../utils/CustomerContext";
 import axios from "axios";
@@ -69,29 +69,32 @@ const ProjectForm = ({ data, onClose }) => {
 
     useEffect(() => {
         if (data !== null) {
+            console.log(data);
             setId(data.id);
             setName(data.name);
             setCategory(data.category_id);
             setCount(data.count);
-            setDeadline(data.deadline);
             setNote(data.note);
         }
     }, [data]);
 
     const submitForm = async () => {
+        const formData = new FormData();
+        if (data !== null) formData.append("id", id);
+        formData.append("name", name);
+        formData.append("address", address);
+        formData.append("category", category);
+        formData.append("count", count);
+        formData.append("note", note);
+        picture.forEach(data => {
+            formData.append("project_pict_path[]", data);
+        });
         await axios
-            .post("/home/project/add", {
-                id,
-                name,
-                address,
-                category,
-                count,
-                note,
-                project_pict_path: picture
+            .post("/home/project/add", formData, {
+                headers: { "Content-Type": "multipart/form-data" }
             })
             .then(response => {
-                console.log(response);
-                window.location = response.data.redirect;
+                window.location = response.request.responseURL;
             })
             .catch(e => {
                 console.log(e);

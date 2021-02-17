@@ -11,6 +11,7 @@ import { Dropdown, Form } from "semantic-ui-react";
 import Dropzone from "../Dropzone";
 import { useProps } from "../../utils/CustomerContext";
 import axios from "axios";
+import CustomAlert from "../CustomAlert";
 
 const CategorySelect = ({
     placeholder,
@@ -66,15 +67,18 @@ const ProjectForm = ({ data, onClose }) => {
     const [count, setCount] = useState("");
     const [note, setNote] = useState("");
     const [picture, setPicture] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         if (data !== null) {
-            console.log(data);
             setId(data.id);
             setName(data.name);
             setCategory(data.category_id);
             setCount(data.count);
             setNote(data.note);
+            setAddress(data.address);
+            const paths = data.images.map(img => img.path);
+            setPicture(paths);
         }
     }, [data]);
 
@@ -97,7 +101,7 @@ const ProjectForm = ({ data, onClose }) => {
                 window.location = response.request.responseURL;
             })
             .catch(e => {
-                console.log(e);
+                setError(e);
             });
     };
 
@@ -105,6 +109,11 @@ const ProjectForm = ({ data, onClose }) => {
 
     return (
         <VStack>
+            <CustomAlert
+                content={error}
+                isOpen={error}
+                onClose={() => setError(null)}
+            />
             <NormalInput
                 title="Nama Proyek"
                 placeholder="Masukkan nama proyek"
@@ -159,10 +168,16 @@ const ProjectForm = ({ data, onClose }) => {
                 name="project_pict_path"
                 value={picture}
                 setValue={setPicture}
+                disabled={isDisabled}
+                previewOnly={data !== undefined && data !== null}
             />
             <HStack width="100%" my={2} justifyContent="flex-end">
                 <Button onClick={onClose}>Cancel</Button>
-                <Button colorScheme="teal" onClick={submitForm}>
+                <Button
+                    colorScheme="teal"
+                    onClick={submitForm}
+                    disabled={data !== undefined && data !== null}
+                >
                     Submit
                 </Button>
             </HStack>

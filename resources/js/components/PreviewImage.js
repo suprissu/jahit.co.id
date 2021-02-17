@@ -11,24 +11,28 @@ const PreviewImage = ({ images }) => {
     }, []);
 
     return (
-        <HStack width="100%" height="280px" justifyContent="center">
+        <VStack width="100%" justifyContent="center">
             <Image
-                boxSize="280px"
-                objectFit="cover"
+                width="100%"
+                height="280px"
+                objectFit="contain"
                 borderRadius="5px"
                 src={selectedImage}
                 fallbackSrc="https://via.placeholder.com/54"
                 alt="preview"
             />
-            <VStack
-                overflowY="auto"
+            <HStack
+                width="100%"
+                overflowX="auto"
                 justifyContent="flex-start"
                 alignItems="flex-start"
-                height="100%"
             >
                 {images.map((data, index) => (
                     <Image
-                        boxSize="92px"
+                        minWidth="92px"
+                        maxWidth="92px"
+                        minHeight="92px"
+                        maxHeight="92px"
                         objectFit="cover"
                         border={selectedImage === data.path ? "1px" : ""}
                         borderColor={
@@ -43,8 +47,8 @@ const PreviewImage = ({ images }) => {
                         alt="preview"
                     />
                 ))}
-            </VStack>
-        </HStack>
+            </HStack>
+        </VStack>
     );
 };
 

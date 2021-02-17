@@ -4,18 +4,12 @@ import "../../sass/dropzone.scss";
 import {
     FormControl,
     FormLabel,
-    InputGroup,
     VStack,
     FormErrorMessage,
     FormHelperText,
-    Wrap,
-    WrapItem,
-    Image,
-    IconButton,
-    HStack,
-    Box
+    HStack
 } from "@chakra-ui/react";
-import { CloseIcon } from "@chakra-ui/icons";
+import DropzonePreview from "./DropzonePreview";
 
 const djsConfig = {
     addRemoveLinks: true,
@@ -29,11 +23,21 @@ const config = {
     postUrl: "no-url"
 };
 
-const Dropzone = ({ name, title, error, helper, value, setValue }) => {
+const Dropzone = ({
+    disabled,
+    name,
+    title,
+    error,
+    helper,
+    value,
+    setValue,
+    previewOnly
+}) => {
     const [paths, setPaths] = useState([]);
 
     useEffect(() => {
-        fetchPaths();
+        if (!previewOnly) fetchPaths();
+        else setPaths(value);
     }, [value]);
 
     const fetchPaths = () => {
@@ -93,52 +97,19 @@ const Dropzone = ({ name, title, error, helper, value, setValue }) => {
         >
             <FormLabel>{title}</FormLabel>
             <VStack>
-                <HStack
-                    width="100%"
-                    justifyContent="flex-start"
-                    alignItems="flex-start"
-                    flexWrap="wrap"
-                >
-                    {paths
-                        ? paths.map((data, index) => (
-                              <Box
-                                  position="relative"
-                                  width="94px"
-                                  height="94px"
-                                  key={index}
-                              >
-                                  <Image
-                                      boxSize="94px"
-                                      objectFit="cover"
-                                      borderRadius="5px"
-                                      src={data}
-                                      fallbackSrc="https://via.placeholder.com/54"
-                                      alt="preview"
-                                      position="absolute"
-                                      top="50%"
-                                      left="50%"
-                                      transform="translate(-50%, -50%)"
-                                  />
-                                  <IconButton
-                                      position="absolute"
-                                      top="50%"
-                                      left="50%"
-                                      transform="translate(-50%, -50%)"
-                                      colorScheme="red"
-                                      aria-label="remove picture"
-                                      onClick={() => removedfile(index)}
-                                      icon={<CloseIcon />}
-                                  />
-                              </Box>
-                          ))
-                        : null}
-                </HStack>
-                <DropzoneComponent
-                    name={name}
-                    config={config}
-                    eventHandlers={eventHandlers}
-                    djsConfig={djsConfig}
+                <DropzonePreview
+                    paths={paths}
+                    deleteClick={!previewOnly ? removedfile : null}
                 />
+                {!previewOnly ? (
+                    <DropzoneComponent
+                        name={name}
+                        config={config}
+                        eventHandlers={eventHandlers}
+                        djsConfig={djsConfig}
+                        disabled={disabled}
+                    />
+                ) : null}
             </VStack>
             <FormErrorMessage>{error}</FormErrorMessage>
             <FormHelperText>{helper}</FormHelperText>

@@ -12,7 +12,7 @@ import {
 import ReactDOM from "react-dom";
 import _ from "lodash";
 import CustomPanels from "../CustomPanels";
-import ContextProvider, { useProps } from "../../utils/CustomerContext";
+import ContextProvider, { useProps } from "../../utils/Context";
 import "semantic-ui-css/semantic.min.css";
 import CustomTab from "./CustomTab";
 

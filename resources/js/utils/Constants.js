@@ -2,6 +2,7 @@ export const PROJECT_OPENED = "Penawaran Terbuka";
 export const PROJECT_ON_NEGO = "Negosiasi Berlangsung";
 export const SAMPLE_REQUEST = "Menunggu Pembayaran Sampel";
 export const SAMPLE_PAID_OK = "Pembayaran Sampel Valid";
+export const SAMPLE_PAYMENT_OK = "Pembayaran Berhasil";
 export const SAMPLE_PAID_FAIL = "Pembayaran Sampel Invalid";
 export const SAMPLE_REJECTED = "Sampel Ditolak";
 export const SAMPLE_WORK_IN_PROGRESS = "Sampel Dikerjakan";

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
     Box,
     Heading,
@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import CustomTag from "../CustomTag";
 import { currencyFormat, dateFormat } from "../../utils/helper";
-import { useData } from "../../utils/CustomerContext";
+import { useData } from "../../utils/Context";
 import CustomAlert from "../CustomAlert";
 import ProjectDetail from "../ProjectDetail";
 

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import {
     Box,
     Heading,
@@ -8,18 +8,13 @@ import {
     Image,
     Text,
     Button,
-    useDisclosure,
-    InputGroup,
-    InputLeftElement,
-    Input
+    useDisclosure
 } from "@chakra-ui/react";
 import CustomTag from "../CustomTag";
 import { currencyFormat, dateFormat } from "../../utils/helper";
-import { useData } from "../../utils/CustomerContext";
+import { useData } from "../../utils/Context";
 import CustomAlert from "../CustomAlert";
 import ProjectDetail from "../ProjectDetail";
-import axios from "axios";
-import Dropzone from "../Dropzone";
 import _ from "lodash";
 import {
     PROJECT_DP_OK,
@@ -29,67 +24,8 @@ import {
     SAMPLE_WORK_IN_PROGRESS,
     SAMPLE_FINISHED
 } from "../../utils/Constants";
-
-const SendProjectDialog = ({ onClose, path }) => {
-    const [file, setFile] = useState([]);
-
-    const sendCommand = () => {
-        const formData = new FormData();
-        file.forEach(data => {
-            formData.append("shipment_receipt_path", data);
-        });
-        axios
-            .post(path, formData)
-            .then(response => {
-                window.location = response.request.responseURL;
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
-
-    return (
-        <VStack alignItems="flex-start">
-            <Dropzone
-                title="Upload Bukti Resi"
-                name="shipment_receipt_path"
-                value={file}
-                setValue={setFile}
-            />
-            <HStack alignSelf="flex-end">
-                <Button onClick={onClose}>Batal</Button>
-                <Button colorScheme="teal" onClick={sendCommand}>
-                    Yakin
-                </Button>
-            </HStack>
-        </VStack>
-    );
-};
-
-const ConfirmationDialog = ({ onClose, path }) => {
-    const sendCommand = () => {
-        axios
-            .get(path)
-            .then(response => {
-                window.location = response.request.responseURL;
-            })
-            .catch(e => {
-                console.log(e);
-            });
-    };
-
-    return (
-        <VStack alignItems="flex-start">
-            <Text>Apakah kamu yakin dengan hal ini ?</Text>
-            <HStack alignSelf="flex-end">
-                <Button onClick={onClose}>Batal</Button>
-                <Button colorScheme="teal" onClick={sendCommand}>
-                    Yakin
-                </Button>
-            </HStack>
-        </VStack>
-    );
-};
+import SendProjectDialog from "../SendFileDialog";
+import ConfirmationDialog from "../ConfirmationDialog";
 
 const Action = ({ status, data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -172,7 +108,7 @@ const Action = ({ status, data }) => {
                         ) : (
                             <ConfirmationDialog
                                 onClose={onClose}
-                                path={`/home/${actionStatus(status).type}/${
+                                url={`/home/${actionStatus(status).type}/${
                                     actionStatus(status).action
                                 }/${data.id}`}
                             />

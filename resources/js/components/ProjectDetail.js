@@ -13,7 +13,7 @@ import {
 import { currencyFormat, dateFormat } from "../utils/helper";
 import CustomTag from "./CustomTag";
 import PreviewImage from "./PreviewImage";
-import { useData } from "../utils/CustomerContext";
+import { useData } from "../utils/Context";
 import ProjectForm from "./ProjectForm";
 import CustomAlert from "./CustomAlert";
 

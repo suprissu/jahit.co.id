@@ -11,59 +11,20 @@
     const chatProject = [
         @foreach( $inboxes as $inbox )
             {
-                id: "{{ $inbox->id }}",
-                userRole: "{{ $role }}",
-                customerId: "{{ $inbox->customer_id }}",
-                partnerId: "{{ $inbox->partner_id }}",
-                csrf: "{{ csrf_token() }}",
-                projectId: "{{ $inbox->project_id }}",
-                project: {
-                    id: "{{ $inbox->project->id }}",
-                    name: "{{ $inbox->project->name }}",
-                    amount: "{{ $inbox->project->count }}",
-                    price: "{{ $inbox->project->cost }}",
-                    start_date: "{{ $inbox->project->start_date }}",
-                    end_date: "{{ $inbox->project->end_date }}",
-                    note: "{{ $inbox->project->note }}",
-                },
-                transaction: {
-                    id: "{{ $inbox->project->name }}",
-                },
-                message: [
-                    @foreach( $inbox->chats as $chat )
-                        {
-                            @inject('chatConstants', 'App\Constant\ChatTemplateConstant')
-                            @if (($chat->type != $chatConstants::NEGOTIATION_TYPE || $chat->answer != $chatConstants::BLANK_ANSWER || $chat->role != $role ) &&
-                                ($chat->type != $chatConstants::NEGOTIATION_TYPE || $chat->answer != $chatConstants::REJECT_ANSWER || $chat->role != $role ) &&
-                                ($chat->type != $chatConstants::PROJECT_OFFER_TYPE || $chat->role == $role ))
-
-                                id: "{{ $chat->id }}",
-                                role: "{{ $chat->role }}",
-                                type: "{{ $chat->type }}",
-                                @if( $chat->answer != null )
-                                    answer: "{{ $chat->answer }}",
-                                @endif
-                                @if( $chat->excuse != null )
-                                    excuse: "{{ $chat->excuse }}",
-                                @endif
-                                @if( $chat->negotiation != null )
-                                    negotiation: {
-                                        id : "{{ $chat->negotiation->id }}",
-                                        price: "{{ $chat->negotiation->cost }}",
-                                        start_date: "{{ $chat->negotiation->start_date }}",
-                                        end_date: "{{ $chat->negotiation->deadline }}",
-                                    },
-                                @else
-                                    negotiation: "",
-                                @endif
-                            @endif
-                        },
-                    @endforeach
-                ],
+                project: "{{ $inbox->project }}",
+                message: "{{ $inbox->chats }}",
+                partner: "{{ $inbox->partner }}"
             },
         @endforeach
     ];
 </script>
+<script>
+window.props = {
+    inboxes: @json($inboxes),
+    userRole: @json($role)
+}
+</script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
 
 @section('extra-css')
@@ -79,8 +40,9 @@
 @include('layouts/modalChatProjectPermission')
 @include('layouts/modalChatAskSample')
 @include('layouts/customerAdminChat')
-<div class="userChat">
-    <div class="userChat__container">
+<div class="custom-container">
+    <div class="custom-wrapper">
+        <div id="customer-inbox" ></div>
         <h2 class="userChat__title">Pesan</h2>
         <div class="chatbox">
             <div class="chatbox__navigation navigation">

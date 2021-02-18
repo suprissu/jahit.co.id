@@ -10,7 +10,7 @@ import {
 import NormalInput from "./NormalInput";
 import { Dropdown } from "semantic-ui-react";
 import Dropzone from "./Dropzone";
-import { useProps } from "../utils/CustomerContext";
+import { useProps } from "../utils/Context";
 import axios from "axios";
 import CustomAlert from "./CustomAlert";
 

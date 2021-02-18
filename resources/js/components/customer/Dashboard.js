@@ -9,16 +9,13 @@ import {
     TabPanel,
     HStack,
     Button,
-    useDisclosure
+    useDisclosure,
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
 import CustomPanels from "../CustomPanels";
 import CustomAlert from "../CustomAlert";
-import ContextProvider, {
-    useData,
-    useProps
-} from "../../utils/CustomerContext";
+import ContextProvider, { useData, useProps } from "../../utils/Context";
 import ProjectForm from "../ProjectForm";
 import "semantic-ui-css/semantic.min.css";
 import CustomTab from "./CustomTab";
@@ -80,7 +77,7 @@ export default function Dashboard() {
     );
 }
 
-const DashboardApp = props => {
+const DashboardApp = (props) => {
     return (
         <ContextProvider {...props}>
             <Dashboard />

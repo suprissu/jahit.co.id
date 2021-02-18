@@ -29,16 +29,26 @@ function NormalInput({
         >
             <FormLabel>{title}</FormLabel>
             <InputGroup size="md">
-                <Input
-                    name={name}
-                    pr="4.5rem"
-                    type={type}
-                    value={value}
-                    onChange={e => setValue(e.target.value)}
-                    placeholder={"Masukkan " + title}
-                    isRequired={isRequired}
-                    disabled={disabled}
-                />
+                {type === "number" ? (
+                    <NumberInput max={50} min={10}>
+                        <NumberInputField />
+                        <NumberInputStepper>
+                            <NumberIncrementStepper />
+                            <NumberDecrementStepper />
+                        </NumberInputStepper>
+                    </NumberInput>
+                ) : (
+                    <Input
+                        name={name}
+                        pr="4.5rem"
+                        type={type}
+                        value={value}
+                        onChange={e => setValue(e.target.value)}
+                        placeholder={"Masukkan " + title}
+                        isRequired={isRequired}
+                        disabled={disabled}
+                    />
+                )}
             </InputGroup>
             <FormErrorMessage>{error}</FormErrorMessage>
             <FormHelperText>{helper}</FormHelperText>

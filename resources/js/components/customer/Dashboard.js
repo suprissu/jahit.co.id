@@ -13,14 +13,15 @@ import {
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
-import CustomPanels from "./CustomPanels";
+import CustomPanels from "../CustomPanels";
 import CustomAlert from "../CustomAlert";
 import ContextProvider, {
     useData,
     useProps
 } from "../../utils/CustomerContext";
-import ProjectForm from "./ProjectForm";
+import ProjectForm from "../ProjectForm";
 import "semantic-ui-css/semantic.min.css";
+import CustomTab from "./CustomTab";
 
 export default function Dashboard() {
     const { projects, samples } = useProps();
@@ -68,10 +69,10 @@ export default function Dashboard() {
                 </TabList>
                 <TabPanels>
                     <TabPanel padding="0px">
-                        <CustomPanels data={projects} />
+                        <CustomPanels data={projects} CustomTab={CustomTab} />
                     </TabPanel>
                     <TabPanel padding="0px">
-                        <CustomPanels data={samples} />
+                        <CustomPanels data={samples} CustomTab={CustomTab} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
@@ -87,7 +88,7 @@ const DashboardApp = props => {
     );
 };
 
-const root = document.getElementById("projects");
+const root = document.getElementById("customer-projects");
 if (root) {
     const props = window.props;
     ReactDOM.render(<DashboardApp {...props} />, root);

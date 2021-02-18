@@ -13,3 +13,4 @@
  */
 
 require("./components/customer/Dashboard");
+require("./components/partner/Dashboard");

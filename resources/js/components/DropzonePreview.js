@@ -2,7 +2,7 @@ import React from "react";
 import { Image, IconButton, Box, HStack } from "@chakra-ui/react";
 import { CloseIcon } from "@chakra-ui/icons";
 
-const DropzonePreview = ({ paths, deleteClick }) => {
+const DropzonePreview = ({ paths, deleteClick, multiple }) => {
     return (
         <HStack
             width="100%"
@@ -14,12 +14,13 @@ const DropzonePreview = ({ paths, deleteClick }) => {
                 ? paths.map((data, index) => (
                       <Box
                           position="relative"
-                          width="94px"
+                          width={multiple ? "94px" : "100%"}
                           height="94px"
                           key={index}
                       >
                           <Image
-                              boxSize="94px"
+                              width={multiple ? "94px" : "100%"}
+                              height="94px"
                               objectFit="cover"
                               borderRadius="5px"
                               src={data}

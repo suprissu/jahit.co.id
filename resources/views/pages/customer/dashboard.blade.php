@@ -74,7 +74,7 @@ window.props = {
 @include('layouts/modalAddProject')
 <div class="custom-container">
     <div class="custom-wrapper">
-        <div id="projects" ></div>
+        <div id="customer-projects" ></div>
     </div>
 </div>
 @endsection

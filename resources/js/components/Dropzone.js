@@ -31,6 +31,7 @@ const Dropzone = ({
     helper,
     value,
     setValue,
+    multiple,
     previewOnly
 }) => {
     const [paths, setPaths] = useState([]);
@@ -51,22 +52,31 @@ const Dropzone = ({
     };
 
     const handleFileAdded = file => {
-        setValue(state => {
-            return [...state, file];
-        });
+        if (multiple) {
+            setValue(state => {
+                return [...state, file];
+            });
+        } else {
+            setValue([file]);
+        }
     };
 
     const removedfile = index => {
-        setValue(state => {
-            const res = [...state];
-            res.splice(index, 1);
-            return res;
-        });
-        setPaths(state => {
-            const res = [...state];
-            res.splice(index, 1);
-            return res;
-        });
+        if (multiple) {
+            setValue(state => {
+                const res = [...state];
+                res.splice(index, 1);
+                return res;
+            });
+            setPaths(state => {
+                const res = [...state];
+                res.splice(index, 1);
+                return res;
+            });
+        } else {
+            setValue([]);
+            setPaths([]);
+        }
     };
 
     const eventHandlers = {
@@ -100,6 +110,7 @@ const Dropzone = ({
                 <DropzonePreview
                     paths={paths}
                     deleteClick={!previewOnly ? removedfile : null}
+                    multiple={multiple}
                 />
                 {!previewOnly ? (
                     <DropzoneComponent

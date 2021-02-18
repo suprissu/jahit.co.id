@@ -9,64 +9,63 @@
 @section('prerender-js')
     <script src="{{ asset('js/userProject.js') }}"></script>
     <script>
-        const projectData = [
-            @foreach( $projectsAll as $project )
-            {
-                id: "{{ $project->id }}",
-                name: "{{ $project->name }}",
-                status: "{{ $project->status }}",
-                category: "{{ $project->category->id }}",
-                order: "{{ $project->count }}",
-                amount: "@if($project->cost != null) Rp {{ number_format($project->cost, 0, ',', '.') }} @else - @endif",
-                quotation: "-",
-                address: "{{ $project->address }}",
-                vendor: @if($project->partner != null) "{{ $project->partner->company_name }}" @else "-" @endif,
-                start_date: "{{ $project->start_date }}",
-                end_date: "{{ $project->deadline }}",
-                note: "{{ $project->note }}",
-                picture: [
-                    @foreach($project->images as $image)
-                        "{{ asset($image->path) }}",
-                    @endforeach
-                ]
-            },
-            @endforeach
-        ]
+const dummyData = [
+    @foreach( $projectsAll as $project )
+    {
+        category: "{{ $project->category }}",
+        vendor: "{{ $project->partner }}",
+        images: "{{ $project->images }}"
+    },
+    @endforeach,
+    @foreach( $projectsRequest as $project )
+    {
+        category: "{{ $project->category }}",
+        vendor: "{{ $project->partner }}",
+        images: "{{ $project->images }}"
+    },
+    @endforeach,
+    @foreach( $projectsInProgress as $project )
+    {
+        category: "{{ $project->category }}",
+        vendor: "{{ $project->partner }}",
+        images: "{{ $project->images }}"
+    },
+    @endforeach,
+    @foreach( $projectsDone as $project )
+    {
+        category: "{{ $project->category }}",
+        vendor: "{{ $project->partner }}",
+        images: "{{ $project->images }}"
+    },
+    @endforeach,
+    @foreach( $projectsRejected as $project )
+    {
+        category: "{{ $project->category }}",
+        vendor: "{{ $project->partner }}",
+        images: "{{ $project->images }}"
+    },
+    @endforeach,
+]
 
-        function getProjectData(id) {
-
-            const data = projectData.find((data) => data.id == id);
-
-            const name = data.name
-            const status = data.status
-            const category = data.category
-            const order = data.order
-            const amount = data.amount
-            const quotation = data.quotation
-            const address = data.address
-            const vendor = data.vendor
-            const start_date = data.start_date !== "" ? new Date(data.start_date) : null
-            const end_date = data.end_date !== "" ? new Date(data.end_date) : null
-            const note = data.note
-            const picture = data.picture
-
-            return {
-                id,
-                name,
-                status,
-                category,
-                order,
-                amount,
-                quotation,
-                address,
-                vendor,
-                start_date,
-                end_date,
-                note,
-                picture
-            }
-        }
+window.props = {
+    categories: @json($categories),
+    projects: {
+        all: @json($projectsAll),
+        request: @json($projectsRequest),
+        inProgress: @json($projectsInProgress),
+        done: @json($projectsDone),
+        rejected: @json($projectsRejected)
+    },
+    samples: {
+        all: @json($samplesAll),
+        request: @json($samplesRequest),
+        inProgress: @json($samplesInProgress),
+        done: @json($samplesDone),
+        rejected: @json($samplesRejected)
+    }
+}
     </script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
 
 @section('extra-css')
@@ -80,8 +79,9 @@
 @inject('sampleStatusConstant', 'App\Constant\SampleStatusConstant')
 @inject('projectStatusConstant', 'App\Constant\ProjectStatusConstant')
 
-<div class="userProject">
-    <div class="userProject__container">
+<div class="custom-container">
+    <div class="custom-wrapper">
+        <div id="partner-projects" ></div>
         <div class="userProject__header">
             <h2 class="userProject__title">Proyek</h2>
             <!-- <button class="userProject__addProject btn btn-danger" data-toggle="modal" data-target="#addProject">Tambah Proyek</button> -->

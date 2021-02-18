@@ -10,20 +10,19 @@ import {
     Button,
     useDisclosure
 } from "@chakra-ui/react";
-import CustomTag from "./CustomTag";
+import CustomTag from "../CustomTag";
 import { currencyFormat, dateFormat } from "../../utils/helper";
 import { useData } from "../../utils/CustomerContext";
 import CustomAlert from "../CustomAlert";
-import ProjectDetail from "./ProjectDetail";
+import ProjectDetail from "../ProjectDetail";
 
 const CustomTab = function CustomTab({ data }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { selectedData, setSelectedData, setIsOpen } = useData();
-
+    const { selectedData, setSelectedData } = useData();
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <CustomAlert
-                content={<ProjectDetail data={selectedData} />}
+                content={<ProjectDetail data={selectedData} editable={true} />}
                 isOpen={isOpen}
                 onClose={onClose}
             />

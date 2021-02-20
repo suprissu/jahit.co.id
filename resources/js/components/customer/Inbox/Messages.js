@@ -8,8 +8,6 @@ const Messages = () => {
     const { selectedData } = useData();
     const { isMobile } = useMobile();
 
-    console.log(selectedData);
-
     return (
         <>
             <Box

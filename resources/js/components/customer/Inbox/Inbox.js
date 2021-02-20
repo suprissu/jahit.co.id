@@ -18,13 +18,13 @@ export default function Inbox() {
     const { selectedData, setSelectedData } = useData();
 
     useEffect(() => {
-        if (window.outerWidth < 767) {
+        if (window.innerWidth < 767) {
             setIsMobile(true);
         } else {
             setIsMobile(false);
         }
         window.addEventListener("resize", e => {
-            if (e.target.outerWidth < 767) {
+            if (e.target.innerWidth < 767) {
                 setIsMobile(true);
             } else {
                 setIsMobile(false);
@@ -46,7 +46,7 @@ export default function Inbox() {
                 <Heading marginY={3}>Pesan</Heading>
             </HStack>
             <Box
-                height="80vh"
+                height="72vh"
                 marginY={2}
                 shadow="md"
                 display="flex"

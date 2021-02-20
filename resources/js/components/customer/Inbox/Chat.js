@@ -1,27 +1,39 @@
 import React from "react";
-import { Box, VStack, Text } from "@chakra-ui/react";
+import { Box, VStack, Text, HStack } from "@chakra-ui/react";
 import { useData, useProps } from "../../../utils/Context";
-import ConfirmationChat from "./ConfirmationChat";
+import InitiationChat from "./InitiationChat";
 
-const ChatTemplate = ({ msg }) => {
+const ChatTemplate = ({ data }) => {
     const { selectedData } = useData();
-    console.log(msg);
-    const { type } = msg;
+    const { userRole } = useProps();
+    const { type } = data;
 
     if (type === "INISIASI") {
         return (
-            <ConfirmationChat
-                id={selectedData.project.id}
-                title={selectedData.project.name}
-                content=""
+            <InitiationChat
+                data={data}
                 rejectPath="/home/inbox/nego/reject"
-                acceptPath=""
+                acceptPath="/home/inbox/nego/offer"
             />
         );
     } else {
         return (
-            <VStack borderWidth="1px" padding={3}>
-                <Text>Kamu telah mengajukan {selectedData.project.name}</Text>
+            <VStack width="60%" borderWidth="1px" padding={3}>
+                <Text>
+                    Kamu telah mengajukan Proyek{" "}
+                    <strong>{selectedData.project.name}</strong>{" "}
+                    <Text
+                        as="a"
+                        href={`/home/project/${selectedData.project_id}`}
+                    >
+                        #{selectedData.project_id}
+                    </Text>{" "}
+                    dengan:
+                </Text>
+                <HStack width="100%" justifyContent="space-between">
+                    <Text>Harga</Text>
+                    <Text color="gray.400">{selectedData.project.cost}</Text>
+                </HStack>
             </VStack>
         );
     }
@@ -50,7 +62,7 @@ const Chat = ({ data }) => {
 
     return (
         <Box alignSelf={alignRole(role)}>
-            <ChatTemplate msg={data} />
+            <ChatTemplate data={data} />
         </Box>
     );
 };

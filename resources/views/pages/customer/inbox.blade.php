@@ -8,17 +8,6 @@
 
 @section('prerender-js')
 <script>
-    const chatProject = [
-        @foreach( $inboxes as $inbox )
-            {
-                project: "{{ $inbox->project }}",
-                message: "{{ $inbox->chats }}",
-                partner: "{{ $inbox->partner }}"
-            },
-        @endforeach
-    ];
-</script>
-<script>
 window.props = {
     inboxes: @json($inboxes),
     userRole: @json($role)
@@ -28,64 +17,18 @@ window.props = {
 @endsection
 
 @section('extra-css')
-<link rel="stylesheet" href="{{ asset('css/userChat.css') }}"/>
-<link rel="stylesheet" href="{{ asset('css/chatbox.css') }}"/>
-<link rel="stylesheet" href="{{ asset('css/customerAdminChat.css') }}">
-<link rel="stylesheet" href="{{ asset('css/form.css') }}"/>
 @endsection
 
 @section('content')
-@include('layouts/modalChatNegotiation')
-@include('layouts/modalChatNegotiationAccept')
-@include('layouts/modalChatProjectPermission')
-@include('layouts/modalChatAskSample')
-@include('layouts/customerAdminChat')
 <div class="custom-container">
     <div class="custom-wrapper">
         <div id="customer-inbox" ></div>
-        <h2 class="userChat__title">Pesan</h2>
-        <div class="chatbox">
-            <div class="chatbox__navigation navigation">
-                <div class="navigation__story"></div>
-
-                @foreach ( $inboxes as $inbox )
-                    @if ( $inbox->chats->count() > 1 )
-                        <div class="navigation__item" data-id="{{ $inbox->id }}">
-                            <div class="navigation__left">
-                                <h5 class="navigation__title">{{ $inbox->partner->company_name }}</h5>
-                                <p class="navigation__description">{{ $inbox->project->name }}</p>
-                            </div>
-                            <div class="navigation__right">
-                                <p class="navigation__date">{{ $inbox->chats->last()->created_at->format('j F Y') }}</p>
-                            </div>
-                        </div>
-                    @endif
-                @endforeach
-               
-            </div>
-
-            <div class="chatbox__container">
-                <div class="chatbox__header">
-                    <h6 class="chatbox__title"></h6>
-                    <!-- <div class="chatbox__more">
-                        <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
-                    </div> -->
-                </div>
-                <div class="chatbox__messages">
-                    <div class="chatbox__noMessages__wrapper">
-                        <img src="{{ asset('img/empty-chat.svg') }}" alt="no-message"/>
-                        <h5 class="chatbox__noMessages__title">Mulai transaksi untuk melihat chat.</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 @endsection
 
 @section('extra-js')
 <script>
-
     var changeModalChatNegotiation = function(e) {
         const projectID = e.getAttribute("data-projectId");
         const customerID = e.getAttribute("data-customerId");
@@ -162,7 +105,4 @@ window.props = {
     }
     
 </script>
-<script src="{{ asset('js/chatTemplate.js') }}"></script>
-<script src="{{ asset('js/userChat.js') }}"></script>
-<script src="{{ asset('js/helper.js') }}"></script>
 @endsection

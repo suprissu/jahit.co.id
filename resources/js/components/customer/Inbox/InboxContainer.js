@@ -21,7 +21,6 @@ const InboxDesktopVersion = () => {
 const InboxContainer = () => {
     const { isMobile } = useMobile();
 
-    console.log(isMobile);
     if (isMobile) {
         return <InboxMobileVersion />;
     } else {

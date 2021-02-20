@@ -5,7 +5,12 @@ import {
     FormErrorMessage,
     FormHelperText,
     InputGroup,
-    Input
+    Input,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper
 } from "@chakra-ui/react";
 
 function NormalInput({
@@ -17,7 +22,9 @@ function NormalInput({
     error,
     isRequired,
     name,
-    disabled
+    disabled,
+    min,
+    max
 }) {
     return (
         <FormControl
@@ -30,19 +37,34 @@ function NormalInput({
             <FormLabel>{title}</FormLabel>
             <InputGroup size="md">
                 {type === "number" ? (
-                    <NumberInput max={50} min={10}>
-                        <NumberInputField />
-                        <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                        </NumberInputStepper>
+                    <NumberInput
+                        name={name}
+                        pr="4.5rem"
+                        value={value}
+                        onChange={e => setValue(e)}
+                        disabled={disabled}
+                        paddingRight={disabled ? "0px" : ""}
+                        min={1}
+                        width="100%"
+                    >
+                        <NumberInputField
+                            placeholder={"Masukkan " + title}
+                            required={isRequired}
+                        />
+                        {!disabled ? (
+                            <NumberInputStepper>
+                                <NumberIncrementStepper />
+                                <NumberDecrementStepper />
+                            </NumberInputStepper>
+                        ) : null}
                     </NumberInput>
                 ) : (
                     <Input
                         name={name}
-                        pr="4.5rem"
                         type={type}
                         value={value}
+                        min={min}
+                        max={max}
                         onChange={e => setValue(e.target.value)}
                         placeholder={"Masukkan " + title}
                         isRequired={isRequired}

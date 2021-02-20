@@ -108,6 +108,7 @@ const Action = ({ status, data }) => {
                         ) : (
                             <ConfirmationDialog
                                 onClose={onClose}
+                                method="GET"
                                 url={`/home/${actionStatus(status).type}/${
                                     actionStatus(status).action
                                 }/${data.id}`}

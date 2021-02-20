@@ -5,12 +5,14 @@ import CustomAlert from "../../CustomAlert";
 import NegotiationDialog from "../../NegotiationDialog";
 import AcceptNegotiationDialog from "../../AcceptNegotiationDialog";
 import { useData } from "../../../utils/Context";
+import { currencyFormat, dateFormat } from "../../../utils/helper";
 
 const NegotiationChat = ({ data }) => {
     const { selectedData } = useData();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState(null);
     const { project } = selectedData;
+    const { negotiation } = data;
 
     return (
         <Card.Group style={{ margin: "0px" }}>
@@ -41,6 +43,9 @@ const NegotiationChat = ({ data }) => {
             <Card>
                 <Card.Content>
                     <Card.Header>
+                        <Text color="orange">
+                            {currencyFormat(negotiation.cost)}
+                        </Text>
                         <Text as="a" href={`/home/project/${project.id}`}>
                             <Heading as="h5" size="sm">
                                 {project.name}
@@ -57,15 +62,15 @@ const NegotiationChat = ({ data }) => {
                             alignItems="flex-start"
                             justifyContent="space-between"
                         >
-                            <Text color="black">Jumlah</Text>
-                            <Text>{project.count}</Text>
+                            <Text color="black">Mulai Pengerjaan</Text>
+                            <Text>{dateFormat(negotiation.start_date)}</Text>
                         </HStack>
                         <HStack
                             alignItems="flex-start"
                             justifyContent="space-between"
                         >
-                            <Text color="black">Kategori</Text>
-                            <Text>{project.category.name}</Text>
+                            <Text color="black">Selesai Pengerjaan</Text>
+                            <Text>{dateFormat(negotiation.deadline)}</Text>
                         </HStack>
                         <Text mt={4}></Text>
                     </Card.Description>
@@ -77,7 +82,7 @@ const NegotiationChat = ({ data }) => {
                                 data.answer === "accept" ? "teal" : "red"
                             }
                         >
-                            {data.answer === "accept" ? "Diajukan" : "Ditolak"}
+                            {data.answer === "accept" ? "Disetujui" : "Dinego"}
                         </Badge>
                     ) : (
                         <div className="ui two buttons">

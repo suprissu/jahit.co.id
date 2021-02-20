@@ -3,18 +3,36 @@ import { VStack, Text, HStack } from "@chakra-ui/react";
 import { useData } from "../../../utils/Context";
 import { dateFormat } from "../../../utils/helper";
 
-const ProposeTextChat = ({ data }) => {
+const ProposeTextChat = ({ data, isAccepted }) => {
     const { selectedData } = useData();
 
     return (
         <VStack borderWidth="1px" padding={3} alignItems="flex-start">
-            <Text>
-                Kamu telah mengajukan Proyek {selectedData.project.count} buah{" "}
-                <strong>{selectedData.project.name}</strong>{" "}
-                <Text as="a" href={`/home/project/${selectedData.project_id}`}>
-                    #{selectedData.project_id}
-                </Text>{" "}
-            </Text>
+            {isAccepted ? (
+                <Text>
+                    Proyek {selectedData.project.count} buah{" "}
+                    <Text
+                        as="a"
+                        href={`/home/project/${selectedData.project_id}`}
+                    >
+                        <strong>{selectedData.project.name}</strong> #
+                        {selectedData.project_id}
+                    </Text>{" "}
+                    telah disetjui.
+                </Text>
+            ) : (
+                <Text>
+                    Kamu telah mengajukan Proyek {selectedData.project.count}{" "}
+                    buah{" "}
+                    <Text
+                        as="a"
+                        href={`/home/project/${selectedData.project_id}`}
+                    >
+                        <strong>{selectedData.project.name}</strong> #
+                        {selectedData.project_id}
+                    </Text>{" "}
+                </Text>
+            )}
             {data.negotiation ? (
                 <>
                     <HStack width="100%" justifyContent="space-between">

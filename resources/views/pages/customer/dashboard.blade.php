@@ -8,44 +8,6 @@
 
 @section('prerender-js')
 <script>
-const dummyData = [
-    @foreach( $projectsAll as $project )
-    {
-        category: "{{ $project->category }}",
-        vendor: "{{ $project->partner }}",
-        images: "{{ $project->images }}"
-    },
-    @endforeach,
-    @foreach( $projectsRequest as $project )
-    {
-        category: "{{ $project->category }}",
-        vendor: "{{ $project->partner }}",
-        images: "{{ $project->images }}"
-    },
-    @endforeach,
-    @foreach( $projectsInProgress as $project )
-    {
-        category: "{{ $project->category }}",
-        vendor: "{{ $project->partner }}",
-        images: "{{ $project->images }}"
-    },
-    @endforeach,
-    @foreach( $projectsDone as $project )
-    {
-        category: "{{ $project->category }}",
-        vendor: "{{ $project->partner }}",
-        images: "{{ $project->images }}"
-    },
-    @endforeach,
-    @foreach( $projectsRejected as $project )
-    {
-        category: "{{ $project->category }}",
-        vendor: "{{ $project->partner }}",
-        images: "{{ $project->images }}"
-    },
-    @endforeach,
-]
-
 window.props = {
     categories: @json($categories),
     projects: {

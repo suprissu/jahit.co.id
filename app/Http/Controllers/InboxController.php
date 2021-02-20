@@ -91,7 +91,10 @@ class InboxController extends Controller
     public function customerInbox(Request $request, $user, $role)
     {
         $customer = $user->customer()->first();
-        $inboxes = $customer->inboxes()->orderBy('updated_at', 'desc')->get();
+        $inboxes = $customer->inboxes()
+                    ->with('project', 'project.images', 'project.category','chats', 'chats.negotiation', 'partner')
+                    ->orderBy('updated_at', 'desc')
+                    ->get();
         $role = "CLIENT";
 
         $adminInbox = $user->adminInboxes;

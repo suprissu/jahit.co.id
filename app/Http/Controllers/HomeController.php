@@ -65,10 +65,12 @@ class HomeController extends Controller
         $partner = $user->partner()->first();
         
         $projectsAll = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->get();
 
         $projectsRequest = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_OPENED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_DEALT)
@@ -76,11 +78,13 @@ class HomeController extends Controller
                         ->get();
         
         $projectsInProgress = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS)
                         ->get();
         
         $projectsDone = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FINISHED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_FULL_PAYMENT_OK)
@@ -89,6 +93,7 @@ class HomeController extends Controller
                         ->get();
         
         $projectsRejected = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FAILED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_CANCELED)
@@ -145,10 +150,12 @@ class HomeController extends Controller
         $customer = $user->customer()->first();
 
         $projectsAll = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->get();
 
         $projectsRequest = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_OPENED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_DEALT)
@@ -156,11 +163,13 @@ class HomeController extends Controller
                         ->get();
         
         $projectsInProgress = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS)
                         ->get();
         
         $projectsDone = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FINISHED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_FULL_PAYMENT_OK)
@@ -169,6 +178,7 @@ class HomeController extends Controller
                         ->get();
         
         $projectsRejected = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FAILED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_CANCELED)

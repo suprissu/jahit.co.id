@@ -3,8 +3,7 @@ import { useData } from "../utils/Context";
 import ConfirmationDialog from "./ConfirmationDialog";
 import NormalInput from "./NormalInput";
 
-const NegotiationDialog = ({ data, onClose, acceptPath }) => {
-    const { selectedData } = useData();
+const NegotiationDialog = ({ data, selectedData, onClose, path }) => {
     const [projectID, setProjectID] = useState(null);
     const [customerID, setCustomerID] = useState(null);
     const [partnerID, setPartnerID] = useState(null);
@@ -75,7 +74,7 @@ const NegotiationDialog = ({ data, onClose, acceptPath }) => {
             data={form}
             method="POST"
             onClose={onClose}
-            url={acceptPath}
+            url={path}
         />
     );
 };

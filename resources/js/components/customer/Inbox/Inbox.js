@@ -11,11 +11,13 @@ import _ from "lodash";
 import ContextProvider, { useData, useMobile } from "../../../utils/Context";
 import "semantic-ui-css/semantic.min.css";
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import InboxContainer from "./InboxContainer";
+import InboxVersion from "./InboxVersion";
 
 export default function Inbox() {
     const { isMobile, setIsMobile } = useMobile();
     const { selectedData, setSelectedData } = useData();
+
+    console.log(selectedData);
 
     useEffect(() => {
         if (window.innerWidth < 767) {
@@ -52,7 +54,7 @@ export default function Inbox() {
                 display="flex"
                 flexDirection={isMobile ? "column" : "row"}
             >
-                <InboxContainer />
+                <InboxVersion />
             </Box>
         </ChakraProvider>
     );

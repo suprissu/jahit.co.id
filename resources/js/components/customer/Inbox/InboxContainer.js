@@ -1,31 +1,39 @@
 import React from "react";
-import ChatContainer from "./ChatContainer";
-import NavigationInbox from "./NavigationInbox";
-import { useData, useMobile } from "../../../utils/Context";
+import { Heading, VStack, Image } from "@chakra-ui/react";
+import { useData, useProps } from "../../../utils/Context";
+import Messages from "./Messages";
 
-const InboxMobileVersion = () => {
+const ChatContainer = () => {
+    const { isMobile } = useProps();
     const { selectedData } = useData();
-    if (selectedData) return <ChatContainer />;
-    else return <NavigationInbox />;
-};
 
-const InboxDesktopVersion = () => {
     return (
-        <>
-            <NavigationInbox />
-            <ChatContainer />
-        </>
+        <VStack
+            width={isMobile && selectedData ? "100%" : "auto"}
+            height="100%"
+            flex="1"
+            borderWidth="1px"
+            justifyContent="center"
+            alignItems="center"
+        >
+            {selectedData ? (
+                <Messages data={selectedData} />
+            ) : (
+                <VStack>
+                    <Image
+                        boxSize="240px"
+                        objectFit="contain"
+                        borderRadius="5px"
+                        src="/img/empty-chat.svg"
+                        alt="preview"
+                    />
+                    <Heading as="h4" size="md">
+                        Mulai transaksi untuk chat.
+                    </Heading>
+                </VStack>
+            )}
+        </VStack>
     );
 };
 
-const InboxContainer = () => {
-    const { isMobile } = useMobile();
-
-    if (isMobile) {
-        return <InboxMobileVersion />;
-    } else {
-        return <InboxDesktopVersion />;
-    }
-};
-
-export default InboxContainer;
+export default ChatContainer;

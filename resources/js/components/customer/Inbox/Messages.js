@@ -2,7 +2,7 @@ import React from "react";
 import { Heading, Box, VStack } from "@chakra-ui/react";
 import { useData, useMobile } from "../../../utils/Context";
 import CustomTag from "../../CustomTag";
-import Chat from "./Chat";
+import Message from "./Message";
 
 const Messages = () => {
     const { selectedData } = useData();
@@ -33,7 +33,7 @@ const Messages = () => {
                 <VStack width="100%" padding={4}>
                     {selectedData.chats.map((data, index) => (
                         <VStack width="100%" key={index}>
-                            <Chat data={data} />
+                            <Message data={data} />
                         </VStack>
                     ))}
                 </VStack>

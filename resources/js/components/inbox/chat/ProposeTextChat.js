@@ -7,7 +7,7 @@ const ProposeTextChat = ({ data, isAccepted }) => {
     const { selectedData } = useData();
 
     return (
-        <VStack borderWidth="1px" padding={3} alignItems="flex-start">
+        <VStack padding={3} alignItems="flex-start">
             {isAccepted ? (
                 <Text>
                     Proyek {selectedData.project.count} buah{" "}
@@ -18,7 +18,7 @@ const ProposeTextChat = ({ data, isAccepted }) => {
                         <strong>{selectedData.project.name}</strong> #
                         {selectedData.project_id}
                     </Text>{" "}
-                    telah disetjui.
+                    telah disetujui.
                 </Text>
             ) : (
                 <Text>
@@ -41,13 +41,13 @@ const ProposeTextChat = ({ data, isAccepted }) => {
                     </HStack>
                     <HStack width="100%" justifyContent="space-between">
                         <Text>Mulai Pengerjaan</Text>
-                        <Text color="gray.400">
+                        <Text color="gray.400" textAlign="right">
                             {dateFormat(data.negotiation.start_date)}
                         </Text>
                     </HStack>
                     <HStack width="100%" justifyContent="space-between">
                         <Text>Selesai Pengerjaan</Text>
-                        <Text color="gray.400">
+                        <Text color="gray.400" textAlign="right">
                             {dateFormat(data.negotiation.deadline)}
                         </Text>
                     </HStack>

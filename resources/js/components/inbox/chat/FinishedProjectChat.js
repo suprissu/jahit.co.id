@@ -1,9 +1,8 @@
 import React from "react";
 import { VStack, Text, Button } from "@chakra-ui/react";
 import { useData, useProps } from "@utils/Context";
-import { dateFormat } from "@utils/helper";
 
-const DealTextChat = () => {
+const FinishedProjectChat = () => {
     const { selectedData } = useData();
     const { userRole } = useProps();
 
@@ -11,8 +10,7 @@ const DealTextChat = () => {
         <VStack padding={3} alignItems="flex-start">
             {userRole === "CLIENT" ? (
                 <Text>
-                    Kamu telah menyetujui Proyek {selectedData.project.count}{" "}
-                    buah{" "}
+                    Proyek {selectedData.project.count} buah{" "}
                     <Text
                         as="a"
                         href={`/home/project/${selectedData.project_id}`}
@@ -20,12 +18,12 @@ const DealTextChat = () => {
                         <strong>{selectedData.project.name}</strong> #
                         {selectedData.project_id}.
                     </Text>{" "}
-                    Proyek sedang dikerjakan oleh vendor. Klik "Lihat Transaksi"
-                    untuk melihat detail transaksi.
+                    sudah selesai dikerjakan. Klik "Lihat Transaksi" untuk
+                    melihat detail transaksi pelunasan.
                 </Text>
             ) : (
                 <Text>
-                    Client telah menyetujui Proyek {selectedData.project.count}{" "}
+                    Kamu telah menyelesaikan Proyek {selectedData.project.count}{" "}
                     buah{" "}
                     <Text
                         as="a"
@@ -33,10 +31,8 @@ const DealTextChat = () => {
                     >
                         <strong>{selectedData.project.name}</strong> #
                         {selectedData.project_id}.
-                    </Text>{" "}
-                    Silahkan mulai kerjakan proyek ini dari tanggal{" "}
-                    {dateFormat(selectedData.project.start_date)} sampai dengan
-                    tanggal {dateFormat(selectedData.project.deadline)}.
+                    </Text>
+                    .
                 </Text>
             )}
 
@@ -52,4 +48,4 @@ const DealTextChat = () => {
     );
 };
 
-export default DealTextChat;
+export default FinishedProjectChat;

@@ -8,7 +8,7 @@ const AskSampleChat = () => {
     const { userRole } = useProps();
 
     return (
-        <VStack borderWidth="1px" padding={3} alignItems="flex-start">
+        <VStack padding={3} alignItems="flex-start">
             {userRole === "CLIENT" ? (
                 <Text>
                     Kamu telah mengajukan sample untuk Proyek

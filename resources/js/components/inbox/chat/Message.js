@@ -7,6 +7,12 @@ import NegotiationChat from "@components/inbox/chat/NegotiationChat";
 import PermissionProjectRunChat from "@components/inbox/chat/PermissionProjectRunChat";
 import DealTextChat from "@components/inbox/chat/DealTextChat";
 import AskSampleChat from "@components/inbox/chat/AskSampleChat";
+import DeliveredSampleChat from "@components/inbox/chat/DeliveredSampleChat";
+import FinishedProjectChat from "@components/inbox/chat/FinishedProjectChat";
+import TransactionVerificationChat from "@components/inbox/chat/TransactionVerificationChat";
+import ReviewChat from "@components/inbox/chat/ReviewChat";
+import RevisionChat from "@components/inbox/chat/RevisionChat";
+import RevisionRejectedChat from "@components/inbox/chat/RevisionRejectedChat";
 
 const ChatTemplate = ({ data }) => {
     const { selectedData } = useData();
@@ -39,6 +45,20 @@ const ChatTemplate = ({ data }) => {
         return <DealTextChat />;
     } else if (type === "SAMPLE") {
         return <AskSampleChat />;
+    } else if (type === "SAMPLE TERKIRIM") {
+        return <DeliveredSampleChat data={data} />;
+    } else if (type === "FINISH") {
+        return <FinishedProjectChat />;
+    } else if (type === "VERIFIKASI") {
+        return <TransactionVerificationChat isSuccess={true} />;
+    } else if (type === "VERIFIKASI DITOLAK") {
+        return <TransactionVerificationChat isSuccess={false} />;
+    } else if (type === "REVISI DIAJUKAN") {
+        return <RevisionChat data={data} />;
+    } else if (type === "REVISI DITOLAK") {
+        return <RevisionRejectedChat data={data} />;
+    } else if (type === "REVIEW") {
+        return <ReviewChat data={data} />;
     } else {
         return null;
     }
@@ -54,10 +74,17 @@ const Chat = ({ data }) => {
         else return "flex-start";
     };
 
+    const bgColorRole = msgRole => {
+        if (msgRole === "ADMIN") return "gray.200";
+        else return "white";
+    };
+
     return (
         <Box
             borderRadius="10px"
-            width="80%"
+            maxWidth="80%"
+            borderWidth="1px"
+            bgColor={bgColorRole(role)}
             display="flex"
             flexDirection="column"
             alignSelf={alignRole(role)}

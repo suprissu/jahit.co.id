@@ -5,6 +5,7 @@ import AlertDialog from "@components/dialog/AlertDialog";
 import PermissionDialog from "@components/dialog/PermissionDialog";
 import { useData } from "@utils/Context";
 import { currencyFormat } from "@utils/helper";
+import { URL_SAMPLE_DEAL, URL_SAMPLE_REQUEST } from "@utils/Path";
 
 const PermissionProjectRunChat = ({ data }) => {
     const { selectedData } = useData();
@@ -14,7 +15,7 @@ const PermissionProjectRunChat = ({ data }) => {
     const { negotiation } = data;
 
     return (
-        <Card.Group style={{ margin: "0px" }}>
+        <Card.Group style={{ width: "100%", margin: "0px" }}>
             <AlertDialog
                 title={
                     status === "accept" ? "Menyetujui Proyek" : "Nego Proyek"
@@ -25,21 +26,21 @@ const PermissionProjectRunChat = ({ data }) => {
                             data={data}
                             selectedData={selectedData}
                             onClose={onClose}
-                            path="/home/inbox/sample/request"
+                            path={URL_SAMPLE_DEAL}
                         />
                     ) : (
                         <PermissionDialog
                             data={data}
                             selectedData={selectedData}
                             onClose={onClose}
-                            path="/home/inbox/sample/deal"
+                            path={URL_SAMPLE_REQUEST}
                         />
                     )
                 }
                 isOpen={isOpen}
                 onClose={onClose}
             />
-            <Card>
+            <Card style={{ width: "100%", margin: "0px" }}>
                 <Card.Content>
                     <Card.Header>
                         <Text color="orange">

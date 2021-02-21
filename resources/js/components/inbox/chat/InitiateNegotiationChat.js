@@ -4,6 +4,7 @@ import { Button, Card } from "semantic-ui-react";
 import AlertDialog from "@components/dialog/AlertDialog";
 import NegotiationDialog from "@components/dialog/NegotiationDialog";
 import RejectionDialog from "@components/dialog/RejectionDialog";
+import { URL_NEGO_OFFER, URL_NEGO_REJECT } from "@utils/Path";
 
 const InitiationChat = ({ data, selectedData }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -11,7 +12,7 @@ const InitiationChat = ({ data, selectedData }) => {
     const { project } = selectedData;
 
     return (
-        <Card.Group style={{ margin: "0px" }}>
+        <Card.Group style={{ width: "100%", margin: "0px" }}>
             <AlertDialog
                 title={
                     status === "accept" ? "Menyetujui Proyek" : "Menolak Proyek"
@@ -22,20 +23,20 @@ const InitiationChat = ({ data, selectedData }) => {
                             data={data}
                             selectedData={selectedData}
                             onClose={onClose}
-                            acceptPath="/home/inbox/nego/offer"
+                            path={URL_NEGO_OFFER}
                         />
                     ) : (
                         <RejectionDialog
                             data={data}
                             onClose={onClose}
-                            rejectPath="/home/inbox/nego/reject"
+                            path={URL_NEGO_REJECT}
                         />
                     )
                 }
                 isOpen={isOpen}
                 onClose={onClose}
             />
-            <Card>
+            <Card style={{ width: "100%", margin: "0px" }}>
                 <Card.Content>
                     <Card.Header>
                         <Text as="a" href={`/home/project/${project.id}`}>
@@ -55,14 +56,16 @@ const InitiationChat = ({ data, selectedData }) => {
                             justifyContent="space-between"
                         >
                             <Text color="black">Jumlah</Text>
-                            <Text>{project.count}</Text>
+                            <Text textAlign="right">{project.count}</Text>
                         </HStack>
                         <HStack
                             alignItems="flex-start"
                             justifyContent="space-between"
                         >
                             <Text color="black">Kategori</Text>
-                            <Text>{project.category.name}</Text>
+                            <Text textAlign="right">
+                                {project.category.name}
+                            </Text>
                         </HStack>
                         <Text mt={4}></Text>
                     </Card.Description>

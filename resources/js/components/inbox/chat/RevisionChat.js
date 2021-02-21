@@ -1,14 +1,22 @@
-import { Heading, HStack, useDisclosure, Text, Badge } from "@chakra-ui/react";
+import {
+    Heading,
+    HStack,
+    useDisclosure,
+    Text,
+    Badge,
+    useProps
+} from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Button, Card } from "semantic-ui-react";
 import AlertDialog from "@components/dialog/AlertDialog";
-import NegotiationDialog from "@components/dialog/NegotiationDialog";
+import RejectionDialog from "@components/dialog/RejectionDialog";
 import AcceptNegotiationDialog from "@components/dialog/AcceptNegotiationDialog";
 import { useData } from "@utils/Context";
 import { currencyFormat, dateFormat } from "@utils/helper";
-import { URL_NEGO_ACCEPT, URL_NEGO_OFFER } from "@utils/Path";
+import { URL_REVISION_PURPOSE, URL_REVISION_REJECT } from "@utils/Path";
 
-const NegotiationChat = ({ data }) => {
+const RevisionChat = ({ data }) => {
+    const { userRole } = useProps();
     const { selectedData } = useData();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [status, setStatus] = useState(null);
@@ -27,14 +35,13 @@ const NegotiationChat = ({ data }) => {
                             data={data}
                             selectedData={selectedData}
                             onClose={onClose}
-                            path={URL_NEGO_ACCEPT}
+                            path={URL_REVISION_PURPOSE}
                         />
                     ) : (
-                        <NegotiationDialog
+                        <RejectionDialog
                             data={data}
-                            selectedData={selectedData}
                             onClose={onClose}
-                            path={URL_NEGO_OFFER}
+                            path={URL_REVISION_REJECT}
                         />
                     )
                 }
@@ -49,7 +56,7 @@ const NegotiationChat = ({ data }) => {
                         </Text>
                         <Text as="a" href={`/home/project/${project.id}`}>
                             <Heading as="h5" size="sm">
-                                {project.name}
+                                Revisi Proyek {project.name}
                             </Heading>
                         </Text>
                     </Card.Header>
@@ -63,60 +70,67 @@ const NegotiationChat = ({ data }) => {
                             alignItems="flex-start"
                             justifyContent="space-between"
                         >
+                            <Text color="black">Jumlah Pesanan</Text>
+                            <Text>{negotiation.count}</Text>
+                        </HStack>
+                        <HStack
+                            alignItems="flex-start"
+                            justifyContent="space-between"
+                        >
                             <Text color="black">Mulai Pengerjaan</Text>
-                            <Text textAlign="right">
-                                {dateFormat(negotiation.start_date)}
-                            </Text>
+                            <Text>{dateFormat(negotiation.start_date)}</Text>
                         </HStack>
                         <HStack
                             alignItems="flex-start"
                             justifyContent="space-between"
                         >
                             <Text color="black">Selesai Pengerjaan</Text>
-                            <Text textAlign="right">
-                                {dateFormat(negotiation.deadline)}
-                            </Text>
+                            <Text>{dateFormat(negotiation.deadline)}</Text>
                         </HStack>
                         <Text mt={4}></Text>
                     </Card.Description>
                 </Card.Content>
-                <Card.Content extra>
-                    {data.answer ? (
-                        <Badge
-                            colorScheme={
-                                data.answer === "accept" ? "teal" : "red"
-                            }
-                        >
-                            {data.answer === "accept" ? "Disetujui" : "Dinego"}
-                        </Badge>
-                    ) : (
-                        <div className="ui two buttons">
-                            <Button
-                                onClick={() => {
-                                    setStatus("reject");
-                                    onOpen();
-                                }}
-                                basic
-                                color="red"
+                {userRole === "VENDOR" ? (
+                    <Card.Content extra>
+                        {data.answer ? (
+                            <Badge
+                                colorScheme={
+                                    data.answer === "accept" ? "teal" : "red"
+                                }
                             >
-                                Nego
-                            </Button>
-                            <Button
-                                onClick={() => {
-                                    setStatus("accept");
-                                    onOpen();
-                                }}
-                                basic
-                                color="green"
-                            >
-                                Setuju
-                            </Button>
-                        </div>
-                    )}
-                </Card.Content>
+                                {data.answer === "accept"
+                                    ? "Disetujui"
+                                    : "Dinego"}
+                            </Badge>
+                        ) : (
+                            <div className="ui two buttons">
+                                <Button
+                                    onClick={() => {
+                                        setStatus("reject");
+                                        onOpen();
+                                    }}
+                                    basic
+                                    color="red"
+                                >
+                                    Tolak Revisi
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        setStatus("accept");
+                                        onOpen();
+                                    }}
+                                    basic
+                                    color="green"
+                                >
+                                    Terima Revisi
+                                </Button>
+                            </div>
+                        )}
+                    </Card.Content>
+                ) : null}
             </Card>
         </Card.Group>
     );
 };
 
-export default NegotiationChat;
+export default RevisionChat;

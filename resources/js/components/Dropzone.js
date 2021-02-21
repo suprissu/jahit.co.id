@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DropzoneComponent from "react-dropzone-component";
-import "../../sass/dropzone.scss";
+import "@sass/dropzone.scss";
 import {
     FormControl,
     FormLabel,

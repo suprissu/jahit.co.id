@@ -13,5 +13,5 @@
  */
 
 require("./components/customer/Dashboard");
-require("./components/customer/Inbox/Inbox");
+require("./components/inbox/Inbox");
 require("./components/partner/Dashboard");

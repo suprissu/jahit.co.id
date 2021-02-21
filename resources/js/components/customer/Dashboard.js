@@ -9,16 +9,16 @@ import {
     TabPanel,
     HStack,
     Button,
-    useDisclosure,
+    useDisclosure
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
-import CustomPanels from "../CustomPanels";
-import CustomAlert from "../CustomAlert";
-import ContextProvider, { useData, useProps } from "../../utils/Context";
-import ProjectForm from "../ProjectForm";
+import CustomerTab from "@components/customer/CustomerTab";
+import AlertDialog from "@components/dialog/AlertDialog";
+import CustomPanels from "@components/tablist/CustomPanels";
+import ProjectForm from "@components/project/ProjectForm";
+import ContextProvider, { useData, useProps } from "@utils/Context";
 import "semantic-ui-css/semantic.min.css";
-import CustomTab from "./CustomTab";
 
 export default function Dashboard() {
     const { projects, samples } = useProps();
@@ -32,7 +32,7 @@ export default function Dashboard() {
 
     return (
         <ChakraProvider>
-            <CustomAlert
+            <AlertDialog
                 content={<ProjectForm data={selectedData} />}
                 isOpen={isOpen}
                 onClose={modalClose}
@@ -66,10 +66,16 @@ export default function Dashboard() {
                 </TabList>
                 <TabPanels>
                     <TabPanel padding="0px">
-                        <CustomPanels data={projects} CustomTab={CustomTab} />
+                        <CustomPanels
+                            data={projects}
+                            CustomTab={<CustomerTab />}
+                        />
                     </TabPanel>
                     <TabPanel padding="0px">
-                        <CustomPanels data={samples} CustomTab={CustomTab} />
+                        <CustomPanels
+                            data={samples}
+                            CustomTab={<CustomerTab />}
+                        />
                     </TabPanel>
                 </TabPanels>
             </Tabs>
@@ -77,7 +83,7 @@ export default function Dashboard() {
     );
 }
 
-const DashboardApp = (props) => {
+const DashboardApp = props => {
     return (
         <ContextProvider {...props}>
             <Dashboard />

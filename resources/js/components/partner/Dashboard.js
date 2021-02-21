@@ -11,10 +11,10 @@ import {
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
-import CustomPanels from "../CustomPanels";
-import ContextProvider, { useProps } from "../../utils/Context";
+import CustomPanels from "@components/tablist/CustomPanels";
+import ContextProvider, { useProps } from "@utils/Context";
+import PartnerTab from "@components/partner/PartnerTab";
 import "semantic-ui-css/semantic.min.css";
-import CustomTab from "./CustomTab";
 
 export default function Dashboard() {
     const { projects, samples } = useProps();
@@ -40,10 +40,16 @@ export default function Dashboard() {
                 </TabList>
                 <TabPanels>
                     <TabPanel padding="0px">
-                        <CustomPanels data={projects} CustomTab={CustomTab} />
+                        <CustomPanels
+                            data={projects}
+                            CustomTab={<PartnerTab />}
+                        />
                     </TabPanel>
                     <TabPanel padding="0px">
-                        <CustomPanels data={samples} CustomTab={CustomTab} />
+                        <CustomPanels
+                            data={samples}
+                            CustomTab={<PartnerTab />}
+                        />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

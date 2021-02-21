@@ -18,6 +18,8 @@ const TemplateDialog = ({ onClose, url, method, data, content }) => {
             });
     };
 
+    console.log(data);
+
     return (
         <VStack alignItems="flex-start">
             {content ?? <Text>Apakah kamu yakin dengan hal ini ?</Text>}

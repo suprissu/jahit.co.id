@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TemplateDialog from "@components/dialog/TemplateDialog";
 import NormalInput from "@components/NormalInput";
 
-const RejectionDialog = ({ data, onClose, rejectPath }) => {
+const RejectionDialog = ({ data, onClose, path }) => {
     const [chatID, setChatID] = useState(null);
     const [excuse, setExcuse] = useState("");
     const [form, setForm] = useState(null);
@@ -30,7 +30,7 @@ const RejectionDialog = ({ data, onClose, rejectPath }) => {
             data={form}
             onClose={onClose}
             method="POST"
-            url={rejectPath}
+            url={path}
         />
     );
 };

@@ -66,7 +66,7 @@ const InboxApp = props => {
     );
 };
 
-const root = document.getElementById("customer-inbox");
+const root = document.getElementById("inbox");
 if (root) {
     const props = window.props;
     ReactDOM.render(<InboxApp {...props} />, root);

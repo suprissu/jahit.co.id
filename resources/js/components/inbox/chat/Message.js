@@ -82,6 +82,7 @@ const Chat = ({ data }) => {
     return (
         <Box
             borderRadius="10px"
+            minWidth="240px"
             maxWidth="80%"
             borderWidth="1px"
             bgColor={bgColorRole(role)}

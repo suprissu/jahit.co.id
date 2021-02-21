@@ -15,7 +15,7 @@ const TransactionVerificationChat = ({ isSuccess }) => {
                 >
                     #{selectedData.transaction.id}
                 </Text>{" "}
-                {isSuccess === "CLIENT" ? "telah" : "gagal"} diverifikasi.
+                {isSuccess ? "telah" : "gagal"} diverifikasi.
             </Text>
         </VStack>
     );

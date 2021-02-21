@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Card, Rating } from "semantic-ui-react";
 import AlertDialog from "@components/dialog/AlertDialog";
 import TemplateDialog from "@components/dialog/TemplateDialog";
-import { useData } from "@utils/Context";
+import { useData, useProps } from "@utils/Context";
 import { currencyFormat } from "@utils/helper";
 import NormalInput from "@components/NormalInput";
 import { URL_REVIEW_PROJECT } from "@utils/Path";
 
 const ReviewChat = ({ data }) => {
     const { selectedData } = useData();
+    const { userRole } = useProps();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { project } = selectedData;
     const [form, setForm] = useState(null);
@@ -29,6 +30,8 @@ const ReviewChat = ({ data }) => {
         setPartnerID(selectedData.partner_id);
         if (selectedData.project.rating) setRating(selectedData.project.rating);
         else setRating(0);
+        if (selectedData.project.feedback)
+            setFeedback(selectedData.project.feedback);
     }, []);
 
     useEffect(() => {
@@ -77,33 +80,57 @@ const ReviewChat = ({ data }) => {
                         </Text>
                     </Card.Meta>
                     <Card.Description>
-                        <Text>
-                            Berikan rating kamu terhadap proyek ini ? Apakah
-                            hasil yang diberikan vendor kami sudah cukup
-                            memuaskan ?
-                        </Text>
-                        <Rating
-                            rating={rating}
-                            maxRating={5}
-                            onRate={(e, { rating }) => setRating(rating)}
-                        />
-                        <NormalInput
-                            isRequired={true}
-                            title="Feedback"
-                            name="feedback"
-                            type="text"
-                            value={feedback}
-                            setValue={setFeedback}
-                        />
+                        {userRole === "CLIENT" ? (
+                            <Text>
+                                Berikan rating kamu terhadap proyek ini ? Apakah
+                                hasil yang diberikan vendor kami sudah cukup
+                                memuaskan ?
+                            </Text>
+                        ) : (
+                            <Text>
+                                Berikut ini rating yang diberikan client kepada
+                                kamu terhadap proyek ini. Harap dievaluasi
+                                pekerjaannya ya !
+                            </Text>
+                        )}
+                        {userRole === "CLIENT" ? (
+                            <Rating
+                                rating={rating}
+                                maxRating={5}
+                                onRate={(e, { rating }) => setRating(rating)}
+                            />
+                        ) : (
+                            <Rating
+                                disabled={true}
+                                rating={rating}
+                                maxRating={5}
+                            />
+                        )}
+                        {userRole === "CLIENT" ? (
+                            <NormalInput
+                                isRequired={true}
+                                title="Feedback"
+                                name="feedback"
+                                type="text"
+                                value={feedback}
+                                setValue={setFeedback}
+                            />
+                        ) : (
+                            <Text>
+                                {feedback || "Proyek ini belum direview."}
+                            </Text>
+                        )}
                     </Card.Description>
                 </Card.Content>
-                <Card.Content extra>
-                    {!selectedData.project.rating ? (
-                        <Button colorScheme="red" onClick={onOpen}>
-                            Review Proyek
-                        </Button>
-                    ) : null}
-                </Card.Content>
+                {userRole === "CLIENT" ? (
+                    <Card.Content extra>
+                        {!selectedData.project.rating ? (
+                            <Button colorScheme="red" onClick={onOpen}>
+                                Review Proyek
+                            </Button>
+                        ) : null}
+                    </Card.Content>
+                ) : null}
             </Card>
         </Card.Group>
     );

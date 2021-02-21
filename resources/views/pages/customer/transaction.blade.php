@@ -83,8 +83,8 @@
 @include('layouts/modalUploadPayment')
 @inject('transactionConstant', 'App\Constant\TransactionConstant')
 
-<div class="userCustomerTransaction">
-    <div class="userCustomerTransaction__container">
+<div class="custom-container">
+    <div class="custom-wrapper">
         <div class="userCustomerTransaction__header">
             <h2 class="userCustomerTransaction__title">Transaksi</h2>
         </div>

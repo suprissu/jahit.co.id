@@ -76,8 +76,8 @@
 @include('layouts/modalUploadPayment')
 @inject('materialRequestStatusConstant', 'App\Constant\MaterialRequestStatusConstant')
 
-<div class="userCustomerTransaction">
-    <div class="userCustomerTransaction__container">
+<div class="custom-container">
+    <div class="custom-wrapper">
         <div class="userCustomerTransaction__header">
             <h2 class="userCustomerTransaction__title">Transaksi</h2>
             <a href="{{ route('home.transaction.material.request.page') }}"><button class="btn btn-danger">Minta bahan</button></a>

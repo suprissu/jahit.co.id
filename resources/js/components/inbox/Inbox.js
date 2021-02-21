@@ -12,6 +12,7 @@ import ContextProvider, { useData, useMobile } from "@utils/Context";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import InboxVersion from "@components/inbox/InboxVersion";
 import "semantic-ui-css/semantic.min.css";
+import AdminChat from "@components/inbox/chat/AdminChat";
 
 export default function Inbox() {
     const { isMobile, setIsMobile } = useMobile();
@@ -36,6 +37,7 @@ export default function Inbox() {
 
     return (
         <ChakraProvider>
+            <AdminChat />
             <HStack>
                 {isMobile && selectedData ? (
                     <IconButton

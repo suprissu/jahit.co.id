@@ -29,3 +29,15 @@ export const PROJECT_FULL_PAYMENT_FAIL = "Pembayaran Lunas Invalid";
 export const PROJECT_SENT = "Telah Dikirim";
 export const PROJECT_RECEIVED = "Telah Diterima";
 export const PROJECT_DONE = "Vendor Telah Dibayar";
+
+export const PAY_WAIT = "Menunggu Pembayaran";
+export const PAY_IN_VERIF = "Pembayaran Diverifikasi";
+export const PAY_OK = "Pembayaran Berhasil";
+export const PAY_FAIL = "Pembayaran Gagal";
+
+export const SAMPLE_TYPE = "Sample";
+export const DOWN_PAYMENT_TYPE = "Down Payment";
+export const PELUNASAN_TYPE = "Pelunasan";
+
+export const REKENING = "123123123";
+export const PEMILIK_REKENING = "SIMANJUNTAK";

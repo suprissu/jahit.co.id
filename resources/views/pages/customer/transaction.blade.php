@@ -8,7 +8,14 @@
 
 @section('prerender-js')
 <script src="{{ asset('js/helper.js') }}"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script>
+window.props = {
+    transactions: @json($transactions),
+    sample_transactions: @json($sample_transactions),
+    dp_transactions: @json($dp_transactions),
+    full_transactions: @json($full_transactions),
+}
     const dummyData = [
         @foreach( $transactions as $transaction )
             {
@@ -85,6 +92,7 @@
 
 <div class="custom-container">
     <div class="custom-wrapper">
+        <div id="customer-transaction"></div>
         <div class="userCustomerTransaction__header">
             <h2 class="userCustomerTransaction__title">Transaksi</h2>
         </div>

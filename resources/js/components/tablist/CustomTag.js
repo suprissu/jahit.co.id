@@ -29,7 +29,10 @@ import {
     PROJECT_FULL_PAYMENT_FAIL,
     PROJECT_SENT,
     PROJECT_RECEIVED,
-    PROJECT_DONE
+    PROJECT_DONE,
+    PAY_WAIT,
+    PAY_OK,
+    PAY_FAIL
 } from "@utils/Constants";
 
 const CustomTag = ({ data }) => {
@@ -50,7 +53,8 @@ const CustomTag = ({ data }) => {
         SAMPLE_APPROVED,
         PROJECT_MOU_SIGNED,
         PROJECT_MOU_SIGNED_OK,
-        PROJECT_REFUND_SENT
+        PROJECT_REFUND_SENT,
+        PAY_OK
     ];
     const STATUS_FAILED = [
         PROJECT_FAILED,
@@ -60,7 +64,8 @@ const CustomTag = ({ data }) => {
         PROJECT_DP_FAIL,
         PROJECT_MOU_SIGNED_FAIL,
         PROJECT_LATE,
-        PROJECT_FULL_PAYMENT_FAIL
+        PROJECT_FULL_PAYMENT_FAIL,
+        PAY_FAIL
     ];
     const STATUS_IN_PROGRESS = [
         PROJECT_ON_NEGO,
@@ -68,7 +73,8 @@ const CustomTag = ({ data }) => {
         PROJECT_WORK_IN_PROGRESS,
         PROJECT_REFUND_REQUEST,
         PROJECT_MOU_REQUEST,
-        SAMPLE_REQUEST
+        SAMPLE_REQUEST,
+        PAY_WAIT
     ];
 
     if (STATUS_SUCCESS.includes(status)) {
@@ -83,10 +89,7 @@ const CustomTag = ({ data }) => {
                 <Tag size="md" colorScheme="yellow">
                     {status}
                 </Tag>
-                <Text fontSize="xs">
-                    Deadline:
-                    {dateFormat(deadline)}
-                </Text>
+                <Text fontSize="xs">Deadline: {dateFormat(deadline)}</Text>
             </Box>
         );
     } else if (STATUS_FAILED.includes(status)) {

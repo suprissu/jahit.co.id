@@ -13,5 +13,6 @@
  */
 
 require("./components/customer/Dashboard");
+require("./components/customer/Transaction");
 require("./components/Inbox/Inbox");
 require("./components/partner/Dashboard");

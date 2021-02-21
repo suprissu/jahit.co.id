@@ -6,3 +6,4 @@ export const URL_NEGO_ACCEPT = "/home/inbox/nego/accept";
 export const URL_REVISION_PURPOSE = "/home/inbox/revision/offer";
 export const URL_REVISION_REJECT = "/home/inbox/revision/reject";
 export const URL_REVIEW_PROJECT = "/home/inbox/project/review";
+export const URL_UPLOAD_PAYMENT_SLIP = "/home/transaction/uploadPaymentSlip";

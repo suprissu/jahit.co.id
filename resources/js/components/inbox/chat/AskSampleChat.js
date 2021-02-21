@@ -11,7 +11,7 @@ const AskSampleChat = () => {
         <VStack padding={3} alignItems="flex-start">
             {userRole === "CLIENT" ? (
                 <Text>
-                    Kamu telah mengajukan sample untuk Proyek
+                    Kamu telah mengajukan sample untuk Proyek{" "}
                     <Text
                         as="a"
                         href={`/home/project/${selectedData.project_id}`}
@@ -39,10 +39,7 @@ const AskSampleChat = () => {
             )}
 
             {userRole === "CLIENT" ? (
-                <Button
-                    as="a"
-                    href={`/home/transaction/${selectedData.transaction.id}`}
-                >
+                <Button as="a" href={`/home/transaction`}>
                     Lihat Transaksi
                 </Button>
             ) : null}

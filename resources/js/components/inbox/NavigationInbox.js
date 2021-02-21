@@ -38,7 +38,13 @@ const NavigationItem = ({ item }) => {
             />
             <VStack width="100%">
                 <Text fontSize="xs" alignSelf="flex-start">
-                    {dateFormat(data.chats[data.chats.length - 1].created_at)}
+                    {data.chats[data.chats.length - 1].created_at
+                        ? dateFormat(
+                              data.chats[data.chats.length - 1].created_at
+                          )
+                        : dateFormat(
+                              data.chats[data.chats.length - 2].created_at
+                          )}
                 </Text>
                 <Box width="100%">
                     <Heading mt="-5px" as="h5" size="sm" alignSelf="flex-start">

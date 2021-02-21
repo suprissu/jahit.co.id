@@ -106,7 +106,7 @@ const ChatContainer = () => {
 
     return (
         <VStack
-            width={isMobile ? "100%" : "auto"}
+            width="100%"
             height="100%"
             flex="1"
             justifyContent="center"

@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Dropzone from "@components/Dropzone";
-import { VStack, HStack, Button } from "@chakra-ui/react";
+import { VStack, HStack, Button, Text } from "@chakra-ui/react";
 
-const SendFileDialog = ({ onClose, path }) => {
+const SendFileDialog = ({ onClose, path, name, data, content }) => {
     const [file, setFile] = useState([]);
 
     const sendCommand = () => {
         const formData = new FormData();
-        file.forEach(data => {
-            formData.append("shipment_receipt_path", data);
+        if (data)
+            Object.keys(data).forEach(key => {
+                formData.append(key, data[key]);
+            });
+        file.forEach(buffer => {
+            formData.append(name, buffer);
         });
         axios
             .post(path, formData)
@@ -23,9 +27,10 @@ const SendFileDialog = ({ onClose, path }) => {
 
     return (
         <VStack alignItems="flex-start">
+            {content}
             <Dropzone
                 title="Upload Bukti Resi"
-                name="shipment_receipt_path"
+                name={name}
                 value={file}
                 setValue={setFile}
             />

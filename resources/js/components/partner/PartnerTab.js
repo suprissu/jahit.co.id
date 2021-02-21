@@ -104,6 +104,7 @@ const Action = ({ status, data }) => {
                                 path={`/home/${actionStatus(status).type}/${
                                     actionStatus(status).action
                                 }/${data.id}`}
+                                name="shipment_receipt_path"
                             />
                         ) : (
                             <TemplateDialog

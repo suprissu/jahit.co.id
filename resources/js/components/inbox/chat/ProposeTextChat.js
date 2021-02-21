@@ -7,7 +7,7 @@ const ProposeTextChat = ({ data, isAccepted }) => {
     const { selectedData } = useData();
 
     return (
-        <VStack padding={3} alignItems="flex-start">
+        <VStack width="100%" padding={3} alignItems="flex-start">
             {isAccepted ? (
                 <Text>
                     Proyek {selectedData.project.count} buah{" "}

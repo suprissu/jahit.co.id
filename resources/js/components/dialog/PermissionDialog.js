@@ -9,8 +9,8 @@ const PermissionDialog = ({ data, selectedData, onClose, path }) => {
             chatID: data.id,
             inboxID: selectedData.id,
             negotiationID: data.negotiation.id,
-            partnerID: data.partner.id,
-            projectID: data.project.id
+            partnerID: selectedData.partner.id,
+            projectID: selectedData.project.id
         });
     }, []);
 

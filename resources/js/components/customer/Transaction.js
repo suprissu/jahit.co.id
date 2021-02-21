@@ -86,7 +86,6 @@ const TransactionApp = props => {
 
 const root = document.getElementById("customer-transaction");
 if (root) {
-    console.log("test");
     const props = window.props;
     ReactDOM.render(<TransactionApp {...props} />, root);
 }

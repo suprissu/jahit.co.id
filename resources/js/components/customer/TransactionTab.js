@@ -45,8 +45,6 @@ const TransactionTab = function TransactionTab({ data }) {
     const { rekeningHasCopied, rekeningOnCopy } = rekeningCopy();
     const { costHasCopied, costOnCopy } = costCopy();
 
-    console.log(data);
-
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <AlertDialog

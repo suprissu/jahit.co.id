@@ -19,8 +19,6 @@ const ChatTemplate = ({ data }) => {
     const { userRole } = useProps();
     const { type } = data;
 
-    console.log(selectedData);
-
     if (type === "INISIASI" && userRole === "VENDOR") {
         return (
             <InitiateNegotiationChat data={data} selectedData={selectedData} />

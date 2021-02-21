@@ -153,8 +153,6 @@ const AdminChat = () => {
 
     if (isMobile === null) return null;
 
-    console.log(isMobile);
-
     return (
         <VStack
             position="fixed"

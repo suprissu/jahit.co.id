@@ -11,18 +11,22 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.react("resources/js/app.js", "public/js")
-    .sass("resources/sass/app.scss", "public/css")
-    .extract(["react", "react-dom"])
-    .webpackConfig({
-        resolve: {
-            alias: {
-                "@components": path.resolve(
-                    __dirname,
-                    "resources/js/components/"
-                ),
-                "@utils": path.resolve(__dirname, "resources/js/utils/"),
-                "@sass": path.resolve(__dirname, "resources/sass/")
-            }
+mix.react("resources/js/app.js", "public/js").sass(
+    "resources/sass/app.scss",
+    "public/css"
+);
+
+mix.webpackConfig({
+    output: { chunkFilename: "assets/next/js/[name].js?id=[chunkhash]" },
+    resolve: {
+        alias: {
+            //adding react and react-dom may not be necessary for you but it did fix some issues in my setup.
+            react: path.resolve("node_modules/react"),
+            "react-dom": path.resolve("node_modules/react-dom"),
+
+            "@components": path.resolve("resources/js/components"),
+            "@utils": path.resolve("resources/js/utils"),
+            "@sass": path.resolve("resources/sass")
         }
-    });
+    }
+});

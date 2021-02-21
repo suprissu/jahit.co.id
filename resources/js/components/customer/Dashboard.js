@@ -66,16 +66,10 @@ export default function Dashboard() {
                 </TabList>
                 <TabPanels>
                     <TabPanel padding="0px">
-                        <CustomPanels
-                            data={projects}
-                            CustomTab={<CustomerTab />}
-                        />
+                        <CustomPanels data={projects} CustomTab={CustomerTab} />
                     </TabPanel>
                     <TabPanel padding="0px">
-                        <CustomPanels
-                            data={samples}
-                            CustomTab={<CustomerTab />}
-                        />
+                        <CustomPanels data={samples} CustomTab={CustomerTab} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

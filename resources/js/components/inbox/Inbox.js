@@ -35,6 +35,8 @@ export default function Inbox() {
 
     if (isMobile === null) return null;
 
+    console.log(isMobile);
+
     return (
         <ChakraProvider>
             <AdminChat />

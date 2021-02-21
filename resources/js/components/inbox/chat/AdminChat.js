@@ -6,27 +6,18 @@ import {
     VStack,
     IconButton,
     Image,
-    Popover,
-    PopoverTrigger,
-    PopoverContent,
-    PopoverArrow,
-    PopoverCloseButton,
-    PopoverHeader,
-    PopoverBody,
     Input,
     Text,
-    Spinner
+    Spinner,
+    useDisclosure
 } from "@chakra-ui/react";
-import CustomTag from "@components/tablist/CustomTag";
-import { useData, useProps, useMobile } from "@utils/Context";
+import { useProps, useMobile } from "@utils/Context";
 import _ from "lodash";
-import { ChatIcon, ArrowForwardIcon } from "@chakra-ui/icons";
+import { ChatIcon, ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import axios from "axios";
-import { dateFormat } from "../../../utils/helper";
 
 const Message = ({ data }) => {
     const { role, message, created_at } = data;
-    const { userRole } = useProps();
 
     const alignRole = msgRole => {
         if (msgRole === "customer") return "flex-end";
@@ -68,7 +59,8 @@ const Message = ({ data }) => {
 const Messages = ({ data }) => {
     return (
         <VStack
-            height="100%"
+            flex="1"
+            height="240px"
             width="100%"
             flexDirection="column-reverse"
             overflowY="auto"
@@ -89,7 +81,7 @@ const Messages = ({ data }) => {
 };
 
 const ChatContainer = () => {
-    const { isMobile } = useProps();
+    const { isMobile } = useMobile();
     const { adminInbox } = useProps();
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -123,7 +115,7 @@ const ChatContainer = () => {
             {adminInbox ? (
                 <Messages data={adminInbox} />
             ) : (
-                <VStack margin={4}>
+                <VStack flex="1" margin={4}>
                     <Image
                         boxSize="240px"
                         objectFit="contain"
@@ -156,32 +148,53 @@ const ChatContainer = () => {
 };
 
 const AdminChat = () => {
-    const { isMobile } = useProps();
+    const { isOpen, onToggle } = useDisclosure();
+    const { isMobile } = useMobile();
 
     if (isMobile === null) return null;
 
+    console.log(isMobile);
+
     return (
         <VStack
-            width="320px"
             position="fixed"
-            zIndex="99"
+            zIndex="999"
             bottom="81px"
-            right="5vw"
-            paddingX="2rem"
+            right={isMobile ? "0" : "5vw"}
+            paddingX={isMobile ? "0" : "2rem"}
             alignItems="flex-end"
         >
-            <Popover>
-                <PopoverContent margin={4}>
-                    <PopoverHeader>Admin Chat</PopoverHeader>
-                    <PopoverBody>
-                        <ChatContainer />
-                    </PopoverBody>
-                    <PopoverCloseButton />
-                </PopoverContent>
-                <PopoverTrigger>
-                    <IconButton colorScheme="red" icon={<ChatIcon />} />
-                </PopoverTrigger>
-            </Popover>
+            {isOpen ? (
+                <VStack
+                    marginBottom={isMobile ? "-130px" : "0"}
+                    height={isMobile ? "100vh" : "auto"}
+                    width={isMobile ? "100vw" : "320px"}
+                    borderRadius="10px"
+                    bgColor="white"
+                    borderWidth="1px"
+                    zIndex="1"
+                    p={4}
+                >
+                    <HStack width="100%" p={2} borderBottomWidth="1px">
+                        {isMobile ? (
+                            <IconButton
+                                onClick={onToggle}
+                                variant="ghost"
+                                icon={<ArrowBackIcon />}
+                            />
+                        ) : null}
+                        <Text>Admin Chat</Text>
+                    </HStack>
+                    <ChatContainer />
+                </VStack>
+            ) : null}
+            <IconButton
+                marginRight="1rem"
+                onClick={onToggle}
+                size="lg"
+                colorScheme="red"
+                icon={<ChatIcon />}
+            />
         </VStack>
     );
 };

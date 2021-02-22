@@ -58,8 +58,6 @@ const Action = ({ status, data }) => {
             status.type = null;
         }
 
-        console.log(stat);
-
         if (start.includes(stat)) {
             status.action = "start";
         } else if (finish.includes(stat)) {
@@ -86,8 +84,6 @@ const Action = ({ status, data }) => {
         else if (stat === "send") return "Kirimkan";
         else return null;
     };
-
-    console.log(actionStatus(status).action);
 
     if (actionStatus(status).type !== null)
         return (
@@ -131,8 +127,6 @@ const Action = ({ status, data }) => {
 const ProjectTab = ({ data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { selectedData, setSelectedData } = useData();
-
-    console.log(data);
 
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">

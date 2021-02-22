@@ -20,8 +20,6 @@ const ProjectTab = ({ data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { selectedData, setSelectedData } = useData();
 
-    console.log(data);
-
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <AlertDialog

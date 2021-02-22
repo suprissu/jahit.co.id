@@ -86,7 +86,6 @@ const ChatContainer = () => {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
-    console.log(adminInbox);
     const messageId =
         adminInbox && adminInbox.length > 0 ? adminInbox[0].id : -1;
 

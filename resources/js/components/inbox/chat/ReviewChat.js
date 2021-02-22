@@ -22,8 +22,6 @@ const ReviewChat = ({ data }) => {
     const [inboxID, setInboxID] = useState(null);
     const [chatID, setChatID] = useState(null);
 
-    console.log(selectedData);
-
     useEffect(() => {
         setChatID(data.id);
         setInboxID(selectedData.id);

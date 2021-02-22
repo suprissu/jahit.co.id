@@ -67,8 +67,6 @@ const Chat = ({ data }) => {
     const { role } = data;
     const { userRole } = useProps();
 
-    console.log(data);
-
     const alignRole = msgRole => {
         if (msgRole === "ADMIN") return "center";
         else if (msgRole === userRole) return "flex-end";

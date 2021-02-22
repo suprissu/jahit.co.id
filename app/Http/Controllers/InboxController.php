@@ -97,7 +97,7 @@ class InboxController extends Controller
                     ->get();
         $role = "CLIENT";
 
-        $adminInbox = $user->adminInboxes->with('adminChats')->orderBy('updated_at', 'desc')->get();
+        $adminInbox = $user->adminInboxes()->with('adminChats')->orderBy('updated_at', 'desc')->get();
 
         return view('pages.customer.inbox', get_defined_vars());
     }

@@ -35,10 +35,7 @@ import {
     PAY_FAIL
 } from "@utils/Constants";
 
-const CustomTag = ({ data }) => {
-    const status = data.status;
-    const deadline = data.deadline || "";
-
+const CustomTag = ({ status, deadline }) => {
     const STATUS_SUCCESS = [
         PROJECT_DP_OK,
         PROJECT_FINISHED,
@@ -89,7 +86,9 @@ const CustomTag = ({ data }) => {
                 <Tag size="md" colorScheme="yellow">
                     {status}
                 </Tag>
-                <Text fontSize="xs">Deadline: {dateFormat(deadline)}</Text>
+                {deadline && deadline !== "" ? (
+                    <Text fontSize="xs">Deadline: {dateFormat(deadline)}</Text>
+                ) : null}
             </Box>
         );
     } else if (STATUS_FAILED.includes(status)) {

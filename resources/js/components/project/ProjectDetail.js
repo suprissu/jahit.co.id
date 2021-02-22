@@ -28,7 +28,7 @@ const ProjectDetail = ({ data, editable }) => {
                     <Text size="sm" fontSize="xs">
                         {dateFormat(data.created_at)}
                     </Text>
-                    <CustomTag data={data} />
+                    <CustomTag status={data.status} deadline={data.deadline} />
                 </VStack>
                 <VStack>
                     {editable ? (
@@ -75,7 +75,7 @@ const ProjectDetail = ({ data, editable }) => {
                     </Text>
                 </HStack>
             ) : null}
-            {data.startDate ? (
+            {data.start_date ? (
                 <HStack mt={2} justifyContent="space-between">
                     <Text fontSize="sm">Mulai Pengerjaan </Text>
                     <Text align="right" color="gray.400" fontSize="sm">

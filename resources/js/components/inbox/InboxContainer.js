@@ -3,7 +3,7 @@ import { Heading, VStack, Image } from "@chakra-ui/react";
 import Messages from "@components/inbox/Messages";
 import { useData, useProps } from "@utils/Context";
 
-const ChatContainer = () => {
+const InboxContainer = () => {
     const { isMobile } = useProps();
     const { selectedData } = useData();
 
@@ -37,4 +37,4 @@ const ChatContainer = () => {
     );
 };
 
-export default ChatContainer;
+export default InboxContainer;

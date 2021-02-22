@@ -56,7 +56,8 @@ const ChatTemplate = ({ data }) => {
     } else if (type === "REVISI DITOLAK") {
         return <RevisionRejectedChat data={data} />;
     } else if (type === "REVIEW") {
-        return <ReviewChat data={data} />;
+        if (userRole === "CLIENT") return <ReviewChat data={data} />;
+        else return null;
     } else {
         return null;
     }
@@ -65,6 +66,8 @@ const ChatTemplate = ({ data }) => {
 const Chat = ({ data }) => {
     const { role } = data;
     const { userRole } = useProps();
+
+    console.log(data);
 
     const alignRole = msgRole => {
         if (msgRole === "ADMIN") return "center";

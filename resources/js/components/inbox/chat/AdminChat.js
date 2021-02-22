@@ -86,7 +86,9 @@ const ChatContainer = () => {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const messageId = adminInbox ? adminInbox[0].id : -1;
+    console.log(adminInbox);
+    const messageId =
+        adminInbox && adminInbox.length > 0 ? adminInbox[0].id : -1;
 
     const sendMessage = () => {
         setLoading(true);
@@ -112,7 +114,7 @@ const ChatContainer = () => {
             justifyContent="center"
             alignItems="center"
         >
-            {adminInbox ? (
+            {messageId !== -1 ? (
                 <Messages data={adminInbox} />
             ) : (
                 <VStack flex="1" margin={4}>

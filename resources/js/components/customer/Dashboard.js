@@ -13,7 +13,8 @@ import {
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
-import CustomerTab from "@components/customer/CustomerTab";
+import ProjectTab from "@components/customer/ProjectTab";
+import SampleTab from "@components/customer/SampleTab";
 import AlertDialog from "@components/dialog/AlertDialog";
 import CustomPanels from "@components/tablist/CustomPanels";
 import ProjectForm from "@components/project/ProjectForm";
@@ -66,10 +67,10 @@ export default function Dashboard() {
                 </TabList>
                 <TabPanels>
                     <TabPanel padding="0px">
-                        <CustomPanels data={projects} CustomTab={CustomerTab} />
+                        <CustomPanels data={projects} CustomTab={ProjectTab} />
                     </TabPanel>
                     <TabPanel padding="0px">
-                        <CustomPanels data={samples} CustomTab={CustomerTab} />
+                        <CustomPanels data={samples} CustomTab={SampleTab} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

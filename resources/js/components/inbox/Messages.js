@@ -23,7 +23,10 @@ const Messages = () => {
                 <Heading my="5px" as="h5" size="sm" alignSelf="flex-start">
                     {selectedData.partner.company_name}
                 </Heading>
-                <CustomTag data={selectedData.project} />
+                <CustomTag
+                    status={selectedData.project.status}
+                    deadline={selectedData.project.deadline}
+                />
             </Box>
             <VStack
                 height="100%"

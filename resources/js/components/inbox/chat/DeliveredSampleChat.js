@@ -1,16 +1,9 @@
-import {
-    Heading,
-    HStack,
-    useDisclosure,
-    Text,
-    Badge,
-    useProps
-} from "@chakra-ui/react";
+import { Heading, HStack, useDisclosure, Text, Badge } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Button, Card } from "semantic-ui-react";
 import AlertDialog from "@components/dialog/AlertDialog";
 import PermissionDialog from "@components/dialog/PermissionDialog";
-import { useData } from "@utils/Context";
+import { useData, useProps } from "@utils/Context";
 import { currencyFormat } from "@utils/helper";
 import { URL_SAMPLE_REQUEST, URL_SAMPLE_DEAL } from "@utils/Path";
 

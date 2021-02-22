@@ -13,7 +13,8 @@ import ReactDOM from "react-dom";
 import _ from "lodash";
 import CustomPanels from "@components/tablist/CustomPanels";
 import ContextProvider, { useProps } from "@utils/Context";
-import PartnerTab from "@components/partner/PartnerTab";
+import ProjectTab from "@components/partner/ProjectTab";
+import SampleTab from "@components/partner/SampleTab";
 import "semantic-ui-css/semantic.min.css";
 
 export default function Dashboard() {
@@ -40,10 +41,10 @@ export default function Dashboard() {
                 </TabList>
                 <TabPanels>
                     <TabPanel padding="0px">
-                        <CustomPanels data={projects} CustomTab={PartnerTab} />
+                        <CustomPanels data={projects} CustomTab={ProjectTab} />
                     </TabPanel>
                     <TabPanel padding="0px">
-                        <CustomPanels data={samples} CustomTab={PartnerTab} />
+                        <CustomPanels data={samples} CustomTab={SampleTab} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

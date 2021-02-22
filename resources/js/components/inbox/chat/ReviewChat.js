@@ -14,7 +14,7 @@ const ReviewChat = ({ data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const { project } = selectedData;
     const [form, setForm] = useState(null);
-    const [rating, setRating] = useState(null);
+    const [star, setStar] = useState(null);
     const [feedback, setFeedback] = useState("");
     const [projectID, setProjectID] = useState(null);
     const [customerID, setCustomerID] = useState(null);
@@ -22,14 +22,16 @@ const ReviewChat = ({ data }) => {
     const [inboxID, setInboxID] = useState(null);
     const [chatID, setChatID] = useState(null);
 
+    console.log(selectedData);
+
     useEffect(() => {
         setChatID(data.id);
         setInboxID(selectedData.id);
         setProjectID(selectedData.project_id);
         setCustomerID(selectedData.customer_id);
         setPartnerID(selectedData.partner_id);
-        if (selectedData.project.rating) setRating(selectedData.project.rating);
-        else setRating(0);
+        if (selectedData.project.rating) setStar(selectedData.project.rating);
+        else setStar(0);
         if (selectedData.project.feedback)
             setFeedback(selectedData.project.feedback);
     }, []);
@@ -41,10 +43,10 @@ const ReviewChat = ({ data }) => {
             partnerID,
             inboxID,
             chatID,
-            rating,
+            star,
             feedback
         });
-    }, [rating, feedback]);
+    }, [star, feedback]);
 
     return (
         <Card.Group style={{ width: "100%", margin: "0px" }}>
@@ -93,19 +95,12 @@ const ReviewChat = ({ data }) => {
                                 pekerjaannya ya !
                             </Text>
                         )}
-                        {userRole === "CLIENT" ? (
-                            <Rating
-                                rating={rating}
-                                maxRating={5}
-                                onRate={(e, { rating }) => setRating(rating)}
-                            />
-                        ) : (
-                            <Rating
-                                disabled={true}
-                                rating={rating}
-                                maxRating={5}
-                            />
-                        )}
+                        <Rating
+                            rating={star}
+                            maxRating={5}
+                            disabled={star === null || star === undefined}
+                            onRate={(e, { rating }) => setStar(rating)}
+                        />
                         {userRole === "CLIENT" ? (
                             <NormalInput
                                 isRequired={true}

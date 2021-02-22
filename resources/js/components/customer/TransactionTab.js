@@ -110,7 +110,7 @@ const TransactionTab = function TransactionTab({ data }) {
                     </Text>
                 </Box>
                 <VStack alignItems="flex-end">
-                    <CustomTag data={data} />
+                    <CustomTag status={data.status} deadline={data.deadline} />
                 </VStack>
             </HStack>
             <Divider my={2} />
@@ -144,26 +144,26 @@ const TransactionTab = function TransactionTab({ data }) {
                         Unggah Bukti Pembayaran
                     </Button>
                 ) : null}
-                {data.mou ? (
-                    <Button
-                        as="a"
-                        href={`/home/transaction/download/mou/${data.mou.id}`}
-                        size="sm"
-                        onClick={onOpen}
-                    >
-                        Unggah MOU
-                    </Button>
-                ) : null}
-                {data.invoice ? (
-                    <Button
-                        as="a"
-                        href={`/home/transaction/download/invoice/${data.invoice.id}`}
-                        size="sm"
-                        onClick={onOpen}
-                    >
-                        Unggah Invoice
-                    </Button>
-                ) : null}
+                <HStack>
+                    {data.mou ? (
+                        <Button
+                            as="a"
+                            href={`/home/transaction/download/mou/${data.mou.id}`}
+                            size="sm"
+                        >
+                            Unggah MOU
+                        </Button>
+                    ) : null}
+                    {data.invoice ? (
+                        <Button
+                            as="a"
+                            href={`/home/transaction/download/invoice/${data.invoice.id}`}
+                            size="sm"
+                        >
+                            Unggah Invoice
+                        </Button>
+                    ) : null}
+                </HStack>
             </HStack>
         </Box>
     );

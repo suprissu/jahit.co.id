@@ -12,7 +12,6 @@ import {
     Badge,
     useDisclosure
 } from "@chakra-ui/react";
-import CustomTag from "@components/tablist/CustomTag";
 import { dateFormat } from "@utils/helper";
 import { useProps } from "@utils/Context";
 

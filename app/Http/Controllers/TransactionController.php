@@ -141,7 +141,9 @@ class TransactionController extends Controller
      */
     public function partnerTransaction(Request $request, $user, $role)
     {
-        $partner = $user->partner()->first();
+        $partner = $user->partner()->with('projects')->first();
+
+        $materials = Material::all();
 
         $requestsAll = $partner->projects()
                             ->whereHas('materialRequests')

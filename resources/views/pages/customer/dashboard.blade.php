@@ -33,7 +33,6 @@ window.props = {
 @endsection
 
 @section('content')
-@include('layouts/modalAddProject')
 <div class="custom-container">
     <div class="custom-wrapper">
         <div id="customer-projects" ></div>

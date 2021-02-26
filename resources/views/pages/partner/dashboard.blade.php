@@ -33,11 +33,6 @@ window.props = {
 @endsection
 
 @section('content')
-@include('layouts/modalAddProject')
-@include('layouts/modalEditProject')
-@inject('sampleStatusConstant', 'App\Constant\SampleStatusConstant')
-@inject('projectStatusConstant', 'App\Constant\ProjectStatusConstant')
-
 <div class="custom-container">
     <div class="custom-wrapper">
         <div id="partner-projects" ></div>

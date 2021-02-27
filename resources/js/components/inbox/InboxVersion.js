@@ -1,7 +1,7 @@
 import React from "react";
 import { Box } from "@chakra-ui/react";
-import AdminInboxContainer from "@components/inbox/admin/InboxContainer";
-import AdminNavigationInbox from "@components/inbox/admin/NavigationInbox";
+import AdminInboxContainer from "@components/admin/InboxContainer";
+import AdminNavigationInbox from "@components/admin/NavigationInbox";
 import InboxContainer from "@components/inbox/InboxContainer";
 import NavigationInbox from "@components/inbox/NavigationInbox";
 import { useData, useMobile, useProps } from "@utils/Context";

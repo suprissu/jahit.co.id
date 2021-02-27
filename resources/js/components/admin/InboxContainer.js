@@ -9,7 +9,7 @@ import {
     Input
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import Messages from "@components/inbox/admin/Messages";
+import Messages from "@components/admin/Messages";
 import { useData } from "@utils/Context";
 import axios from "axios";
 

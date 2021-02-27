@@ -1,6 +1,6 @@
 import React from "react";
 import { Heading, Box, VStack } from "@chakra-ui/react";
-import Message from "@components/inbox/admin/Message";
+import Message from "@components/admin/Message";
 import { useData, useMobile } from "@utils/Context";
 import _ from "lodash";
 

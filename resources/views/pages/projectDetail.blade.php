@@ -89,9 +89,4 @@
 @endsection
 
 @section('extra-js')
-<script>
-$(".preview__list img").on("click", (e) => {
-    console.log(e)
-})
-</script>
 @endsection

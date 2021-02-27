@@ -12,7 +12,6 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import { useProps, useMobile } from "@utils/Context";
-import _ from "lodash";
 import { ChatIcon, ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
@@ -67,13 +66,11 @@ const Messages = ({ data }) => {
         >
             <VStack width="100%" padding={4}>
                 {data[0].admin_chats.map((data, index) => {
-                    if (_.isEmpty(data)) return null;
-                    else
-                        return (
-                            <VStack width="100%" key={index}>
-                                <Message data={data} />
-                            </VStack>
-                        );
+                    return data ? (
+                        <VStack width="100%" key={index}>
+                            <Message data={data} />
+                        </VStack>
+                    ) : null;
                 })}
             </VStack>
         </VStack>

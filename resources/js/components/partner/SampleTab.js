@@ -10,7 +10,6 @@ import {
     Button,
     useDisclosure
 } from "@chakra-ui/react";
-import _ from "lodash";
 import { useData } from "@utils/Context";
 import { currencyFormat, dateFormat } from "@utils/helper";
 import AlertDialog from "@components/dialog/AlertDialog";

@@ -1,11 +1,13 @@
 let passwordType = true;
-$(".passwordHelp").click(() => {
+document.querySelector(".passwordHelp").addEventListener("click", () => {
     if (passwordType) {
-        $(".passwordHelp").html('<i class="far fa-eye"></i>');
-        $(".password").attr("type", "text");
+        document.querySelector(".passwordHelp").innerHTML =
+            '<i class="far fa-eye"></i>';
+        document.querySelector(".password").setAttribute("type", "text");
     } else {
-        $(".passwordHelp").html('<i class="far fa-eye-slash"></i>');
-        $(".password").attr("type", "password");
+        document.querySelector(".passwordHelp").innerHTML =
+            '<i class="far fa-eye-slash"></i>';
+        document.querySelector(".password").setAttribute("type", "password");
     }
     passwordType = !passwordType;
 });

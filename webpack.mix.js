@@ -11,10 +11,7 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.react("resources/js/app.js", "public/js").sass(
-    "resources/sass/app.scss",
-    "public/css"
-);
+mix.react("resources/js/app.js", "public/js");
 
 mix.webpackConfig({
     output: { chunkFilename: "assets/next/js/[name].js?id=[chunkhash]" },

@@ -23,7 +23,7 @@
                         <p>cs@jahit.co.id</p>
                     </span>
                     <div class="footer__contact--socmed">
-                        <a href="https://www.instagram.com/jahit.co.id/">
+                        <a href="https://www.instagram.com/jahit.co.id/" aria-label="instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
                     </div>

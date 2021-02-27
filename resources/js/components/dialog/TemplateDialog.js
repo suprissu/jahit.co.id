@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { VStack, Text, HStack, Button } from "@chakra-ui/react";
-import _ from "lodash";
 
 const TemplateDialog = ({ onClose, url, method, data, content }) => {
     const sendCommand = () => {
@@ -24,7 +23,7 @@ const TemplateDialog = ({ onClose, url, method, data, content }) => {
             <HStack alignSelf="flex-end">
                 <Button onClick={onClose}>Batal</Button>
                 <Button
-                    disabled={data && _.values(data).includes("")}
+                    disabled={data && Object.values(data).includes("")}
                     colorScheme="teal"
                     onClick={sendCommand}
                 >

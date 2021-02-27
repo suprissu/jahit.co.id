@@ -1,7 +1,7 @@
 <nav>
     <div class="navbar">
         <div class="navbar__container">
-            <button id="expand-button" class="btn btn-outline-light"><i class="fas fa-bars"></i></button>
+            <button id="expand-button" class="btn btn-outline-light" aria-label="more"><i class="fas fa-bars"></i></button>
             <div class="navbar__links"><a href="/">Beranda</a><a href="/about">Tentang Kami</a></div>
             <div class="navbar__logo"></div>
         </div>
@@ -11,7 +11,7 @@
             <a href="{{ route('login') }}"><button class="btn btn-outline-light">Masuk</button></a>
         @else
             <div class="dropdown">
-                <a href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a id="dropdownMenuLink">
                     <button class="btn btn-outline-light dropdown-toggle">
                         @inject('roleConstants', 'App\Constant\RoleConstant')
                         @if ( Auth::user()->roles()->count() == 0)
@@ -26,7 +26,7 @@
                     </button>
                 </a>
 
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <div id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <a class="dropdown-item" href="{{ route('home') }}">Proyek</a>
                     <a class="dropdown-item" href="{{ route('home.inbox') }}">Pesan</a>
                     @if ( Auth::user()->roles()->count() == 0)

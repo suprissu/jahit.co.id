@@ -13,7 +13,6 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 import TransactionTab from "@components/partner/TransactionTab";
 import CustomTabs from "@components/tablist/CustomTabs";
 import AlertDialog from "@components/dialog/AlertDialog";

@@ -1,22 +1,22 @@
 const productsProject = [
     {
-        img: "/img/uniform.png",
+        img: "/img/uniform.webp",
         title: "Seragam (Kantor, Sekolah, Organisasi)",
         description:
-            "Seragam Sekolah, Rumah Sakit, Kantor, Organisasi, Tambang, Hotel, Pabrik, Satpam, Teknisi, SPBU, Satpam, dsb,.",
+            "Seragam Sekolah, Rumah Sakit, Kantor, Organisasi, Tambang, Hotel, Pabrik, Satpam, Teknisi, SPBU, Satpam, dsb,."
     },
     {
-        img: "/img/jeans.png",
+        img: "/img/jeans.webp",
         title: "Fashion (Pria, Wanita, Anak)",
         description:
-            "Kaos, Kemeja, Jacket,Jeans, Denim, Chino, Celana Pendek, Rok, Dress, Cardigan, Blazer, Polo Shirtt, Dsb.",
+            "Kaos, Kemeja, Jacket,Jeans, Denim, Chino, Celana Pendek, Rok, Dress, Cardigan, Blazer, Polo Shirtt, Dsb."
     },
     {
-        img: "/img/officer.png",
+        img: "/img/officer.webp",
         title: "Others (Safety, Medical, Sport, Etc.)",
         description:
-            "Pakaian Rumah Sakit ataupun Pakaian Keselamatan yang membutuhkan Uji Test Lab dapat kami penuhi.",
-    },
+            "Pakaian Rumah Sakit ataupun Pakaian Keselamatan yang membutuhkan Uji Test Lab dapat kami penuhi."
+    }
 ];
 
 const card = (img, title, description) => {
@@ -43,4 +43,4 @@ for (let i = 0; i < productsProject.length; i++) {
     productsContainer.append(cardWrapper);
 }
 
-$(".products__container").append(productsContainer);
+document.querySelector(".products__container").append(productsContainer);

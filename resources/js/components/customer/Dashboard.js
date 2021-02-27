@@ -12,7 +12,6 @@ import {
     useDisclosure
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 import ProjectTab from "@components/customer/ProjectTab";
 import SampleTab from "@components/customer/SampleTab";
 import AlertDialog from "@components/dialog/AlertDialog";

@@ -2,7 +2,6 @@ import React from "react";
 import { Heading, Box, VStack } from "@chakra-ui/react";
 import Message from "@components/admin/Message";
 import { useData, useMobile } from "@utils/Context";
-import _ from "lodash";
 
 const Messages = () => {
     const { selectedData } = useData();
@@ -31,13 +30,11 @@ const Messages = () => {
             >
                 <VStack width="100%" padding={4}>
                     {selectedData.admin_chats.map((data, index) => {
-                        if (_.isEmpty(data)) return null;
-                        else
-                            return (
-                                <VStack width="100%" key={index}>
-                                    <Message data={data} />
-                                </VStack>
-                            );
+                        return data ? (
+                            <VStack width="100%" key={index}>
+                                <Message data={data} />
+                            </VStack>
+                        ) : null;
                     })}
                 </VStack>
             </VStack>

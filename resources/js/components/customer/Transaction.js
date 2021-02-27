@@ -10,7 +10,6 @@ import {
     HStack
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 import TransactionTab from "@components/customer/TransactionTab";
 import CustomTabs from "@components/tablist/CustomTabs";
 import ContextProvider, { useData, useProps } from "@utils/Context";

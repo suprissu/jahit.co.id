@@ -7,7 +7,6 @@ import {
     IconButton
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 import ContextProvider, { useData, useMobile, useProps } from "@utils/Context";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import InboxVersion from "@components/inbox/InboxVersion";

@@ -10,7 +10,6 @@ import {
     HStack
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
-import _ from "lodash";
 import CustomPanels from "@components/tablist/CustomPanels";
 import ContextProvider, { useProps } from "@utils/Context";
 import ProjectTab from "@components/partner/ProjectTab";

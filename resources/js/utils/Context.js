@@ -2,7 +2,6 @@ import React, { useState, createContext, useContext } from "react";
 export const DataContext = createContext();
 export const PropsContext = createContext();
 export const MobileContext = createContext();
-import _ from "lodash";
 
 export function useData() {
     return useContext(DataContext);
@@ -16,9 +15,17 @@ export function useMobile() {
     return useContext(MobileContext);
 }
 
+function pickBy(object, predicate = v => v) {
+    return Object.assign(
+        ...Object.entries(object)
+            .filter(data => predicate(data))
+            .map(([key, val]) => ({ [key]: val }))
+    );
+}
+
 const ContextProvider = params => {
     const { children } = params;
-    const props = _.pickBy(params, (value, key) => key !== "children");
+    const props = pickBy(params, ([key, _]) => key !== "children");
     const [selectedData, setSelectedData] = useState(null);
     const [isMobile, setIsMobile] = useState(null);
 

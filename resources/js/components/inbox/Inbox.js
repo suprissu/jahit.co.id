@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import ReactDOM from "react-dom";
 import _ from "lodash";
-import ContextProvider, { useData, useMobile } from "@utils/Context";
+import ContextProvider, { useData, useMobile, useProps } from "@utils/Context";
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import InboxVersion from "@components/inbox/InboxVersion";
 import "semantic-ui-css/semantic.min.css";
@@ -17,6 +17,7 @@ import AdminChat from "@components/inbox/chat/AdminChat";
 export default function Inbox() {
     const { isMobile, setIsMobile } = useMobile();
     const { selectedData, setSelectedData } = useData();
+    const { userRole } = useProps();
 
     useEffect(() => {
         if (window.innerWidth < 767) {
@@ -37,7 +38,7 @@ export default function Inbox() {
 
     return (
         <ChakraProvider>
-            <AdminChat />
+            {userRole !== "ADMIN" ? <AdminChat /> : null}
             <HStack>
                 {isMobile && selectedData ? (
                     <IconButton

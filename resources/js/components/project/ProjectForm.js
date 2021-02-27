@@ -1,54 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-    VStack,
-    FormControl,
-    FormLabel,
-    HStack,
-    Button,
-    Spinner
-} from "@chakra-ui/react";
-import { Dropdown } from "semantic-ui-react";
+import { VStack, HStack, Button, Spinner } from "@chakra-ui/react";
 import axios from "axios";
 import Dropzone from "@components/Dropzone";
 import NormalInput from "@components/NormalInput";
+import SelectInput from "@components/SelectInput";
 import AlertDialog from "@components/dialog/AlertDialog";
 import { useProps } from "@utils/Context";
-
-const CategorySelect = ({
-    placeholder,
-    disabled,
-    name,
-    value,
-    setValue,
-    error,
-    title,
-    options
-}) => {
-    return (
-        <FormControl
-            id={name}
-            pt={2}
-            isInvalid={
-                error !== undefined && error !== null && error.length > 0
-            }
-        >
-            <FormLabel>{title}</FormLabel>
-            <Dropdown
-                placeholder={placeholder}
-                fluid
-                search
-                selection
-                name={name}
-                value={value}
-                onChange={(e, { value }) => {
-                    setValue(value);
-                }}
-                disabled={disabled}
-                options={options}
-            />
-        </FormControl>
-    );
-};
 
 const ProjectForm = ({ data, onClose }) => {
     const { categories } = useProps();
@@ -129,7 +86,7 @@ const ProjectForm = ({ data, onClose }) => {
                 setValue={setName}
                 disabled={isDisabled}
             />
-            <CategorySelect
+            <SelectInput
                 name="category"
                 title="Kategori Proyek"
                 placeholder="Masukkan kategori"

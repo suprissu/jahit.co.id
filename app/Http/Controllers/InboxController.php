@@ -77,7 +77,7 @@ class InboxController extends Controller
      */
     public function administratorDashboard(Request $request, $user, $role)
     {
-        $inboxes = AdminInbox::orderBy('updated_at', 'desc')->get();
+        $inboxes = AdminInbox::orderBy('updated_at', 'desc')->with('adminChats', 'receiver')->get();
         $role = "ADMIN";
         
         return view('pages.administrator.inbox', get_defined_vars());

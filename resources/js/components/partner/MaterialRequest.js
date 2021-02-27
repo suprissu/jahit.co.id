@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
     VStack,
     FormControl,
@@ -7,48 +7,12 @@ import {
     Button,
     Spinner
 } from "@chakra-ui/react";
-import { Dropdown } from "semantic-ui-react";
 import axios from "axios";
 import NormalInput from "@components/NormalInput";
+import SelectInput from "@components/SelectInput";
 import AlertDialog from "@components/dialog/AlertDialog";
 import { useProps } from "@utils/Context";
 import { URL_REQUEST_MATERIAL } from "@utils/Path";
-
-const SelectInput = ({
-    placeholder,
-    disabled,
-    name,
-    value,
-    setValue,
-    error,
-    title,
-    options
-}) => {
-    return (
-        <FormControl
-            id={name}
-            pt={2}
-            isInvalid={
-                error !== undefined && error !== null && error.length > 0
-            }
-        >
-            <FormLabel>{title}</FormLabel>
-            <Dropdown
-                placeholder={placeholder}
-                fluid
-                search
-                selection
-                name={name}
-                value={value}
-                onChange={(e, { value }) => {
-                    setValue(value);
-                }}
-                disabled={disabled}
-                options={options}
-            />
-        </FormControl>
-    );
-};
 
 const MaterialRequest = ({ onClose }) => {
     const { partner, materials } = useProps();

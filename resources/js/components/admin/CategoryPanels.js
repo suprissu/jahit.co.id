@@ -90,6 +90,7 @@ const CategoryPanels = ({ data, CustomTab }) => {
                     left="0"
                     right="0"
                     zIndex="998"
+                    marginInlineEnd="0.5rem"
                     boxShadow="lg"
                     rounded="md"
                     padding={4}

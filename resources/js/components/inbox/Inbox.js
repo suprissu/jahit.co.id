@@ -18,23 +18,6 @@ export default function Inbox() {
     const { selectedData, setSelectedData } = useData();
     const { userRole } = useProps();
 
-    useEffect(() => {
-        if (window.innerWidth < 767) {
-            setIsMobile(true);
-        } else {
-            setIsMobile(false);
-        }
-        window.addEventListener("resize", e => {
-            if (e.target.innerWidth < 767) {
-                setIsMobile(true);
-            } else {
-                setIsMobile(false);
-            }
-        });
-    }, []);
-
-    if (isMobile === null) return null;
-
     return (
         <ChakraProvider>
             {userRole !== "ADMIN" ? <AdminChat /> : null}

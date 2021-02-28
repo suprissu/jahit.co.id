@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 export const DataContext = createContext();
 export const PropsContext = createContext();
 export const MobileContext = createContext();
@@ -34,6 +34,23 @@ const ContextProvider = params => {
     const [selectedData, setSelectedData] = useState(null);
     const [selectedType, setSelectedType] = useState(null);
     const [isMobile, setIsMobile] = useState(null);
+
+    useEffect(() => {
+        if (window.innerWidth < 767) {
+            setIsMobile(true);
+        } else {
+            setIsMobile(false);
+        }
+        window.addEventListener("resize", e => {
+            if (e.target.innerWidth < 767) {
+                setIsMobile(true);
+            } else {
+                setIsMobile(false);
+            }
+        });
+    }, []);
+
+    if (isMobile === null) return null;
 
     return (
         <MobileContext.Provider value={{ isMobile, setIsMobile }}>

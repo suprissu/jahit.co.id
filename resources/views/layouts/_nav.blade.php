@@ -49,24 +49,26 @@
                 </div>
             </div>
             <div class="bottom-navigation">
-                <a href="{{ route('home') }}">
-                    <i class="fa fa-hotel" aria-hidden="true"></i><p>Proyek</p>
-                </a>
+                @if ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
+                    <a href="{{ route('home') }}">
+                        <i class="fa fa-hotel" aria-hidden="true"></i><p>Dashboard</p>
+                    </a>
+                @else
+                    <a href="{{ route('home') }}">
+                        <i class="fa fa-hotel" aria-hidden="true"></i><p>Proyek</p>
+                    </a>
+                @endif
                 <a href="{{ route('home.inbox') }}">
                     <i class="fas fa-envelope" aria-hidden="true"></i><p>Pesan</p>
                 </a>
                 <a href="{{ route('home.transaction') }}">
-                @if ( Auth::user()->roles()->count() == 0)
-                    <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Transaksi</p>
-                @elseif ( Auth::user()->roles()->first()->name == $roleConstants::PARTNER )
+                @if ( Auth::user()->roles()->first()->name == $roleConstants::PARTNER )
                     <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Bahan</p>
                 @else
                     <i class="fa fa-money-bill-wave-alt" aria-hidden="true"></i><p>Transaksi</p>
                 @endif
                 </a>
-                @if ( Auth::user()->roles()->count() == 0)
-
-                @elseif ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
+                @if ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
                     <a href="{{ route('home.material') }}">
                         <i class="fa fa-tshirt" aria-hidden="true"></i><p>Bahan</p>
                     </a>

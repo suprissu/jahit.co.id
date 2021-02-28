@@ -19,3 +19,4 @@ require("./components/partner/Dashboard");
 require("./components/partner/Transaction");
 require("./components/admin/Transaction");
 require("./components/admin/Material");
+require("./components/admin/Dashboard");

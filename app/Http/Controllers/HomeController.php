@@ -232,17 +232,31 @@ class HomeController extends Controller
 
     private function administratorDashboard(Request $request, $user, $role)
     {
-        $customers = Customer::all();
-        $partners = Partner::orderBy('created_at', 'desc')->get();
-        $waitingPartners = Partner::whereHas('user', function($query) {
+        $activeCustomers = Customer::with('user', 'projects', 'projects.images')
+                            ->whereHas('user', function($query) {
+                                $query->where('is_active', true);
+                            })
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $inactiveCustomers = Customer::with('user', 'projects', 'projects.images')
+                            ->whereHas('user', function($query) {
                                 $query->where('is_active', false);
                             })
+                            ->orderBy('created_at', 'desc')
                             ->get();
-        $projects = Project::all();
-        $categories = ProjectCategory::all();
-        $finishedProjects = Project::where('status', ProjectStatusConstant::PROJECT_SENT)
-                        ->orderBy('updated_at', 'desc')
-                        ->get();
+        $activePartners = Partner::with('user')
+                            ->whereHas('user', function($query) {
+                                $query->where('is_active', true);
+                            })
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $inactivePartners = Partner::with('user')
+                            ->whereHas('user', function($query) {
+                                $query->where('is_active', false);
+                            })
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $categories = ProjectCategory::with('projects', 'projects.images')->get();
 
         return view('pages.administrator.dashboard', get_defined_vars());
     }

@@ -194,14 +194,17 @@ class TransactionController extends Controller
     public function administratorTransaction(Request $request)
     {
         $transactionsCheck = Transaction::where('status', TransactionConstant::PAY_IN_VERIF)
+                                    ->with('mou', 'invoice', 'project', 'paymentSlip')
                                     ->orderBy('updated_at', 'desc')
                                     ->get();
         
         $transactionsVerified = Transaction::where('status', TransactionConstant::PAY_OK)
+                                    ->with('mou', 'invoice', 'project', 'paymentSlip')
                                     ->orderBy('updated_at', 'desc')
                                     ->get();
      
         $transactionsFailed = Transaction::where('status', TransactionConstant::PAY_FAIL)
+                                    ->with('mou', 'invoice', 'project', 'paymentSlip')
                                     ->orderBy('updated_at', 'desc')
                                     ->get();
 

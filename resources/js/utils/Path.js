@@ -8,3 +8,5 @@ export const URL_REVISION_REJECT = "/home/inbox/revision/reject";
 export const URL_REVIEW_PROJECT = "/home/inbox/review";
 export const URL_UPLOAD_PAYMENT_SLIP = "/home/transaction/uploadPaymentSlip";
 export const URL_REQUEST_MATERIAL = "/home/transaction/requestMaterial";
+export const URL_ADMIN_VERIF_PAYMENT =
+    "/home/administrator/verification/payment";

@@ -11,18 +11,6 @@ import {
 } from "@chakra-ui/react";
 import DropzonePreview from "./DropzonePreview";
 
-const djsConfig = {
-    addRemoveLinks: true,
-    acceptedFiles: ".png, .jpg",
-    autoProcessQueue: false
-};
-
-const config = {
-    iconFiletypes: [".jpg", ".png", ".gif"],
-    showFiletypeIcon: true,
-    postUrl: "no-url"
-};
-
 const Dropzone = ({
     disabled,
     name,
@@ -32,9 +20,20 @@ const Dropzone = ({
     value,
     setValue,
     multiple,
-    previewOnly
+    previewOnly,
+    acceptedFiles
 }) => {
     const [paths, setPaths] = useState([]);
+
+    const djsConfig = {
+        addRemoveLinks: true,
+        acceptedFiles: acceptedFiles || [".png, .jpg"],
+        autoProcessQueue: false
+    };
+
+    const config = {
+        postUrl: "no-url"
+    };
 
     useEffect(() => {
         if (!previewOnly) fetchPaths();

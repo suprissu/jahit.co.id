@@ -24,7 +24,6 @@ function selectFormOption() {
 
 choiceButton.forEach(btn => {
     btn.addEventListener("click", e => {
-        console.log(e.target);
         registerChoice = e.currentTarget.getAttribute("id");
         selectFormOption();
         reset();

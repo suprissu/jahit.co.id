@@ -10,3 +10,5 @@ export const URL_UPLOAD_PAYMENT_SLIP = "/home/transaction/uploadPaymentSlip";
 export const URL_REQUEST_MATERIAL = "/home/transaction/requestMaterial";
 export const URL_ADMIN_VERIF_PAYMENT =
     "/home/administrator/verification/payment";
+export const URL_ADMIN_VERIF_MATERIAL =
+    "/home/administrator/verification/materialRequest";

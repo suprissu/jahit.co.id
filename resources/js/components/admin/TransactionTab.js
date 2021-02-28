@@ -104,15 +104,6 @@ const RejectComponent = ({ id }) => {
 };
 
 const TransactionTab = function TransactionTab({ data }) {
-    const [id, setId] = useState(null);
-
-    useEffect(() => {
-        console.log(data);
-        setId(data.id);
-    }, [data]);
-
-    console.log(id);
-
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <HStack justifyContent="space-between">
@@ -146,8 +137,8 @@ const TransactionTab = function TransactionTab({ data }) {
                 </HStack>
                 {data.status === PAY_IN_VERIF ? (
                     <HStack>
-                        <RejectComponent id={id} />
-                        <AcceptComponent id={id} />
+                        <RejectComponent id={data.id} />
+                        <AcceptComponent id={data.id} />
                     </HStack>
                 ) : null}
                 {data.status === PAY_OK ? (

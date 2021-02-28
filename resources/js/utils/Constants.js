@@ -39,5 +39,10 @@ export const SAMPLE_TYPE = "Sample";
 export const DOWN_PAYMENT_TYPE = "Down Payment";
 export const PELUNASAN_TYPE = "Pelunasan";
 
+export const MATERIAL_REQUESTED = "Diajukan";
+export const MATERIAL_APPROVED = "Disetujui";
+export const MATERIAL_REJECTED = "Ditolak";
+export const MATERIAL_SENT = "Dikirim";
+
 export const REKENING = "123123123";
 export const PEMILIK_REKENING = "SIMANJUNTAK";

@@ -2,6 +2,7 @@ import React, { useState, createContext, useContext } from "react";
 export const DataContext = createContext();
 export const PropsContext = createContext();
 export const MobileContext = createContext();
+export const PanelTypeContext = createContext();
 
 export function useData() {
     return useContext(DataContext);
@@ -13,6 +14,10 @@ export function useProps() {
 
 export function useMobile() {
     return useContext(MobileContext);
+}
+
+export function usePanelType() {
+    return useContext(PanelTypeContext);
 }
 
 function pickBy(object, predicate = v => v) {
@@ -27,19 +32,27 @@ const ContextProvider = params => {
     const { children } = params;
     const props = pickBy(params, ([key, _]) => key !== "children");
     const [selectedData, setSelectedData] = useState(null);
+    const [selectedType, setSelectedType] = useState(null);
     const [isMobile, setIsMobile] = useState(null);
 
     return (
         <MobileContext.Provider value={{ isMobile, setIsMobile }}>
             <PropsContext.Provider value={{ ...props }}>
-                <DataContext.Provider
+                <PanelTypeContext.Provider
                     value={{
-                        selectedData,
-                        setSelectedData
+                        selectedType,
+                        setSelectedType
                     }}
                 >
-                    {children}
-                </DataContext.Provider>
+                    <DataContext.Provider
+                        value={{
+                            selectedData,
+                            setSelectedData
+                        }}
+                    >
+                        {children}
+                    </DataContext.Provider>
+                </PanelTypeContext.Provider>
             </PropsContext.Provider>
         </MobileContext.Provider>
     );

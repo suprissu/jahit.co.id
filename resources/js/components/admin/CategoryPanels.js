@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import CustomTabs from "@components/tablist/CustomTabs";
 import { usePanelType, useMobile } from "@utils/Context";
-import { PROJECT_SENT } from "@utils/Constants";
+import { PROJECT_SENT, PROJECT_DONE } from "@utils/Constants";
 
 const CategoryPanels = ({ data, CustomTab }) => {
     const { selectedType, setSelectedType } = usePanelType();
@@ -29,15 +29,18 @@ const CategoryPanels = ({ data, CustomTab }) => {
         if (selectedType && selectedCategory) filterTabData(data);
     }, [selectedType, selectedCategory]);
 
+    const isStatusFinished = status =>
+        status === PROJECT_SENT || status === PROJECT_DONE;
+
     const filterTabData = item => {
         const category = item.find(({ name }) => name === selectedCategory);
         const temp =
             selectedType === "FINISHED"
-                ? category.projects.filter(
-                      ({ status }) => status === PROJECT_SENT
+                ? category.projects.filter(({ status }) =>
+                      isStatusFinished(status)
                   )
                 : category.projects.filter(
-                      ({ status }) => status !== PROJECT_SENT
+                      ({ status }) => !isStatusFinished(status)
                   );
         setTabData(temp);
     };

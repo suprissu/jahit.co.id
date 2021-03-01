@@ -12,3 +12,9 @@ export const URL_ADMIN_VERIF_PAYMENT =
     "/home/administrator/verification/payment";
 export const URL_ADMIN_VERIF_MATERIAL =
     "/home/administrator/verification/materialRequest";
+export const URL_ADMIN_VERIF_PROJECT_PAY =
+    "/home/administrator/verification/project/pay";
+export const URL_ADMIN_VERIF_PARTNER_ACTIVATE =
+    "/home/administrator/verification/user/activate";
+export const URL_ADMIN_VERIF_PARTNER_DEACTIVATE =
+    "/home/administrator/verification/user/deactivate";

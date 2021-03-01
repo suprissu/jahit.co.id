@@ -13,8 +13,7 @@ import ReactDOM from "react-dom";
 import ContextProvider, { useProps } from "@utils/Context";
 import UserPanels from "@components/admin/UserPanels";
 import CategoryPanels from "@components/admin/CategoryPanels";
-import CustomerTab from "@components/admin/CustomerTab";
-import PartnerTab from "@components/admin/PartnerTab";
+import UserTab from "@components/admin/UserTab";
 import CategoryTab from "@components/admin/CategoryTab";
 import "semantic-ui-css/semantic.min.css";
 
@@ -43,10 +42,10 @@ export default function Dashboard() {
                 </TabList>
                 <TabPanels>
                     <TabPanel padding="0px">
-                        <UserPanels data={customer} CustomTab={CustomerTab} />
+                        <UserPanels data={customer} CustomTab={UserTab} />
                     </TabPanel>
                     <TabPanel padding="0px">
-                        <UserPanels data={partner} CustomTab={PartnerTab} />
+                        <UserPanels data={partner} CustomTab={UserTab} />
                     </TabPanel>
                     <TabPanel padding="0px">
                         <CategoryPanels

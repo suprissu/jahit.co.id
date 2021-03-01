@@ -61,12 +61,14 @@ const ProjectDetail = ({ data, editable }) => {
                 </Heading>
                 <Text fontSize="sm">{data.count} buah</Text>
             </Box>
-            <HStack mt={2} justifyContent="space-between">
-                <Text fontSize="sm">Kategori </Text>
-                <Text align="right" color="gray.400" fontSize="sm">
-                    {data.category.name}
-                </Text>
-            </HStack>
+            {data.category ? (
+                <HStack mt={2} justifyContent="space-between">
+                    <Text fontSize="sm">Kategori </Text>
+                    <Text align="right" color="gray.400" fontSize="sm">
+                        {data.category.name}
+                    </Text>
+                </HStack>
+            ) : null}
             {data.partner ? (
                 <HStack mt={2} justifyContent="space-between">
                     <Text fontSize="sm">Vendor </Text>

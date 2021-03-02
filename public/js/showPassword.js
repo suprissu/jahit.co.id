@@ -1,13 +1,19 @@
 let passwordType = true;
-document.querySelector(".passwordHelp").addEventListener("click", () => {
-    if (passwordType) {
-        document.querySelector(".passwordHelp").innerHTML =
-            '<i class="far fa-eye"></i>';
-        document.querySelector(".password").setAttribute("type", "text");
-    } else {
-        document.querySelector(".passwordHelp").innerHTML =
-            '<i class="far fa-eye-slash"></i>';
-        document.querySelector(".password").setAttribute("type", "password");
-    }
-    passwordType = !passwordType;
+const passwordHelp = document.querySelectorAll(".passwordHelp");
+const passwordInput = document.querySelectorAll(".password");
+passwordHelp.forEach(btn => {
+    btn.addEventListener("click", () => {
+        if (passwordType) {
+            passwordHelp.forEach(
+                e => (e.innerHTML = '<i class="far fa-eye"></i>')
+            );
+            passwordInput.forEach(e => e.setAttribute("type", "text"));
+        } else {
+            passwordHelp.forEach(
+                e => (e.innerHTML = '<i class="far fa-eye-slash"></i>')
+            );
+            passwordInput.forEach(e => e.setAttribute("type", "password"));
+        }
+        passwordType = !passwordType;
+    });
 });

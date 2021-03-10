@@ -26,4 +26,9 @@ class ShipmentReceipt extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    public function sample()
+    {
+        return $this->belongsTo(Sample::class);
+    }
 }

@@ -13,12 +13,14 @@ import ReactDOM from "react-dom";
 import ContextProvider, { useProps } from "@utils/Context";
 import UserPanels from "@components/admin/UserPanels";
 import CategoryPanels from "@components/admin/CategoryPanels";
+import CustomTabs from "@components/tablist/CustomTabs";
 import UserTab from "@components/admin/UserTab";
 import CategoryTab from "@components/admin/CategoryTab";
+import SampleTab from "@components/admin/SampleTab";
 import "semantic-ui-css/semantic.min.css";
 
 export default function Dashboard() {
-    const { categories, customer, partner } = useProps();
+    const { categories, customer, partner, samples } = useProps();
 
     return (
         <ChakraProvider>
@@ -39,6 +41,7 @@ export default function Dashboard() {
                     <Tab>Pelanggan</Tab>
                     <Tab>Vendor</Tab>
                     <Tab>Proyek</Tab>
+                    <Tab>Sampel</Tab>
                 </TabList>
                 <TabPanels>
                     <TabPanel padding="0px">
@@ -52,6 +55,9 @@ export default function Dashboard() {
                             data={categories}
                             CustomTab={CategoryTab}
                         />
+                    </TabPanel>
+                    <TabPanel padding="0px">
+                        <CustomTabs data={samples} CustomTab={SampleTab} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

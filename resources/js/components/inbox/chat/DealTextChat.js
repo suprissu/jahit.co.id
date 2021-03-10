@@ -3,7 +3,7 @@ import { VStack, Text, Button } from "@chakra-ui/react";
 import { useData, useProps } from "@utils/Context";
 import { dateFormat } from "@utils/helper";
 
-const DealTextChat = () => {
+const DealTextChat = ({ data }) => {
     const { selectedData } = useData();
     const { userRole } = useProps();
 
@@ -35,16 +35,13 @@ const DealTextChat = () => {
                         {selectedData.project_id}.
                     </Text>{" "}
                     Silahkan mulai kerjakan proyek ini dari tanggal{" "}
-                    {dateFormat(selectedData.project.start_date)} sampai dengan
-                    tanggal {dateFormat(selectedData.project.deadline)}.
+                    {dateFormat(data.negotiation.start_date)} sampai dengan
+                    tanggal {dateFormat(data.negotiation.deadline)}.
                 </Text>
             )}
 
             {userRole === "CLIENT" ? (
-                <Button
-                    as="a"
-                    href={`/home/transaction/${selectedData.transaction.id}`}
-                >
+                <Button as="a" href={`/home/transaction`}>
                     Lihat Transaksi
                 </Button>
             ) : null}

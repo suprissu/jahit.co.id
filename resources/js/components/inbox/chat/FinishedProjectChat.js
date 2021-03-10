@@ -37,10 +37,7 @@ const FinishedProjectChat = () => {
             )}
 
             {userRole === "CLIENT" ? (
-                <Button
-                    as="a"
-                    href={`/home/transaction/${selectedData.transaction.id}`}
-                >
+                <Button as="a" href={`/home/transaction`}>
                     Lihat Transaksi
                 </Button>
             ) : null}

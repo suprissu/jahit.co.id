@@ -19,7 +19,9 @@ const DeliveredSampleChat = ({ data }) => {
         <Card.Group style={{ margin: "0px" }}>
             <AlertDialog
                 title={
-                    status === "accept" ? "Menyetujui Proyek" : "Nego Proyek"
+                    status === "accept"
+                        ? "Menyetujui Proyek"
+                        : "Minta Sample Lagi"
                 }
                 content={
                     status === "accept" ? (
@@ -27,14 +29,14 @@ const DeliveredSampleChat = ({ data }) => {
                             data={data}
                             selectedData={selectedData}
                             onClose={onClose}
-                            path={URL_SAMPLE_REQUEST}
+                            path={URL_SAMPLE_DEAL}
                         />
                     ) : (
                         <PermissionDialog
                             data={data}
                             selectedData={selectedData}
                             onClose={onClose}
-                            path={URL_SAMPLE_DEAL}
+                            path={URL_SAMPLE_REQUEST}
                         />
                     )
                 }

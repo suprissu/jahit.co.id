@@ -117,7 +117,7 @@ const NavigationInbox = () => {
 
     return (
         <VStack>
-            {userRole === "VENDOR" ? (
+            {userRole === "VENDOR" && offers && offers.length !== 0 ? (
                 <Box
                     display="flex"
                     alignItems="flex-start"

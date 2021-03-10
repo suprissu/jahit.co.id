@@ -13,6 +13,7 @@ use App\Models\Customer;
 use App\Models\Partner;
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use App\Models\Sample;
 
 use Illuminate\Http\Request;
 
@@ -256,7 +257,10 @@ class HomeController extends Controller
                             })
                             ->orderBy('created_at', 'desc')
                             ->get();
-        $categories = ProjectCategory::with('projects', 'projects.images')->get();
+        $categories = ProjectCategory::with('projects', 'projects.images', 'projects.receipt')->get();
+        $samples =  Sample::orderBy('updated_at', 'desc')->with('transaction.project', 'receipt')
+                        ->get();
+
 
         return view('pages.administrator.dashboard', get_defined_vars());
     }

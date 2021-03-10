@@ -29,7 +29,8 @@ window.props = {
             data: @json($inactivePartners)
         }
     ],
-    categories: @json($categories)
+    categories: @json($categories),
+    samples: @json($samples)
 }
 </script>
 <script src="{{ asset('js/App.js') }}" defer></script>

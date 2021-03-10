@@ -16,23 +16,27 @@ import { currencyFormat, dateFormat } from "@utils/helper";
 import { PAY_IN_VERIF, PAY_OK } from "@utils/Constants";
 import { URL_ADMIN_VERIF_PAYMENT } from "@utils/Path";
 import Dropzone from "@components/Dropzone";
+import DropzonePreview from "@components/DropzonePreview";
 
-const AcceptComponent = ({ id }) => {
+const AcceptComponent = ({ data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [mou_path, setMouPath] = useState([]);
     const [invoice_path, setInvoicePath] = useState([]);
     const [form, setForm] = useState(null);
 
+    console.log(data);
     useEffect(() => {
         const formData = new FormData();
-        formData.append("transactionID", id);
+        formData.append("transactionID", data.id);
         formData.append("status", "ACCEPT");
-        mou_path.forEach(data => {
-            formData.append("mou_path", data);
-        });
-        invoice_path.forEach(data => {
-            formData.append("invoice_path", data);
-        });
+        if (data.type === "Down Payment") {
+            mou_path.forEach(data => {
+                formData.append("mou_path", data);
+            });
+            invoice_path.forEach(data => {
+                formData.append("invoice_path", data);
+            });
+        }
         setForm(formData);
     }, [mou_path, invoice_path]);
 
@@ -45,24 +49,31 @@ const AcceptComponent = ({ id }) => {
                         onClose={onClose}
                         method="POST"
                         content={
-                            <VStack width="100%">
-                                <Dropzone
-                                    title="Upload MOU"
-                                    name={name}
-                                    value={mou_path}
-                                    setValue={setMouPath}
-                                    multiple={false}
-                                    acceptedFiles=".pdf"
+                            data.type === "Down Payment" ? (
+                                <VStack width="100%">
+                                    <Dropzone
+                                        title="Upload MOU"
+                                        name={name}
+                                        value={mou_path}
+                                        setValue={setMouPath}
+                                        multiple={false}
+                                        acceptedFiles=".pdf"
+                                    />
+                                    <Dropzone
+                                        title="Upload Invoice"
+                                        name={name}
+                                        value={invoice_path}
+                                        setValue={setInvoicePath}
+                                        multiple={false}
+                                        acceptedFiles=".pdf"
+                                    />
+                                </VStack>
+                            ) : (
+                                <DropzonePreview
+                                    fluid
+                                    paths={[data.payment_slip.path]}
                                 />
-                                <Dropzone
-                                    title="Upload Invoice"
-                                    name={name}
-                                    value={invoice_path}
-                                    setValue={setInvoicePath}
-                                    multiple={false}
-                                    acceptedFiles=".pdf"
-                                />
-                            </VStack>
+                            )
                         }
                         data={form}
                         url={URL_ADMIN_VERIF_PAYMENT}
@@ -138,10 +149,10 @@ const TransactionTab = function TransactionTab({ data }) {
                 {data.status === PAY_IN_VERIF ? (
                     <HStack>
                         <RejectComponent id={data.id} />
-                        <AcceptComponent id={data.id} />
+                        <AcceptComponent data={data} />
                     </HStack>
                 ) : null}
-                {data.status === PAY_OK ? (
+                {data.status === PAY_OK && data.type === "Down Payment" ? (
                     <HStack>
                         {data.mou ? (
                             <Button
@@ -149,7 +160,7 @@ const TransactionTab = function TransactionTab({ data }) {
                                 href={`/home/transaction/download/mou/${data.mou.id}`}
                                 size="sm"
                             >
-                                Unggah MOU
+                                Unduh MOU
                             </Button>
                         ) : null}
                         {data.invoice ? (
@@ -158,7 +169,7 @@ const TransactionTab = function TransactionTab({ data }) {
                                 href={`/home/transaction/download/invoice/${data.invoice.id}`}
                                 size="sm"
                             >
-                                Unggah Invoice
+                                Unduh Invoice
                             </Button>
                         ) : null}
                     </HStack>

@@ -23,6 +23,7 @@ use App\Models\Project;
 use App\Models\ProjectCategory;
 use App\Models\ProjectImage;
 use App\Models\Sample;
+use App\Models\ShipmentReceipt;
 use App\Models\Transaction;
 
 use Illuminate\Http\Request;
@@ -292,6 +293,14 @@ class ProjectController extends Controller
     {
         $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
         if ($expectedStage == route('home')) {
+            $this->validate($request, [
+                'shipment_receipt_path' => [
+                    'mimes:jpeg,jpg,png,gif,bmp,svg',
+                    'required',
+                    'max:25000'
+                ]
+            ]);
+
             $user = auth()->user();
             $partner = $user->partner;
 
@@ -303,6 +312,12 @@ class ProjectController extends Controller
 
             $sample->status = SampleStatusConstant::SAMPLE_SENT;
             $sample->save();
+
+            $file_path_prefix = '/img/customer/transaction/';
+            $shipment = new ShipmentReceipt;
+            $shipment->path = FileHelper::saveResizedImageToPublic($request->file('shipment_receipt_path'), $file_path_prefix . 'shipmentReceipt');
+            $shipment->sample_id = $sample->id;
+            $shipment->save();
             
             $negotiation = Negotiation::find($sample->negotiation_id);
             $transaction = Transaction::find($sample->transaction_id);
@@ -388,6 +403,13 @@ class ProjectController extends Controller
     {
         $expectedStage = RedirectionHelper::routeBasedOnRegistrationStage(route('home'));
         if ($expectedStage == route('home')) {
+            $this->validate($request, [
+                'shipment_receipt_path' => [
+                    'mimes:jpeg,jpg,png,gif,bmp,svg',
+                    'required',
+                    'max:25000'
+                ],
+            ]);
             $user = auth()->user();
             $partner = $user->partner;
 
@@ -399,6 +421,13 @@ class ProjectController extends Controller
 
             $project->status = ProjectStatusConstant::PROJECT_SENT;
             $project->save();
+
+            $file_path_prefix = '/img/customer/transaction/';
+
+            $shipment = new ShipmentReceipt;
+            $shipment->path = FileHelper::saveResizedImageToPublic($request->file('shipment_receipt_path'), $file_path_prefix . 'shipmentReceipt');
+            $shipment->project_id = $project->id;
+            $shipment->save();
 
             $inbox = $project->inbox;
             

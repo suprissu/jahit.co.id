@@ -12,56 +12,40 @@ import {
 } from "@chakra-ui/react";
 import CustomTag from "@components/tablist/CustomTag";
 import { currencyFormat, dateFormat } from "@utils/helper";
-import { URL_ADMIN_VERIF_PROJECT_PAY } from "@utils/Path";
-import { useData, usePanelType } from "@utils/Context";
-import ProjectDetail from "@components/project/ProjectDetail";
+import { useData } from "@utils/Context";
 import AlertDialog from "@components/dialog/AlertDialog";
-import TemplateDialog from "@components/dialog/TemplateDialog";
+import ProjectDetail from "@components/project/ProjectDetail";
 import DropzonePreview from "@components/DropzonePreview";
-import { PROJECT_SENT } from "@utils/Constants";
+import { SAMPLE_APPROVED } from "@utils/Constants";
 
-const PayProject = ({ project }) => {
+const ShipmentReceipt = ({ sample }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <>
             <AlertDialog
-                title={"Bayar Proyek"}
+                title={"Resi Sampel"}
                 content={
-                    <TemplateDialog
-                        content={
-                            project.receipt && (
-                                <DropzonePreview
-                                    fluid
-                                    paths={[project.receipt.path]}
-                                />
-                            )
-                        }
-                        onClose={onClose}
-                        method="POST"
-                        data={{ projectID: project.id }}
-                        url={URL_ADMIN_VERIF_PROJECT_PAY}
-                    />
+                    <DropzonePreview fluid paths={[sample.receipt.path]} />
                 }
                 isOpen={isOpen}
                 onClose={onClose}
             />
-            <Button size="sm" colorScheme="blue" onClick={onOpen}>
-                Bayar Proyek
+            <Button size="sm" onClick={onOpen}>
+                Lihat Resi
             </Button>
         </>
     );
 };
 
-const CategoryTab = ({ data }) => {
+const SampleTab = ({ data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { selectedType } = usePanelType();
     const { selectedData, setSelectedData } = useData();
 
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <AlertDialog
-                content={<ProjectDetail data={selectedData} />}
+                content={<ProjectDetail data={selectedData} editable={true} />}
                 isOpen={isOpen}
                 onClose={onClose}
             />
@@ -89,32 +73,22 @@ const CategoryTab = ({ data }) => {
                         />
                     ) : null}
                     <Box alignItems="start">
-                        {data.cost ? (
-                            <Text color="orange" fontSize="sm">
-                                {currencyFormat(data.cost ?? 0)}
-                            </Text>
-                        ) : null}
-                        <Heading fontSize="md">{data.name}</Heading>
-                        <Text fontSize="sm">{data.count} buah</Text>
+                        <Heading fontSize="md">
+                            {data.transaction.project.name}
+                        </Heading>
+                        <Text fontSize="sm">
+                            {data.transaction.project.count} buah
+                        </Text>
                     </Box>
                 </HStack>
                 <HStack>
-                    {data.status === PROJECT_SENT && (
-                        <PayProject project={data} />
+                    {data.status === SAMPLE_APPROVED && (
+                        <ShipmentReceipt sample={data} />
                     )}
-                    <Button
-                        size="sm"
-                        onClick={() => {
-                            setSelectedData(data);
-                            onOpen();
-                        }}
-                    >
-                        Detail
-                    </Button>
                 </HStack>
             </HStack>
         </Box>
     );
 };
 
-export default CategoryTab;
+export default SampleTab;

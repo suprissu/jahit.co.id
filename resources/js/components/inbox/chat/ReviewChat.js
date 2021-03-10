@@ -28,10 +28,12 @@ const ReviewChat = ({ data }) => {
         setProjectID(selectedData.project_id);
         setCustomerID(selectedData.customer_id);
         setPartnerID(selectedData.partner_id);
-        if (selectedData.project.rating) setStar(selectedData.project.rating);
-        else setStar(0);
-        if (selectedData.project.feedback)
-            setFeedback(selectedData.project.feedback);
+        if (selectedData.project.review) {
+            setStar(selectedData.project.review.stars);
+            setFeedback(selectedData.project.review.feedback);
+        } else {
+            setStar(0);
+        }
     }, []);
 
     useEffect(() => {
@@ -96,18 +98,27 @@ const ReviewChat = ({ data }) => {
                         <Rating
                             rating={star}
                             maxRating={5}
-                            disabled={star === null || star === undefined}
+                            disabled={
+                                selectedData.project.review !== null &&
+                                selectedData.project.review !== undefined
+                            }
                             onRate={(e, { rating }) => setStar(rating)}
                         />
                         {userRole === "CLIENT" ? (
-                            <NormalInput
-                                isRequired={true}
-                                title="Feedback"
-                                name="feedback"
-                                type="text"
-                                value={feedback}
-                                setValue={setFeedback}
-                            />
+                            <>
+                                {!selectedData.project.review ? (
+                                    <NormalInput
+                                        isRequired={true}
+                                        title="Feedback"
+                                        name="feedback"
+                                        type="text"
+                                        value={feedback}
+                                        setValue={setFeedback}
+                                    />
+                                ) : (
+                                    <Text>"{feedback}"</Text>
+                                )}
+                            </>
                         ) : (
                             <Text>
                                 {feedback || "Proyek ini belum direview."}
@@ -116,13 +127,15 @@ const ReviewChat = ({ data }) => {
                     </Card.Description>
                 </Card.Content>
                 {userRole === "CLIENT" ? (
-                    <Card.Content extra>
-                        {!selectedData.project.rating ? (
-                            <Button colorScheme="red" onClick={onOpen}>
-                                Review Proyek
-                            </Button>
-                        ) : null}
-                    </Card.Content>
+                    <>
+                        {!selectedData.project.review && (
+                            <Card.Content extra>
+                                <Button colorScheme="red" onClick={onOpen}>
+                                    Review Proyek
+                                </Button>
+                            </Card.Content>
+                        )}
+                    </>
                 ) : null}
             </Card>
         </Card.Group>

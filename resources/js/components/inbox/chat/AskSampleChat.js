@@ -3,10 +3,11 @@ import { VStack, Text, Button } from "@chakra-ui/react";
 import { useData, useProps } from "@utils/Context";
 import { dateFormat } from "@utils/helper";
 
-const AskSampleChat = () => {
+const AskSampleChat = ({ data }) => {
     const { selectedData } = useData();
     const { userRole } = useProps();
 
+    console.log(selectedData);
     return (
         <VStack padding={3} alignItems="flex-start">
             {userRole === "CLIENT" ? (
@@ -23,8 +24,8 @@ const AskSampleChat = () => {
                 </Text>
             ) : (
                 <Text>
-                    Client telah menyetujui Proyek {selectedData.project.count}{" "}
-                    buah{" "}
+                    Client telah mengajukan sample untuk Proyek{" "}
+                    {selectedData.project.count} buah{" "}
                     <Text
                         as="a"
                         href={`/home/project/${selectedData.project_id}`}
@@ -33,8 +34,11 @@ const AskSampleChat = () => {
                         {selectedData.project_id}.
                     </Text>{" "}
                     Silahkan mulai kerjakan proyek ini dari tanggal{" "}
-                    {dateFormat(selectedData.project.start_date)} sampai dengan
-                    tanggal {dateFormat(selectedData.project.deadline)}.
+                    {dateFormat(data.negotiation.start_date)} sampai dengan
+                    tanggal {dateFormat(data.negotiation.deadline)}{" "}
+                    <strong>
+                        setelah pembayaran telah diverifikasi oleh admin.
+                    </strong>
                 </Text>
             )}
 

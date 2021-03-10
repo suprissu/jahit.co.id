@@ -143,27 +143,28 @@ const TransactionTab = function TransactionTab({ data }) {
                     <Button size="sm" onClick={onOpen}>
                         Unggah Bukti Pembayaran
                     </Button>
-                ) : null}
-                <HStack>
-                    {data.mou ? (
-                        <Button
-                            as="a"
-                            href={`/home/transaction/download/mou/${data.mou.id}`}
-                            size="sm"
-                        >
-                            Unggah MOU
-                        </Button>
-                    ) : null}
-                    {data.invoice ? (
-                        <Button
-                            as="a"
-                            href={`/home/transaction/download/invoice/${data.invoice.id}`}
-                            size="sm"
-                        >
-                            Unggah Invoice
-                        </Button>
-                    ) : null}
-                </HStack>
+                ) : (
+                    <HStack>
+                        {data.mou ? (
+                            <Button
+                                as="a"
+                                href={`/home/transaction/download/mou/${data.mou.id}`}
+                                size="sm"
+                            >
+                                Unggah MOU
+                            </Button>
+                        ) : null}
+                        {data.invoice ? (
+                            <Button
+                                as="a"
+                                href={`/home/transaction/download/invoice/${data.invoice.id}`}
+                                size="sm"
+                            >
+                                Unggah Invoice
+                            </Button>
+                        ) : null}
+                    </HStack>
+                )}
             </HStack>
         </Box>
     );

@@ -31,4 +31,9 @@ class Sample extends Model
     {
         return $this->belongsTo(Transaction::class);
     }
+
+    public function receipt()
+    {
+        return $this->hasOne(ShipmentReceipt::class);
+    }
 }

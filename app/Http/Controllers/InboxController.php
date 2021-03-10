@@ -573,6 +573,9 @@ class InboxController extends Controller
                     'integer',
                     'min:1'
                 ],
+                'feedback' => [
+                    'required'
+                ],
                 'star' => [
                     'required',
                     'integer',
@@ -595,6 +598,7 @@ class InboxController extends Controller
                 $review = new Review;
                 $review->project_id = $project->id;
                 $review->stars = $request->star;
+                $review->feedback = $request->feedback;
                 $review->save();
 
                 $partner = $project->partner;

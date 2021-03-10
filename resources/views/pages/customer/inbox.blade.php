@@ -23,7 +23,7 @@ window.props = {
                     count: "{{ $inbox->project->count }}",
                     cost: "{{ $inbox->project->cost }}",
                     status: "{{ $inbox->project->status }}",
-                    rating: "{{ $inbox->project->rating }}",
+                    review: @json($inbox->project->review),
                     start_date: "{{ $inbox->project->start_date }}",
                     end_date: "{{ $inbox->project->end_date }}",
                     images: [@forEach( $inbox->project->images as $image) 

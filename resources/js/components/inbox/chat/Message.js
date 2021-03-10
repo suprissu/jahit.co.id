@@ -40,9 +40,9 @@ const ChatTemplate = ({ data }) => {
             </>
         );
     } else if (type === "DEAL") {
-        return <DealTextChat />;
+        return <DealTextChat data={data} />;
     } else if (type === "SAMPLE") {
-        return <AskSampleChat />;
+        return <AskSampleChat data={data} />;
     } else if (type === "SAMPLE TERKIRIM") {
         return <DeliveredSampleChat data={data} />;
     } else if (type === "FINISH") {

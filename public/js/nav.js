@@ -1,52 +1,80 @@
 const pathNavAllowed = ["/", "/about"];
 if (pathNavAllowed.includes(window.location.pathname)) {
-    $("nav").removeClass("invert");
+    document.querySelector("nav").classList.remove("invert");
 } else {
-    $("nav").addClass("invert");
+    document.querySelector("nav").classList.add("invert");
 }
 
-$(".navbar__links a").each((e, val) => {
-    if (window.location.pathname === val.getAttribute("href")) {
-        val.classList.add("active");
+document.querySelectorAll(".navbar__links a").forEach(e => {
+    if (window.location.pathname === e.getAttribute("href")) {
+        e.classList.add("active");
     } else {
-        val.classList.remove("active");
+        e.classList.remove("active");
     }
 });
 
-$(".bottom-navigation a").each((e, val) => {
-    if (window.location.pathname === val.getAttribute("href")) {
-        val.classList.add("active");
+document.querySelectorAll(".bottom-navigation a").forEach(e => {
+    if (window.location.pathname === e.getAttribute("href")) {
+        e.classList.add("active");
     } else {
-        val.classList.remove("active");
+        e.classList.remove("active");
     }
 });
 
 let navExpand = false;
-$("#expand-button").on("click", () => {
+document.getElementById("expand-button").addEventListener("click", () => {
     navExpand = !navExpand;
     if (navExpand) {
         document.getElementById("expand-content-nav").innerHTML =
             '<div class="navbar__links"><a href="/">Beranda</a><a href="/about">Tentang Kami</a></div>';
-        $("nav").css("box-shadow", "0 0 6px rgba(0,0,0,0.2)");
-        $("nav").addClass("scrolled");
+        document.querySelector("nav").style.boxShadow =
+            "0 0 6px rgba(0,0,0,0.2)";
+        document.querySelector("nav").classList.add("scrolled");
     } else {
         document.getElementById("expand-content-nav").innerHTML = "";
-        $("nav").css("box-shadow", "");
+        document.querySelector("nav").style.boxShadow = "";
         if (pathNavAllowed.includes(window.location.pathname)) {
-            $("nav").removeClass("scrolled");
+            document.querySelector("nav").classList.remove("scrolled");
         }
     }
 });
 
-$(window).on("scroll", (e) => {
-    const scrollPosition = $(document).scrollTop();
+profileExpand = false;
+const dropdownMenu = document.getElementById("dropdownMenuLink");
+if (dropdownMenu) {
+    dropdownMenu.addEventListener("click", () => {
+        profileExpand = !profileExpand;
+        const dropdown = document.getElementById("dropdown");
+        if (profileExpand) {
+            dropdown.style.display = "block";
+        } else {
+            dropdown.style.display = "none";
+        }
+    });
+}
+
+window.addEventListener("resize", e => {
+    if (e.target.innerWidth > 768) {
+        navExpand = false;
+        profileExpand = false;
+        dropdown.style.display = "none";
+        document.getElementById("expand-content-nav").innerHTML = "";
+        document.querySelector("nav").style.boxShadow = "";
+        if (pathNavAllowed.includes(window.location.pathname)) {
+            document.querySelector("nav").classList.remove("scrolled");
+        }
+    }
+});
+
+window.addEventListener("scroll", () => {
     if (
-        scrollPosition >= 100 ||
+        document.body.scrollTop >= 50 ||
+        document.documentElement.scrollTop >= 50 ||
         (window.location.pathname !== "/" &&
             window.location.pathname !== "/about")
     ) {
-        $("nav").addClass("scrolled");
+        document.querySelector("nav").classList.add("scrolled");
     } else {
-        $("nav").removeClass("scrolled");
+        document.querySelector("nav").classList.remove("scrolled");
     }
 });

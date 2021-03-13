@@ -17,21 +17,10 @@ Route::get('/user/login', 'PageController@userLoginPage')->name('userLoginPage')
 Route::get('/user/register', 'PageController@userRegisterPage')->name('userRegisterPage');
 Route::get('/user/choice', 'PageController@choicePage')->name('choicePage');
 Route::get('/user/customer/register', 'PageController@userCustomerRegisterPage')->name('userCustomerRegisterPage');
-Route::get('/user/customer/add-project', 'PageController@userCustomerAddProjectPage')->name('userCustomerAddProjectPage');
-Route::get('/user/customer/project', 'PageController@userCustomerProjectPage')->name('userCustomerProjectPage');
 Route::get('/user/project/123', 'PageController@userProjectDetailPage')->name('userProjectDetailPage');
 Route::get('/user/transaction/123', 'PageController@userTransactionDetailPage')->name('userTransactionDetailPage');
-Route::get('/user/customer/transaction', 'PageController@userCustomerTransactionPage')->name('userCustomerTransactionPage');
-Route::get('/user/customer/chat', 'PageController@userCustomerChatPage')->name('userCustomerChatPage');
-Route::get('/user/partner/register', 'PageController@userPartnerRegisterPage')->name('userPartnerRegisterPage');
-Route::get('/user/partner/chat', 'PageController@userPartnerChatPage')->name('userPartnerChatPage');
-Route::get('/user/partner/transaction', 'PageController@userPartnerTransactionPage')->name('userPartnerTransactionPage');
-Route::get('/user/partner/material/add', 'PageController@userPartnerAddMaterialPage')->name('userPartnerAddMaterialPage');
 Route::get('/notfound', 'PageController@notfound')->name('notfound');
 Route::get('/warning/{type}', 'PageController@warning')->name('warning');
-Route::get('/admin/chat', 'PageController@adminChat')->name('adminChat');
-Route::get('/admin/transaction', 'PageController@adminTransaction')->name('adminTransaction');
-Route::get('/admin/material', 'PageController@adminMaterial')->name('adminMaterial');
 Route::get('/admin/user-verification', 'PageController@adminUserVerification')->name('adminUserVerification');
 
 Auth::routes();

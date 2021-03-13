@@ -13,6 +13,7 @@ use App\Models\Customer;
 use App\Models\Partner;
 use App\Models\Project;
 use App\Models\ProjectCategory;
+use App\Models\Sample;
 
 use Illuminate\Http\Request;
 
@@ -44,14 +45,10 @@ class HomeController extends Controller
                     return $this->administratorDashboard($request, $user, $role);
                     break;
                 case RoleConstant::CUSTOMER:
-                    // TO DO: for next phase, uncomment this code
                     return $this->customerDashboard($request, $user, $role);
-                    // return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
                     break;
                 case RoleConstant::PARTNER:
-                    // TO DO: for next phase, uncomment this code
                     return $this->partnerDashboard($request, $user, $role);
-                    // return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
                     break;
                 default:
                     return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
@@ -65,10 +62,12 @@ class HomeController extends Controller
         $partner = $user->partner()->first();
         
         $projectsAll = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->get();
 
         $projectsRequest = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_OPENED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_DEALT)
@@ -76,11 +75,13 @@ class HomeController extends Controller
                         ->get();
         
         $projectsInProgress = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS)
                         ->get();
         
         $projectsDone = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FINISHED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_FULL_PAYMENT_OK)
@@ -89,6 +90,7 @@ class HomeController extends Controller
                         ->get();
         
         $projectsRejected = $partner->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FAILED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_CANCELED)
@@ -145,10 +147,12 @@ class HomeController extends Controller
         $customer = $user->customer()->first();
 
         $projectsAll = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->get();
 
         $projectsRequest = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_OPENED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_DEALT)
@@ -156,11 +160,13 @@ class HomeController extends Controller
                         ->get();
         
         $projectsInProgress = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_WORK_IN_PROGRESS)
                         ->get();
         
         $projectsDone = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FINISHED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_FULL_PAYMENT_OK)
@@ -169,6 +175,7 @@ class HomeController extends Controller
                         ->get();
         
         $projectsRejected = $customer->projects()
+                        ->with('images','category', 'partner')
                         ->orderBy('updated_at', 'desc')
                         ->where('status', ProjectStatusConstant::PROJECT_FAILED)
                         ->orWhere('status', ProjectStatusConstant::PROJECT_CANCELED)
@@ -222,17 +229,34 @@ class HomeController extends Controller
 
     private function administratorDashboard(Request $request, $user, $role)
     {
-        $customers = Customer::all();
-        $partners = Partner::orderBy('created_at', 'desc')->get();
-        $waitingPartners = Partner::whereHas('user', function($query) {
+        $activeCustomers = Customer::with('user', 'projects', 'projects.images')
+                            ->whereHas('user', function($query) {
+                                $query->where('is_active', true);
+                            })
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $inactiveCustomers = Customer::with('user', 'projects', 'projects.images')
+                            ->whereHas('user', function($query) {
                                 $query->where('is_active', false);
                             })
+                            ->orderBy('created_at', 'desc')
                             ->get();
-        $projects = Project::all();
-        $categories = ProjectCategory::all();
-        $finishedProjects = Project::where('status', ProjectStatusConstant::PROJECT_SENT)
-                        ->orderBy('updated_at', 'desc')
+        $activePartners = Partner::with('user')
+                            ->whereHas('user', function($query) {
+                                $query->where('is_active', true);
+                            })
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $inactivePartners = Partner::with('user')
+                            ->whereHas('user', function($query) {
+                                $query->where('is_active', false);
+                            })
+                            ->orderBy('created_at', 'desc')
+                            ->get();
+        $categories = ProjectCategory::with('projects', 'projects.images', 'projects.receipt')->get();
+        $samples =  Sample::orderBy('updated_at', 'desc')->with('transaction.project', 'receipt')
                         ->get();
+
 
         return view('pages.administrator.dashboard', get_defined_vars());
     }

@@ -17,6 +17,7 @@ use App\Models\Chat;
 use App\Models\Customer;
 use App\Models\Inbox;
 use App\Models\InvoiceFile;
+use App\Models\Material;
 use App\Models\Partner;
 use App\Models\Project;
 use App\Models\MaterialRequest;
@@ -192,6 +193,7 @@ class AdministratorController extends Controller
         if ($expectedStage == route('home.material')) {
             $user = auth()->user();
             $role = $user->roles()->first()->name;
+            $materials = Material::all();
             if ($role == RoleConstant::ADMINISTRATOR) {
 
                 $requestsRequested = Project::whereHas('materialRequests', function($query) {

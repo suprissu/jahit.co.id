@@ -106,22 +106,26 @@ class TransactionController extends Controller
     {
         $customer = $user->customer()->first();
         $transactions = $customer->transactions()
+                            ->with('project', 'mou', 'invoice')
                             ->where('status', TransactionConstant::PAY_WAIT)
                             ->orWhere('status', TransactionConstant::PAY_IN_VERIF)
                             ->orWhere('status', TransactionConstant::PAY_FAIL)
                             ->orderBy('updated_at', 'desc')
                             ->get();
         $sample_transactions = $customer->transactions()
+                            ->with('project', 'mou', 'invoice')
                             ->where('type', TransactionConstant::SAMPLE_TYPE)
                             ->where('status', TransactionConstant::PAY_OK)
                             ->orderBy('updated_at', 'desc')
                             ->get();
         $dp_transactions = $customer->transactions()
+                            ->with('project', 'mou', 'invoice')
                             ->where('type', TransactionConstant::DOWN_PAYMENT_TYPE)
                             ->where('status', TransactionConstant::PAY_OK)
                             ->orderBy('updated_at', 'desc')
                             ->get();
         $full_transactions = $customer->transactions()
+                            ->with('project', 'mou', 'invoice')
                             ->where('type', TransactionConstant::PELUNASAN_TYPE)
                             ->where('status', TransactionConstant::PAY_OK)
                             ->orderBy('updated_at', 'desc')
@@ -137,7 +141,9 @@ class TransactionController extends Controller
      */
     public function partnerTransaction(Request $request, $user, $role)
     {
-        $partner = $user->partner()->first();
+        $partner = $user->partner()->with('projects')->first();
+
+        $materials = Material::all();
 
         $requestsAll = $partner->projects()
                             ->whereHas('materialRequests')
@@ -188,14 +194,17 @@ class TransactionController extends Controller
     public function administratorTransaction(Request $request)
     {
         $transactionsCheck = Transaction::where('status', TransactionConstant::PAY_IN_VERIF)
+                                    ->with('mou', 'invoice', 'project', 'paymentSlip')
                                     ->orderBy('updated_at', 'desc')
                                     ->get();
         
         $transactionsVerified = Transaction::where('status', TransactionConstant::PAY_OK)
+                                    ->with('mou', 'invoice', 'project', 'paymentSlip')
                                     ->orderBy('updated_at', 'desc')
                                     ->get();
      
         $transactionsFailed = Transaction::where('status', TransactionConstant::PAY_FAIL)
+                                    ->with('mou', 'invoice', 'project', 'paymentSlip')
                                     ->orderBy('updated_at', 'desc')
                                     ->get();
 

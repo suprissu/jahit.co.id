@@ -13,6 +13,7 @@
 @section('extra-css')
     <link rel="stylesheet" href="{{ asset('css/aboutpage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home/hero.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 @endsection
 
 @section('content')
@@ -37,6 +38,7 @@ Bantuan Modal Kerja : Kami membantu partner kami untuk mendapatkan dukungan moda
         </div>
     </div>
 </div>
+@include('layouts/_footer')
 @endsection
 
 @section('extra-js')

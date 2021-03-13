@@ -266,9 +266,8 @@ class RegisterController extends Controller
             $partner->npwp_pict_link = FileHelper::saveResizedImageToPublic($request->file('npwp_pict_link'), $file_path_prefix . 'npwp');
             
             $user->partner()->save($partner);
-            
-            // TO DO: Should be false for only phase 1
-            $user->is_active = true;
+
+            $user->is_active = false;
             $user->save();
 
             $expectedStage = $this->nextPathStage($expectedStage);
@@ -373,7 +372,6 @@ class RegisterController extends Controller
                 }    
             }
 
-            // TO DO: Should be false for only phase 1
             $user->is_active = true;
             $user->save();
 

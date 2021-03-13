@@ -20,8 +20,8 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         $this->createDummyAdministrators(3);
-        $this->createDummyCustomers(10);
-        $this->createDummyPartners(10);
+        // $this->createDummyCustomers(10);
+        // $this->createDummyPartners(10);
     }
     
     private function createDummyAdministrators($times)

@@ -50,18 +50,13 @@ class InboxController extends Controller
             $role = $user->roles()->first()->name;
             switch ($role) {
                 case RoleConstant::ADMINISTRATOR:
-                    // return redirect()->route('warning', ['type' => WarningStatusConstant::WORK_IN_PROGRESS]);
                     return $this->administratorDashboard($request, $user, $role);
                     break;
                 case RoleConstant::CUSTOMER:
-                    // TO DO: for next phase, uncomment this code
                     return $this->customerInbox($request, $user, $role);
-                    // return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
                     break;
                 case RoleConstant::PARTNER:
-                    // TO DO: for next phase, uncomment this code
                     return $this->partnerInbox($request, $user, $role);
-                    // return redirect()->route('warning', ['type' => WarningStatusConstant::WAITING_VALIDATION]); 
                     break;
                 default:
                     return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
@@ -77,7 +72,7 @@ class InboxController extends Controller
      */
     public function administratorDashboard(Request $request, $user, $role)
     {
-        $inboxes = AdminInbox::orderBy('updated_at', 'desc')->get();
+        $inboxes = AdminInbox::orderBy('updated_at', 'desc')->with('adminChats', 'receiver')->get();
         $role = "ADMIN";
         
         return view('pages.administrator.inbox', get_defined_vars());
@@ -91,10 +86,13 @@ class InboxController extends Controller
     public function customerInbox(Request $request, $user, $role)
     {
         $customer = $user->customer()->first();
-        $inboxes = $customer->inboxes()->orderBy('updated_at', 'desc')->get();
+        $inboxes = $customer->inboxes()
+                    ->with('project', 'project.images', 'project.category','chats', 'chats.negotiation', 'partner')
+                    ->orderBy('updated_at', 'desc')
+                    ->get();
         $role = "CLIENT";
 
-        $adminInbox = $user->adminInboxes;
+        $adminInbox = $user->adminInboxes()->with('adminChats')->orderBy('updated_at', 'desc')->get();
 
         return view('pages.customer.inbox', get_defined_vars());
     }
@@ -570,6 +568,9 @@ class InboxController extends Controller
                     'integer',
                     'min:1'
                 ],
+                'feedback' => [
+                    'required'
+                ],
                 'star' => [
                     'required',
                     'integer',
@@ -592,6 +593,7 @@ class InboxController extends Controller
                 $review = new Review;
                 $review->project_id = $project->id;
                 $review->stars = $request->star;
+                $review->feedback = $request->feedback;
                 $review->save();
 
                 $partner = $project->partner;

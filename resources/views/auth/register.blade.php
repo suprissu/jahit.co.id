@@ -33,7 +33,7 @@
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input placeholder="Masukkan password di sini" type="email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" value="{{ old('email') }}" name="email" required autocomplete="email">
+                <input placeholder="Masukkan email di sini" type="email" class="form-control @error('email') is-invalid @enderror" id="email" aria-describedby="emailHelp" value="{{ old('email') }}" name="email" required autocomplete="email">
                 @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

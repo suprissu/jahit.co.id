@@ -1,27 +1,31 @@
 let registerChoice = "customer";
 
+const choiceButton = document.querySelectorAll(".choicePage__choice");
+
 function reset() {
-    $(".choicePage__choice").each((e, el) => {
-        if (el.id !== registerChoice) {
-            el.classList.remove("active");
+    choiceButton.forEach(e => {
+        if (e.id !== registerChoice) {
+            e.classList.remove("active");
         } else {
-            el.classList.add("active");
+            e.classList.add("active");
         }
     });
 }
 
 function selectFormOption() {
     if (registerChoice == "customer") {
-        $("#role-option").val("CUST");
+        document.getElementById("role-option").value = "CUST";
     } else if (registerChoice == "partner") {
-        $("#role-option").val("PART");
+        document.getElementById("role-option").value = "PART";
     } else {
-        window.location.href=window.location.href;
+        window.location.href = window.location.href;
     }
 }
 
-$(".choicePage__choice").click((e) => {
-    registerChoice = e.currentTarget.id;
-    selectFormOption();
-    reset();
+choiceButton.forEach(btn => {
+    btn.addEventListener("click", e => {
+        registerChoice = e.currentTarget.getAttribute("id");
+        selectFormOption();
+        reset();
+    });
 });

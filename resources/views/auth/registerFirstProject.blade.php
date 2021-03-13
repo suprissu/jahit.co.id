@@ -31,7 +31,7 @@
             <div class="userRegistration__wrapper">
                 <div class="steps">
                     <div class="steps__step done">
-                        <div class="steps__number">✔
+                        <div class="steps__number"><i class="fas fa-check"></i>
                         </div>
                         <p class="steps__description">Daftar Akun</p>
                     </div>

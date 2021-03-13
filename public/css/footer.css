@@ -64,19 +64,19 @@ footer {
     white-space: nowrap;
 }
 
-.footer__contact--socmed svg {
-    width: 16px;
-    height: 16px;
-    fill: #000;
+.footer__contact--socmed a {
+    font-size: 16px;
 }
 
 .footer__contact--socmed a:not(:last-child) {
     margin-right: 5px;
 }
 
+.footer__contact--socmed svg {
+    fill: #000;
+}
+
 .footer__contact--socmed svg:hover {
-    width: 16px;
-    height: 16px;
     fill: #d52047;
 }
 

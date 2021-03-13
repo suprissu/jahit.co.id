@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/home/timeline.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home/products.css') }}">
     <link rel="stylesheet" href="{{ asset('css/home/partnerInvitation.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/footer.css') }}">
 @endsection
 
 @section('content')
@@ -25,6 +26,7 @@
     @include('layouts/home/timeline')
     @include('layouts/home/products')
     @include('layouts/home/partnerInvitation')
+    @include('layouts/_footer')
 @endsection
 
 @section('extra-js')

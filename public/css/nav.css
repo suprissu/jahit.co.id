@@ -2,8 +2,8 @@ nav {
     position: fixed;
     z-index: 999;
     top: 0;
-    width: 100vw;
-    padding: 1rem 5%;
+    width: 100%;
+    padding: 1rem 5vw;
     background: transparent;
     transition: background 0.2s ease;
 }
@@ -79,7 +79,14 @@ nav a.active {
 }
 
 .navbar {
+    position: relative;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     text-transform: uppercase;
     padding: 0;
@@ -100,15 +107,55 @@ nav a.active {
     align-items: center;
 }
 
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0.125rem 0 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+}
+
 .dropdown-menu {
     left: auto;
     right: 5%;
 }
 
 .dropdown-item {
+    display: block;
     width: auto;
+    padding: 0.25rem 1.5rem;
     box-shadow: none;
     border-radius: 5px;
+    clear: both;
+    font-weight: 400;
+    color: #212529;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #f8f9fa;
 }
 
 .dropdown-item-danger {

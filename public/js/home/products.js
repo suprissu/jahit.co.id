@@ -1,18 +1,18 @@
 const productsProject = [
     {
-        img: "/img/uniform.webp",
+        img: "/img/uniform.png",
         title: "Seragam (Kantor, Sekolah, Organisasi)",
         description:
             "Seragam Sekolah, Rumah Sakit, Kantor, Organisasi, Tambang, Hotel, Pabrik, Satpam, Teknisi, SPBU, Satpam, dsb,."
     },
     {
-        img: "/img/jeans.webp",
+        img: "/img/jeans.png",
         title: "Fashion (Pria, Wanita, Anak)",
         description:
             "Kaos, Kemeja, Jacket,Jeans, Denim, Chino, Celana Pendek, Rok, Dress, Cardigan, Blazer, Polo Shirtt, Dsb."
     },
     {
-        img: "/img/officer.webp",
+        img: "/img/officer.png",
         title: "Others (Safety, Medical, Sport, Etc.)",
         description:
             "Pakaian Rumah Sakit ataupun Pakaian Keselamatan yang membutuhkan Uji Test Lab dapat kami penuhi."

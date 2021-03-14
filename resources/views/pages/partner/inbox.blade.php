@@ -9,6 +9,7 @@
 @section('prerender-js')
     <script>
         window.props = {
+            adminInbox: @json($adminInbox),
             inboxes: [
             @foreach( $inboxes as $inbox )
                 {

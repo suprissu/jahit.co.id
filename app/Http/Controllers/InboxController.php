@@ -121,7 +121,7 @@ class InboxController extends Controller
         }
         $role = "VENDOR";
 
-        $adminInbox = $user->adminInboxes;
+        $adminInbox = $user->adminInboxes()->with('adminChats')->orderBy('updated_at', 'desc')->get();
 
         return view('pages.partner.inbox', get_defined_vars());
     }

@@ -5,6 +5,13 @@ if (pathNavAllowed.includes(window.location.pathname)) {
     document.querySelector("nav").classList.add("invert");
 }
 
+document.querySelectorAll(".bottom-navigation a").forEach(e => {
+    if (e.href === window.location.href) {
+        e.children[0].style.color = "#d52047";
+        e.children[1].style.color = "#d52047";
+    }
+});
+
 document.querySelectorAll(".navbar__links a").forEach(e => {
     if (window.location.pathname === e.getAttribute("href")) {
         e.classList.add("active");

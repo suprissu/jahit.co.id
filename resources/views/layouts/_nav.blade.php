@@ -27,7 +27,7 @@
                 </a>
 
                 <div id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="{{ route('home') }}">Proyek</a>
+                    <a class="dropdown-item" href="{{ route('home') }}">Dashboard</a>
                     <a class="dropdown-item" href="{{ route('home.inbox') }}">Pesan</a>
                     @if ( Auth::user()->roles()->count() == 0)
                         <a class="dropdown-item" href="{{ route('home.transaction') }}">Transaksi</a>
@@ -49,15 +49,9 @@
                 </div>
             </div>
             <div class="bottom-navigation">
-                @if ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
-                    <a href="{{ route('home') }}">
-                        <i class="fa fa-hotel" aria-hidden="true"></i><p>Dashboard</p>
-                    </a>
-                @else
-                    <a href="{{ route('home') }}">
-                        <i class="fa fa-hotel" aria-hidden="true"></i><p>Proyek</p>
-                    </a>
-                @endif
+                <a href="{{ route('home') }}">
+                    <i class="fa fa-hotel" aria-hidden="true"></i><p>Dashboard</p>
+                </a>
                 <a href="{{ route('home.inbox') }}">
                     <i class="fas fa-envelope" aria-hidden="true"></i><p>Pesan</p>
                 </a>

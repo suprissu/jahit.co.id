@@ -16,6 +16,7 @@ import { currencyFormat, dateFormat } from "@utils/helper";
 import { useData } from "@utils/Context";
 import {
     PAY_WAIT,
+    PAY_OK,
     PAY_FAIL,
     REKENING,
     PEMILIK_REKENING
@@ -145,24 +146,24 @@ const TransactionTab = function TransactionTab({ data }) {
                     </Button>
                 ) : (
                     <HStack>
-                        {data.mou ? (
+                        {data.status === PAY_OK && data.mou && (
                             <Button
                                 as="a"
                                 href={`/home/transaction/download/mou/${data.mou.id}`}
                                 size="sm"
                             >
-                                Unggah MOU
+                                Unduh MOU
                             </Button>
-                        ) : null}
-                        {data.invoice ? (
+                        )}
+                        {data.status === PAY_OK && data.invoice && (
                             <Button
                                 as="a"
                                 href={`/home/transaction/download/invoice/${data.invoice.id}`}
                                 size="sm"
                             >
-                                Unggah Invoice
+                                Unduh Invoice
                             </Button>
-                        ) : null}
+                        )}
                     </HStack>
                 )}
             </HStack>

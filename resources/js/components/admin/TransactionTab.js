@@ -49,8 +49,20 @@ const AcceptComponent = ({ data }) => {
                         onClose={onClose}
                         method="POST"
                         content={
-                            data.type === "Down Payment" ? (
-                                <VStack width="100%">
+                            <VStack width="100%">
+                                <DropzonePreview
+                                    fluid
+                                    paths={[data.payment_slip.path]}
+                                />
+                                <Dropzone
+                                    title="Upload Invoice"
+                                    name={name}
+                                    value={invoice_path}
+                                    setValue={setInvoicePath}
+                                    multiple={false}
+                                    acceptedFiles=".pdf"
+                                />
+                                {data.type === "Down Payment" && (
                                     <Dropzone
                                         title="Upload MOU"
                                         name={name}
@@ -59,21 +71,8 @@ const AcceptComponent = ({ data }) => {
                                         multiple={false}
                                         acceptedFiles=".pdf"
                                     />
-                                    <Dropzone
-                                        title="Upload Invoice"
-                                        name={name}
-                                        value={invoice_path}
-                                        setValue={setInvoicePath}
-                                        multiple={false}
-                                        acceptedFiles=".pdf"
-                                    />
-                                </VStack>
-                            ) : (
-                                <DropzonePreview
-                                    fluid
-                                    paths={[data.payment_slip.path]}
-                                />
-                            )
+                                )}
+                            </VStack>
                         }
                         data={form}
                         url={URL_ADMIN_VERIF_PAYMENT}

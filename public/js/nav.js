@@ -12,6 +12,14 @@ document.querySelectorAll(".bottom-navigation a").forEach(e => {
     }
 });
 
+document.querySelectorAll("a.dropdown-item").forEach(e => {
+    if (e.href === window.location.href) {
+        e.classList.add("active");
+    } else {
+        e.classList.remove("active");
+    }
+});
+
 document.querySelectorAll(".navbar__links a").forEach(e => {
     if (window.location.pathname === e.getAttribute("href")) {
         e.classList.add("active");

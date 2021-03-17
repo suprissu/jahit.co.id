@@ -36,9 +36,7 @@
                     @else
                         <a class="dropdown-item" href="{{ route('home.transaction') }}">Transaksi</a>
                     @endif
-                    @if ( Auth::user()->roles()->count() == 0)
-
-                    @elseif ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
+                    @if ( Auth::user()->roles()->first()->name == $roleConstants::ADMINISTRATOR )
                         <a class="dropdown-item" href="{{ route('home.material') }}">Material</a>
                     @endif
                     <div class="dropdown-divider"></div>

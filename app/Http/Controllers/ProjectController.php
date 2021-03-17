@@ -55,9 +55,16 @@ class ProjectController extends Controller
             
             if ($role == RoleConstant::CUSTOMER) {
                 $customer = $user->customer;
-                $project = $customer->projects->find($projectId);
+                $project = $customer->projects()
+                                    ->with('images','category', 'partner')
+                                    ->orderBy('updated_at', 'desc')
+                                    ->where('id', $projectId)
+                                    ->get();
             } else if ($role == RoleConstant::ADMINISTRATOR || $role == RoleConstant::PARTNER) {
-                $project = Project::find($projectId);
+                $project = Project::with('images','category', 'partner')
+                                    ->orderBy('updated_at', 'desc')
+                                    ->where('id', $projectId)
+                                    ->get();
             } else {
                 return redirect()->route('warning', ['type' => WarningStatusConstant::CAN_NOT_ACCESS]);
             }

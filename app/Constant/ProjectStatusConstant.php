@@ -27,8 +27,8 @@ class ProjectStatusConstant
     public const PROJECT_REFUND_REQUEST     = 'Meminta Pengembalian Uang';
     public const PROJECT_REFUND_SENT        = 'Pengembalian Uang Telah Dikirim';
     public const PROJECT_FINISHED           = 'Selesai & Menunggu Pelunasan';
-    public const PROJECT_FULL_PAYMENT_OK    = 'Pembayaran Lunas Valid';
-    public const PROJECT_FULL_PAYMENT_FAIL  = 'Pembayaran Lunas Invalid';
+    public const PROJECT_FULL_PAYMENT_OK    = 'Pembayaran Lunas OK';
+    public const PROJECT_FULL_PAYMENT_FAIL  = 'Pembayaran Lunas Gagal';
     public const PROJECT_SENT               = 'Telah Dikirim';
     public const PROJECT_RECEIVED           = 'Telah Diterima';
     public const PROJECT_DONE               = 'Vendor Telah Dibayar';

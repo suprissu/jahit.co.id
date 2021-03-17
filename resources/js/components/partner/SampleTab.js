@@ -125,12 +125,11 @@ const Action = ({ status, data }) => {
 
 const SampleTab = ({ data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { selectedData, setSelectedData } = useData();
 
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <AlertDialog
-                content={<ProjectDetail data={selectedData} />}
+                content={<ProjectDetail data={data.project} />}
                 isOpen={isOpen}
                 onClose={onClose}
             />
@@ -165,6 +164,7 @@ const SampleTab = ({ data }) => {
                         <Text fontSize="sm">{data.project.count} buah</Text>
                     </Box>
                 </HStack>
+                <Button onClick={onOpen}>Detail</Button>
             </HStack>
             <HStack mt={2} justifyContent="space-between">
                 <Box alignItems="start">

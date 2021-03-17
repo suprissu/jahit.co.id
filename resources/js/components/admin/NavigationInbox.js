@@ -1,17 +1,5 @@
 import React, { useState } from "react";
-import {
-    Heading,
-    Box,
-    VStack,
-    Text,
-    HStack,
-    Button,
-    IconButton,
-    useDisclosure
-} from "@chakra-ui/react";
-import { AddIcon } from "@chakra-ui/icons";
-import SelectInput from "@components/SelectInput";
-import AlertDialog from "@components/dialog/AlertDialog";
+import { Heading, Box, VStack, Text, HStack } from "@chakra-ui/react";
 import { useData, useProps } from "@utils/Context";
 import { dateFormat } from "@utils/helper";
 
@@ -60,63 +48,6 @@ const NavigationItem = ({ item }) => {
     ));
 };
 
-const user = [{ id: 99, name: "jojo" }];
-
-const AddInbox = () => {
-    const { setSelectedData } = useData();
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [id, setId] = useState(null);
-
-    const userOptions = user.map(data => {
-        return {
-            key: data.id,
-            value: data.id,
-            text: data.name
-        };
-    });
-
-    return (
-        <>
-            <AlertDialog
-                title="Tambah Pesan"
-                content={
-                    <VStack>
-                        <SelectInput
-                            name="userID"
-                            title="Nama Pengguna"
-                            placeholder="Pilih nama pengguna"
-                            value={id}
-                            setValue={setId}
-                            options={userOptions}
-                        />
-                        <Button
-                            mt={4}
-                            alignSelf="flex-end"
-                            colorScheme="teal"
-                            onClick={() => {
-                                setSelectedData({ id });
-                                onClose();
-                            }}
-                        >
-                            Tambah
-                        </Button>
-                    </VStack>
-                }
-                isOpen={isOpen}
-                onClose={onClose}
-            />
-            <IconButton
-                onClick={onOpen}
-                position="absolute"
-                bottom="10px"
-                right="10px"
-                colorScheme="red"
-                icon={<AddIcon />}
-            />
-        </>
-    );
-};
-
 const NavigationInbox = () => {
     const { inboxes } = useProps();
 
@@ -125,7 +56,6 @@ const NavigationInbox = () => {
             <VStack width="100%" overflowY="auto">
                 <NavigationItem item={inboxes} />
             </VStack>
-            <AddInbox />
         </VStack>
     );
 };

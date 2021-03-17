@@ -17,7 +17,6 @@ nav.invert {
 }
 
 nav.invert a {
-    font-weight: 600;
     color: #000;
 }
 
@@ -144,16 +143,19 @@ nav a.active {
     border-radius: 5px;
     clear: both;
     font-weight: 400;
-    color: #212529;
+    font-weight: 600;
+    color: #000;
     text-align: inherit;
     white-space: nowrap;
     background-color: transparent;
     border: 0;
 }
 
+.dropdown-item.active,
 .dropdown-item:focus,
-.dropdown-item:hover {
-    color: #16181b;
+.dropdown-item:hover,
+.dropdown-item:active {
+    color: #d52047;
     text-decoration: none;
     background-color: #f8f9fa;
 }
@@ -163,8 +165,7 @@ nav a.active {
 }
 
 .text-danger:active,
-.text-danger:focus,
-.dropdown-item:active {
+.text-danger:focus {
     color: white !important;
     box-shadow: none;
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     ChakraProvider,
     Heading,
@@ -21,6 +21,25 @@ import "semantic-ui-css/semantic.min.css";
 
 export default function Dashboard() {
     const { categories, customer, partner, samples } = useProps();
+    const [categoriesCustom, setCategoriesCustom] = useState(null);
+
+    useEffect(() => {
+        const allProjects = [];
+        categories.forEach(cat => {
+            allProjects.push(...cat.projects);
+        });
+        const temp = [
+            {
+                id: 0,
+                name: "Semua",
+                projects: allProjects
+            },
+            ...categories
+        ];
+        setCategoriesCustom(temp);
+    }, []);
+
+    console.log(categoriesCustom);
 
     return (
         <ChakraProvider>
@@ -44,19 +63,19 @@ export default function Dashboard() {
                     <Tab>Sampel</Tab>
                 </TabList>
                 <TabPanels>
-                    <TabPanel padding="0px">
+                    <TabPanel paddingBottom="6rem">
                         <UserPanels data={customer} CustomTab={UserTab} />
                     </TabPanel>
-                    <TabPanel padding="0px">
+                    <TabPanel paddingBottom="6rem">
                         <UserPanels data={partner} CustomTab={UserTab} />
                     </TabPanel>
-                    <TabPanel padding="0px">
+                    <TabPanel paddingBottom="6rem">
                         <CategoryPanels
-                            data={categories}
+                            data={categoriesCustom}
                             CustomTab={CategoryTab}
                         />
                     </TabPanel>
-                    <TabPanel padding="0px">
+                    <TabPanel paddingBottom="6rem">
                         <CustomTabs data={samples} CustomTab={SampleTab} />
                     </TabPanel>
                 </TabPanels>

@@ -36,7 +36,7 @@ const ProposeTextChat = ({ data, isAccepted }) => {
             {data.negotiation ? (
                 <>
                     <HStack width="100%" justifyContent="space-between">
-                        <Text>Harga</Text>
+                        <Text>Harga per Unit</Text>
                         <Text color="gray.400">{data.negotiation.cost}</Text>
                     </HStack>
                     <HStack width="100%" justifyContent="space-between">

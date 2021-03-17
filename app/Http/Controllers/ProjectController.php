@@ -397,7 +397,7 @@ class ProjectController extends Controller
             // TO DO: Delivery cost
             $deliveryCost = 0;
             $dpPercentage = 0.5;
-            $transactionCost = $dpPercentage * $project->cost * $project->count + $deliveryCost;
+            $transactionCost = $dpPercentage * $project->cost + $deliveryCost;
 
             $transaction = new Transaction;
             $transaction->customer_id = $project->customer_id;

@@ -102,13 +102,13 @@ class HomeController extends Controller
 
         $samplesAll =  $partner->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample')
                         ->get();
 
         $samplesRequest = $partner->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_WAIT_PAYMENT)
                                 ->orWhere('status', SampleStatusConstant::SAMPLE_PAYMENT_OK);
@@ -117,7 +117,7 @@ class HomeController extends Controller
         
         $samplesInProgress = $partner->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_WORK_IN_PROGRESS);
                         })
@@ -125,7 +125,7 @@ class HomeController extends Controller
         
         $samplesDone = $partner->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_FINISHED)
                                 ->orWhere('status', SampleStatusConstant::SAMPLE_SENT)
@@ -135,7 +135,7 @@ class HomeController extends Controller
         
         $samplesRejected = $partner->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_REJECTED);
                         })
@@ -187,13 +187,13 @@ class HomeController extends Controller
 
         $samplesAll =  $customer->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample')
                         ->get();
 
         $samplesRequest = $customer->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_WAIT_PAYMENT)
                                 ->orWhere('status', SampleStatusConstant::SAMPLE_PAYMENT_OK);
@@ -202,7 +202,7 @@ class HomeController extends Controller
         
         $samplesInProgress = $customer->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_WORK_IN_PROGRESS);
                         })
@@ -210,7 +210,7 @@ class HomeController extends Controller
         
         $samplesDone = $customer->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_FINISHED)
                                 ->orWhere('status', SampleStatusConstant::SAMPLE_SENT)
@@ -220,7 +220,7 @@ class HomeController extends Controller
         
         $samplesRejected = $customer->transactions()
                         ->orderBy('updated_at', 'desc')
-                        ->with('sample', 'project')
+                        ->with('sample', 'project', 'project.images')
                         ->whereHas('sample', function($query) {
                             $query->where('status', SampleStatusConstant::SAMPLE_REJECTED);
                         })
@@ -258,7 +258,7 @@ class HomeController extends Controller
                             ->orderBy('created_at', 'desc')
                             ->get();
         $categories = ProjectCategory::with('projects', 'projects.images', 'projects.receipt')->get();
-        $samples =  Sample::orderBy('updated_at', 'desc')->with('transaction.project', 'receipt')
+        $samples =  Sample::orderBy('updated_at', 'desc')->with('transaction.project', 'transaction.project.images', 'receipt')
                         ->get();
 
 

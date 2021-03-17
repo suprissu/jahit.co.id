@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
     Box,
     Heading,
@@ -18,12 +18,16 @@ import ProjectDetail from "@components/project/ProjectDetail";
 
 const SampleTab = ({ data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { selectedData, setSelectedData } = useData();
+    const { setSelectedData } = useData();
+
+    useEffect(() => {
+        setSelectedData(data.project);
+    }, []);
 
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <AlertDialog
-                content={<ProjectDetail data={selectedData} editable={true} />}
+                content={<ProjectDetail data={data.project} editable={true} />}
                 isOpen={isOpen}
                 onClose={onClose}
             />
@@ -58,6 +62,7 @@ const SampleTab = ({ data }) => {
                         <Text fontSize="sm">{data.project.count} buah</Text>
                     </Box>
                 </HStack>
+                <Button onClick={onOpen}>Detail</Button>
             </HStack>
             <HStack mt={2} justifyContent="space-between">
                 {data.cost ? (

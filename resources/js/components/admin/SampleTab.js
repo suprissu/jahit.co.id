@@ -40,12 +40,11 @@ const ShipmentReceipt = ({ sample }) => {
 
 const SampleTab = ({ data }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { selectedData, setSelectedData } = useData();
 
     return (
         <Box padding={5} marginY={2} shadow="md" borderWidth="1px">
             <AlertDialog
-                content={<ProjectDetail data={selectedData} editable={true} />}
+                content={<ProjectDetail data={data.transaction.project} />}
                 isOpen={isOpen}
                 onClose={onClose}
             />
@@ -85,6 +84,9 @@ const SampleTab = ({ data }) => {
                     {data.status === SAMPLE_APPROVED && (
                         <ShipmentReceipt sample={data} />
                     )}
+                    <Button size="sm" onClick={onOpen}>
+                        Detail
+                    </Button>
                 </HStack>
             </HStack>
         </Box>
